@@ -1,0 +1,25 @@
+% Very simple RBC model.
+% Save this file as `my_simple_rbc.model`.
+
+% Keep in mind when writing model equations that all time subscripts, like
+% C{1} or K{-1}, must be enclosed in CURLY BRACES!
+
+!variables
+    Y, C, K, r, A
+
+!shocks
+    ea
+
+!parameters
+    beta, delta, gamma, rho, a
+
+!equations
+    1/C = 1/C{1} * beta * (1 + r);
+    
+    Y = C + K - (1-delta)*K{-1};
+
+    Y = K{-1}^gamma * A^(1-gamma);
+
+    gamma*Y{1}/K = r + delta;
+
+    log(A) = rho*log(A{-1}) + (1-rho)*log(a) + ea;
