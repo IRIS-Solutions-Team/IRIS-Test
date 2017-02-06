@@ -1,0 +1,1 @@
+!transition_variables x; !exogenous_variables y; !transition_equations x+y;

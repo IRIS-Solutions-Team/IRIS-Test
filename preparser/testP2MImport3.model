@@ -1,0 +1,8 @@
+!if sw3
+    !variables
+        x, y, z
+    !equations
+        x=0;
+        y=0;
+        z=0;
+!end

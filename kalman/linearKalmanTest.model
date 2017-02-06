@@ -1,0 +1,24 @@
+!transition_variables
+    x, y, z
+    
+!transition_shocks
+    a, e, i
+    
+!transition_equations
+    x = x{-1} + a;
+    y = 0.5*y{-1} + z + e;
+    z = 0.5*z{-1} + i;
+    
+!measurement_variables
+    XY, Z
+    
+!measurement_equations
+    XY = x + y;
+    Z = z;
+    
+!parameters
+    alpha=0, beta=0
+    
+!dtrends
+    XY += alpha;
+    Z += alpha + beta;

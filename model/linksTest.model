@@ -1,0 +1,17 @@
+!transition_variables
+    x, y
+!parameters
+    rhox, mux, rhoy, muy
+!transition_shocks
+    epsx, epsy
+!transition_equations
+    x = rhox*x{-1} + (1-rhox)*mux + epsx !! x = mux;
+    y = rhoy*y{-1} + (1-rhoy)*muy + epsy !! y = muy;
+!measurement_variables
+    xx, yy
+!measurement_equations
+    xx = x;
+    yy = y;
+!links
+    mux := muy;
+    rhox := rhoy;

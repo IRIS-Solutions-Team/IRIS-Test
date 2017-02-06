@@ -1,0 +1,1 @@
+!transition_variables x; !transition_shocks ex; !transition_equations x+ex{-1};

@@ -1,0 +1,5 @@
+!parameters
+    A, B
+!dtrends
+    R += A + B; 
+    PI += B;

@@ -1,0 +1,64 @@
+        !variables
+            X1a
+        !equations
+            X1a = 2;
+        !variables
+            X1b
+        !equations
+            X1b = 2;
+        !variables
+            X1c
+        !equations
+            X1c = 2;
+        !variables
+            X1d
+        !equations
+            X1d = 2;
+        !variables
+            X2a
+        !equations
+            X2a = 3;
+        !variables
+            X2b
+        !equations
+            X2b = 3;
+        !variables
+            X2c
+        !equations
+            X2c = 3;
+        !variables
+            X2d
+        !equations
+            X2d = 3;
+        !variables
+            X3a
+        !equations
+            X3a = 4;
+        !variables
+            X3b
+        !equations
+            X3b = 4;
+        !variables
+            X3c
+        !equations
+            X3c = 4;
+        !variables
+            X3d
+        !equations
+            X3d = 4;
+        !variables
+            X4a
+        !equations
+            X4a = 5;
+        !variables
+            X4b
+        !equations
+            X4b = 5;
+        !variables
+            X4c
+        !equations
+            X4c = 5;
+        !variables
+            X4d
+        !equations
+            X4d = 5;

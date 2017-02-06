@@ -1,0 +1,1 @@
+!variables x; !equations x= !if a && b; +1 !else +2 !end !if b; !if c; +3 !else +4 !end !end ;

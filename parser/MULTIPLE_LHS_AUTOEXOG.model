@@ -1,0 +1,1 @@
+!transition_variables x, y; !shocks ex; !transition_equations x; y; !dynamic_autoexog x=ex; x=ey;

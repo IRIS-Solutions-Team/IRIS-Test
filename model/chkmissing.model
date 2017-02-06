@@ -1,0 +1,10 @@
+!variables
+    x, y, z
+    
+!parameters
+    a, b
+    
+!equations
+    x = a*x{-1};
+    y = b*y{-1};
+    z = 0;

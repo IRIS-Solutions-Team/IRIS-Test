@@ -1,0 +1,8 @@
+!transition_variables
+    x, y, z
+!parameters
+    a, b, c
+!transition_equations
+    a*x+b*y+c*z;
+    a*x;
+    a*x+b*y;

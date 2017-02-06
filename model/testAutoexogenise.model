@@ -1,0 +1,13 @@
+!variables
+    x, y, z, a
+!shocks
+    ex, ey, ez, ea
+!equations
+    x = 1;
+    y = 1;
+    z = 1;
+    a = 1;
+!dynamic_autoexog
+    x := ex;
+    y := ey;
+    z := ez;

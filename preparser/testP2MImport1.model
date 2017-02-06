@@ -1,0 +1,3 @@
+!if sw1
+    !import(testP2MImport2.model)
+!end

@@ -1,0 +1,1 @@
+!transition_variables x; !transition_shocks ex; !measurement_variables X; !transition_equations x; !measurement_equations X+ex;

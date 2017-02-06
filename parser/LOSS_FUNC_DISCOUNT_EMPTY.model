@@ -1,0 +1,1 @@
+!transition_variables x, y; !transition_equations min(  ) x^2+y^2; x = y;

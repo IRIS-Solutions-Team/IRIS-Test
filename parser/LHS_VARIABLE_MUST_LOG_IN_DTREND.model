@@ -1,0 +1,1 @@
+!transition_variables x; !transition_equations x; !log_variables !all_but; !measurement_variables X; !measurement_equations X; !dtrends X+=0;

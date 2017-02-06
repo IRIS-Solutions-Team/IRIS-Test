@@ -1,0 +1,16 @@
+!variables
+    x, y, z
+    
+!parameters
+    lx, gy
+    
+!equations
+    x = lx;
+    y = y{-1} + gy;
+    z = 2*y;
+    
+!reporting_equations
+    X = &x;
+    Y = &y;
+    Z = &z;
+    

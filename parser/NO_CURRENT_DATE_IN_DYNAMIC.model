@@ -1,0 +1,1 @@
+!transition_variables x; !measurement_variables X, Y; !transition_equations x; !measurement_equations Y; Y;

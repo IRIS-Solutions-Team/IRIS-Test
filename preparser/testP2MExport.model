@@ -1,0 +1,14 @@
+!if sw1
+    !export(testExport.m)
+        function Y = testExport(X)
+        Y = X;
+        end
+    !end
+!end
+
+!variables
+    x,y,z
+!equations
+    x=0;
+    y=0;
+    z=0;

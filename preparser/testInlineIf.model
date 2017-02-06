@@ -1,0 +1,4 @@
+!transition_variables
+x
+!transition_equations
+x=!if sw1; 1 !elseif sw2; 10 !else 100 !end ;
