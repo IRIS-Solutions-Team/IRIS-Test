@@ -7,7 +7,7 @@ close all;
 clc;
 %#ok<*NOPTS>
 
-% Load model file and create model object
+% Load model file 4nd create model object
 m = Model('my_simple_rbc.model');
 
 % Assign parameters
