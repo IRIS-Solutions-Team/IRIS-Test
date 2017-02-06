@@ -2,7 +2,7 @@
 % Save this file as `my_simple_rbc.model`.
 
 % Keep in mind when writing model equations that all time subscripts, like
-% C{1} or K{-1}, must be enclosed in CURLY BRACES!
+% C{1} or K{-1}, must be enclosed in *curly braces*.
 
 !variables
     Y, C, K, r, A
