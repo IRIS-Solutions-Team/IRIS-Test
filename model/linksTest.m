@@ -13,6 +13,7 @@ Model>>>>>
     x, y
 !parameters
     rhox, mux, rhoy, muy
+    one=1
 !transition_shocks
     epsx, epsy
 !transition_equations
@@ -24,8 +25,8 @@ Model>>>>>
     xx = x;
     yy = y;
 !links
-    mux := muy;
-    rhox := rhoy;
+    mux := one*muy;
+    rhox := one*rhoy;
 <<<<<Model
 %}
 parser.grabTextFromCaller('Model', 'linksTest.model');
@@ -76,6 +77,7 @@ ModelStdCorr>>>>>
     x, y
 !parameters
     rhox, mux, rhoy, muy
+    one=1
 !transition_shocks
     epsx, epsy
 !transition_equations
@@ -87,8 +89,8 @@ ModelStdCorr>>>>>
     xx = x;
     yy = y;
 !links
-    std_epsx := std_epsy*2;
-    corr_epsy__epsx := std_epsy*0.1;
+    std_epsx := std_epsy*2/one;
+    corr_epsy__epsx := std_epsy*0.1/one;
 <<<<<ModelStdCorr
 %}
 parser.grabTextFromCaller('ModelStdCorr', 'linksTestStdCorr.model');
@@ -212,8 +214,4 @@ assertEqual(this, m.std_epsx, [10, 20, 100]*2);
 assertEqual(this, m.corr_epsx__epsy, [10, 20, 100]*0.1);
 assertEqual(this, m.corr_epsy__epsx, [10, 20, 100]*0.1);
 end
-
-
-
-
 

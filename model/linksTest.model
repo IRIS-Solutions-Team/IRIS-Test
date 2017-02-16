@@ -2,6 +2,7 @@
     x, y
 !parameters
     rhox, mux, rhoy, muy
+    one=1
 !transition_shocks
     epsx, epsy
 !transition_equations
@@ -13,5 +14,5 @@
     xx = x;
     yy = y;
 !links
-    mux := muy;
-    rhox := rhoy;
+    mux := one*muy;
+    rhox := one*rhoy;
