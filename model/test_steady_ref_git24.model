@@ -1,0 +1,9 @@
+!variables
+    x, y
+!parameters
+    a
+!shocks
+    z
+!equations
+    x = $y*z;
+    y = a;

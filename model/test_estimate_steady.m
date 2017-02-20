@@ -22,14 +22,14 @@ est = struct( );
 est.a = { 0.5 , 0, 0.95 };
 est.c = { 5 };
 
-pEst0 = estimate(m, d, range, est);
+pEst0 = estimate(m, d, range, est, 'Display=', 'off');
 
 %% Test Linear Estimate with Steady State
 
 m3 = m;
 profile clear;
 profile on;
-pEst3 = estimate(m3, d, range, est, 'Steady=', true);
+pEst3 = estimate(m3, d, range, est, 'Steady=', true, 'Display=', 'off');
 stats = profile('info');
 
 assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
@@ -43,7 +43,7 @@ m1 = m;
 m1 = set(m1, 'Linear=', false);
 profile clear;
 profile on;
-pEst1 = estimate(m1, d, range, est);
+pEst1 = estimate(m1, d, range, est, 'Display=', 'off');
 stats = profile('info');
 
 assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
@@ -59,7 +59,7 @@ m2 = m;
 m2 = set(m2, 'Linear=', false);
 profile clear;
 profile on;
-pEst2 = estimate(m2, d, range, est, 'Steady=', true);
+pEst2 = estimate(m2, d, range, est, 'Steady=', true, 'Display=', 'off');
 stats = profile('info');
 
 assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
