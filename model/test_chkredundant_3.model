@@ -1,0 +1,17 @@
+!variables
+    x
+!shocks
+    a, c, d, e
+!measurement_shocks
+    b
+!parameters
+    aa, bb, cc, dd, ee
+!equations
+    x = 1 + a + aa;
+!measurement_variables
+    y
+!measurement_equations
+    y = 1 + b + bb;
+!dtrends
+    y += cc;
+

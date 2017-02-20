@@ -1,0 +1,13 @@
+!variables
+    x
+!parameters
+    a, b, c, d, e
+!equations
+    x = 1 + a;
+!measurement_variables
+    y
+!measurement_equations
+    y = 1 + b;
+!dtrends
+    y += c;
+
