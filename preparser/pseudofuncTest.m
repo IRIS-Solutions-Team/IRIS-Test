@@ -25,6 +25,46 @@ end
 
 
 
+function testDifflog(this)
+import parser.pseudofunc.Pseudofunc;
+actCode = Pseudofunc.parse('diff(difflog(y,-2),+1)');
+expCode = '(((log(y)-log(y{-2})))-((log(y{+1})-log(y{+1-2}))))';
+assertEqual(this, actCode, expCode);
+end
+
+
+
+
+function testDot(this)
+import parser.pseudofunc.Pseudofunc;
+actCode = Pseudofunc.parse('dot(y{+1},-2)');
+expCode = '((y{+1})/(y{+1-2}))';
+assertEqual(this, actCode, expCode);
+end
+
+
+
+
+function testMovsum(this)
+import parser.pseudofunc.Pseudofunc;
+actCode = Pseudofunc.parse('movsum(diff(y,-2),+3)');
+expCode = '((((y)-(y{-2})))+(((y{+1})-(y{-2+1})))+(((y{+2})-(y{-2+2}))))';
+assertEqual(this, actCode, expCode);
+end
+
+
+
+
+function testMovprod(this)
+import parser.pseudofunc.Pseudofunc;
+actCode = Pseudofunc.parse('movprod(diff(y,-2),+3)');
+expCode = '((((y)-(y{-2})))*(((y{+1})-(y{-2+1})))*(((y{+2})-(y{-2+2}))))';
+assertEqual(this, actCode, expCode);
+end
+
+
+
+
 function testMovavg(this)
 import parser.pseudofunc.Pseudofunc;
 actCode = Pseudofunc.parse('movavg(diff(y,-2),+3)');

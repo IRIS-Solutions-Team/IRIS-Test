@@ -1,0 +1,11 @@
+% Current syntax:
+
+!for
+    ? = <{'', 'F'}>, G
+!do
+    !variables
+        x?
+    !equations
+        x? = 0;
+!end
+

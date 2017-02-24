@@ -1,0 +1,17 @@
+!variables
+    lmb, y, c, k, i, r
+
+!parameters
+    sgm, bet, alp, tau, dlt, z
+
+!log_variables
+    !all_but
+
+!equations
+    lmb * c^sgm = 1;
+    lmb = lmb{+1}*r*bet !! 1 = r*bet;
+    y = c + i;
+    y^tau = z^tau * (alp*k^tau + (1-alp)*1^tau);
+    k = (1-dlt)*k{-1} + i;
+    alp*(y/k)^(1-tau) = r + dlt;    
+    

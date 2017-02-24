@@ -1,0 +1,7 @@
+!for ?=<{'_s','_f'}>
+!do
+!variables
+x?
+!equations
+x?=1;
+!end

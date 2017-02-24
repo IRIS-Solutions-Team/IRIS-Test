@@ -1,0 +1,11 @@
+% Old syntax:
+
+!for
+    ? = $[ {'', 'F'} ]$, G
+!do
+    !variables
+        y?
+    !equations
+        y? = 0;
+!end
+
