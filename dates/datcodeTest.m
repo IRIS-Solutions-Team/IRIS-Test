@@ -39,20 +39,6 @@ d1 = qq(2010, 3);
 d2 = datcode(4, 2010, 3);
 assertEqual(d1, d2);
 
-%% Bimonthly
-
-d1 = bb(2010);
-d2 = bb(2010, 1);
-d3 = datcode(6, 2010);
-d4 = datcode(6, 2010, 1);
-assertEqual(d1, d2);
-assertEqual(d1, d3);
-assertEqual(d1, d4);
-
-d1 = bb(2010, 5);
-d2 = datcode(6, 2010, 5);
-assertEqual(d1, d2);
-
 %% Monthly
 
 d1 = mm(2010);

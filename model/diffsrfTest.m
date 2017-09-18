@@ -1,25 +1,14 @@
-function Tests = diffsrfTest()
-Tests = functiontests(localfunctions);
-end
-%#ok<*DEFNU>
+
+assertEqualTol = @(x, y) assert(maxabs(x-y)<=1e-9);
+
+m0 = model('3eq.model', 'linear=', true);
+m0 = solve(m0);
+m0 = sstate(m0);
 
 
+%% Test Shocks
 
-
-function setupOnce(this)
-m = model('3eq.model', 'linear=', true);
-m = solve(m);
-m = sstate(m);
-this.TestData.Model = m;
-this.TestData.Tol = 1e-9;
-end
-
-
-
-
-function testDiffsrfShk(this)
-m = this.TestData.Model;
-tol = this.TestData.Tol;
+m = m0;
 eList = get(m, 'eList');
 
 exp1 = diffsrf(m, 1:20, 'alp4, alp3', 'Select=', eList{1});
@@ -31,17 +20,14 @@ act2 = dbcol(s12, 2);
 list = fieldnames(exp1);
 for i = 1 : length(list)
     name = list{i};
-    assertEqual(this, act1.(name)(:), exp1.(name)(:), 'AbsTol', tol);
-    assertEqual(this, act2.(name)(:), exp2.(name)(:), 'AbsTol', tol);
+    assertEqualTol(act1.(name)(:), exp1.(name)(:));
+    assertEqualTol(act2.(name)(:), exp2.(name)(:));
 end
-end
 
 
+%% Test Parameters
 
-
-function testDiffsrfPar(this)
-m = this.TestData.Model;
-tol = this.TestData.Tol;
+m = m0;
 eList = get(m, 'eList');
 
 exp1 = diffsrf(m, 1:20, 'alp4', 'Select=', eList);
@@ -53,7 +39,7 @@ act2 = dbpage(s12, 2);
 list = fieldnames(exp1);
 for i = 1 : length(list)
     name = list{i};
-    assertEqual(this, act1.(name)(:), exp1.(name)(:), 'AbsTol', tol);
-    assertEqual(this, act2.(name)(:), exp2.(name)(:), 'AbsTol', tol);
+    assertEqualTol(act1.(name)(:), exp1.(name)(:));
+    assertEqualTol(act2.(name)(:), exp2.(name)(:));
 end
-end
+

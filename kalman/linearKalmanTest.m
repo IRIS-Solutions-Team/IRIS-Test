@@ -37,8 +37,8 @@ m = This.TestData.Model;
 d = This.TestData.Dbase;
 t = This.TestData.Range;
 l = loglik(m,d,t,'chkFmse=',true,'fmseCondTol=',0.9);
-assertEqual(This,l,irisconst.OBJ_FUNC_PENALTY);
+assertEqual(This,l,model.OBJ_FUNC_PENALTY);
 l = loglik(m,d,t,'chkFmse=',true,'fmseCondTol=',0.9,'objDecomp=',true);
-assertEqual(This,l(1),irisconst.OBJ_FUNC_PENALTY);
+assertEqual(This,l(1),model.OBJ_FUNC_PENALTY);
 assertEqual(This,isnan(l(2:end)),true(size(l(2:end))));
 end % testChkFmse( )

@@ -4,84 +4,77 @@ end
 %#ok<*DEFNU>
 
 
-
-
-function testQuotes(This)
+function testQuotes(this)
 m = model('testQuotes.model');
 % Descriptions of variables.
 actDescript = get(m, 'description');
 expDescript = struct( ...
     'x', 'Variable x', ...
     'y', 'Variable y', ...
-    'z', 'Variable z' ...
-    );
-verifyEqual(This, actDescript, expDescript);
+    'z', 'Variable z', ...
+    'ttrend', 'Time trend' ...
+);
+verifyEqual(this, actDescript, expDescript);
 % Equation labels.
 actLabel = get(m,'label');
-expLabel = { ...
-    'Equation x', ...
-    'Equation y', ...
-    'Equation z', ...
-    };
-verifyEqual(This, actLabel, expLabel);
+expLabel = {
+    'Equation x'
+    'Equation y'
+    'Equation z'
+};
+verifyEqual(this, actLabel, expLabel);
 end
 
 
-
-
-function testForControlInQuotes(This)
+function testForControlInQuotes(this)
 m = model('testForControlInQuotes.model');
-expLabel = { ...
-    'Equation for X', ...
-    'Equation for Y', ...
-    'Equation for Z', ...
-    };
+expLabel = {
+    'Equation for X'
+    'Equation for Y'
+    'Equation for Z'
+};
 actLabel = get(m,'labels');
-assertEqual(This,actLabel,expLabel);
+assertEqual(this,actLabel,expLabel);
 end
 
 
-
-
-function testBracketsInQuotes(This)
+function testBracketsInQuotes(this)
 m = model('testBracketsInQuotes.model');
 % Descriptions of variables.
 actDescript = get(m,'description');
 expDescript = struct( ...
     'x','Variable x ([%])', ...
     'y','(Variable y)', ...
-    'z','Variable z' ...
-    );
-verifyEqual(This,actDescript,expDescript);
+    'z','Variable z', ...
+    'ttrend', 'Time trend' ...
+);
+verifyEqual(this,actDescript,expDescript);
 % Equation labels.
 actLabel = get(m,'label');
-expLabel = { ...
-    '[Equation x]((', ...
-    '{Equation {y', ...
-    'Equation} z}', ...
-    };
-verifyEqual(This,actLabel,expLabel);
+expLabel = { 
+    '[Equation x](('
+    '{Equation {y'
+    'Equation} z}'
+};
+verifyEqual(this,actLabel,expLabel);
 end
 
 
-
-
-function testAssignments(This)
+function testAssignments(this)
 m = model('testAssignment.model');
 % Values assigned to variables in model file.
 actAssign = get(m,'sstate');
 expAssign = struct( ...
     'x',(1 + 2) + 1i, ...
     'y',complex(3*normpdf(2,1,0.5),2), ...
-    'z',[1,2,3]*[4,5,6]' ...
-    );
-verifyEqual(This,actAssign,expAssign);
+    'z',[1,2,3]*[4,5,6]', ...
+    'ttrend', 0+1i ...
+);
+verifyEqual(this,actAssign,expAssign);
 end
 
 
-
-
-function testMultipleAssignments(This)
+function testMultipleAssignments(this)
 m = model('testMultipleAssignment.model');
 % Values assigned to variables in model file.
 actAssign = get(m, 'sstate');
@@ -91,15 +84,14 @@ expAssign = struct( ...
     'z', [1,1,1], ...
     'w', [NaN,NaN,NaN], ...
     'alp', [10,10,10], ...
-    'bet', sin([1,2,3]) ...
-    );
-assertEqual(This, actAssign, expAssign);
+    'bet', sin([1,2,3]), ...
+    'ttrend', repmat(0+1i, 1, 3) ...
+);
+assertEqual(this, actAssign, expAssign);
 end
 
 
-
-
-function testAutoexogenize(This)
+function testAutoexogenize(this)
 m = model('testAutoexogenize.model');
 % Values assigned to variables in model file.
 actAutoexog = autoexog(m);
@@ -111,7 +103,7 @@ expAutoexog.Dynamic = struct( ...
     'w', 'ew' ...
     );
 expAutoexog.Steady = struct( );
-assertEqual(This, actAutoexog, expAutoexog);
+assertEqual(this, actAutoexog, expAutoexog);
 
 actAutoexog = autoexogenise(m);
 expAutoexog = struct( ...
@@ -120,13 +112,13 @@ expAutoexog = struct( ...
     'z', 'ez', ...
     'w', 'ew' ...
     );
-assertEqual(This, actAutoexog, expAutoexog);
+assertEqual(this, actAutoexog, expAutoexog);
 end
 
 
 
 
-function testEvalTimeSubs(This)
+function testEvalTimeSubs(this)
 eqtn = { ...
     'x{-1+1} - y{0} + z{-4} + x{10+10}', ...
     'x{0} + y{-0} + z{-0+1-1}', ...
@@ -149,8 +141,7 @@ expEqtn = parser.Preparser.removeInsignificantWhs(expEqtn);
 expMaxSh = 20;
 expMinSh = -5;
 
-assertEqual(This, actEqtn, expEqtn);
-assertEqual(This, actMaxSh, expMaxSh);
-assertEqual(This, actMinSh, expMinSh);
+assertEqual(this, actEqtn, expEqtn);
+assertEqual(this, actMaxSh, expMaxSh);
+assertEqual(this, actMinSh, expMinSh);
 end
-

@@ -42,10 +42,8 @@ end
 function compare(this, m1, m2)
 v1 = getp(m1, 'Variant');
 v2 = getp(m2, 'Variant');
-for i = 1 : length(v1)
-    assertEqual(this, v1{i}.Quantity, v2{i}.Quantity, 'AbsTol', 1e-10);
-    assertEqual(this, v1{i}.StdCorr, v2{i}.StdCorr, 'AbsTol', 1e-10);
-end
+assertEqual(this, v1.Values, v2.Values, 'AbsTol', 1e-10);
+assertEqual(this, v1.StdCorr, v2.StdCorr, 'AbsTol', 1e-10);
 end
 
 

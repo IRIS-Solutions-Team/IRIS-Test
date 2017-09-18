@@ -1,236 +1,180 @@
-function Tests = estimateTest()
-Tests = functiontests(localfunctions) ;
-end
 
+m0 = model('simple_SPBC.model') ;
 
-%**************************************************************************
+m0.alpha = 1.03^(1/4);
+m0.beta = 0.985^(1/4);
+m0.gamma = 0.60;
+m0.delta = 0.03;
+m0.pi = 1.025^(1/4);
+m0.eta = 6;
+m0.k = 10;
+m0.psi = 0.25;
+m0.chi = 0.85;
+m0.xiw = 60;
+m0.xip = 300;
+m0.rhoa = 0.90;
+m0.rhor = 0.85;
+m0.kappap = 3.5;
+m0.kappan = 0;
+m0.Short_ = 0;
+m0.Infl_ = 0;
+m0.Growth_ = 0;
+m0.Wage_ = 0;
+m0.std_Mp = 0;
+m0.std_Mw = 0;
+m0.std_Ea = 0.001;
 
-
-function setupOnce(This) %#ok<*DEFNU>
-m = model('simple_SPBC.model') ;
-
-% Unsolved model.
-This.TestData.model = m ;
-
-m.alpha = 1.03^(1/4);
-m.beta = 0.985^(1/4);
-m.gamma = 0.60;
-m.delta = 0.03;
-m.pi = 1.025^(1/4);
-m.eta = 6;
-m.k = 10;
-m.psi = 0.25;
-m.chi = 0.85;
-m.xiw = 60;
-m.xip = 300;
-m.rhoa = 0.90;
-m.rhor = 0.85;
-m.kappap = 3.5;
-m.kappan = 0;
-m.Short_ = 0;
-m.Infl_ = 0;
-m.Growth_ = 0;
-m.Wage_ = 0;
-m.std_Mp = 0;
-m.std_Mw = 0;
-m.std_Ea = 0.001;
-m = sstate(m,'growth=',true,'blocks=',true,'display=','off');
-m = solve(m);
-
-% Solved model.
-This.TestData.solvedModel = m;
+m1 = m0;
+m1 = sstate(m1, 'growth=', true, 'blocks=', true, 'display=', 'off');
+m1 = solve(m1);
 
 load nonlinModelData.mat d starthist endhist;
-This.TestData.Dbase = d;
-This.TestData.StartHist = starthist;
-This.TestData.EndHist = endhist;
-end % setupOnce()
+starthist = DateWrapper(starthist);
+endhist = DateWrapper(endhist);
 
+%% Test get
 
-%**************************************************************************
-
-
-function testGet(This)
-m = This.TestData.model ;
+m = m0;
 
 actual = get(m, 'exList') ;
 expected = {'Ey', 'Ep', 'Ea', 'Er', 'Ew'} ;
-assertEqual(This, actual, expected) ;
+Assert.equal(actual, expected) ;
 
 actual = get(m, 'yList');
 expected = {'Short', 'Infl', 'Growth', 'Wage'} ;
-assertEqual(This, actual, expected) ;
+Assert.equal(actual, expected) ;
 
 actual = get(m, 'eyList');
 expected = {'Mp', 'Mw'};
-assertEqual(This, actual, expected) ;
+Assert.equal(actual, expected) ;
 
 actual = get(m, 'pList') ;
 expected = {'alpha', 'beta', 'gamma', 'delta', 'k', 'pi', 'eta', 'psi', ...
     'chi', 'xiw', 'xip', 'rhoa', 'rhor', 'kappap', 'kappan', 'Short_', ...
     'Infl_', 'Growth_', 'Wage_'} ;
-assertEqual(This, actual, expected) ;
+Assert.equal(actual, expected) ;
 
-actual = get(m,'stdList') ;
+actual = get(m, 'stdList') ;
 expected = {'std_Mp', 'std_Mw', 'std_Ey', 'std_Ep', 'std_Ea', 'std_Er', ...
     'std_Ew'} ;
-assertEqual(This, actual, expected) ;
+Assert.equal(actual, expected) ;
 
-end % testGet()
+%% Test isname
 
-
-%**************************************************************************
-
-
-function testIsname(This)
-m = This.TestData.model ;
-assertEqual(This, isname(m, 'alpha'), true) ;
-assertEqual(This, isname(m, 'alph'), false) ;
-end % testIsname()
+m = m0;
+Assert.equal(isname(m, 'alpha'), true) ;
+Assert.equal(isname(m, 'alph'), false) ;
 
 
-%**************************************************************************
+%% Test isnan 
+
+m = m0;
+Assert.equal(isnan(m), true) ;
 
 
-function testIsnan(This)    
-m = This.TestData.model ;
-assertEqual(This, isnan(m), true) ;
-end % testIsnan()
+%% Test issolved
+
+m = m0;
+s = m1;
+Assert.equal(issolved(model( )), logical.empty(1, 0));
+Assert.equal(issolved(m), false) ;
+Assert.equal(issolved(s), true) ;
 
 
-%**************************************************************************
+%% Test alter
+
+m = m0;
+Assert.equal(length(alter(m, 3)), 3) ;
+Assert.equal(length(m([1, 1, 1])), 3) ;
 
 
-function testIssolved(This)
-m = This.TestData.model ;
-mm = This.TestData.solvedModel ;
+%% Test chksstate
 
-assertEqual(This, issolved(model()), false) ;
-assertEqual(This, issolved(m), false) ;
-assertEqual(This, issolved(mm), true) ;
-end % isSolved()
+m = m0;
+s = m1;
+Assert.equal(issolved(model( )), logical.empty(1, 0)) ;
+Assert.equal(issolved(m), false) ;
+Assert.equal(chksstate(m, 'error=', false, 'warning=', false), false) ;
+Assert.equal(issolved(s), true) ;
+Assert.equal(chksstate(s, 'error=', false, 'warning=', false), true) ;
 
+%}
+%% Test estimate
 
-%**************************************************************************
-
-
-function testAlter(This)
-m = This.TestData.model ;
-assertEqual(This, length(alter(m, 3)), 3) ;
-assertEqual(This, length(m([1,1,1])), 3) ;
-end % testAlter()
-
-
-%**************************************************************************
-
-
-function testChkstate(This)
-m = This.TestData.model ;
-mm = This.TestData.solvedModel ;
-
-assertEqual(This, issolved(model()), false) ;
-assertEqual(This, issolved(m), false) ;
-assertEqual(This, chksstate(m,'error=', false, 'warning=', false), false) ;
-assertEqual(This, issolved(mm), true) ;
-assertEqual(This, chksstate(mm,'error=', false, 'warning=', false), true) ;
-end % testChksstate()
-
-
-%**************************************************************************
-
-
-function testEstimate(This)
-m = This.TestData.solvedModel;
-d = This.TestData.Dbase;
-startHist = This.TestData.StartHist;
-endHist = This.TestData.EndHist;
+m = m1;
 
 E = struct();
-E.chi = {NaN,  0.5,  0.95,  logdist.normal(0.85,0.025)};
-E.xiw = {NaN,  30,  1000,  logdist.normal(60,50)};
-E.xip = {NaN,  30,  1000,  logdist.normal(300,50)};
-E.rhor = {NaN,  0.10,  0.95,  logdist.beta(0.85,0.05)};
-E.kappap = {NaN,  1.5,  10,  logdist.normal(3.5,1)};
-E.kappan = {NaN,  0,  1, logdist.normal(0,0.2)};
-E.std_Ep = {0.01,  0.001,  0.10,  logdist.invgamma(0.01,Inf)};
-E.std_Ew = {0.01,  0.001,  0.10,  logdist.invgamma(0.01,Inf)};
-E.std_Ea = {0.001,  0.0001,  0.01,  logdist.invgamma(0.001,Inf)};
-E.std_Er = {0.005,  0.001,  0.10,  logdist.invgamma(0.005,Inf)};
-E.corr_Er__Ep = {0,  -0.9,  0.9,  logdist.normal(0,0.5)};
+E.chi = {NaN,  0.5,  0.95,  logdist.normal(0.85, 0.025)};
+E.xiw = {NaN,  30,  1000,  logdist.normal(60, 50)};
+E.xip = {NaN,  30,  1000,  logdist.normal(300, 50)};
+E.rhor = {NaN,  0.10,  0.95,  logdist.beta(0.85, 0.05)};
+E.kappap = {NaN,  1.5,  10,  logdist.normal(3.5, 1)};
+E.kappan = {NaN,  0,  1, logdist.normal(0, 0.2)};
+E.std_Ep = {0.01,  0.001,  0.10,  logdist.invgamma(0.01, Inf)};
+E.std_Ew = {0.01,  0.001,  0.10,  logdist.invgamma(0.01, Inf)};
+E.std_Ea = {0.001,  0.0001,  0.01,  logdist.invgamma(0.001, Inf)};
+E.std_Er = {0.005,  0.001,  0.10,  logdist.invgamma(0.005, Inf)};
+E.corr_Er__Ep = {0,  -0.9,  0.9,  logdist.normal(0, 0.5)};
 
 filteropt = { ...
-    'outoflik=',{'Short_','Infl_','Growth_','Wage_'}, ...
-    'relative=',true, ...
+    'outoflik=', {'Short_', 'Infl_', 'Growth_', 'Wage_'}, ...
+    'relative=', true, ...
     };
 
-
-[est,pos,C,~,~,~,~,~,delta,Pdelta] = ...
-    estimate(m,d,startHist:endHist,E, ...
-    'filter=',filteropt,'optimset=',{'display=','off'},...
-    'tolx=',1e-8,'tolfun=',1e-8,...
-    'sstate=',false,'solve=',true,'nosolution=','penalty', ...
-    'chksstate=',false); %also test some default options
+[est, pos, C, ~, ~, ~, delta, Pdelta] = ...
+    estimate(m, d, starthist:endhist, E, ...
+    'filter=', filteropt, 'optimset=', {'display=', 'off'}, ...
+    'tolx=', 1e-8, 'tolfun=', 1e-8, ...
+    ...'evallik=', false, ...
+    'sstate=', false, 'solve=', true, 'nosolution=', 'penalty', ...
+    'chksstate=', false); %also test some default options
 
 cmp = load('nonlinModelEstimation.mat') ;
 pNames = fields(est) ;
 for iName = 1 : numel(pNames)
     actual = est.(pNames{iName}) ;
     expected = cmp.est.(pNames{iName}) ;
-    assertEqual(This, actual, expected, 'relTol', 1e-3) ;
+    Assert.relTol(actual, expected, 1e-3) ;
 end
-%assertEqual(This, cmp.C, C, 'relTol', 0.1) ;
 
 fNames = fields(cmp.delta) ;
 for ii = 1 : numel(fNames)
     actual = delta.(fNames{ii}) ;
     expected = cmp.delta.(fNames{ii}) ;
-    assertEqual(This, actual, expected, 'relTol', 1e-2) ;
+    Assert.relTol(actual, expected, 1e-2) ;
 end
-assertEqual(This, double(Pdelta), double(cmp.Pdelta), 'relTol', 1e-3) ;
-end % testEstimate
+Assert.relTol(double(Pdelta), double(cmp.Pdelta), 1e-3) ;
+
+%% Test loglik
+
+m = m1;
+
+[~, ~, V1, Delta1, Pe1] = filter(m, d, starthist:endhist, ...
+    'outOfLik=', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
+[~, V2, ~, Pe2, Delta2] = loglik(m, d, starthist:endhist, ...
+    'outOfLik=', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
+
+Assert.equal(V1, V2);
+Assert.equal(Delta1, Delta2);
+Assert.equal(Pe1, Pe2);
 
 
-%**************************************************************************
+%% Test Fast loglik
 
-
-function testLoglik(This)
-m = This.TestData.solvedModel;
-d = This.TestData.Dbase;
-startHist = This.TestData.StartHist;
-endHist = This.TestData.EndHist;
-
-[~,~,V1,Delta1,Pe1] = filter(m,d,startHist:endHist, ...
-    'outOfLik=',{'Short_','Wage_','Infl_','Growth_'});
-[~,V2,~,Pe2,Delta2] = loglik(m,d,startHist:endHist, ...
-    'outOfLik=',{'Short_','Wage_','Infl_','Growth_'});
-
-assertEqual(This,V1,V2);
-assertEqual(This,Delta1,Delta2);
-assertEqual(This,Pe1,Pe2);
-end % testLoglik()
-
-
-%**************************************************************************
-
-
-function testFastLoglik(This)
-m = This.TestData.solvedModel;
-d = This.TestData.Dbase;
-startHist = This.TestData.StartHist;
-endHist = This.TestData.EndHist;
+m = m1;
 
 chi = 0.7 : 0.01 : 0.9;
-m1 = alter(m,length(chi));
-m1.chi = chi;
-chksstate(m1);
-m1 = solve(m1);
-obj1 = loglik(m1,d,startHist:endHist, ...
-    'outOfLik=',{'Short_','Wage_','Infl_','Growth_'});
+mm = alter(m, length(chi));
+mm.chi = chi;
+chksstate(mm);
+mm = solve(mm);
+obj1 = loglik(mm, d, starthist:endhist, ...
+    'outOfLik=', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
 
 obj2 = nan(size(chi));
-loglik(m,d,startHist:endHist, ...
-    'outOfLik=',{'Short_','Wage_','Infl_','Growth_'}, ...
-    'persist=',true);
+loglik(m, d, starthist:endhist, ...
+    'outOfLik=', {'Short_', 'Wage_', 'Infl_', 'Growth_'}, ...
+    'persist=', true);
 for i = 1 : length(chi)
     m.chi = chi(i);
     chksstate(m);
@@ -238,22 +182,19 @@ for i = 1 : length(chi)
     obj2(i) = loglik(m);
 end
 
-assertEqual(This,obj1,obj2);
-end % testFastLoglik()
+Assert.equal(obj1, obj2);
 
 
-%**************************************************************************
+%% Test loglik Decomposition
 
+m = m1;
 
-function testLoglikDecomp(This)
-m = This.TestData.solvedModel;
-d = This.TestData.Dbase;
-startHist = This.TestData.StartHist;
-endHist = This.TestData.EndHist;
+obj1 = loglik(m, d, starthist:endhist, ...
+    'outOfLik=', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
 
-obj = loglik(m,d,startHist:endHist, ...
-    'outOfLik=',{'Short_','Wage_','Infl_','Growth_'}, ...
-    'objDecomp=',true);
-assertEqual(This,obj(1),sum(obj(2:end)),'AbsTol',1e-12);
-end % testLoglikDecomp()
+obj2 = loglik(m, d, starthist:endhist, ...
+    'outOfLik=', {'Short_', 'Wage_', 'Infl_', 'Growth_'}, ...
+    'objDecomp=', true);
 
+Assert.absTol(obj1, obj2(1), 1e-12);
+Assert.absTol(obj2(1), sum(obj2(2:end)), 1e-12);

@@ -1,1 +1,1 @@
-!transition_variables x; !transition_equations x; !parameters a; !steady_updates a:=x;
+!transition_variables x; !transition_equations x; !parameters a; !revisions a{1}:=x; b{1}:=x;

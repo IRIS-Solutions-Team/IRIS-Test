@@ -1,12 +1,6 @@
-function tests = sourceDbTest
-tests = functiontests(localfunctions);
-end
-%#ok<*DEFNU>
 
+assertEqual = @(x, y) assert(isequal(x, y));
 
-
-
-function setupOnce(this)
 %{
 ModelNoShift>>>>>
 !variables
@@ -26,7 +20,7 @@ ModelNoShift>>>>>
 %}
 fileName = 'sourceDbTestNoShift.model';
 parser.grabTextFromCaller('ModelNoShift', fileName);
-m = model(fileName, 'linear=', true);
+m0 = model(fileName, 'linear=', true);
 
 %{
 ModelLag>>>>>
@@ -47,28 +41,12 @@ ModelLag>>>>>
 %}
 fileName = 'sourceDbTestLag.model';
 parser.grabTextFromCaller('ModelLag', fileName);
-n = model(fileName, 'linear=', true);
-
-this.TestData.ModelNoShift = m;
-this.TestData.ModelLag = n;
-end
+n0 = model(fileName, 'linear=', true);
 
 
+%% Test zerodb
 
-
-function compareDbase(this, actDb, expDb)
-lsField = fieldnames(actDb);
-for i = 1 : length(lsField)
-    name = lsField{i};
-    assertEqual(this, actDb.(name)(:), expDb.(name)(:), 'AbsTol', 1e-14);
-end
-end
-
-
-
-
-function zerodbTest(this)
-m = this.TestData.ModelNoShift;
+m = m0;
 range = 1:10;
 maxLag = 1;
 xrange = range(1)-maxLag:range(end);
@@ -85,33 +63,33 @@ expDb = struct( ...
     'ex', tseries(range, 0, 'ex'), ...
     'ey', tseries(range, 0, 'ey'), ...
     'ez', tseries(range, 0, 'ez'), ...
+    'std_ew', 1, ...
+    'std_ex', 1, ...
+    'std_ey', 1, ...
+    'std_ez', 1, ...
     model.RESERVED_NAME_TTREND, tseries(xrange, 0, model.COMMENT_TTREND) ...
     );
-compareDbase(this, actDb, expDb);
-end
+compareDatabanks(actDb, expDb);
 
 
+%% Test zerodb with ShockFunc Option
 
-
-function zerodbShockFuncTest(this)
-m = this.TestData.ModelNoShift;
+m = m0;
 range = 1:100000;
 d = zerodb(m, range, 'shockFunc=', @randn);
 actStdEw = std(d.ew);
 actStdEx = std(d.ex);
 actStdEy = std(d.ey);
 actStdEz = std(d.ez);
-assertEqual(this, round(actStdEw, 1), 1);
-assertEqual(this, round(actStdEx, 1), 1);
-assertEqual(this, round(actStdEy, 1), 1);
-assertEqual(this, round(actStdEz, 1), 1);
-end
+assertEqual(round(actStdEw, 1), 1);
+assertEqual(round(actStdEx, 1), 1);
+assertEqual(round(actStdEy, 1), 1);
+assertEqual(round(actStdEz, 1), 1);
 
 
+%% Test sstatedb
 
-
-function sstatedbTest(this)
-m = this.TestData.ModelNoShift;
+m = m0;
 range = 1:10;
 maxLag = 1;
 xrange = range(1)-maxLag:range(end);
@@ -130,18 +108,18 @@ expDb = struct( ...
     'ex', tseries(range, 0, 'ex'), ...
     'ey', tseries(range, 0, 'ey'), ...
     'ez', tseries(range, 0, 'ez'), ...
+    'std_ew', 1, ...
+    'std_ex', 1, ...
+    'std_ey', 1, ...
+    'std_ez', 1, ...
     model.RESERVED_NAME_TTREND, tseries(xrange, ttrend.', model.COMMENT_TTREND) ...
     );
-actDb = dbremovestamp(actDb);
-expDb = dbremovestamp(expDb);
-compareDbase(this, actDb, expDb);
-end
+compareDatabanks(actDb, expDb);
 
 
+%% Test sstatedb Multiple Variants
 
-
-function sstatedbMultipleTest(this)
-m = this.TestData.ModelNoShift;
+m = m0;
 m = alter(m, 2);
 m.x = [1+1.01i, 2+1.02i];
 m.y = [3+1.01i, 4+1.02i];
@@ -165,18 +143,18 @@ expDb = struct( ...
     'ex', tseries(range, 0*z, 'ex'), ...
     'ey', tseries(range, 0*z, 'ey'), ...
     'ez', tseries(range, 0*z, 'ez'), ...
+    'std_ew', [1, 1], ...
+    'std_ex', [1, 1], ...
+    'std_ey', [1, 1], ...
+    'std_ez', [1, 1], ...
     model.RESERVED_NAME_TTREND, tseries(xrange, [ttrend.', ttrend.'], model.COMMENT_TTREND) ...
     );
-actDb = dbremovestamp(actDb);
-expDb = dbremovestamp(expDb);
-compareDbase(this, actDb, expDb);
-end
+compareDatabanks(actDb, expDb);
 
 
+%% Test zerodb with Lags
 
-
-function zerodbLagTest(this)
-m = this.TestData.ModelLag;
+m = n0;
 range = 1:10;
 maxLag = 2;
 xrange = range(1)-maxLag:range(end);
@@ -193,16 +171,18 @@ expDb = struct( ...
     'ex', tseries(range, 0, 'ex'), ...
     'ey', tseries(range, 0, 'ey'), ...
     'ez', tseries(range, 0, 'ez'), ...
+    'std_ew', 1, ...
+    'std_ex', 1, ...
+    'std_ey', 1, ...
+    'std_ez', 1, ...
     model.RESERVED_NAME_TTREND, tseries(xrange, 0, model.COMMENT_TTREND) ...
     );
-compareDbase(this, actDb, expDb);
-end
+compareDatabanks(actDb, expDb);
 
 
+%% Test sstatedb with Lags
 
-
-function sstatedbLagTest(this)
-m = this.TestData.ModelLag;
+m = n0;
 range = 1:10;
 maxLag = 2;
 xrange = range(1)-maxLag:range(end);
@@ -221,9 +201,10 @@ expDb = struct( ...
     'ex', tseries(range, 0, 'ex'), ...
     'ey', tseries(range, 0, 'ey'), ...
     'ez', tseries(range, 0, 'ez'), ...
+    'std_ew', 1, ...
+    'std_ex', 1, ...
+    'std_ey', 1, ...
+    'std_ez', 1, ...
     model.RESERVED_NAME_TTREND, tseries(xrange, ttrend.', model.COMMENT_TTREND) ...
     );
-actDb = dbremovestamp(actDb);
-expDb = dbremovestamp(expDb);
-compareDbase(this, actDb, expDb);
-end
+compareDatabanks(actDb, expDb);

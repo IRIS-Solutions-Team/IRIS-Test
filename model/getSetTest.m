@@ -1,29 +1,18 @@
-function tests = getSetTest( )
-tests = functiontests(localfunctions);
-end
-%#ok<*DEFNU>
+
+assertEqual = @(x, y) assert(isequaln(x, y));
+m0 = model('modelGetSetTest.model', 'linear=', true);
 
 
+%% Test get Parameters
 
-
-function setupOnce(this)
-m = model('modelGetSetTest.model', 'linear=', true);
-this.TestData.Model = m;
-end
-
-
-
-
-function testGetParameters(this)
-m = this.TestData.Model;
-
+m = m0;
 actDbPlain = get(m, 'PlainParameters');
 expDbPlain = struct( ...
     'a', [1, 1], ...
     'b', [2, 3], ...
     'c', [4, 4] ...
     );
-assertEqual(this, actDbPlain, expDbPlain);
+assertEqual(actDbPlain, expDbPlain);
 
 actDbStd = get(m, 'Std');
 expDbStd = struct( ...
@@ -33,15 +22,14 @@ expDbStd = struct( ...
     'std_ey', [0.5, 0.3], ...
     'std_ez', [1, 1] ...
     );
-assertEqual(this, actDbStd, expDbStd);
+assertEqual(actDbStd, expDbStd);
 
 actDbCorr = get(m, 'NonzeroCorr');
 expDbCorr = struct( ...
     'corr_uv__uw', [0.5, -0.5], ...
-    'corr_ex__ez', [-1, -1], ...
-    'corr_uw__ey', [1, -1] ...
+    'corr_ex__ez', [-1, -1] ...
     );
-assertEqual(this, actDbCorr, expDbCorr);
+assertEqual(actDbCorr, expDbCorr);
 
 actDb = get(m, 'Parameters');
 expDb = dbmerge( ...
@@ -49,14 +37,12 @@ expDb = dbmerge( ...
     actDbStd, ...
     actDbCorr ...
     );
-assertEqual(this, actDb, expDb);
-end
+assertEqual(actDb, expDb);
 
 
+%% Test reset
 
-
-function testReset(this)
-m = this.TestData.Model;
+m = m0;
 m1 = reset(m, 'PlainParameters');
 actDbPar = get(m1, 'PlainParameters');
 expDbPar = struct( ...
@@ -64,7 +50,7 @@ expDbPar = struct( ...
     'b', [NaN, NaN], ...
     'c', [NaN, NaN] ...
     );
-assertEqual(this, actDbPar, expDbPar);
+assertEqual(actDbPar, expDbPar);
 
 m1 = reset(m, 'Std');
 actDbStd = get(m1, 'Std');
@@ -75,37 +61,33 @@ expDbStd = struct( ...
     'std_ey', [1, 1], ...
     'std_ez', [1, 1] ...
     );
-assertEqual(this, actDbStd, expDbStd);
+assertEqual(actDbStd, expDbStd);
 
 m1 = reset(m, 'Corr');
 actDbCorr = get(m1, 'NonzeroCorr');
 expDbCorr = struct( );
-assertEqual(this, actDbCorr, expDbCorr);
-end
+assertEqual(actDbCorr, expDbCorr);
 
 
+%% Test get Omega
 
-
-function testGetOmega(this)
-m = this.TestData.Model;
+m = m0;
 actOmg = omega(m);
 actStd1 = sqrt(diag(actOmg(:, :, 1)));
 actStd2 = sqrt(diag(actOmg(:, :, 2)));
 expStd1 = [1.5; 2.1; 1; 0.5; 1];
 expStd2 = [1.5; 3.5; 1; 0.3; 1];
-assertEqual(this, actStd1, expStd1);
-assertEqual(this, actStd2, expStd2);
-end
+assertEqual(actStd1, expStd1);
+assertEqual(actStd2, expStd2);
 
 
+%% Test set Omega
 
-
-function testSetOmega(this)
-m = this.TestData.Model;
+m = m0;
 newOmg = repmat(eye(5), 1, 1, 2);
 m1 = omega(m, newOmg);
 actOmg = omega(m1);
-assertEqual(this, actOmg, newOmg);
+assertEqual(actOmg, newOmg);
 
 actDbStd = get(m1, 'Std');
 expDbStd = struct( ...
@@ -115,9 +97,8 @@ expDbStd = struct( ...
     'std_ey', [1, 1], ...
     'std_ez', [1, 1] ...
     );
-assertEqual(this, actDbStd, expDbStd);
+assertEqual(actDbStd, expDbStd);
 
 actDbCorr = get(m1, 'NonzeroCorr');
 expDbCorr = struct( );
-assertEqual(this, actDbCorr, expDbCorr);    
-end
+assertEqual(actDbCorr, expDbCorr);    

@@ -9,8 +9,8 @@ end
 
 function setupOnce(This)
 d = struct( );
-range1 = 1 : 10;
-range2 = 5 : 14;
+range1 = ii(1 : 10);
+range2 = ii(5 : 14);
 range3 = qq(2000,1):qq(2005,4);
 range4 = qq(1990,1):qq(2010,4);
 range5 = dd(2000,1,1):dd(2000,12,'end');

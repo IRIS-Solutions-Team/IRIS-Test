@@ -1,27 +1,10 @@
-function tests = assignTest( )
-tests = functiontests(localfunctions);
-end
-%#ok<*DEFNU>
+
+assertEqual =  @(x, y) isequal(x, y);
+m0 = model('assignTest.model');
 
 
+%% Test Basic Assign
 
-
-function setupOnce(this)
-m = model('assignTest.model');
-this.TestData.Model = m;
-end
-
-
-
-
-function testEmpty(this) %#ok<INUSD>
-end
-
-
-
-function testBasicAssign(this)
-
-m = this.TestData.Model;
 x = 0;
 y = 1;
 e = 0;
@@ -45,7 +28,7 @@ expStd = struct( ...
     'std_u', std_u ...
     );
 
-m = this.TestData.Model;
+m = m0;
 m.x = x; %#ok<*STRNU>
 m.y = y;
 m.alp = alp;
@@ -54,37 +37,34 @@ m.std_e = std_e;
 m.std_u = std_u;
 actSstate = get(m, 'sstate');
 actStd = get(m, 'std');
-assertEqual(this, actSstate, expSstate);
-assertEqual(this, actStd, expStd);
+assertEqual(actSstate, expSstate);
+assertEqual(actStd, expStd);
 
-m = this.TestData.Model;
 m = assign(m, expSstate);
 m = assign(m, expStd);
 actSstate = get(m, 'sstate');
 actStd = get(m, 'std');
-assertEqual(this, actSstate, expSstate);
-assertEqual(this, actStd, expStd);
+assertEqual(actSstate, expSstate);
+assertEqual(actStd, expStd);
 
-m = this.TestData.Model;
+m = m0;
 m = assign(m, 'x', x, 'y', y, 'alp', alp, 'bet', bet, 'std_e', std_e, 'std_u', std_u);
 actSstate = get(m, 'sstate');
 actStd = get(m, 'std');
-assertEqual(this, actSstate, expSstate);
-assertEqual(this, actStd, expStd);
+assertEqual(actSstate, expSstate);
+assertEqual(actStd, expStd);
 
-m = this.TestData.Model;
+m = m0;
 m = assign(m, '-level', ...
     'x', x, 'y', y, 'alp', alp, 'bet', bet, 'std_e', std_e, 'std_u', std_u);
 actSstate = get(m, 'sstate');
 actStd = get(m, 'std');
-assertEqual(this, actSstate, expSstate);
-assertEqual(this, actStd, expStd);
-end
+assertEqual(actSstate, expSstate);
+assertEqual(actStd, expStd);
 
 
+%% Test Multiple
 
-
-function testMultiple(this)
 x = [0, 0.5];
 y = [1, 1];
 e = [0, 0];
@@ -108,47 +88,45 @@ expStd = struct( ...
     'std_u', std_u ...
     );
 
-m = this.TestData.Model;
+m = m0;
 m = alter(m, 2);
 m = assign(m, expSstate);
 m = assign(m, expStd);
 actSstate = get(m, 'sstate');
 actStd = get(m, 'std');
-assertEqual(this, actSstate, expSstate);
-assertEqual(this, actStd, expStd);
+assertEqual(actSstate, expSstate);
+assertEqual(actStd, expStd);
 
-m = this.TestData.Model;
+m = m0;
 m = alter(m, 2);
 m = assign(m, 'x', x, 'y', y, 'alp', alp, 'bet', bet, ...
     'std_e', std_e, 'std_u', std_u);
 actSstate = get(m, 'sstate');
 actStd = get(m, 'std');
-assertEqual(this, actSstate, expSstate);
-assertEqual(this, actStd, expStd);
+assertEqual(actSstate, expSstate);
+assertEqual(actStd, expStd);
 
-m = this.TestData.Model;
+m = m0;
 m = alter(m, 2);
 asgn = [ x; y; alp; bet; std_e; std_u ];
 asgn = permute(asgn, [3, 1, 2]);
 m = assign(m, {'x', 'y', 'alp', 'bet', 'std_e', 'std_u'}, asgn);
 actSstate = get(m, 'sstate');
 actStd = get(m, 'std');
-assertEqual(this, actSstate, expSstate);
-assertEqual(this, actStd, expStd);
+assertEqual(actSstate, expSstate);
+assertEqual(actStd, expStd);
 
-n = this.TestData.Model;
+n = m0;
 n = alter(n, 2);
 n = assign(n, m);
 actSstate = get(n, 'sstate');
 actStd = get(n, 'std');
-assertEqual(this, actSstate, expSstate);
-assertEqual(this, actStd, expStd);
-end
+assertEqual(actSstate, expSstate);
+assertEqual(actStd, expStd);
 
 
+%% Test Fast Assign
 
-
-function testFastAssign(this)
 x = 0;
 y = 1;
 e = 0;
@@ -172,19 +150,17 @@ expStd = struct( ...
     'std_u', std_u ...
     );
 
-m = this.TestData.Model;
+m = m0;
 assign(m, {'x', 'y', 'alp', 'bet', 'std_e', 'std_u'});
 m = assign(m, [x, y, alp, bet, std_e, std_u]);
 actSstate = get(m, 'sstate');
 actStd = get(m, 'std');
-assertEqual(this, actSstate, expSstate);
-assertEqual(this, actStd, expStd);
-end
+assertEqual(actSstate, expSstate);
+assertEqual(actStd, expStd);
 
 
+%% Test Regexp
 
-
-function testRegexp(this)
 xy = 100;
 e = 0;
 u = 0;
@@ -208,15 +184,15 @@ expStdCorr = struct( ...
     'corr_e__u', corr_ ...
     );
 
-m = this.TestData.Model;
+m = m0;
 m1 = assign(m, ...
     rexp('^[xy]$='), xy, ...
     'e=', e, 'u=', u, rexp('a..='), alp, rexp('^b\w{2}$='), bet, ...
     rexp('std_.*'), std_, 'corr_e__u=', corr_);
 actSstate = get(m1, 'sstate');
 actStdCorr = get(m1, 'stdcorr');
-assertEqual(this, actSstate, expSstate);
-assertEqual(this, actStdCorr, expStdCorr);
+assertEqual(actSstate, expSstate);
+assertEqual(actStdCorr, expStdCorr);
 
 m2 = assign([m, m], ...
     rexp('^[xy]$='), [xy, xy], ...
@@ -224,6 +200,5 @@ m2 = assign([m, m], ...
     rexp('std_.*'), std_, 'corr_e__u=', corr_);
 actSstate = get(m2, 'sstate');
 actStd = get(m2, 'stdcorr');
-assertEqual(this, actSstate, expSstate & expSstate);
-assertEqual(this, actStd, expStdCorr & expStdCorr);
-end
+assertEqual(actSstate, expSstate & expSstate);
+assertEqual(actStd, expStdCorr & expStdCorr);

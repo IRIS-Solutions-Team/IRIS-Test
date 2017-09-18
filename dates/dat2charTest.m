@@ -49,7 +49,7 @@ ac = dat2char(ww(2002,1), ...
 ex = '2002-01-03';
 assertEqual(ac, ex);
 
-%% Dail
+%% Daily
 
 ac = dat2char(dd(2002,1,1), ...
     'dateFormat=','$YYYY-Mmm-DD');

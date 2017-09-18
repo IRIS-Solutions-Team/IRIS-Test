@@ -1,17 +1,17 @@
 
-assertEqualTol = @(x, y) assert(all(abs(x - y)<1e-3));
-assertClass = @(x, cl) assert(isa(x, cl));
+assertEqualTol = @(x, y) assert(all(abs(double(x) - double(y))<1e-3));
+assertClass = @(x, cl) assert(isa(x, 'DateWrapper'));
 
 %% One Input Argument
 
 ac = ww(0);
 ex = 0.52;
-assertClass(ac, 'dates.Date');
+assertClass(ac);
 assertEqualTol(ac, ex);
 
 ac = ww(1);
 ex = 52.52;
-assertClass(ac, 'dates.Date');
+assertClass(ac);
 assertEqualTol(ac, ex);
 
 %% Two Input Arguments

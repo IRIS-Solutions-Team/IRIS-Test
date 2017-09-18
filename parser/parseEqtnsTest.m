@@ -1,12 +1,3 @@
-function Tests = parseEqtnsTest( )
-Tests = functiontests(localfunctions);
-end
-%#ok<*DEFNU>
-
-
-
-
-function testParseEqtns(this)
 %{
 Code>>>>>
 'Label1' x{-10}=y{+10};
@@ -37,18 +28,18 @@ expId = 'IRIS:TheParser:EmptyEquation';
 warning('off', expId);
 [~, equation] = parse(b, [ ], code, quantity, equation, euc, [ ], [ ]);
 [~, actId] = lastwarn( );
-assertEqual(this, actId, expId);
+Assert.equal(actId, expId);
 warning(q);
 
 actInput = equation.Input;
 expInput = { ...
-    'x{-10}=y{+10};', ...
-    'a{-1}=b{-5};', ...
-    'c{2}=d{+3}!!c=0;', ...
-    'e{t+2*10}=f{t-100-100}!!e=f;', ...
-    'g{2*0}=0!!g=0;', ...
-    'a+b+c+d+e+f+g;', ...
-    'j{+4}=2*j{t-4};', ...
+    'x{-10}=y{+10}', ...
+    'a{-1}=b{-5}', ...
+    'c{2}=d{+3}!!c=0', ...
+    'e{t+2*10}=f{t-100-100}!!e=f', ...
+    'g{2*0}=0!!g=0', ...
+    'a+b+c+d+e+f+g', ...
+    'j{+4}=2*j{t-4}', ...
     };
 
 actType = equation.Type;
@@ -131,21 +122,20 @@ expSignSteady = { ...
     '', ...
     };
 
-actMaxSh = max(euc.MaxSh);
-expMaxSh = 20;
+actMaxShDynamic = max(euc.MaxShDynamic);
+expMaxShDynamic = 20;
 
-actMinSh = min(euc.MinSh);
-expMinSh = -200;
+actMinShDynamic = min(euc.MinShDynamic);
+expMinShDynamic = -200;
 
-assertEqual(this, actInput, expInput);
-assertEqual(this, actType, expType);
-assertEqual(this, actLabel, expLabel);
-assertEqual(this, actLhsDynamic, expLhsDynam);
-assertEqual(this, actRhsDynamic, expRhsDynam);
-assertEqual(this, actSignDynamic, expSignDynamic);
-assertEqual(this, actLhsSteady, expLhsSteady);
-assertEqual(this, actRhsSteady, expRhsSteady);
-assertEqual(this, actSignSteady, expSignSteady);
-assertEqual(this, actMaxSh, expMaxSh);
-assertEqual(this, actMinSh, expMinSh);
-end
+Assert.equal(actInput, expInput);
+Assert.equal(actType, expType);
+Assert.equal(actLabel, expLabel);
+Assert.equal(actLhsDynamic, expLhsDynam);
+Assert.equal(actRhsDynamic, expRhsDynam);
+Assert.equal(actSignDynamic, expSignDynamic);
+Assert.equal(actLhsSteady, expLhsSteady);
+Assert.equal(actRhsSteady, expRhsSteady);
+Assert.equal(actSignSteady, expSignSteady);
+Assert.equal(actMaxShDynamic, expMaxShDynamic);
+Assert.equal(actMinShDynamic, expMinShDynamic);

@@ -1,13 +1,9 @@
-function Tests = insertTest( )
-Tests = functiontests(localfunctions);
-end
 
+TYPE = @int8;
+assertEqual = @(x, y) assert(isequal(x, y));
 
-
-
-function setupOnce(this)
-q = model.Quantity;
-q.Name = { ...
+q0 = model.Quantity;
+q0.Name = { ...
     'a', 'b', 'c', 'd', ... 1..4
     'AA', 'BB', 'CC', 'DD', 'EE', 'FF', ... 5..10
     'shk_a', 'shk_b', ... 11..12
@@ -15,8 +11,8 @@ q.Name = { ...
     'alpha', 'beta', 'gamma', ... 18..20
     'X', 'Y', ... 21..22
     };
-nQuan = length(q.Name);
-q.Type = [ ...
+nQuan = length(q0.Name);
+q0.Type = [ ...
     repmat(int8(1), 1, 4), ...
     repmat(int8(2), 1, 6), ...
     repmat(int8(31), 1, 2), ...
@@ -24,19 +20,17 @@ q.Type = [ ...
     repmat(int8(4), 1, 3), ...
     repmat(int8(5), 1, 2), ...
     ];
-q.Label = strcat('Label:', q.Name);
-q.Alias = strcat('Alias:', q.Name);
-q.IxLog = true(1, 22);
-q.IxLagrange = true(1, 22);
-q.Bounds = repmat(model.Quantity.DEFAULT_BOUNDS, 1, nQuan);
-this.TestData.QuantityObj = q;
-end
+q0.Label = strcat('Label:', q0.Name);
+q0.Alias = strcat('Alias:', q0.Name);
+q0.IxLog = true(1, 22);
+q0.IxLagrange = true(1, 22);
+q0.IxObserved = false(1, 22);
+q0.Bounds = repmat(model.Quantity.DEFAULT_BOUNDS, 1, nQuan);
 
 
+%% Test Insert First
 
-
-function testInsertFirst(this)
-q = this.TestData.QuantityObj;
+q = q0;
 add = struct( );
 add.Name = {'delta', 'epsilon'};
 nAdd = length(add.Name);
@@ -44,8 +38,9 @@ add.Label = {'Label:delta', 'Label:epsilon'};
 add.Alias = {'Alias:delta', 'Alias:epsilon'};
 add.IxLog = true(1, 2);
 add.IxLagrange = false(1, 2);
+add.IxObserved = false(1, 2);
 add.Bounds = repmat(model.Quantity.DEFAULT_BOUNDS, 1, nAdd);
-x = insert(q, int8(4), 'first', add);
+x = insert(q, add, TYPE(4), 'first');
 pos = 18;
 expName = [ ...
     q.Name(1:pos-1), ...
@@ -57,15 +52,13 @@ expIxLog = [ ...
     [true, true], ...
     q.IxLog(pos+1:end), ...
     ];
-assertEqual(this, x.Name, expName);
-assertEqual(this, x.IxLog, expIxLog);
-end
+assertEqual(x.Name, expName);
+assertEqual(x.IxLog, expIxLog);
 
 
+%% Test Insert Last
 
-
-function testInsertLast(this)
-q = this.TestData.QuantityObj;
+q = q0;
 add = struct( );
 add.Name = {'delta', 'epsilon'};
 nAdd = length(add.Name);
@@ -73,8 +66,9 @@ add.Label = {'Label:delta', 'Label:epsilon'};
 add.Alias = {'Alias:delta', 'Alias:epsilon'};
 add.IxLog = true(1, 2);
 add.IxLagrange = false(1, 2);
+add.IxObserved = false(1, 2);
 add.Bounds = repmat(model.Quantity.DEFAULT_BOUNDS, 1, nAdd);
-x = insert(q, int8(4), 'last', add);
+x = insert(q, add, int8(4), 'last');
 pos = 20;
 expName = [ ...
     q.Name(1:pos), ...
@@ -86,6 +80,5 @@ expIxLagrange = [ ...
     [false, false], ...
     q.IxLagrange(pos+1:end), ...
     ];
-assertEqual(this, x.Name, expName);
-assertEqual(this, x.IxLagrange, expIxLagrange);
-end
+assertEqual(x.Name, expName);
+assertEqual(x.IxLagrange, expIxLagrange);

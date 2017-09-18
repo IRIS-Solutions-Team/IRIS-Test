@@ -3,7 +3,7 @@ assertEqual = @(x, y) assert(isequal(x, y));
 
 %% Base Year Input Argument
 
-for freq = [1, 2, 4, 6, 12]
+for freq = [1, 2, 4, 12]
     rng = datcode(freq, 1990) : datcode(freq, 2100);
     nPer = length(rng);
     for b = 1980 : 10 : 2110
@@ -23,7 +23,7 @@ end
 %% Base Year From Config
 
 baseYear = irisget('BaseYear');
-for freq = [1, 2, 4, 6, 12]
+for freq = [1, 2, 4, 12]
     rng = datcode(freq, 1990) : datcode(freq, 2100);
     nPer = length(rng);
     for b = 1980 : 10 : 2110
@@ -44,7 +44,7 @@ irisset('BaseYear', baseYear);
 %% Base Year From Model
 
 m = model( );
-for freq = [1, 2, 4, 6, 12]
+for freq = [1, 2, 4, 12]
     rng = datcode(freq, 1990) : datcode(freq, 2100);
     nPer = length(rng);
     for b = 1980 : 10 : 2110
