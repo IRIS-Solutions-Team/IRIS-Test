@@ -31,7 +31,7 @@ assertEqual(ac, ex);
 
 %% Monthly from List of Months
 
-lsMonth = irisget('months');
+lsMonth = iris.get('months');
 for i = 1 : 12
     m = lsMonth{i}(1:3);
     
@@ -44,7 +44,7 @@ end
 
 %% Daily from List of Months
 
-lsMonth = irisget('months');
+lsMonth = iris.get('months');
 for i = 1 : 12
     m = lsMonth{i}(1:3);
 

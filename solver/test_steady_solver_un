@@ -7,7 +7,7 @@
      2       18    8.9894e-07      0             1   -0.00133812    0.00133723           NaN
      3       26   3.12572e-12      0             1  -8.98936e-07   8.98936e-07           NaN
      4       34   1.11022e-16      0             1  -3.12561e-12   3.12571e-12           NaN
-<strong>     5       42   1.11022e-16      0             1             0   1.11022e-16           NaN</strong>
+     5       42   1.11022e-16      0             1             0   1.11022e-16           NaN
 
 Successfully converged. Both step tolerance and function tolerance satisfied.
 
@@ -22,7 +22,7 @@ Successfully converged. Both step tolerance and function tolerance satisfied.
      4       40   7.67398e-05      0             1    -0.0138473     0.0094099           NaN
      5       49   8.01949e-09      1             1  -7.67318e-05   0.000195894           NaN
      6       58   6.61777e-14      0             1  -8.01943e-09   2.88891e-09           NaN
-<strong>     7       67   2.77556e-16      0             1  -6.59001e-14   8.19345e-14           NaN</strong>
+     7       67   2.77556e-16      0             1  -6.59001e-14   8.19345e-14           NaN
 
 Successfully converged. Both step tolerance and function tolerance satisfied.
 
@@ -37,7 +37,7 @@ Successfully converged. Both step tolerance and function tolerance satisfied.
      4       39   2.54599e-07      0             1  -0.000163454    0.00309581           NaN
      5       47   2.88328e-12      0             1  -2.54596e-07   4.82953e-06           NaN
      6       55   2.77556e-17      0             1  -2.88325e-12   5.46936e-11           NaN
-<strong>     7       63   6.93889e-18      0             1  -2.08167e-17   4.44089e-16           NaN</strong>
+     7       63   6.93889e-18      0             1  -2.08167e-17   4.44089e-16           NaN
 
 Successfully converged. Both step tolerance and function tolerance satisfied.
 
@@ -51,7 +51,7 @@ Successfully converged. Both step tolerance and function tolerance satisfied.
      3       29   3.01981e-06      0             1   -0.00148359    0.00406211           NaN
      4       37   2.17376e-11      0             1  -3.01979e-06   8.28513e-06           NaN
      5       45     6.245e-17      0             1  -2.17376e-11   5.96396e-11           NaN
-<strong>     6       53   6.93889e-18      0             1  -5.55112e-17   2.22045e-16           NaN</strong>
+     6       53   6.93889e-18      0             1  -5.55112e-17   2.22045e-16           NaN
 
 Successfully converged. Both step tolerance and function tolerance satisfied.
 
@@ -65,7 +65,7 @@ Successfully converged. Both step tolerance and function tolerance satisfied.
      3       27    1.3746e-06      0             1   -0.00165547    0.00165409           NaN
      4       35   5.14522e-12      0             1  -1.37459e-06   1.37459e-06           NaN
      5       43             0      0             1  -5.14522e-12   5.14522e-12           NaN
-<strong>     6       51             0      0             1             0             0           NaN</strong>
+     6       51             0      0             1             0             0           NaN
 
 Successfully converged. Both step tolerance and function tolerance satisfied.
 

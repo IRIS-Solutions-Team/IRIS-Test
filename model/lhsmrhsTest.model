@@ -1,0 +1,14 @@
+!variables
+    x, y, z
+
+!shocks
+    eps_x, eps_y, eps_z
+
+!parameters
+    x_bar, dy_bar, dz_bar
+
+!equations
+    x = 0.2*x{-1} + 0.3*x{-2} + (1-0.2-0.3)*&x + eps_x !! x = x_bar;
+    y{+1} - y = 0.5*(y - y{-1}) + (1-0.5)*dy_bar + eps_y;
+    z = z{-1} + dz_bar + eps_z !! z = 10 + 1i*dz_bar;
+

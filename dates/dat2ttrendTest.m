@@ -22,12 +22,12 @@ end
 
 %% Base Year From Config
 
-baseYear = irisget('BaseYear');
+baseYear = iris.get('BaseYear');
 for freq = [1, 2, 4, 12]
     rng = datcode(freq, 1990) : datcode(freq, 2100);
     nPer = length(rng);
     for b = 1980 : 10 : 2110
-        irisset('BaseYear', b);
+        iris.set('BaseYear', b);
         ty = dat2ttrend(rng);
         dy = diff(ty);
         assertEqual(dy, ones(1, nPer-1));
@@ -39,7 +39,7 @@ for freq = [1, 2, 4, 12]
         end
     end
 end
-irisset('BaseYear', baseYear);
+iris.set('BaseYear', baseYear);
 
 %% Base Year From Model
 
