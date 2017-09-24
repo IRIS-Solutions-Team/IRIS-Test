@@ -19,8 +19,8 @@ TYPE = @int8;
 b = parser.theparser.Equation( );
 b.Type = TYPE(2);
 code = parser.grabTextFromCaller('Code');
-equation = model.Equation( );
-quantity = model.Quantity( );
+equation = model.component.Equation( );
+quantity = model.component.Quantity( );
 euc = parser.EquationUnderConstruction( );
 
 q = warning('query');

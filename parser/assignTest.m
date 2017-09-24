@@ -18,7 +18,7 @@ the.DbaseAssigned = inpDbase;
 b = parser.theparser.Quantity( );
 b.Type = TYPE(2);
 
-quantity = model.Quantity( );
+quantity = model.component.Quantity( );
 
 % Run parse on the parser.theparser.Quantity object.
 quantity = parse(b, the, code, quantity, [ ], [ ], [ ], opt);

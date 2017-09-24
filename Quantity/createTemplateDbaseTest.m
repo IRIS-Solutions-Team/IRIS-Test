@@ -6,7 +6,7 @@ end
 
 
 function setupOnce(this)
-q = model.Quantity;
+q = model.component.Quantity;
 q.Name = { ...
     'a', 'b', 'c', 'd', ... 1..4
     'AA', 'BB', 'CC', 'DD', 'EE', 'FF', ... 5..10
@@ -27,7 +27,7 @@ q.Label = strcat('Label:', q.Name);
 q.Alias = strcat('Alias:', q.Name);
 q.IxLog = true(1, 22);
 q.IxLagrange = true(1, 22);
-q.Bounds = repmat(model.Quantity.DEFAULT_BOUNDS, 1, 22);
+q.Bounds = repmat(model.component.Quantity.DEFAULT_BOUNDS, 1, 22);
 this.TestData.QuantityObj = q;
 end
 
