@@ -22,26 +22,19 @@ try
   % Add the TAPPlugin directed to a file in the Jenkins workspace
   runner.addPlugin(TAPPlugin.producingOriginalFormat(ToFile(thisTAPFile)));
   
-  results = runner.run(suite);
+  runner.run(suite);
   
   % Display log on Windows machines
-  if ~ispc
-    disp(results);
+  if ispc
     disp(fileread(thisTAPFile));
   end
   
   % Clean up
   rmpath(thisFolder);
-  if exist(thisTAPFile, 'file')
-    delete(thisTAPFile);
-  end
 catch e;
   % Clean up
   if exist('thisFolder','var')
     rmpath(thisFolder);
-  end
-  if exist('thisTAPFile','var') && exist(thisTAPFile, 'file')
-    delete(thisTAPFile);
   end
   % Display error report
   disp(e.getReport);
