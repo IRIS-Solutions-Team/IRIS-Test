@@ -22,11 +22,8 @@ try
   % Add the TAPPlugin directed to a file in the Jenkins workspace
   runner.addPlugin(TAPPlugin.producingOriginalFormat(ToFile(thisTAPFile)));
   
-  % run the tests
+  % Run the tests
   runner.run(suite);
-  
-  % remove '#' from the error description metadata
-  char2file(regexprep(file2char(thisTAPFile),'\n# ','\n '),thisTAPFile);
   
   % Clean up
   rmpath(thisFolder);
