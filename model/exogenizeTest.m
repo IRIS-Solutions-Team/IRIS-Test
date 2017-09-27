@@ -7,12 +7,12 @@ end
 
 
 function setupOnce(this)
-m = model('3eq.Model', 'Linear=', true);
+m = model('3eq.model', 'Linear=', true);
 m = solve(m);
 m = sstate(m);
 this.TestData.Model = m;
 
-n = model('n3eq.Model');
+n = model('n3eq.model');
 n = sstate(n, 'Display=', 'none');
 n = solve(n);
 this.TestData.NonlModel = n;
