@@ -9,7 +9,7 @@ try
   thisFolder = fileparts(mfilename('fullpath')) ;
   addpath(thisFolder);
   
-  thisTAPFile = 'testResults.tap';
+  thisTAPFile = fullfile(thisFolder,'testResults.tap');
   if exist(thisTAPFile, 'file')
     delete(thisTAPFile);
   end
