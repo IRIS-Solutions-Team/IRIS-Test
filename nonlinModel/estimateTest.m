@@ -1,4 +1,6 @@
 
+% Set Up
+
 m0 = model('simple_SPBC.model') ;
 
 m0.alpha = 1.03^(1/4);
@@ -31,6 +33,9 @@ m1 = solve(m1);
 load nonlinModelData.mat d starthist endhist;
 starthist = DateWrapper(starthist);
 endhist = DateWrapper(endhist);
+
+isOptim = ~isempty(ver('optim'));
+
 
 %% Test get
 
@@ -101,49 +106,51 @@ Assert.equal(chksstate(s, 'error=', false, 'warning=', false), true) ;
 %}
 %% Test estimate
 
-m = m1;
+if isOptim
+    m = m1;
 
-E = struct();
-E.chi = {NaN,  0.5,  0.95,  logdist.normal(0.85, 0.025)};
-E.xiw = {NaN,  30,  1000,  logdist.normal(60, 50)};
-E.xip = {NaN,  30,  1000,  logdist.normal(300, 50)};
-E.rhor = {NaN,  0.10,  0.95,  logdist.beta(0.85, 0.05)};
-E.kappap = {NaN,  1.5,  10,  logdist.normal(3.5, 1)};
-E.kappan = {NaN,  0,  1, logdist.normal(0, 0.2)};
-E.std_Ep = {0.01,  0.001,  0.10,  logdist.invgamma(0.01, Inf)};
-E.std_Ew = {0.01,  0.001,  0.10,  logdist.invgamma(0.01, Inf)};
-E.std_Ea = {0.001,  0.0001,  0.01,  logdist.invgamma(0.001, Inf)};
-E.std_Er = {0.005,  0.001,  0.10,  logdist.invgamma(0.005, Inf)};
-E.corr_Er__Ep = {0,  -0.9,  0.9,  logdist.normal(0, 0.5)};
+    E = struct();
+    E.chi = {NaN,  0.5,  0.95,  logdist.normal(0.85, 0.025)};
+    E.xiw = {NaN,  30,  1000,  logdist.normal(60, 50)};
+    E.xip = {NaN,  30,  1000,  logdist.normal(300, 50)};
+    E.rhor = {NaN,  0.10,  0.95,  logdist.beta(0.85, 0.05)};
+    E.kappap = {NaN,  1.5,  10,  logdist.normal(3.5, 1)};
+    E.kappan = {NaN,  0,  1, logdist.normal(0, 0.2)};
+    E.std_Ep = {0.01,  0.001,  0.10,  logdist.invgamma(0.01, Inf)};
+    E.std_Ew = {0.01,  0.001,  0.10,  logdist.invgamma(0.01, Inf)};
+    E.std_Ea = {0.001,  0.0001,  0.01,  logdist.invgamma(0.001, Inf)};
+    E.std_Er = {0.005,  0.001,  0.10,  logdist.invgamma(0.005, Inf)};
+    E.corr_Er__Ep = {0,  -0.9,  0.9,  logdist.normal(0, 0.5)};
 
-filteropt = { ...
-    'outoflik=', {'Short_', 'Infl_', 'Growth_', 'Wage_'}, ...
-    'relative=', true, ...
-    };
+    filteropt = { ...
+        'outoflik=', {'Short_', 'Infl_', 'Growth_', 'Wage_'}, ...
+        'relative=', true, ...
+        };
 
-[est, pos, C, ~, ~, ~, delta, Pdelta] = ...
-    estimate(m, d, starthist:endhist, E, ...
-    'filter=', filteropt, 'optimset=', {'display=', 'off'}, ...
-    'tolx=', 1e-8, 'tolfun=', 1e-8, ...
-    ...'evallik=', false, ...
-    'sstate=', false, 'solve=', true, 'nosolution=', 'penalty', ...
-    'chksstate=', false); %also test some default options
+    [est, pos, C, ~, ~, ~, delta, Pdelta] = ...
+        estimate(m, d, starthist:endhist, E, ...
+        'filter=', filteropt, 'optimset=', {'display=', 'off'}, ...
+        'tolx=', 1e-8, 'tolfun=', 1e-8, ...
+        ...'evallik=', false, ...
+        'sstate=', false, 'solve=', true, 'nosolution=', 'penalty', ...
+        'chksstate=', false); %also test some default options
 
-cmp = load('nonlinModelEstimation.mat') ;
-pNames = fields(est) ;
-for iName = 1 : numel(pNames)
-    actual = est.(pNames{iName}) ;
-    expected = cmp.est.(pNames{iName}) ;
-    Assert.relTol(actual, expected, 1e-3) ;
+    cmp = load('nonlinModelEstimation.mat') ;
+    pNames = fields(est) ;
+    for iName = 1 : numel(pNames)
+        actual = est.(pNames{iName}) ;
+        expected = cmp.est.(pNames{iName}) ;
+        Assert.relTol(actual, expected, 1e-3) ;
+    end
+
+    fNames = fields(cmp.delta) ;
+    for ii = 1 : numel(fNames)
+        actual = delta.(fNames{ii}) ;
+        expected = cmp.delta.(fNames{ii}) ;
+        Assert.relTol(actual, expected, 1e-2) ;
+    end
+    Assert.relTol(double(Pdelta), double(cmp.Pdelta), 1e-3) ;
 end
-
-fNames = fields(cmp.delta) ;
-for ii = 1 : numel(fNames)
-    actual = delta.(fNames{ii}) ;
-    expected = cmp.delta.(fNames{ii}) ;
-    Assert.relTol(actual, expected, 1e-2) ;
-end
-Assert.relTol(double(Pdelta), double(cmp.Pdelta), 1e-3) ;
 
 %% Test loglik
 

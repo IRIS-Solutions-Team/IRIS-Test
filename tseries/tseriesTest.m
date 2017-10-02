@@ -8,6 +8,7 @@ end
 function setupOnce(this) %#ok<*DEFNU>
 this.TestData.x = tseries(qq(1, 1):qq(3, 2), sin(1:10));
 this.TestData.absTol = eps( )^(2/3);
+this.TestData.IsStats = ~isempty(ver('stats'));
 end
 
 
@@ -183,30 +184,34 @@ end
 
 
 function testPrctile(this)
-d = rand(50, 5, 10, 8);
-d(1, 1, 1, 1) = NaN;
-d(20, :, :, :) = NaN;
-x = tseries(1:size(d, 1), d);
-p = [0, 10, 28, 50, 76, 100];
+    if this.TestData.IsStats
+        d = rand(50, 5, 10, 8);
+        d(1, 1, 1, 1) = NaN;
+        d(20, :, :, :) = NaN;
+        x = tseries(1:size(d, 1), d);
+        p = [0, 10, 28, 50, 76, 100];
 
-expPrctile = cell(1, 6);
-actPrctile = cell(1, 6);
+        expPrctile = cell(1, 6);
+        actPrctile = cell(1, 6);
 
-% Run dimensions beyond ndims(d).
-for i = 1 : 6
-    % Stat Tbx.
-    expPrctile{i} = prctile(d, p, i);
+        % Run dimensions beyond ndims(d).
+        for i = 1 : 6
+            % Stat Tbx.
+            expPrctile{i} = prctile(d, p, i);
 
-    % IRIS prctile implementation.
-    aux = prctile(x, p, i);
-    if i > 1
-        aux = aux.data;
+            % IRIS prctile implementation.
+            aux = prctile(x, p, i);
+            if i > 1
+                aux = aux.data;
+            end
+            actPrctile{i} = aux;
+        end
+
+        assertEqual( ...
+            this, actPrctile, expPrctile, ...
+            'AbsTol', 1e-15, 'RelTol', 1e-15 ...
+        );
     end
-    actPrctile{i} = aux;
-end
-
-assertEqual(this, actPrctile, expPrctile, ...
-    'AbsTol', 1e-15, 'RelTol', 1e-15);
 end
 
 

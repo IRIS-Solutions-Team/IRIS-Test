@@ -1,3 +1,4 @@
+
 % Set Up Model
 
 assertEqual = @(x, y) assert(isequal(x, y));
@@ -24,48 +25,56 @@ est.c = { 5 };
 
 pEst0 = estimate(m, d, range, est, 'Display=', 'off');
 
+isOptim = ~isempty(ver('optim'));
+
 %% Test Linear Estimate with Steady State
 
-m3 = m;
-profile clear;
-profile on;
-pEst3 = estimate(m3, d, range, est, 'Steady=', true, 'Display=', 'off');
-stats = profile('info');
+if isOptim
+    m3 = m;
+    profile clear;
+    profile on;
+    pEst3 = estimate(m3, d, range, est, 'Steady=', true, 'Display=', 'off');
+    stats = profile('info');
 
-assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
-    'model.steadyLinear')), true );
-assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
-    'model.steadyNonlinear')), false );
+    assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
+        'model.steadyLinear')), true );
+    assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
+        'model.steadyNonlinear')), false );
+end
 
 %% Test Nonlinear Estimate with No Steady State
 
-m1 = m;
-m1 = set(m1, 'Linear=', false);
-profile clear;
-profile on;
-pEst1 = estimate(m1, d, range, est, 'Display=', 'off');
-stats = profile('info');
+if isOptim
+    m1 = m;
+    m1 = set(m1, 'Linear=', false);
+    profile clear;
+    profile on;
+    pEst1 = estimate(m1, d, range, est, 'Display=', 'off');
+    stats = profile('info');
 
-assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
-    'model.steadyLinear')), false );
-assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
-    'model.steadyNonlinear')), false );
+    assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
+        'model.steadyLinear')), false );
+    assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
+        'model.steadyNonlinear')), false );
 
-assertEqualTol(pEst1.c, est.c{1});
+    assertEqualTol(pEst1.c, est.c{1});
+end
 
 %% Test Nonlinear Estimate with Steady State
 
-m2 = m;
-m2 = set(m2, 'Linear=', false);
-profile clear;
-profile on;
-pEst2 = estimate(m2, d, range, est, 'Steady=', true, 'Display=', 'off');
-stats = profile('info');
+if isOptim
+    m2 = m;
+    m2 = set(m2, 'Linear=', false);
+    profile clear;
+    profile on;
+    pEst2 = estimate(m2, d, range, est, 'Steady=', true, 'Display=', 'off');
+    stats = profile('info');
 
-assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
-    'model.steadyLinear')), false );
-assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
-    'model.steadyNonlinear')), true );
+    assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
+        'model.steadyLinear')), false );
+    assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
+        'model.steadyNonlinear')), true );
 
-assertEqualTol(pEst2.a, pEst0.a);
-assertEqualTol(pEst2.c, pEst0.c);
+    assertEqualTol(pEst2.a, pEst0.a);
+    assertEqualTol(pEst2.c, pEst0.c);
+end

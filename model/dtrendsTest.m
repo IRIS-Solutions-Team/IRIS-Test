@@ -129,8 +129,8 @@ ttrend = 0 : 4;
 nPer = length(ttrend);
 ng = get(m, 'ng');
 ny = get(m, 'ny');
-g = [1, 2.5, -3, 10, 0] .* permute(1:nAlt, [1, 3, 2]);
-h = [10, 9, 8, 7, 6] .* permute(1:nAlt, [1, 3, 2]);
+g = bsxfun(@times, [1, 2.5, -3, 10, 0], permute(1:nAlt, [1, 3, 2]));
+h = bsxfun(@times, [10, 9, 8, 7, 6], permute(1:nAlt, [1, 3, 2]));
 ac = evalDtrends(m, [ ], [g; h; repmat(ttrend, 1, 1, nAlt)], @all);
 
 % All parameters are pout, so they are reset to 0 in evalDtrends.
