@@ -19,7 +19,7 @@ try
     'IncludingSubfolders', true);
   runner = TestRunner.withTextOutput;
   
-  % Add the TAPPlugin directed to a file in the Jenkins workspace
+  % Add the TAPPlugin directed to a file
   runner.addPlugin(TAPPlugin.producingOriginalFormat(ToFile(thisTAPFile)));
   
   % Run the tests
