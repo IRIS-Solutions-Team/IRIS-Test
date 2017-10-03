@@ -33,14 +33,7 @@ outpClip.x = resize(outpClip.x, dates);
 outpClip.z = resize(outpClip.z, dates);
 outpClip.w = resize(outpClip.w, dates);
 
-%{
-This.TestData.InpDbase = inp;
-This.TestData.OutpDbase = outp;
-This.TestData.OutpDbaseClip = outpClip;
-This.TestData.Dates = dates;
-%}
-
-%% Test File 
+% Test File 
 
 q = rpteq('test.rpteq');
 expectedOutput = outpClip;
@@ -48,7 +41,7 @@ actualOutput = run(q, inp, dates);
 Assert.equal(actualOutput, expectedOutput);
 
 
-%% Test File Overlay
+% Test File Overlay
 
 q = rpteq('test.rpteq');
 expectedOutput = outp;
@@ -56,7 +49,7 @@ actualOutput = run(q, inp, dates, 'dbOverlay=', true);
 Assert.equal(actualOutput, expectedOutput);
 
 
-%% Test Model File
+% Test Model File
 
 m = model('test.model');
 q = get(m, 'reporting');
@@ -69,7 +62,7 @@ actualOutput = run(q, inp, dates);
 Assert.equal(actualOutput, expectedOutput);
 
 
-%% Test Direct File
+% Test Direct File
 
 q = rpteq([ ...
     ' "Eq1" x=x{-1} + y{1} - y{-2} ;', ...
