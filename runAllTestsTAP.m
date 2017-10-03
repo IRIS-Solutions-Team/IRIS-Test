@@ -9,7 +9,7 @@ try
   thisFolder = fileparts(mfilename('fullpath')) ;
   addpath(thisFolder);
   
-  thisTAPFile = 'testResults.tap';
+  thisTAPFile = fullfile(thisFolder,'testResults.tap');
   if exist(thisTAPFile, 'file')
     delete(thisTAPFile);
   end
@@ -19,7 +19,7 @@ try
     'IncludingSubfolders', true);
   runner = TestRunner.withTextOutput;
   
-  % Add the TAPPlugin directed to a file in the Jenkins workspace
+  % Add the TAPPlugin directed to a file
   runner.addPlugin(TAPPlugin.producingOriginalFormat(ToFile(thisTAPFile)));
   
   % Run the tests
