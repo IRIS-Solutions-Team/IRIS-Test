@@ -38,10 +38,16 @@ end
 
 
 
-function testEmpty(this)
+function testEmpty(~)
 x = tseries( );
-assertEqual(this, startdate(x), DateWrapper(NaN));
-assertEqual(this, enddate(x), DateWrapper(NaN));
+Assert.equaln(startdate(x), DateWrapper(NaN));
+Assert.equaln(enddate(x), DateWrapper(NaN));
+x = tseries.empty(0, 2, 3);
+Assert.equal(x.Data, double.empty(0, 2, 3));
+Assert.equaln(startdate(x), DateWrapper(NaN));
+x = tseries.empty([0, 2, 3]);
+Assert.equal(x.Data, double.empty(0, 2, 3));
+Assert.equaln(startdate(x), DateWrapper(NaN));
 end
 
 

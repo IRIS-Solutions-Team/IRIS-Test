@@ -1,24 +1,10 @@
-%{
-Code>>>>>
-'Label1' x{-10}=y{+10};
-              a{-1}=b{-5};
-c{2} = d{+3}
-!!c =0;
-   "'Label4';" e{t+2*10}=f{t-100-100}!!e=f;
-    "Label Only" ;
-    'Invalid Time Subscript' g{2*0}=0!!g=0;
 
-"No Equal Sign" a+b+c+d+e+f+g;
 
-'Multiple Labels 1' "Multiple Labels 2" "'Multiple Labels 3'"
-j{+4}=2*j{t-4};
-<<<<<Code
-%}
 TYPE = @int8;
 
 b = parser.theparser.Equation( );
 b.Type = TYPE(2);
-code = parser.grabTextFromCaller('Code');
+code = file2char('parseEqtnsTest.model');
 equation = model.component.Equation( );
 quantity = model.component.Quantity( );
 euc = parser.EquationUnderConstruction( );
@@ -28,6 +14,7 @@ expId = 'IRIS:TheParser:EmptyEquation';
 warning('off', expId);
 [~, equation] = parse(b, [ ], code, quantity, equation, euc, [ ], [ ]);
 [~, actId] = lastwarn( );
+
 Assert.equal(actId, expId);
 warning(q);
 
