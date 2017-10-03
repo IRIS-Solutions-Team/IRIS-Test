@@ -9,10 +9,16 @@ classdef Assert
         end
 
         function absTol(x, y, tol)
+            if nargin<3
+                tol = 1e-15;
+            end
             assert(all( abs(x(:)-y(:))<tol ));
         end
 
         function relTol(x, y, tol)
+            if nargin<3
+                tol = 1e-15;
+            end
             assert(all( abs(x(:)-y(:))<tol*(abs(x(:))+abs(y(:))) ));
         end
 

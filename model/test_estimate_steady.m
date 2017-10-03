@@ -3,6 +3,7 @@
 
 assertEqual = @(x, y) assert(isequal(x, y));
 assertEqualTol = @(x, y) assert(maxabs(x, y)<1e-5);
+isOptim = ~isempty(ver('optim'));
 
 rng(0);
 
@@ -23,9 +24,9 @@ est = struct( );
 est.a = { 0.5 , 0, 0.95 };
 est.c = { 5 };
 
-pEst0 = estimate(m, d, range, est, 'Display=', 'off');
-
-isOptim = ~isempty(ver('optim'));
+if isOptim
+    pEst0 = estimate(m, d, range, est, 'Display=', 'off');
+end
 
 %% Test Linear Estimate with Steady State
 
