@@ -28,7 +28,7 @@ q0.IxObserved = false(1, 22);
 q0.Bounds = repmat(model.component.Quantity.DEFAULT_BOUNDS, 1, nQuan);
 
 
-%% Test Insert First
+% Test Insert First
 
 q = q0;
 add = struct( );
@@ -56,7 +56,7 @@ assertEqual(x.Name, expName);
 assertEqual(x.IxLog, expIxLog);
 
 
-%% Test Insert Last
+% Test Insert Last
 
 q = q0;
 add = struct( );
