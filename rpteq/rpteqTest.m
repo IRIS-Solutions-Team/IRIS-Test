@@ -33,13 +33,6 @@ outpClip.x = resize(outpClip.x, dates);
 outpClip.z = resize(outpClip.z, dates);
 outpClip.w = resize(outpClip.w, dates);
 
-%{
-This.TestData.InpDbase = inp;
-This.TestData.OutpDbase = outp;
-This.TestData.OutpDbaseClip = outpClip;
-This.TestData.Dates = dates;
-%}
-
 %% Test File 
 
 q = rpteq('test.rpteq');
@@ -69,7 +62,7 @@ actualOutput = run(q, inp, dates);
 Assert.equal(actualOutput, expectedOutput);
 
 
-%% Test Direct File
+% Test Direct File
 
 q = rpteq([ ...
     ' "Eq1" x=x{-1} + y{1} - y{-2} ;', ...
