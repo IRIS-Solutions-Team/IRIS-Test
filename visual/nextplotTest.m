@@ -6,8 +6,8 @@ for i = 1 : 12
     grfun.nextplot( );
     plot(rand(10));
 end
-checkNumberOfFigures(1);
-checkNumberOfAxes(12);
+Assert.numberOfFigures(1);
+Assert.numberOfAxes(12);
 close all;
 
 %% Test nextplot(numRows, numCols) with more than one figure
@@ -17,8 +17,8 @@ for i = 1 : 24
     grfun.nextplot( );
     plot(rand(10));
 end
-checkNumberOfFigures(2);
-checkNumberOfAxes(12);
+Assert.numberOfFigures(2);
+Assert.numberOfAxes(12);
 close all;
 
 %% Test nextplot([numRows, numCols])
@@ -28,8 +28,8 @@ for i = 1 : 12
     grfun.nextplot( );
     plot(rand(10));
 end
-checkNumberOfFigures(1);
-checkNumberOfAxes(12);
+Assert.numberOfFigures(1);
+Assert.numberOfAxes(12);
 close all;
 
 %% Test nextplot([numRows, numCols]) with more than one figure
@@ -39,8 +39,8 @@ for i = 1 : 24
     grfun.nextplot( );
     plot(rand(10));
 end
-checkNumberOfFigures(2);
-checkNumberOfAxes(12);
+Assert.numberOfFigures(2);
+Assert.numberOfAxes(12);
 close all;
 
 %% Test nextplot(totalCount)
@@ -53,8 +53,8 @@ for i = 1 : 12
     grfun.nextplot( );
     plot(rand(10));
 end
-checkNumberOfFigures(1);
-checkNumberOfAxes(expectedTotalCount);
+Assert.numberOfFigures(1);
+Assert.numberOfAxes(expectedTotalCount);
 numRows = getappdata(gcf( ), 'IRIS_NEXTPLOT_NUM_ROWS');
 numColumns = getappdata(gcf( ), 'IRIS_NEXTPLOT_NUM_COLUMNS');
 assert(numRows==expectedNumRows);
@@ -72,25 +72,8 @@ for i = 1 : 24
     grfun.nextplot( );
     plot(rand(10));
 end
-checkNumberOfFigures(2);
-checkNumberOfAxes(expectedTotalCount);
+Assert.numberOfFigures(2);
+Assert.numberOfAxes(expectedTotalCount);
 close all;
 
 
-function checkNumberOfFigures(expectedNumFigures)
-    allFigures = get(0, 'Children');
-    numFigures = numel(allFigures);
-    assert(numFigures==expectedNumFigures);
-end
-
-
-function checkNumberOfAxes(expectedNumAxes)
-    allFigures = get(0, 'Children');
-    numFigures = numel(allFigures);
-    for i = 1 : numFigures
-        ithFigure = allFigures(i);
-        allAxes = get(ithFigure, 'Children');
-        numAxes = numel(allAxes);
-        assert(numAxes==expectedNumAxes);
-    end
-end

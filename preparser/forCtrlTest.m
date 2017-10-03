@@ -3,21 +3,21 @@
 
 inpCode = '!for ?1=<1:3> !do !for ?2=<1:?1> !do ?1?2 !end !end';
 expCode = '11 21 22 31 32 33';
-helper(inpCode, expCode);
+forCtrlHelper(inpCode, expCode);
 
 
 %%  testIfCond(this)
 
 inpCode = '!for ?1=<1:3> !do !for !if ?1==1; ?2=<0:?1> !else ?2=<1:?1> !end !do ?1?2 !end !end';
 expCode = '10 11 21 22 31 32 33';
-helper(inpCode, expCode);
+forCtrlHelper(inpCode, expCode);
 
 
 %%  testSwitchExpr(this)
 
 inpCode = '!for ?1=<1:4> !do !switch ?1; !case 1; 100; !case 2; 200; !case 3; 300; !otherwise 400; !end !end';
 expCode = '100; 200; 300; 400;';
-helper(inpCode, expCode);
+forCtrlHelper(inpCode, expCode);
 
 
 %%  testImportFileName(this)
@@ -28,7 +28,7 @@ char2file('contents3', 'testImportFileName3.model');
 rehash( );
 inpCode = '!for ?1=<1:3> !do !import(testImportFileName?1.model) !end';
 expCode = 'contents1 contents2 contents3';
-helper(inpCode, expCode);
+forCtrlHelper(inpCode, expCode);
 
 
 %%  testExportFileName(this)
@@ -57,18 +57,4 @@ actualContents = {actualExport.Contents};
 actualContents = Preparser.removeInsignificantWhs(actualContents);
 expectedContents = Preparser.removeInsignificantWhs(expectedContents);
 Assert.equal(actualContents, expectedContents);
-
-
-function helper(inpCode, expCode, assign)
-    import parser.Preparser;
-    try
-        assign; 
-    catch
-        assign = struct( ); 
-    end %#ok<VUNUS, NOCOM>
-    actCode = Preparser.parse([ ], inpCode, assign);
-    actCode = Preparser.removeInsignificantWhs(actCode);
-    expCode = Preparser.removeInsignificantWhs(expCode);
-    Assert.equal(actCode, expCode);
-end
 
