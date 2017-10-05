@@ -37,8 +37,7 @@ endhist = DateWrapper(endhist);
 isOptim = ~isempty(ver('optim'));
 
 
-%**************************************************************************
-% Test get
+%% Test get
 
 m = m0;
 
@@ -65,23 +64,20 @@ expected = {'std_Mp', 'std_Mw', 'std_Ey', 'std_Ep', 'std_Ea', 'std_Er', ...
     'std_Ew'} ;
 Assert.equal(actual, expected) ;
 
-%**************************************************************************
-% Test isname
+%% Test isname
 
 m = m0;
 Assert.equal(isname(m, 'alpha'), true) ;
 Assert.equal(isname(m, 'alph'), false) ;
 
 
-%**************************************************************************
-% Test isnan 
+%% Test isnan 
 
 m = m0;
 Assert.equal(isnan(m), true) ;
 
 
-%**************************************************************************
-% Test issolved
+%% Test issolved
 
 m = m0;
 s = m1;
@@ -90,16 +86,14 @@ Assert.equal(issolved(m), false) ;
 Assert.equal(issolved(s), true) ;
 
 
-%**************************************************************************
-% Test alter
+%% Test alter
 
 m = m0;
 Assert.equal(length(alter(m, 3)), 3) ;
 Assert.equal(length(m([1, 1, 1])), 3) ;
 
 
-%**************************************************************************
-% Test chksstate
+%% Test chksstate
 
 m = m0;
 s = m1;
@@ -110,8 +104,7 @@ Assert.equal(issolved(s), true) ;
 Assert.equal(chksstate(s, 'error=', false, 'warning=', false), true) ;
 
 %}
-%**************************************************************************
-% Test estimate
+%% Test estimate
 
 if isOptim
     m = m1;
@@ -159,8 +152,7 @@ if isOptim
     Assert.relTol(double(Pdelta), double(cmp.Pdelta), 1e-3) ;
 end
 
-%**************************************************************************
-% Test loglik
+%% Test loglik
 
 m = m1;
 
@@ -174,8 +166,7 @@ Assert.equal(Delta1, Delta2);
 Assert.equal(Pe1, Pe2);
 
 
-%**************************************************************************
-% Test Fast loglik
+%% Test Fast loglik
 
 m = m1;
 
@@ -201,8 +192,7 @@ end
 Assert.equal(obj1, obj2);
 
 
-%**************************************************************************
-% Test loglik Decomposition
+%% Test loglik Decomposition
 
 m = m1;
 

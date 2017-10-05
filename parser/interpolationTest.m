@@ -1,7 +1,7 @@
 
 assertEqual = @(x, y) assert(isequal(x, y));
 
-% Test Interpolation in For
+%% Test Interpolation in For
 
 m = model('test_interpolation.model');
 list = get(m, 'Names');

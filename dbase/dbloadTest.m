@@ -1,8 +1,7 @@
 
 assertEqual = @(x, y) assert(isequal(x, y));
 
-%**************************************************************************
-% Basic
+%% Basic
 
 d = dbload('dbloadTest1.csv');
 
@@ -16,8 +15,7 @@ for i = 1 : numel(lsf)
     assertEqual(x.Data, (1:16).'*10^(i-1));
 end
 
-%**************************************************************************
-% Option DateFormat=
+%% Option DateFormat=
 
 d = dbload('dbloadTest2.csv', 'DateFormat=', 'YYYY/M/1', 'Freq=', 4);
 
@@ -41,8 +39,7 @@ for i = 1 : numel(lsf)
     assertEqual(endDate(x), mm(2004, 10));
 end
 
-%**************************************************************************
-% Option Case=
+%% Option Case=
 
 d = dbload('dbloadTest1.csv', 'Case=', 'lower');
 assertEqual(sort(fieldnames(d)), {'x'; 'y'; 'z'});

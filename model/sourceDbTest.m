@@ -44,8 +44,7 @@ parser.grabTextFromCaller('ModelLag', fileName);
 n0 = model(fileName, 'linear=', true);
 
 
-%**************************************************************************
-% Test zerodb
+%% Test zerodb
 
 m = m0;
 range = 1:10;
@@ -73,8 +72,7 @@ expDb = struct( ...
 compareDatabanks(actDb, expDb);
 
 
-%**************************************************************************
-% Test zerodb with ShockFunc Option
+%% Test zerodb with ShockFunc Option
 
 m = m0;
 range = 1:100000;
@@ -89,8 +87,7 @@ assertEqual(round(actStdEy, 1), 1);
 assertEqual(round(actStdEz, 1), 1);
 
 
-%**************************************************************************
-% Test sstatedb
+%% Test sstatedb
 
 m = m0;
 range = 1:10;
@@ -120,8 +117,7 @@ expDb = struct( ...
 compareDatabanks(actDb, expDb);
 
 
-%**************************************************************************
-% Test sstatedb Multiple Variants
+%% Test sstatedb Multiple Variants
 
 m = m0;
 m = alter(m, 2);
@@ -156,8 +152,7 @@ expDb = struct( ...
 compareDatabanks(actDb, expDb);
 
 
-%**************************************************************************
-% Test zerodb with Lags
+%% Test zerodb with Lags
 
 m = n0;
 range = 1:10;
@@ -185,8 +180,7 @@ expDb = struct( ...
 compareDatabanks(actDb, expDb);
 
 
-%**************************************************************************
-% Test sstatedb with Lags
+%% Test sstatedb with Lags
 
 m = n0;
 range = 1:10;

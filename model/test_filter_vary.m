@@ -11,8 +11,7 @@ d.z = cumsum(Series(1:10, @randn));
 [~, f0] = filter(m, d, 1:10, 'Output=', 'Smooth,Pred',  'Relative=', false);
 [~, f1] = filter(assign(m, 'std_eps_y=', 10), d, 1:10, 'Output=', 'Smooth,Pred',  'Relative=', false);
 
-%**************************************************************************
-% Test Presample
+%% Test Presample
 
 v2 = struct( );
 v2.std_eps_y = tseries(0, 10);
@@ -24,8 +23,7 @@ v2.std_eps_y = tseries(0, 10);
 assertLess( f0.pred.std.y(:), f2.pred.std.y(:) );
 assertLess( f2.pred.std.y(:), f1.pred.std.y(:) );
 
-%**************************************************************************
-% Test Presample and First Period
+%% Test Presample and First Period
 
 v3 = struct( );
 v3.std_eps_y = tseries(0:1, 10);

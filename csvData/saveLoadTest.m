@@ -2,8 +2,7 @@
 assertEqual = @(x, y) assert(isequaln(x, y));
 assertEqualTol = @(x, y, tol) assert(all(size(x)==size(y)) && all(abs(x(:) - y(:))<1e-12));
 
-%**************************************************************************
-% Save Weekly Series
+%% Save Weekly Series
 
 rng(0);
 
@@ -14,8 +13,7 @@ dbsave(ac,'testSaveLoad1.csv');
 ex = dbload('testSaveLoad1.csv');
 assertEqualTol(ac.x(:), ex.x(:));
 
-%**************************************************************************
-% Save Weekly Series with User Date Format
+%% Save Weekly Series with User Date Format
 
 rng(0);
 
@@ -29,8 +27,7 @@ ex = dbload('testSaveLoad2.csv', ...
     'DateFormat=', dateFormat, 'Freq=', 52);
 assertEqualTol(ac.x(:), ex.x(:));
 
-%**************************************************************************
-% Save Numeric Array Only
+%% Save Numeric Array Only
 
 rng(0);
 
@@ -41,8 +38,7 @@ dbsave(ac, 'testSaveLoad3.csv');
 ex = dbload('testSaveLoad3.csv');
 assertEqualTol(ac.x, ex.x);
 
-%**************************************************************************
-% Save Weekly Series and Numeric Array
+%% Save Weekly Series and Numeric Array
 
 rng(0);
 
@@ -56,8 +52,7 @@ ex = dbload('testSaveLoad4.csv');
 assertEqualTol(ac.x, ex.x);
 assertEqualTol(ac.y, ex.y);
 
-%**************************************************************************
-% Select
+%% Select
 
 rng(0);
 
@@ -76,8 +71,7 @@ ac = rmfield(ac, 'x');
 ex = dbload('testSaveLoad5.csv', 'Select=', {'y', 'z'});
 assertEqual(sort(fieldnames(ac)), sort(fieldnames(ex)));
 
-%**************************************************************************
-% Missing Observations
+%% Missing Observations
 
 ac = dbload('testMissingObs.csv');
 range = qq(2000,1) : qq(2000,4);
@@ -89,8 +83,7 @@ assertEqual(ac.x(:), ex.x(:));
 assertEqual(ac.y(:), ex.y(:));
 assertEqual(ac.z(:), ex.z(:));
 
-%**************************************************************************
-% Daily Series
+%% Daily Series
 
 d = dbload('testDailyCsv.csv', ...
     'dateFormat=', '$M/D/YYYY', ...

@@ -109,8 +109,7 @@ testData.InputData = d;
 isOptim = ~isempty(ver('optim'));
 
 
-%**************************************************************************
-% Test Solve
+%% Test Solve
 
 m1 = testData.Model;
 m1 = solve(m1);
@@ -122,8 +121,7 @@ assertEqual(real(m1.x), real(m1.y));
 
 
 
-%**************************************************************************
-% Test Solve with Lock
+%% Test Solve with Lock
 
 m1 = testData.Model;
 m1 = disable(m1, '!links', 'mux', 'rhox');
@@ -143,8 +141,7 @@ assertEqual(real(m1.x), real(m1.y));
 
 
 
-%**************************************************************************
-% Test Estimate
+%% Test Estimate
 
 m0 = testData.Model;
 d = testData.InputData;
@@ -206,8 +203,7 @@ if isOptim
 end
 
 
-%**************************************************************************
-% Test StdCorr
+%% Test StdCorr
 
 m = testData.ModelSx;
 m = alter(m, 3);

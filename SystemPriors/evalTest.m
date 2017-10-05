@@ -1,7 +1,7 @@
 
 m = model('evalTest.model', 'Linear=', true);
 
-% Define System Priors
+%% Define System Priors
 
 s = systempriors(m);
 s = prior(s, 'max(.a, .b)', [ ], 'Lower=', 0, 'Upper=', 1);
