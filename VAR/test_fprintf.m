@@ -12,7 +12,8 @@ x = mean(v);
 
 assertEqualTol = @(x, y) assert(abs(x-y)<1e-8);
 
-%% Hard Parameters
+%**************************************************************************
+% Hard Parameters
 
 fprintf(v, 'test_fprintf_hard.model', 'Declare=', true);
 mh = model('test_fprintf_hard.model', 'Linear=', true);
@@ -23,7 +24,8 @@ assertEqualTol(x(1), mh.x);
 assertEqualTol(x(2), mh.y);
 assertEqualTol(x(3), mh.z);
 
-%% Soft Parameters
+%**************************************************************************
+% Soft Parameters
 
 [~, d] = fprintf(v, 'test_fprintf_soft.model', 'Declare=', true, 'HardParameters=', false);
 ms = model('test_fprintf_hard.model', 'Linear=', true);

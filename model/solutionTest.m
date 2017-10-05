@@ -2,7 +2,8 @@
 assertEqual = @(x, y) assert(isequal(x, y));
 assertNotEqual = @(x, y) assert(~isequal(x, y));
 
-%% Test LastSystem
+%**************************************************************************
+% Test LastSystem
 
 m = model('testLastSyst.model', 'linear=', true);
 m.a = 11;
@@ -35,7 +36,8 @@ expDeriv = [-110;-120;-130];
 assertEqual(actDeriv, expDeriv);
 
 
-%% Test Solve Option Eqtn
+%**************************************************************************
+% Test Solve Option Eqtn
 
 m = model('testSolveEqtn.model', 'linear=', true);
 m.a = 11;

@@ -1,7 +1,8 @@
 
 assertEqual = @(x, y) assert(isequal(x, y));
 
-%% Base Year Input Argument
+%**************************************************************************
+% Base Year Input Argument
 
 for freq = [1, 2, 4, 12]
     rng = datcode(freq, 1990) : datcode(freq, 2100);
@@ -20,7 +21,8 @@ for freq = [1, 2, 4, 12]
 end
 
 
-%% Base Year From Config
+%**************************************************************************
+% Base Year From Config
 
 baseYear = iris.get('BaseYear');
 for freq = [1, 2, 4, 12]
@@ -41,7 +43,8 @@ for freq = [1, 2, 4, 12]
 end
 iris.set('BaseYear', baseYear);
 
-%% Base Year From Model
+%**************************************************************************
+% Base Year From Model
 
 m = model( );
 for freq = [1, 2, 4, 12]

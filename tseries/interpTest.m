@@ -14,7 +14,8 @@ expectedDataLinear = linear( (1:T)' );
 expectedDataNearest = nearest( (1:T)' );
 
 
-%% Integer Frequency
+%**************************************************************************
+% Integer Frequency
 
 x = Series(1, data);
 
@@ -35,7 +36,8 @@ actualData = xi(:);
 Assert.absTol(expectedDataNearest, actualData, 1e-12);
 
 
-%% Quarterly Frequency
+%**************************************************************************
+% Quarterly Frequency
 
 x = Series(qq(2000, 1), data);
 
@@ -56,7 +58,8 @@ actualData = xi(:);
 Assert.absTol(expectedDataNearest, actualData, 1e-12);
 
 
-%% Daily Frequency
+%**************************************************************************
+% Daily Frequency
 
 x = Series(dd(2000, 1, 1), data);
 

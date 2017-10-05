@@ -6,7 +6,8 @@ m0 = solve(m0);
 m0 = sstate(m0);
 
 
-%% Test Shocks
+%**************************************************************************
+% Test Shocks
 
 m = m0;
 eList = get(m, 'eList');
@@ -25,7 +26,8 @@ for i = 1 : length(list)
 end
 
 
-%% Test Parameters
+%**************************************************************************
+% Test Parameters
 
 m = m0;
 eList = get(m, 'eList');

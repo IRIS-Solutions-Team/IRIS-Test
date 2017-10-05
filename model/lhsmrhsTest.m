@@ -10,14 +10,16 @@ m.x = m.x_bar;
 m.y = 0 + 1i*m.dy_bar;
 m.z = 10 + 1i*m.dz_bar;
 
-%% Test CHKSSTATE
+%**************************************************************************
+% Test CHKSSTATE
 
 flag = chksstate(m, 'Kind=', 'Steady');
 assert(flag);
 flag = chksstate(m, 'Kind=', 'Dynamic');
 assert(flag);
 
-%% Test CHKSSTATE with Mulitiple Variants
+%**************************************************************************
+% Test CHKSSTATE with Mulitiple Variants
 
 m2 = alter(m, 20);
 m2.z(2) = 11 + 2i;
@@ -28,7 +30,8 @@ assert( ~flag(2) );
 flag = chksstate(m2, 'Kind=', 'Dynamic');
 assert( all(flag) );
 
-%% Test LHSMRHS with Steady-State Databank Integer Frequency
+%**************************************************************************
+% Test LHSMRHS with Steady-State Databank Integer Frequency
 
 range = 1 : 10;
 d = sstatedb(m, range);
@@ -40,7 +43,8 @@ assertWithinTol(dcy(1:2, :));
 assertOutsideTol(dcy(3, :));
 
 
-%% Test LHSMRHS with Steady-State Databank Quarterly Frequency
+%**************************************************************************
+% Test LHSMRHS with Steady-State Databank Quarterly Frequency
 
 range = qq(2000, 1) : qq(2003, 4);
 d = sstatedb(m, range);
@@ -52,7 +56,8 @@ assertWithinTol(dcy(1:2, :));
 assertOutsideTol(dcy(3, :));
 
 
-%% Test LHSMRHS with Random Databank Integer Frequency
+%**************************************************************************
+% Test LHSMRHS with Random Databank Integer Frequency
 
 range = 1 : 20;
 d = sstatedb(m, range, 'ShockFunc=', @randn);
@@ -76,7 +81,8 @@ for i = 1 : length(eqtn)
 end
 
 
-%% Test LHSMRHS with Random Databank Integer Frequency Multiple Variants
+%**************************************************************************
+% Test LHSMRHS with Random Databank Integer Frequency Multiple Variants
 
 m2 = alter(m, 2);
 m2.x_bar(2) = m2.x_bar(2) + 1;

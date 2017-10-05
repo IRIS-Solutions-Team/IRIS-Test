@@ -1,35 +1,40 @@
 
 assertEqual = @(x, y) assert(isequal(x, y));
 
-%% Monthly
+%**************************************************************************
+% Monthly
 
 ac = str2dat('01-2010', ...
     'DateFormat=', 'MM-YYYY', 'Freq=', 12);
 ex = mm(2010, 1);
 assertEqual(ac, ex);
 
-%% Quarterly
+%**************************************************************************
+% Quarterly
 
 ac = str2dat('01-2010', ...
     'DateFormat=', 'MM-YYYY', 'Freq=', 4);
 ex = qq(2010, 1); 
 assertEqual(ac, ex);
 
-%% Monthly
+%**************************************************************************
+% Monthly
 
 ac = dat2char(str2dat('01-2010', ...
     'DateFormat=', 'MM-YYYY', 'Freq=', 1));
 ex = '2010Y';
 assertEqual(ac, ex);
 
-%% Daily
+%**************************************************************************
+% Daily
 
 ac = str2dat('2001-12-31', ...
     'DateFormat=', '$YYYY-MM-DD', 'Freq=', 52);
 ex = ww(2002, 1);
 assertEqual(ac, ex);
 
-%% Monthly from List of Months
+%**************************************************************************
+% Monthly from List of Months
 
 lsMonth = iris.get('months');
 for i = 1 : 12
@@ -42,7 +47,8 @@ for i = 1 : 12
     assertEqual(ac, ex);
 end
 
-%% Daily from List of Months
+%**************************************************************************
+% Daily from List of Months
 
 lsMonth = iris.get('months');
 for i = 1 : 12

@@ -3,7 +3,8 @@ assertEqual = @(x, y) assert(isequaln(x, y));
 m0 = model('modelGetSetTest.model', 'linear=', true);
 
 
-%% Test get Parameters
+%**************************************************************************
+% Test get Parameters
 
 m = m0;
 actDbPlain = get(m, 'PlainParameters');
@@ -40,7 +41,8 @@ expDb = dbmerge( ...
 assertEqual(actDb, expDb);
 
 
-%% Test reset
+%**************************************************************************
+% Test reset
 
 m = m0;
 m1 = reset(m, 'PlainParameters');
@@ -69,7 +71,8 @@ expDbCorr = struct( );
 assertEqual(actDbCorr, expDbCorr);
 
 
-%% Test get Omega
+%**************************************************************************
+% Test get Omega
 
 m = m0;
 actOmg = omega(m);
@@ -81,7 +84,8 @@ assertEqual(actStd1, expStd1);
 assertEqual(actStd2, expStd2);
 
 
-%% Test set Omega
+%**************************************************************************
+% Test set Omega
 
 m = m0;
 newOmg = repmat(eye(5), 1, 1, 2);

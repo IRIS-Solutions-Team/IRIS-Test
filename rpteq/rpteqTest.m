@@ -33,7 +33,8 @@ outpClip.x = resize(outpClip.x, dates);
 outpClip.z = resize(outpClip.z, dates);
 outpClip.w = resize(outpClip.w, dates);
 
-%% Test File 
+%**************************************************************************
+% Test File 
 
 q = rpteq('test.rpteq');
 expectedOutput = outpClip;
@@ -41,7 +42,8 @@ actualOutput = run(q, inp, dates);
 Assert.equal(actualOutput, expectedOutput);
 
 
-%% Test File Overlay
+%**************************************************************************
+% Test File Overlay
 
 q = rpteq('test.rpteq');
 expectedOutput = outp;
@@ -49,7 +51,8 @@ actualOutput = run(q, inp, dates, 'dbOverlay=', true);
 Assert.equal(actualOutput, expectedOutput);
 
 
-%% Test Model File
+%**************************************************************************
+% Test Model File
 
 m = model('test.model');
 q = get(m, 'reporting');

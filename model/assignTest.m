@@ -3,7 +3,8 @@ assertEqual =  @(x, y) isequal(x, y);
 m0 = model('assignTest.model');
 
 
-%% Test Basic Assign
+%**************************************************************************
+% Test Basic Assign
 
 x = 0;
 y = 1;
@@ -63,7 +64,8 @@ assertEqual(actSstate, expSstate);
 assertEqual(actStd, expStd);
 
 
-%% Test Multiple
+%**************************************************************************
+% Test Multiple
 
 x = [0, 0.5];
 y = [1, 1];
@@ -125,7 +127,8 @@ assertEqual(actSstate, expSstate);
 assertEqual(actStd, expStd);
 
 
-%% Test Fast Assign
+%**************************************************************************
+% Test Fast Assign
 
 x = 0;
 y = 1;
@@ -159,7 +162,8 @@ assertEqual(actSstate, expSstate);
 assertEqual(actStd, expStd);
 
 
-%% Test Regexp
+%**************************************************************************
+% Test Regexp
 
 xy = 100;
 e = 0;
