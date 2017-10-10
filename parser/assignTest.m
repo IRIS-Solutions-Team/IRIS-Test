@@ -6,13 +6,13 @@ end
 
 
 
-function the = readAndAssign(code, inpDbase, opt)
+function the = readAndAssign(code, inputDatabank, opt)
 TYPE = @int8;
 
 % Initialize parser.TheParser object.
 the = parser.TheParser( );
-the.AssignOrd = TYPE(2);
-the.DbaseAssigned = inpDbase;
+the.AssignOrder = TYPE(2);
+the.AssignedDatabank = inputDatabank;
 
 % Initialize parser.theparser.Quantity object.
 b = parser.theparser.Quantity( );
@@ -42,7 +42,7 @@ g = -1/d+f;
 %}
 code = parser.grabTextFromCaller('A');
 the = readAndAssign(code, struct( ), [ ]);
-actAssigned = the.DbaseAssigned;
+actAssigned = the.AssignedDatabank;
 expAssigned = struct( ...
     'a', 1, ...
     'c', [1+3i, NaN], ...
@@ -66,7 +66,7 @@ a = struct( ...
     );
 code = parser.grabTextFromCaller('A');
 the = readAndAssign(code, a, [ ]);
-actAssigned = the.DbaseAssigned;
+actAssigned = the.AssignedDatabank;
 expAssigned = struct( ...
     'a', 0, ...
     'b', 0, ...
@@ -91,7 +91,7 @@ a=1; b=2; c=3; a=4; b=10*a+c; z=1
 %}
 code = parser.grabTextFromCaller('M');
 the = readAndAssign(code, struct( ), struct('multiple', true));
-actDbase = the.DbaseAssigned;
+actDbase = the.AssignedDatabank;
 expDbase = struct( ...
     'a', 4, ...
     'b', 43, ...

@@ -62,7 +62,7 @@ assertStrNotInFile('test_steady_solver_ua', 'Numerical');
 % some more overhead time will be wasted preparing analytical gradients (which are
 % not used).
 
-opt = solver.Options('SpecifyObjectiveGradient=', false);
+opt = solver.Options('Steady', 'SpecifyObjectiveGradient=', false);
 fn = @(fn, x) solver.algorithm.lm(fn, x, opt);
 
 delete test_steady_solver_un
@@ -78,7 +78,7 @@ assertStrNotInFile('test_steady_solver_un', 'Analytical');
 % If user solver expects analytical gradients but option PrepareGradient=
 % is set false, IRIS will throw an error.
 
-opt = solver.Options('SpecifyObjectiveGradient=', true);
+opt = solver.Options('Steady', 'SpecifyObjectiveGradient=', true);
 fn = @(fn, x) solver.algorithm.lm(fn, x, opt);
 
 delete test_steady_solver_uax

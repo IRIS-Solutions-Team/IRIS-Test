@@ -28,7 +28,7 @@ expType = repmat(b.Type, 1, nQuan);
 actLabel = quantity.Label;
 expLabel = {'Name a', '', 'Name ''c'';', '', 'Name e'};
 
-actValue = the.StrAssigned;
+actValue = the.AssignedString;
 expValue = {'', '', '', '1', '2+1i'};
 
 actBounds = quantity.Bounds;
