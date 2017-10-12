@@ -25,7 +25,7 @@ this.TestData.model = sstate(m);
 
 % set tolerances
 this.TestData.meanSeriesAbsTol = 1e-2;
-this.TestData.stdSeriesAbsTol = 1e-4;
+this.TestData.stdSeriesAbsTol = 1e-3;
 this.TestData.doubleAbsTol = 0;
 end
 
