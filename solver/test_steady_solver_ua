@@ -1,69 +1,69 @@
 
-  Iter Fn-Count       Fn-Norm Lambda     Step-Size   Fn-Norm-Chg     Max-X-Chg    Jacob-Norm
+  Iter Fn-Count       Fn-Norm Lambda     Step-Size   Fn-Norm-Chg     Max-X-Chg Max-Jacob-Chg
                     norm(x,2) Hybrid                                              Analytical
 --------------------------------------------------------------------------------------------
      0        1          0.05    NaN           NaN           NaN             0           NaN
-     1        8    0.00133918    100             1    -0.0486608     0.0526316           NaN
-     2       15   8.95104e-07      0             1   -0.00133829    0.00133739           NaN
-     3       22   4.00791e-13      0             1  -8.95103e-07   8.95103e-07           NaN
-     4       29   1.11022e-16      0             1  -4.00679e-13   4.00791e-13           NaN
+     1        8    0.00133918    100             1    -0.0486608     0.0526316     0.0513392
+     2       15   8.95104e-07      0             1   -0.00133829    0.00133739    0.00133829
+     3       22   4.00791e-13      0             1  -8.95103e-07   8.95103e-07   8.95103e-07
+     4       29   1.11022e-16      0             1  -4.00679e-13   4.00791e-13   4.00902e-13
 
 Successfully converged. Both step tolerance and function tolerance satisfied.
 
 
-  Iter Fn-Count       Fn-Norm Lambda     Step-Size   Fn-Norm-Chg     Max-X-Chg    Jacob-Norm
+  Iter Fn-Count       Fn-Norm Lambda     Step-Size   Fn-Norm-Chg     Max-X-Chg Max-Jacob-Chg
                     norm(x,2) Hybrid                                              Analytical
 --------------------------------------------------------------------------------------------
      0        1      0.752632    NaN           NaN           NaN             0           NaN
-     1        8      0.536754    100           0.8     -0.215877       1.20421           NaN
-     2       15      0.325052    100             1     -0.211702      0.842617           NaN
-     3       23     0.0138922      0           1.2      -0.31116      0.582829           NaN
-     4       30   7.68632e-05      0             1    -0.0138153    0.00943278           NaN
-     5       37   4.60992e-09      0             1  -7.68586e-05   0.000196188           NaN
-     6       44   9.69461e-16      0             1  -4.60991e-09   9.77883e-09           NaN
-     7       51   4.47545e-16      0             1  -5.21915e-16   1.22125e-15           NaN
+     1        8      0.536754    100           0.8     -0.215877       1.20421       2.33413
+     2       15      0.325052    100             1     -0.211702      0.842617       2.41471
+     3       23     0.0138922      0           1.2      -0.31116      0.582829       1.82056
+     4       30   7.68632e-05      0             1    -0.0138153    0.00943278      0.022721
+     5       37   4.60992e-09      0             1  -7.68586e-05   0.000196188   0.000443953
+     6       44   9.69461e-16      0             1  -4.60991e-09   9.77883e-09   2.31499e-08
+     7       51   4.47545e-16      0             1  -5.21915e-16   1.22125e-15   3.10862e-15
 
 Successfully converged. Both step tolerance and function tolerance satisfied.
 
 
-  Iter Fn-Count       Fn-Norm Lambda     Step-Size   Fn-Norm-Chg     Max-X-Chg    Jacob-Norm
+  Iter Fn-Count       Fn-Norm Lambda     Step-Size   Fn-Norm-Chg     Max-X-Chg Max-Jacob-Chg
                     norm(x,2) Hybrid                                              Analytical
 --------------------------------------------------------------------------------------------
      0        1      0.947284    NaN           NaN           NaN             0           NaN
-     1       11     0.0875395      0        2.0736     -0.859744       1.96429           NaN
-     2       20    0.00437796      0          1.44    -0.0831615      0.898764           NaN
-     3       27    0.00016364      0             1   -0.00421432     0.0766794           NaN
-     4       34   2.52936e-07      0             1  -0.000163387    0.00309456           NaN
-     5       41   6.06799e-13      0             1  -2.52936e-07   4.79804e-06           NaN
-     6       48   6.93889e-18      0             1  -6.06792e-13   1.15108e-11           NaN
-     7       55   6.93889e-18      0             1             0             0           NaN
+     1       11     0.0875395      0        2.0736     -0.859744       1.96429      0.859744
+     2       20    0.00437796      0          1.44    -0.0831615      0.898764     0.0831615
+     3       27    0.00016364      0             1   -0.00421432     0.0766794    0.00421432
+     4       34   2.52936e-07      0             1  -0.000163387    0.00309456   0.000163387
+     5       41   6.06799e-13      0             1  -2.52936e-07   4.79804e-06   2.52936e-07
+     6       48   6.93889e-18      0             1  -6.06792e-13   1.15108e-11   6.06806e-13
+     7       55   6.93889e-18      0             1             0             0             0
 
 Successfully converged. Both step tolerance and function tolerance satisfied.
 
 
-  Iter Fn-Count       Fn-Norm Lambda     Step-Size   Fn-Norm-Chg     Max-X-Chg    Jacob-Norm
+  Iter Fn-Count       Fn-Norm Lambda     Step-Size   Fn-Norm-Chg     Max-X-Chg Max-Jacob-Chg
                     norm(x,2) Hybrid                                              Analytical
 --------------------------------------------------------------------------------------------
      0        1      0.635519    NaN           NaN           NaN             0           NaN
-     1       11     0.0310026      0         1.728     -0.604516       1.09818           NaN
-     2       18    0.00148683    100             1    -0.0295158     0.0929673           NaN
-     3       25   3.01622e-06      0             1   -0.00148382    0.00406274           NaN
-     4       32     1.248e-11      0             1  -3.01621e-06   8.27531e-06           NaN
-     5       39   6.93889e-18      0             1    -1.248e-11   3.42404e-11           NaN
-     6       46   6.93889e-18      0             1             0             0           NaN
+     1       11     0.0310026      0         1.728     -0.604516       1.09818      0.666521
+     2       18    0.00148683    100             1    -0.0295158     0.0929673     0.0324895
+     3       25   3.01622e-06      0             1   -0.00148382    0.00406274    0.00148382
+     4       32     1.248e-11      0             1  -3.01621e-06   8.27531e-06   3.01621e-06
+     5       39   6.93889e-18      0             1    -1.248e-11   3.42404e-11     1.248e-11
+     6       46   6.93889e-18      0             1             0             0             0
 
 Successfully converged. Both step tolerance and function tolerance satisfied.
 
 
-  Iter Fn-Count       Fn-Norm Lambda     Step-Size   Fn-Norm-Chg     Max-X-Chg    Jacob-Norm
+  Iter Fn-Count       Fn-Norm Lambda     Step-Size   Fn-Norm-Chg     Max-X-Chg Max-Jacob-Chg
                     norm(x,2) Hybrid                                              Analytical
 --------------------------------------------------------------------------------------------
      0        1      0.635519    NaN           NaN           NaN             0           NaN
-     1        8      0.470525    100           0.8     -0.164993        1.3949           NaN
-     2       16    0.00165599      0           1.2     -0.468869      0.383965           NaN
-     3       23   1.36814e-06      0             1   -0.00165463    0.00165326           NaN
-     4       30    9.3614e-13      0             1  -1.36814e-06   1.36814e-06           NaN
-     5       37             0      0             1   -9.3614e-13    9.3614e-13           NaN
+     1        8      0.470525    100           0.8     -0.164993        1.3949       1.10604
+     2       16    0.00165599      0           1.2     -0.468869      0.383965      0.468869
+     3       23   1.36814e-06      0             1   -0.00165463    0.00165326    0.00165463
+     4       30    9.3614e-13      0             1  -1.36814e-06   1.36814e-06   1.36814e-06
+     5       37             0      0             1   -9.3614e-13    9.3614e-13    9.3614e-13
 
 Successfully converged. Both step tolerance and function tolerance satisfied.
 
