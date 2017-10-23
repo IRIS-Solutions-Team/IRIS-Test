@@ -53,6 +53,15 @@ end
 
 
 
+function testGet(~)
+x = tseries(qq(2010,1):qq(2011,2), 1) ;
+Assert.equaln(get(x,'start'), qq(2010,1));
+Assert.equaln(get(x,'end'), qq(2011,2));
+end
+
+
+
+
 function testAssign(this) 
 x = tseries( );
 x(1:5) = 2 : 6 ;
