@@ -7,7 +7,7 @@ end
 
 
 function setupOnce(this)
-m = Model('dtrendsTest.model', 'Linear=', true);
+m = model('dtrendsTest.model', 'Linear=', true);
 ttrend = 0 : 4;
 nPer = length(ttrend);
 g = rand(1, nPer)*5 - 10; %[1, 2.5, -3, 10, 0];

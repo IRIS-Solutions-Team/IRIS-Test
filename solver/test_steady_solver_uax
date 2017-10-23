@@ -1,4 +1,4 @@
 
-  Iter Fn-Count       Fn-Norm Lambda     Step-Size   Fn-Norm-Chg     Max-X-Chg    Jacob-Norm
+  Iter Fn-Count       Fn-Norm Lambda     Step-Size   Fn-Norm-Chg     Max-X-Chg Max-Jacob-Chg
                     norm(x,2) Hybrid                                              Analytical
 --------------------------------------------------------------------------------------------

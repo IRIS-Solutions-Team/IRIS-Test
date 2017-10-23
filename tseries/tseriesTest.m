@@ -40,14 +40,14 @@ end
 
 function testEmpty(~)
 x = tseries( );
-Assert.equaln(startdate(x), DateWrapper(NaN));
-Assert.equaln(enddate(x), DateWrapper(NaN));
+Assert.equaln(x.Start, DateWrapper(NaN));
+Assert.equaln(x.End, DateWrapper(NaN));
 x = tseries.empty(0, 2, 3);
 Assert.equal(x.Data, double.empty(0, 2, 3));
-Assert.equaln(startdate(x), DateWrapper(NaN));
+Assert.equaln(x.Start, DateWrapper(NaN));
 x = tseries.empty([0, 2, 3]);
 Assert.equal(x.Data, double.empty(0, 2, 3));
-Assert.equaln(startdate(x), DateWrapper(NaN));
+Assert.equaln(x.Start, DateWrapper(NaN));
 end
 
 
