@@ -3,8 +3,6 @@ tests = functiontests(localfunctions( ));
 end
 
 
-
-
 function testPrctile(this)
 row = 10;
 col = 20;
