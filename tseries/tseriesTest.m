@@ -54,9 +54,11 @@ end
 
 
 function testGet(~)
-x = tseries(qq(2010,1):qq(2011,2), 1) ;
-Assert.equaln(get(x,'start'), qq(2010,1));
-Assert.equaln(get(x,'end'), qq(2011,2));
+sdate = qq(2010,1);
+edate = qq(2011,2);
+x = tseries(sdate:edate, 1) ;
+Assert.equal(get(x,'start'), sdate);
+Assert.equal(get(x,'end'), edate);
 end
 
 
