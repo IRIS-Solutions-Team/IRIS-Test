@@ -70,4 +70,18 @@ Assert.equaln([x1Data; nan(sh, 1)],  xx(:, 1));
 Assert.equaln([nan(sh, 1); x2Data],  xx(:, 2));
 Assert.equaln([x3Data; nan(sh, 1)],  xx(:, 3));
 
+%% Cat with Empty
+
+start = qq(2000, 1);
+x1 = Series(start, x1Data);
+
+xx = [x1; Series];
+Assert.equaln(x1Data,  xx(:));
+
+xx = [Series; x1];
+Assert.equaln(x1Data,  xx(:));
+
+xx = [Series; Series];
+Assert.equaln(nan(0,1),  xx(:));
+
 
