@@ -15,10 +15,23 @@ end
 
 
 function testWrongFreqConcat(this)
-a = tseries(dd(1, 1, 1), 1);
-b = tseries(qq(2, 2), 2);
-assertError(this, @( )[a, b], 'IRIS:Series:CannotCatMixedFrequencies');
-assertError(this, @( )[a; b], 'IRIS:Series:CannotCatMixedFrequencies');
+    a = tseries(dd(1, 1, 1), 1);
+    b = tseries(qq(2, 2), 2);
+    expectedId = 'IRIS:Series:CannotCatMixedFrequencies';
+    actualId = '';
+    try
+        [a, b];
+    catch Error
+        actualId = Error.identifier;
+    end
+    assertEqual(this, actualId, expectedId);
+
+    try
+        [a; b];
+    catch Error
+        actualId = Error.identifier;
+    end
+    assertEqual(this, actualId, expectedId);
 end
 
 
