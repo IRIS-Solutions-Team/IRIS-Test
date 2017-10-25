@@ -68,7 +68,7 @@ function setupOnce(this)
     this.TestData.kalmanAbsTol = 1e-4;
     this.TestData.jforecastMeanAbsTol = 1e-8;
     this.TestData.jforecastMeanAbsTolCond = 1e-6;
-    this.TestData.jforecastStdAbsTol = 1e-11;
+    this.TestData.jforecastStdAbsTol = 1e-7;
     this.TestData.doubleAbsTol = 0;
 end
 
@@ -269,13 +269,13 @@ f = FAVAR(variables2include);
   this.TestData.startHist:this.TestData.endFcast);
 
 % testing estimate results
-    assertEqual(this, this.TestData.factorsEst,...
-      factorsEst,...
+    assertEqual(this, (this.TestData.factorsEst(:)),...
+      (factorsEst(:)),...
       'AbsTol',this.TestData.jforecastMeanAbsTolCond);
   
 % testing estimate results II.
-    assertEqual(this, this.TestData.favarResidEst,...
-      favarResidEst,...
+    assertEqual(this, (this.TestData.favarResidEst(:)),...
+      (favarResidEst(:)),...
       'AbsTol',this.TestData.jforecastMeanAbsTolCond);
   
 % testin FAVAR forecast
