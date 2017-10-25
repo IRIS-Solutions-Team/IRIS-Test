@@ -44,6 +44,8 @@ this.TestData.A                 = tmp2.A;
 this.TestData.K                 = tmp2.K;
 this.TestData.Omega             = tmp2.Omega;
 this.TestData.E                 = tmp2.E;
+this.TestData.f_cond            = tmp2.f_cond;
+this.TestData.rng_forecast      = tmp2.rng_forecast;
 
 end
 
@@ -120,7 +122,7 @@ w=VAR(this.TestData.list_tseries);
 [w,data] = estimate(w,this.TestData.db,this.TestData.rngEstim,'order',this.TestData.var_order,...
     'covParameters',true,'A',this.TestData.var_constraints,'C',this.TestData.const_constraints,'bvar',dummyobs);
 
-
+f_cond=forecast(w,this.TestData.db,this.TestData.rng_forecast,this.TestData.db,'meanOnly',true);
 % for test
 E = eig(w);
 A = get(w,'A*');
@@ -147,5 +149,12 @@ assertEqual(this,...
   this.TestData.Omega,...
   Omega,...
   'AbsTol',this.TestData.bvarAbsTol);
+
+% compare series
+vList = dbnames(f_cond,'classFilter','tseries');
+assertEqual(this,...
+  db2array(this.TestData.f_cond,vList,this.TestData.rng_forecast),...
+  db2array(f_cond,vList,this.TestData.rng_forecast),...
+  'AbsTol',this.TestData.meanSeriesAbsTol);
 
 end
