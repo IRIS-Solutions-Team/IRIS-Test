@@ -9,6 +9,7 @@ function setupOnce(this)
 
     % mat file
     tmp = load('iris2015.mat');
+    tmp2 = load('favar_2015.mat'); 
 
     % reading text of model
     char2file(tmp.model.mod_str,this.TestData.tmpModFile); 
@@ -42,6 +43,18 @@ function setupOnce(this)
     
     % adding data for conditional jforecast to TestData
     this.TestData.output_jforecast_cond = tmp.db_fcast;
+    
+    % adding data for FAVAR ti TestData
+    this.TestData.comCompEst = tmp2.comCompEst;
+    this.TestData.dbEstOutput = tmp2.dbEstOutput;
+    this.TestData.dbFcastOutput = tmp2.dbFcastOutput;
+    this.TestData.dbInput = tmp2.dbInput;
+    this.TestData.endFcast = tmp2.endFcast;
+    this.TestData.endHist = tmp2.endHist;
+    this.TestData.factorsEst = tmp2.factorsEst;
+    this.TestData.favarResidEst = tmp2.favarResidEst;
+    this.TestData.startHist = tmp2.startHist;
+    this.TestData.varResidEst = tmp2.varResidEst;
 
     % new IRIS dates are stored in the different class - transformation of the
     % old dates to new
@@ -241,3 +254,40 @@ function testJforecast_condition(this)
       'AbsTol',this.TestData.doubleAbsTol);
     %}
 end
+
+function testFAVAR(this)
+% estimate FAVAR model
+variables2include = fieldnames(this.TestData.dbInput);
+
+f = FAVAR(variables2include);
+
+[fEst,dbEstOutput,comCompEst,factorsEst,varResidEst,favarResidEst,CTF,estimRng] = ...
+  estimate(f,this.TestData.dbInput,this.TestData.startHist:this.TestData.endHist,[1,3],'order',1);
+
+% forecast with FAVAR model
+[fFcast,dbFcastOutput,comCompFcast,factorsFcast] = filter(fEst,dbEstOutput,...
+  this.TestData.startHist:this.TestData.endFcast);
+
+% testing estimate results
+    assertEqual(this, this.TestData.factorsEst,...
+      factorsEst,...
+      'AbsTol',this.TestData.jforecastMeanAbsTolCond);
+  
+% testing estimate results II.
+    assertEqual(this, this.TestData.favarResidEst,...
+      favarResidEst,...
+      'AbsTol',this.TestData.jforecastMeanAbsTolCond);
+  
+% testin FAVAR forecast
+    vList = dbnames(dbFcastOutput.mean,'classFilter','tseries');
+    assertEqual(this, db2array(dbFcastOutput.mean,vList,this.TestData.startHist:this.TestData.endFcast),...
+      db2array(this.TestData.dbFcastOutput.mean,vList,this.TestData.startHist:this.TestData.endFcast),...
+      'AbsTol',this.TestData.jforecastMeanAbsTolCond);
+
+end
+
+
+
+
+
+
