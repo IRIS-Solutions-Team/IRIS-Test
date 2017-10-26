@@ -9,7 +9,8 @@ function setupOnce(this)
 
     % mat file
     tmp = load('iris2015.mat');
-    tmp2 = load('favar_2015.mat'); 
+    tmp2 = load('favar_2015.mat');
+    tmp3 = load('bvar2015.mat');
 
     % reading text of model
     char2file(tmp.model.mod_str,this.TestData.tmpModFile); 
@@ -63,8 +64,25 @@ function setupOnce(this)
 
     % remove redundand ranges from inputs
     this.TestData.input_kalman = rmfield(this.TestData.input_kalman,'rng_filt');
-
+    % set bvar 
+    this.TestData.db                = tmp3.db;
+    this.TestData.list_tseries      = tmp3.list_tseries;
+    this.TestData.var_order         = tmp3.var_order;
+    this.TestData.var_constraints   = tmp3.var_constraints;
+    this.TestData.const_constraints = tmp3.const_constraints;
+    this.TestData.e_list            = tmp3.e_list;
+    this.TestData.rngEstim          = tmp3.rngEstim;
+    this.TestData.nObsEstim         = tmp3.nObsEstim;
+    this.TestData.relstd            = tmp3.relstd;
+    this.TestData.A                 = tmp3.A;
+    this.TestData.K                 = tmp3.K;
+    this.TestData.Omega             = tmp3.Omega;
+    this.TestData.E                 = tmp3.E;
+    this.TestData.f_cond            = tmp3.f_cond;
+    this.TestData.rng_forecast      = tmp3.rng_forecast;
     % set tolerances
+    this.TestData.bvarAbsTol = 1e-7;
+    this.TestData.meanSeriesAbsTol = 1e-2;
     this.TestData.kalmanAbsTol = 1e-4;
     this.TestData.jforecastMeanAbsTol = 1e-8;
     this.TestData.jforecastMeanAbsTolCond = 1e-6;
@@ -253,6 +271,51 @@ function testJforecast_condition(this)
       rmfield(db_expected.std,vList),...
       'AbsTol',this.TestData.doubleAbsTol);
     %}
+end
+
+function testOgiNtf(this)
+
+
+dummyobs = BVAR.litterman(0,sqrt(this.TestData.nObsEstim)*this.TestData.relstd,1);
+w=VAR(this.TestData.list_tseries);
+[w,data] = estimate(w,this.TestData.db,this.TestData.rngEstim,'order',this.TestData.var_order,...
+    'covParameters',true,'A',this.TestData.var_constraints,'C',this.TestData.const_constraints,'bvar',dummyobs);
+
+f_cond=forecast(w,this.TestData.db,this.TestData.rng_forecast,this.TestData.db,'meanOnly',true);
+% for test
+E = eig(w);
+A = get(w,'A*');
+K = get(w,'K');
+Omega = get(w,'Omega');
+
+% compare estimate results
+assertEqual(this,...
+  this.TestData.A,...
+  A,...
+  'AbsTol',this.TestData.bvarAbsTol);
+
+assertEqual(this,...
+  this.TestData.K,...
+  K,...
+  'AbsTol',this.TestData.bvarAbsTol);
+
+assertEqual(this,...
+  sort(this.TestData.E),...
+  sort(E),...
+  'AbsTol',this.TestData.bvarAbsTol);
+
+assertEqual(this,...
+  this.TestData.Omega,...
+  Omega,...
+  'AbsTol',this.TestData.bvarAbsTol);
+
+% compare series
+vList = dbnames(f_cond,'classFilter','tseries');
+assertEqual(this,...
+  db2array(this.TestData.f_cond,vList,this.TestData.rng_forecast),...
+  db2array(f_cond,vList,this.TestData.rng_forecast),...
+  'AbsTol',this.TestData.meanSeriesAbsTol);
+
 end
 
 function testFAVAR(this)
