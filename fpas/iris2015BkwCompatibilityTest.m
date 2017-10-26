@@ -45,6 +45,10 @@ function setupOnce(this)
     % adding data for conditional jforecast to TestData
     this.TestData.output_jforecast_cond = tmp.db_fcast;
     
+    % adding data for simulate to TestData    
+    this.TestData.output_simulate = tmp.simulate.db_actual;
+    this.TestData.output_simulate_shock = tmp.simulate.db_shockdecomp;
+    
     % adding data for FAVAR ti TestData
     this.TestData.comCompEst = tmp2.comCompEst;
     this.TestData.dbEstOutput = tmp2.dbEstOutput;
@@ -70,7 +74,6 @@ function setupOnce(this)
     this.TestData.var_order         = tmp3.var_order;
     this.TestData.var_constraints   = tmp3.var_constraints;
     this.TestData.const_constraints = tmp3.const_constraints;
-    this.TestData.e_list            = tmp3.e_list;
     this.TestData.rngEstim          = tmp3.rngEstim;
     this.TestData.nObsEstim         = tmp3.nObsEstim;
     this.TestData.relstd            = tmp3.relstd;
@@ -88,6 +91,7 @@ function setupOnce(this)
     this.TestData.jforecastMeanAbsTolCond = 1e-6;
     this.TestData.jforecastStdAbsTol = 1e-7;
     this.TestData.doubleAbsTol = 0;
+    this.TestData.simulateAbsTol = 1e-6;
 end
 
 function teardownOnce(this)
@@ -176,7 +180,7 @@ function testJforecast(this)
     stdNameList = fieldnames(get(mInput,'std'));
     db_actual.mean = rmfield(db_actual.mean,stdNameList);
     db_actual.std = rmfield(db_actual.std,stdNameList);
-    
+
     % compare actual and expected data
     vList = dbnames(db_actual.mean,'classFilter','tseries');
     %- all tseries from .mean
@@ -273,7 +277,70 @@ function testJforecast_condition(this)
     %}
 end
 
-function testOgiNtf(this)
+function testSimulate(this)
+    % getting input and expected data from TestData
+    mInput = this.TestData.model_kalm_out;
+    mInput.std_shock_dl_cpi_disc = 0;
+    mInput.std_shock_pie_tar = 0;
+    mInput.std_shock_debt_lin_approx = 0;
+    fcastRange = this.TestData.fcastRange;
+    db_init = this.TestData.input_jforecast;
+    db_expected = this.TestData.output_simulate;
+    db_expected_shockdecomp = this.TestData.output_simulate_shock;
+
+    % create empty plan of the forecast
+    p = plan(mInput, fcastRange);
+
+    % add tunes
+    %- "external sector" tunes
+    list_var_plan  = {'l_y_gap_f','l_cpi_f','rn_f','rr_tnd_f','l_oil',...
+    'l_roil_tnd','l_food','l_rfood_tnd'};
+    list_shck_plan = {'shock_l_y_gap_f','shock_dl_cpi_f','shock_rn_f',...
+    'shock_rr_tnd_f','shock_l_roil_gap','shock_dl_roil_tnd',...
+    'shock_l_rfood_gap','shock_dl_rfood_tnd'};
+    p = exogenize(p, list_var_plan, fcastRange);
+    p = endogenize(p, list_shck_plan, fcastRange);
+    %- "domestic" tunes
+    p = exogenize(p,'pie_tar',fcastRange);
+    p = endogenize(p,'shock_pie_tar',fcastRange);
+    p = exogenize(p,'dl_y',qq(2017,3));
+    p = endogenize(p,'shock_l_y_non_agr_gap',qq(2017,3));
+    p = exogenize(p,'l_y_observed',qq(2017,3));
+    p = endogenize(p,'shock_obs_l_y',qq(2017,3));
+
+    % run simulate wiht plan
+    db_actual = simulate(mInput, db_init, fcastRange, 'plan', p,...
+      'anticipate', true);
+  
+    % run forecast for shock_decomp
+    db_actual_orig = jforecast(mInput, db_init, fcastRange, 'plan', p,...
+      'anticipate', true, 'initcond', 'fixed');
+  
+    % run shockdecomp
+    db_shockdecomp = simulate(mInput, db_actual_orig.mean, fcastRange,...
+       'deviation',false,'contributions',true);
+
+    % remove the fields which didn't exist in the old Iris
+    db_actual = rmfield(db_actual,'ttrend');
+    
+    % compare actual and expected data
+    vList = dbnames(db_actual,'classFilter','tseries');
+    %- all tseries
+    assertEqual(this, db2array(db_actual,vList,fcastRange),...
+      db2array(db_expected,vList,fcastRange),...
+      'AbsTol',this.TestData.simulateAbsTol);
+  
+  % compare shock decomp
+    db_shockdecomp = rmfield(db_shockdecomp,'ttrend');
+    vList = dbnames(db_shockdecomp,'classFilter','tseries');
+    
+    assertEqual(this, db2array(db_shockdecomp,vList,fcastRange),...
+      db2array(db_expected_shockdecomp,vList,fcastRange),...
+      'AbsTol',this.TestData.simulateAbsTol);
+
+end
+
+function testBVAR(this)
 
 
 dummyobs = BVAR.litterman(0,sqrt(this.TestData.nObsEstim)*this.TestData.relstd,1);
