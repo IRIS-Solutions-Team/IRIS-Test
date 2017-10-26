@@ -55,8 +55,8 @@ for i = 1 : 12
 end
 Assert.numberOfFigures(1);
 Assert.numberOfAxes(expectedTotalCount);
-numRows = getappdata(gcf( ), 'IRIS_NEXTPLOT_NUM_ROWS');
-numColumns = getappdata(gcf( ), 'IRIS_NEXTPLOT_NUM_COLUMNS');
+numRows = getappdata(gcf( ), 'IRIS_NextNumRows');
+numColumns = getappdata(gcf( ), 'IRIS_NextNumColumns');
 assert(numRows==expectedNumRows);
 assert(numColumns==expectedNumColumns);
 close all;
