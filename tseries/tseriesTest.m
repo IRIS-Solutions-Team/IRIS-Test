@@ -235,22 +235,28 @@ end
 
 
 function testConvert(this)
-x = tseries(mm(2000, 1:12), 1:12);
+x = tseries(mm(2000, 1:13), 1:13);
 xMean = convert(x, 4, 'Method=', @mean);
 xFirst1 = convert(x, 4, 'Method=', 'first');
 xFirst2 = convert(x, 4, 'Method=', @first);
 xLast1 = convert(x, 4, 'Method=', 'last');
 xLast2 = convert(x, 4, 'Method=', @last);
+xSelect1 = convert(x, 4, 'Select=', 1);
+xSelect2 = convert(x, 4, 'Select=', 1:2);
 actMean = xMean(:);
 actFirst1 = xFirst1(:);
 actFirst2 = xFirst2(:);
 actLast1 = xLast1(:);
 actLast2 = xLast2(:);
-assertEqual(this, actMean, [2;5;8;11]);
-assertEqual(this, actFirst1, [1;4;7;10]);
-assertEqual(this, actFirst2, [1;4;7;10]);
-assertEqual(this, actLast1, [3;6;9;12]);
-assertEqual(this, actLast2, [3;6;9;12]);
+actSelect1 = xSelect1(:);
+actSelect2 = xSelect2(:);
+assertEqual(this, actMean, [2;5;8;11;13]);
+assertEqual(this, actFirst1, [1;4;7;10;13]);
+assertEqual(this, actFirst2, [1;4;7;10;13]);
+assertEqual(this, actLast1, [3;6;9;12;13]);
+assertEqual(this, actLast2, [3;6;9;12;13]);
+assertEqual(this, actSelect1, [1;4;7;10;13]);
+assertEqual(this, actSelect2, [1.5;4.5;7.5;10.5]);
 end
 
 
