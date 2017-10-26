@@ -85,7 +85,7 @@ function setupOnce(this)
     this.TestData.rng_forecast      = tmp3.rng_forecast;
     % set tolerances
     this.TestData.bvarAbsTol = 1e-7;
-    this.TestData.meanSeriesAbsTol = 1e-2;
+    this.TestData.meanSeriesAbsTol = 1e-6;
     this.TestData.kalmanAbsTol = 1e-4;
     this.TestData.jforecastMeanAbsTol = 1e-8;
     this.TestData.jforecastMeanAbsTolCond = 1e-6;
