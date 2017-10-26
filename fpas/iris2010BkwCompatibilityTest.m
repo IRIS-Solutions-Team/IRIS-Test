@@ -36,7 +36,6 @@ this.TestData.list_tseries      = tmp2.list_tseries;
 this.TestData.var_order         = tmp2.var_order;
 this.TestData.var_constraints   = tmp2.var_constraints;
 this.TestData.const_constraints = tmp2.const_constraints;
-this.TestData.e_list            = tmp2.e_list;
 this.TestData.rngEstim          = tmp2.rngEstim;
 this.TestData.nObsEstim         = tmp2.nObsEstim;
 this.TestData.relstd            = tmp2.relstd;

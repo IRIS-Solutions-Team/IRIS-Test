@@ -9,7 +9,8 @@ function setupOnce(this)
 
     % mat file
     tmp = load('iris2015.mat');
-    tmp2 = load('favar_2015.mat'); 
+    tmp2 = load('favar_2015.mat');
+    tmp3 = load('bvar2015.mat');
 
     % reading text of model
     char2file(tmp.model.mod_str,this.TestData.tmpModFile); 
@@ -44,6 +45,10 @@ function setupOnce(this)
     % adding data for conditional jforecast to TestData
     this.TestData.output_jforecast_cond = tmp.db_fcast;
     
+    % adding data for simulate to TestData    
+    this.TestData.output_simulate = tmp.simulate.db_actual;
+    this.TestData.output_simulate_shock = tmp.simulate.db_shockdecomp;
+    
     % adding data for FAVAR ti TestData
     this.TestData.comCompEst = tmp2.comCompEst;
     this.TestData.dbEstOutput = tmp2.dbEstOutput;
@@ -63,13 +68,30 @@ function setupOnce(this)
 
     % remove redundand ranges from inputs
     this.TestData.input_kalman = rmfield(this.TestData.input_kalman,'rng_filt');
-
+    % set bvar 
+    this.TestData.db                = tmp3.db;
+    this.TestData.list_tseries      = tmp3.list_tseries;
+    this.TestData.var_order         = tmp3.var_order;
+    this.TestData.var_constraints   = tmp3.var_constraints;
+    this.TestData.const_constraints = tmp3.const_constraints;
+    this.TestData.rngEstim          = tmp3.rngEstim;
+    this.TestData.nObsEstim         = tmp3.nObsEstim;
+    this.TestData.relstd            = tmp3.relstd;
+    this.TestData.A                 = tmp3.A;
+    this.TestData.K                 = tmp3.K;
+    this.TestData.Omega             = tmp3.Omega;
+    this.TestData.E                 = tmp3.E;
+    this.TestData.f_cond            = tmp3.f_cond;
+    this.TestData.rng_forecast      = tmp3.rng_forecast;
     % set tolerances
+    this.TestData.bvarAbsTol = 1e-7;
+    this.TestData.meanSeriesAbsTol = 1e-6;
     this.TestData.kalmanAbsTol = 1e-4;
     this.TestData.jforecastMeanAbsTol = 1e-8;
     this.TestData.jforecastMeanAbsTolCond = 1e-6;
     this.TestData.jforecastStdAbsTol = 1e-7;
     this.TestData.doubleAbsTol = 0;
+    this.TestData.simulateAbsTol = 1e-6;
 end
 
 function teardownOnce(this)
@@ -158,7 +180,7 @@ function testJforecast(this)
     stdNameList = fieldnames(get(mInput,'std'));
     db_actual.mean = rmfield(db_actual.mean,stdNameList);
     db_actual.std = rmfield(db_actual.std,stdNameList);
-    
+
     % compare actual and expected data
     vList = dbnames(db_actual.mean,'classFilter','tseries');
     %- all tseries from .mean
@@ -253,6 +275,114 @@ function testJforecast_condition(this)
       rmfield(db_expected.std,vList),...
       'AbsTol',this.TestData.doubleAbsTol);
     %}
+end
+
+function testSimulate(this)
+    % getting input and expected data from TestData
+    mInput = this.TestData.model_kalm_out;
+    mInput.std_shock_dl_cpi_disc = 0;
+    mInput.std_shock_pie_tar = 0;
+    mInput.std_shock_debt_lin_approx = 0;
+    fcastRange = this.TestData.fcastRange;
+    db_init = this.TestData.input_jforecast;
+    db_expected = this.TestData.output_simulate;
+    db_expected_shockdecomp = this.TestData.output_simulate_shock;
+
+    % create empty plan of the forecast
+    p = plan(mInput, fcastRange);
+
+    % add tunes
+    %- "external sector" tunes
+    list_var_plan  = {'l_y_gap_f','l_cpi_f','rn_f','rr_tnd_f','l_oil',...
+    'l_roil_tnd','l_food','l_rfood_tnd'};
+    list_shck_plan = {'shock_l_y_gap_f','shock_dl_cpi_f','shock_rn_f',...
+    'shock_rr_tnd_f','shock_l_roil_gap','shock_dl_roil_tnd',...
+    'shock_l_rfood_gap','shock_dl_rfood_tnd'};
+    p = exogenize(p, list_var_plan, fcastRange);
+    p = endogenize(p, list_shck_plan, fcastRange);
+    %- "domestic" tunes
+    p = exogenize(p,'pie_tar',fcastRange);
+    p = endogenize(p,'shock_pie_tar',fcastRange);
+    p = exogenize(p,'dl_y',qq(2017,3));
+    p = endogenize(p,'shock_l_y_non_agr_gap',qq(2017,3));
+    p = exogenize(p,'l_y_observed',qq(2017,3));
+    p = endogenize(p,'shock_obs_l_y',qq(2017,3));
+
+    % run simulate wiht plan
+    db_actual = simulate(mInput, db_init, fcastRange, 'plan', p,...
+      'anticipate', true);
+  
+    % run forecast for shock_decomp
+    db_actual_orig = jforecast(mInput, db_init, fcastRange, 'plan', p,...
+      'anticipate', true, 'initcond', 'fixed');
+  
+    % run shockdecomp
+    db_shockdecomp = simulate(mInput, db_actual_orig.mean, fcastRange,...
+       'deviation',false,'contributions',true);
+
+    % remove the fields which didn't exist in the old Iris
+    db_actual = rmfield(db_actual,'ttrend');
+    
+    % compare actual and expected data
+    vList = dbnames(db_actual,'classFilter','tseries');
+    %- all tseries
+    assertEqual(this, db2array(db_actual,vList,fcastRange),...
+      db2array(db_expected,vList,fcastRange),...
+      'AbsTol',this.TestData.simulateAbsTol);
+  
+  % compare shock decomp
+    db_shockdecomp = rmfield(db_shockdecomp,'ttrend');
+    vList = dbnames(db_shockdecomp,'classFilter','tseries');
+    
+    assertEqual(this, db2array(db_shockdecomp,vList,fcastRange),...
+      db2array(db_expected_shockdecomp,vList,fcastRange),...
+      'AbsTol',this.TestData.simulateAbsTol);
+
+end
+
+function testBVAR(this)
+
+
+dummyobs = BVAR.litterman(0,sqrt(this.TestData.nObsEstim)*this.TestData.relstd,1);
+w=VAR(this.TestData.list_tseries);
+[w,data] = estimate(w,this.TestData.db,this.TestData.rngEstim,'order',this.TestData.var_order,...
+    'covParameters',true,'A',this.TestData.var_constraints,'C',this.TestData.const_constraints,'bvar',dummyobs);
+
+f_cond=forecast(w,this.TestData.db,this.TestData.rng_forecast,this.TestData.db,'meanOnly',true);
+% for test
+E = eig(w);
+A = get(w,'A*');
+K = get(w,'K');
+Omega = get(w,'Omega');
+
+% compare estimate results
+assertEqual(this,...
+  this.TestData.A,...
+  A,...
+  'AbsTol',this.TestData.bvarAbsTol);
+
+assertEqual(this,...
+  this.TestData.K,...
+  K,...
+  'AbsTol',this.TestData.bvarAbsTol);
+
+assertEqual(this,...
+  sort(this.TestData.E),...
+  sort(E),...
+  'AbsTol',this.TestData.bvarAbsTol);
+
+assertEqual(this,...
+  this.TestData.Omega,...
+  Omega,...
+  'AbsTol',this.TestData.bvarAbsTol);
+
+% compare series
+vList = dbnames(f_cond,'classFilter','tseries');
+assertEqual(this,...
+  db2array(this.TestData.f_cond,vList,this.TestData.rng_forecast),...
+  db2array(f_cond,vList,this.TestData.rng_forecast),...
+  'AbsTol',this.TestData.meanSeriesAbsTol);
+
 end
 
 function testFAVAR(this)
