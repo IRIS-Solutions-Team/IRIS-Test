@@ -11,6 +11,7 @@ function setupOnce(this)
     tmp = load('iris2015.mat');
     tmp2 = load('favar_2015.mat');
     tmp3 = load('bvar2015.mat');
+    tmp4 = load('estimate2015.mat');
 
     % reading text of model
     char2file(tmp.model.mod_str,this.TestData.tmpModFile); 
@@ -83,6 +84,8 @@ function setupOnce(this)
     this.TestData.E                 = tmp3.E;
     this.TestData.f_cond            = tmp3.f_cond;
     this.TestData.rng_forecast      = tmp3.rng_forecast;
+    % set estimate
+    this.TestData.estimate = tmp4.p_est;
     % set tolerances
     this.TestData.bvarAbsTol = 1e-7;
     this.TestData.meanSeriesAbsTol = 1e-6;
@@ -92,6 +95,7 @@ function setupOnce(this)
     this.TestData.jforecastStdAbsTol = 1e-7;
     this.TestData.doubleAbsTol = 0;
     this.TestData.simulateAbsTol = 1e-6;
+    this.TestData.estimateAbsTol = 1e-3;
 end
 
 function teardownOnce(this)
@@ -416,8 +420,51 @@ f = FAVAR(variables2include);
 
 end
 
+function testEstimate(this)
+% loading inputs from filter results
+mInput = this.TestData.model_kalm_out;
+rng_filt = this.TestData.filtRange;
+rng_fcast = this.TestData.fcastRange;
+% estimation range
+startHist = rng_filt(1);
+endHist = rng_fcast(1)-1;
 
+mInput = this.TestData.model_kalm_out;
+db_obs = this.TestData.input_kalman;
+% setting priors
+priors = struct();
 
+priors.c1_l_y_non_agr_gap = {nan,0.1,0.9,logdist.beta(mInput.c1_l_y_non_agr_gap,0.05)};
+priors.c1_rn = {nan,0.2,0.99,logdist.normal(mInput.c1_rn,0.01)};
+priors.w_rn_rule = {nan,0.1,0.99,logdist.normal(mInput.w_rn_rule,0.03)};
+priors.c1_dl_cpi_core = {nan,0.1,0.99,logdist.beta(mInput.c1_dl_cpi_core,0.02)};
+% running optimization function
+  opts = optimset('MaxIter',15000,'MaxFunEvals',15000,'tolFun',1e-1,...
+    'display','iter');
+  optimizer = @(F,P0,PLow,PHigh,OptimSet) ...
+                   fminsearch(@(X) F(X)+chkbnd(X,PLow,PHigh),P0,opts);              
+% running estimation               
+[p_est,~,~,~,mod_est] = estimate(mInput,db_obs.tunedb,DateWrapper(startHist:endHist),priors,[],...
+  'initVal=','model',...
+  'noSolution=','penalty',...
+  'tolFun=',1e-8,...
+  'tolX=',1e-8,...
+  'maxFunEvals=',10000,...
+  'maxIter=',1000,...
+  'filter=',{'relative',false,'std',db_obs.dbstd},...
+  'solver',optimizer);                
 
+% testing estimate results
+    assertEqual(this, struct2cell(this.TestData.estimate),...
+      struct2cell(p_est),...
+      'AbsTol',this.TestData.estimateAbsTol);
+end
 
+function res = chkbnd(x,low,high)
 
+if any(x < low) || any(x > high)
+  res = inf;
+else
+  res = 0;
+end
+end
