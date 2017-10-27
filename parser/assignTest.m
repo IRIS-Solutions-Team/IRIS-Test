@@ -90,7 +90,7 @@ a=1; b=2; c=3; a=4; b=10*a+c; z=1
 <<<<<M
 %}
 code = parser.grabTextFromCaller('M');
-the = readAndAssign(code, struct( ), struct('multiple', true));
+the = readAndAssign(code, struct( ), struct('AllowMultiple', true));
 actDbase = the.AssignedDatabank;
 expDbase = struct( ...
     'a', 4, ...
