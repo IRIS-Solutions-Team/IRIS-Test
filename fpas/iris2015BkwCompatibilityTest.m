@@ -12,6 +12,7 @@ function setupOnce(this)
     tmp2 = load('favar_2015.mat');
     tmp3 = load('bvar2015.mat');
     tmp4 = load('estimate2015.mat');
+    tmp5 = load('sspace2015.mat');
 
     % reading text of model
     char2file(tmp.model.mod_str,this.TestData.tmpModFile); 
@@ -86,6 +87,8 @@ function setupOnce(this)
     this.TestData.rng_forecast      = tmp3.rng_forecast;
     % set estimate
     this.TestData.estimate = tmp4.p_est;
+    % save state-space matrices
+    this.TestData.sspace = tmp5;
     % set tolerances
     this.TestData.bvarAbsTol = 1e-7;
     this.TestData.meanSeriesAbsTol = 1e-6;
@@ -96,6 +99,7 @@ function setupOnce(this)
     this.TestData.doubleAbsTol = 0;
     this.TestData.simulateAbsTol = 1e-6;
     this.TestData.estimateAbsTol = 1e-3;
+    this.TestData.sspaceAbsTol = 1e-12;
 end
 
 function teardownOnce(this)
@@ -429,8 +433,8 @@ rng_fcast = this.TestData.fcastRange;
 startHist = rng_filt(1);
 endHist = rng_fcast(1)-1;
 
-mInput = this.TestData.model_kalm_out;
 db_obs = this.TestData.input_kalman;
+
 % setting priors
 priors = struct();
 
@@ -444,6 +448,7 @@ priors.c1_dl_cpi_core = {nan,0.1,0.99,logdist.beta(mInput.c1_dl_cpi_core,0.02)};
   optimizer = @(F,P0,PLow,PHigh,OptimSet) ...
                    fminsearch(@(X) F(X)+chkbnd(X,PLow,PHigh),P0,opts);              
 % running estimation               
+warnStruct = warning('off','IRIS:Dbase:NameNotExist');
 [p_est,~,~,~,mod_est] = estimate(mInput,db_obs.tunedb,DateWrapper(startHist:endHist),priors,[],...
   'initVal=','model',...
   'noSolution=','penalty',...
@@ -452,12 +457,36 @@ priors.c1_dl_cpi_core = {nan,0.1,0.99,logdist.beta(mInput.c1_dl_cpi_core,0.02)};
   'maxFunEvals=',10000,...
   'maxIter=',1000,...
   'filter=',{'relative',false,'std',db_obs.dbstd},...
-  'solver',optimizer);                
+  'solver',optimizer);
+warning(warnStruct.state,'IRIS:Dbase:NameNotExist');
 
 % testing estimate results
     assertEqual(this, struct2cell(this.TestData.estimate),...
       struct2cell(p_est),...
       'AbsTol',this.TestData.estimateAbsTol);
+end
+
+function testSolve(this)
+sspaceExpected = this.TestData.sspace;
+[tActual,rActual,kActual,zActual,hActual,dActual,uActual,omgActual] = ...
+  sspace(this.TestData.model_kalm_inp,'triangular',false);
+
+assertEqual(this,tActual,sspaceExpected.T,...
+  'AbsTol',this.TestData.sspaceAbsTol);
+assertEqual(this,rActual,sspaceExpected.R,...
+  'AbsTol',this.TestData.sspaceAbsTol);
+assertEqual(this,kActual,sspaceExpected.K,...
+  'AbsTol',this.TestData.sspaceAbsTol);
+assertEqual(this,zActual,sspaceExpected.Z,...
+  'AbsTol',this.TestData.sspaceAbsTol);
+assertEqual(this,hActual,sspaceExpected.H,...
+  'AbsTol',this.TestData.sspaceAbsTol);
+assertEqual(this,dActual,sspaceExpected.D,...
+  'AbsTol',this.TestData.sspaceAbsTol);
+assertEqual(this,uActual,sspaceExpected.U,...
+  'AbsTol',this.TestData.sspaceAbsTol);
+assertEqual(this,omgActual,sspaceExpected.Omg,...
+  'AbsTol',this.TestData.sspaceAbsTol);
 end
 
 function res = chkbnd(x,low,high)

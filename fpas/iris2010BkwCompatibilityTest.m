@@ -8,6 +8,7 @@ function setupOnce(this)
 % load inputs and outputs from the IRIS 8.20100429
 tmp = load ('iris2010.mat');
 tmp2 = load('bvar2010.mat');
+tmp3 = load('sspace2010.mat');
 
 this.TestData.filtRange = DateWrapper(tmp.filterData.filtRange);
 this.TestData.filtForeInp = tmp.filterData.filtForeInp;
@@ -26,6 +27,7 @@ this.TestData.model = sstate(m);
 
 % set tolerances
 this.TestData.doubleAbsTol = 0;
+this.TestData.sspaceAbsTol = 1e-6;
 this.TestData.bvarAbsTol = 1e-7;
 this.TestData.meanSeriesAbsTol = 1e-2;
 this.TestData.stdSeriesAbsTol = 1e-3;
@@ -45,6 +47,9 @@ this.TestData.Omega             = tmp2.Omega;
 this.TestData.E                 = tmp2.E;
 this.TestData.f_cond            = tmp2.f_cond;
 this.TestData.rng_forecast      = tmp2.rng_forecast;
+
+% save state-space matrices
+this.TestData.sspace = tmp3;
 
 end
 
@@ -156,4 +161,27 @@ assertEqual(this,...
   db2array(f_cond,vList,this.TestData.rng_forecast),...
   'AbsTol',this.TestData.meanSeriesAbsTol);
 
+end
+
+function testSolve(this)
+sspaceExpected = this.TestData.sspace;
+[tActual,rActual,kActual,zActual,hActual,dActual,uActual,omgActual] = ...
+  sspace(this.TestData.model,'triangular',false);
+
+assertEqual(this,tActual,sspaceExpected.T,...
+  'AbsTol',this.TestData.sspaceAbsTol);
+assertEqual(this,rActual,sspaceExpected.R,...
+  'AbsTol',this.TestData.sspaceAbsTol);
+assertEqual(this,kActual,sspaceExpected.K,...
+  'AbsTol',this.TestData.sspaceAbsTol);
+assertEqual(this,zActual,sspaceExpected.Z,...
+  'AbsTol',this.TestData.sspaceAbsTol);
+assertEqual(this,hActual,sspaceExpected.H,...
+  'AbsTol',this.TestData.sspaceAbsTol);
+assertEqual(this,dActual,sspaceExpected.D,...
+  'AbsTol',this.TestData.sspaceAbsTol);
+assertEqual(this,uActual,sspaceExpected.U,...
+  'AbsTol',this.TestData.sspaceAbsTol);
+assertEqual(this,sparse(omgActual),sspaceExpected.Omg,...
+  'AbsTol',this.TestData.sspaceAbsTol);
 end
