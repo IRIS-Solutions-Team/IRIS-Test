@@ -59,22 +59,22 @@ m3 = model('3eq.model', 'linear=', true, 'makeBkw=', @all);
 m3 = solve(m3);
 
 xb0 = get(m0,'xbVector');
-pos0 = textfun.findnames(xb0,{'rr','Epie','log(Y)'});
+pos0 = textfun.findnames(xb0,{'rr','Epie','log_Y'});
 actIxNan0 = isnan(pos0);
 expIxNan0 = [ true, true, true ];
 
 xb1 = get(m1,'xbVector');
-pos1 = textfun.findnames(xb1,{'rr','Epie','log(Y)'});
+pos1 = textfun.findnames(xb1,{'rr','Epie','log_Y'});
 actIxNan1 = isnan(pos1);
 expIxNan1 = [ false, true, true ];
 
 xb2 = get(m2,'xbVector');
-pos2 = textfun.findnames(xb2,{'rr','Epie','log(Y)'});
+pos2 = textfun.findnames(xb2,{'rr','Epie','log_Y'});
 actIxNan2 = isnan(pos2);
 expIxNan2 = [ false, false, true ];
 
 xb3 = get(m3,'xbVector');
-pos3 = textfun.findnames(xb3,{'rr','Epie','log(Y)'});
+pos3 = textfun.findnames(xb3,{'rr','Epie','log_Y'});
 actIxNan3 = isnan(pos3);
 expIxNan3 = [ false, false, false ];
 

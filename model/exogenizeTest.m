@@ -56,6 +56,7 @@ end
 
 function testExogenizeNonlin(this)
 n = this.TestData.NonlModel;
+hash = createHashEquations(n);
 tol = 1e-9;
 nSim = 20;
 nNonl = 25;

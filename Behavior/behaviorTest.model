@@ -1,0 +1,9 @@
+!variables
+    x, y, z
+!log_variables
+    x, y
+!equations
+    x;
+    y;
+    z;
+
