@@ -1,5 +1,6 @@
 
 assertEqual = @(x, y) assert(isequal(x, y));
+listRoman = {'i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x', 'xi', 'xii'};
 
 %% Monthly
 
@@ -54,3 +55,31 @@ for i = 1 : 12
     ex = dd(2010, i, 12);
     assertEqual(ac, ex);
 end
+
+%% Monthly from Roman Month 
+
+for i = 1 : 12
+    string = [listRoman{i}, '-2000'];
+    actual = str2dat(string, 'DateFormat=', 'Q-YYYY', 'EnforceFrequency=', 12);
+    expected = mm(2000, i);
+    assertEqual(actual, expected);
+end
+
+%% Quarterly from Roman Month 
+
+for i = 1 : 12
+    string = [listRoman{i}, '-2000'];
+    actual = str2dat(string, 'DateFormat=', 'Q-YYYY', 'EnforceFrequency=', 4);
+    expected = qq(2000, ceil(i/3));
+    assertEqual(actual, expected);
+end
+
+%% Quarterly from Roman Period 
+
+for i = 1 : 12
+    string = [listRoman{i}, '-2000'];
+    actual = str2dat(string, 'DateFormat=', 'R-YYYY', 'EnforceFrequency=', 4);
+    expected = qq(2000, i);
+    assertEqual(actual, expected);
+end
+
