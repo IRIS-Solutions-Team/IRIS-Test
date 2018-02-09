@@ -12,8 +12,7 @@ function testSystemProperty(this)
     m = this.TestData.Model;
     d = sstatedb(m, 1:40);
     d.Ep(5) = 0.01;
-    p = simulate(m, d, 1:40, 'SystemProperty=', true);
-    p.NumOutputs = 1;
+    p = simulate(m, d, 1:40, 'SystemProperty=', 'S');
     s = simulate(m, d, 1:40);
     update(p, m, 1);
     eval(p);
@@ -29,8 +28,7 @@ function testSystemPropertyUpdate(this)
     m = this.TestData.Model;
     d = sstatedb(m, 1:40);
     d.Ep(5) = 0.01;
-    p = simulate(m, d, 1:40, 'SystemProperty=', true);
-    p.NumOutputs = 1;
+    p = simulate(m, d, 1:40, 'SystemProperty=', 'S');
     for xiw = 55 : 5 : 70
         m.xiw = xiw;
         chksstate(m);
@@ -52,11 +50,10 @@ function testSystemPrior(this)
     d = sstatedb(m, 1:40);
     d.Ep(5) = 0.01;
     s = simulate(m, d, 1:40);
-    p = simulate(m, d, 1:40, 'SystemProperty=', true);
-    p.NumOutputs = 1;
+    p = simulate(m, d, 1:40, 'SystemProperty=', 'Sim');
     f1 = distribution.Normal.fromMeanStd(40, 5);
     spw = SystemPriorWrapper(m);
-    spw.addSystemProperty('Sim', p);
+    spw.addSystemProperty(p);
     spw.addSystemPrior('sum(Sim(log_P, :))', f1);
     [actualLogDensity, actualContrib, actualProp] = eval(spw, m);
     expectedProp = sum(log(s.P(1:40)));
@@ -72,11 +69,10 @@ function testSystemPriorUpdate(this)
     m = this.TestData.Model;
     d = sstatedb(m, 1:40);
     d.Ep(5) = 0.01;
-    p = simulate(m, d, 1:40, 'SystemProperty=', true);
-    p.NumOutputs = 1;
+    p = simulate(m, d, 1:40, 'SystemProperty=', 'Sim');
     f1 = distribution.Normal.fromMeanStd(40, 5);
     spw = SystemPriorWrapper(m);
-    spw.addSystemProperty('Sim', p);
+    spw.addSystemProperty(p);
     spw.addSystemPrior('sum(Sim(log_P, :))', f1);
     for xiw = 55 : 5 : 70
         m.xiw = xiw;

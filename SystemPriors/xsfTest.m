@@ -13,8 +13,7 @@ function testSystemProperty(this)
     m = this.TestData.Model;
     freq = this.TestData.Freq;
     [expectedS, expectedD] = xsf(m, freq);
-    p = xsf(m, freq, 'SystemProperty=', true);
-    p.NumOutputs = 2;
+    p = xsf(m, freq, 'SystemProperty=', {'S', 'D'});
     update(p, m);
     eval(p);
     actualS = p.Outputs{1};
@@ -27,8 +26,7 @@ end
 function testSystemPropertyUpdate(this)
     m = this.TestData.Model;
     freq = this.TestData.Freq;
-    p = xsf(m, freq, 'SystemProperty=', true);
-    p.NumOutputs = 2;
+    p = xsf(m, freq, 'SystemProperty=', {'S', 'D'});
     for xiw = 55 : 5 : 70
         m.xiw = xiw;
         m = sstate(m, 'Growth=', true, 'Display=', false);
@@ -48,10 +46,9 @@ function testSystemPriorOneOutput(this)
     m = this.TestData.Model;
     freq = this.TestData.Freq;
     expectedS = xsf(m, freq);
-    p = xsf(m, freq, 'SystemProperty=', true);
-    p.NumOutputs = 2;
+    p = xsf(m, freq, 'SystemProperty=', 'Pws');
     spw = SystemPriorWrapper(m);
-    spw.addSystemProperty('Pws', p);
+    spw.addSystemProperty(p);
     f1 = distribution.Normal.fromMeanStd(1000, 5);
     spw.addSystemPrior('abs(sum(Pws(1, 2, :)))', f1);
     profile clear;
@@ -74,10 +71,9 @@ function testSystemPriorTwoOutputs(this)
     m = this.TestData.Model;
     freq = this.TestData.Freq;
     [expectedS, expectedD] = xsf(m, freq);
-    p = xsf(m, freq, 'SystemProperty=', true);
-    p.NumOutputs = 2;
+    p = xsf(m, freq, 'SystemProperty=', {'Pws', 'Spd'});
     spw = SystemPriorWrapper(m);
-    spw.addSystemProperty({'Pws', 'Spd'}, p);
+    spw.addSystemProperty(p);
     f1 = distribution.Normal.fromMeanStd(1000, 5);
     f2 = distribution.Normal.fromMeanStd(20, 2);
     spw.addSystemPrior('abs(sum(Pws(1, 2, :)))', f1);
@@ -100,9 +96,9 @@ end
 function testSystemPriorUpdate(this)
     m = this.TestData.Model;
     freq = this.TestData.Freq;
-    p = xsf(m, freq, 'SystemProperty=', true);
+    p = xsf(m, freq, 'SystemProperty=', {'Pws', 'Spd'});
     spw = SystemPriorWrapper(m);
-    spw.addSystemProperty({'Pws', 'Spd'}, p);
+    spw.addSystemProperty(p);
     f1 = distribution.Normal.fromMeanStd(1000, 5);
     f2 = distribution.Normal.fromMeanStd(20, 2);
     spw.addSystemPrior('abs(sum(Pws(1, 2, :)))', f1);

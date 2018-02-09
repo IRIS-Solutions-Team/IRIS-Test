@@ -13,8 +13,7 @@ function testSystemProperty(this)
     m = this.TestData.Model;
     freq = this.TestData.Freq;
     expectedF = ffrf(m, freq);
-    p = ffrf(m, freq, 'SystemProperty=', true);
-    p.NumOutputs = 1;
+    p = ffrf(m, freq, 'SystemProperty=', 'X');
     update(p, m);
     eval(p);
     actualF = p.Outputs{1};
@@ -25,8 +24,7 @@ end
 function testSystemPropertyUpdate(this)
     m = this.TestData.Model;
     freq = this.TestData.Freq;
-    p = ffrf(m, freq, 'SystemProperty=', true);
-    p.NumOutputs = 1;
+    p = ffrf(m, freq, 'SystemProperty=', 'X');
     for xiw = 55 : 5 : 70
         m.xiw = xiw;
         m = sstate(m, 'Growth=', true, 'Display=', false);
@@ -44,10 +42,9 @@ function testSystemPrior(this)
     m = this.TestData.Model;
     freq = this.TestData.Freq;
     expectedF = ffrf(m, freq);
-    p = ffrf(m, freq, 'SystemProperty=', true);
-    p.NumOutputs = 1;
+    p = ffrf(m, freq, 'SystemProperty=', 'F');
     spw = SystemPriorWrapper(m);
-    spw.addSystemProperty('F', p);
+    spw.addSystemProperty(p);
     f1 = distribution.Normal.fromMeanStd(0, 2);
     spw.addSystemPrior('abs(sum(F(12, 3, :)))', f1);
     [actualLogDensity, actualContrib, actualProp] = eval(spw, m);
@@ -63,9 +60,9 @@ end
 function testSystemPriorUpdate(this)
     m = this.TestData.Model;
     freq = this.TestData.Freq;
-    p = ffrf(m, freq, 'SystemProperty=', true);
+    p = ffrf(m, freq, 'SystemProperty=', 'F');
     spw = SystemPriorWrapper(m);
-    spw.addSystemProperty('F', p);
+    spw.addSystemProperty(p);
     f1 = distribution.Normal.fromMeanStd(0, 2);
     spw.addSystemPrior('abs(sum(F(12, 3, :)))', f1);
     for xiw = 55 : 5 : 70
