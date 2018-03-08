@@ -58,7 +58,9 @@ function testDateFormat(this)
             figure('Visible', 'off');
             h = plot(x, 'DateFormat=', 'uuuu');
             dt = h.XData;
-            assertEqual(this, dt.Format, 'uuuu');
+            if isa(dt, 'datetime')
+                assertEqual(this, dt.Format, 'uuuu');
+            end
             close(gcf( ));
         end
     end
