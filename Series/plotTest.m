@@ -1,4 +1,4 @@
-function tests = tseriesFilterTest()
+function tests = plotTest( )
 tests = functiontests(localfunctions);
 end%
 
@@ -64,5 +64,19 @@ function testDateFormat(this)
             close(gcf( ));
         end
     end
+end%
+
+
+function testBar(this)
+    q = Series(qq(2000), rand(40,1));
+    figure('Visible', 'off');
+    plot(q);
+    handleAxes = gca( );
+    xLim1 = handleAxes.XLim;
+    hold on;
+    bar(q);
+    xLim2 = handleAxes.XLim;
+    assertLessThan(this, xLim2(1), xLim1(1));
+    assertGreaterThan(this, xLim2(2), xLim1(2));
 end%
 
