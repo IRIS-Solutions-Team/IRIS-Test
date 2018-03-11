@@ -10,6 +10,10 @@ end%
 
 
 function testSameRangeNoEnforcement(this)
+    if verLessThan('matlab', 'R2016b')
+        return
+    end
+
     y = Series(yy(2000), rand(10, 1));
     q = Series(qq(2000,1), rand(40, 1));
     m = Series(mm(2000,1), rand(120, 1));
@@ -36,6 +40,10 @@ end%
 
 
 function testDifferentRangeNoEnforcement(this)
+    if verLessThan('matlab', 'R2016b')
+        return
+    end
+
     q = Series(qq(2000,1), rand(40, 1));
     m = Series(mm(2001,1), rand(96, 1));
 
@@ -70,6 +78,10 @@ end%
 
 
 function testDifferentRangeEnforcement(this)
+    if verLessThan('matlab', 'R2016b')
+        return
+    end
+
     q = Series(qq(2000,1), rand(40, 1));
     m = Series(mm(2001,1), rand(96, 1));
 

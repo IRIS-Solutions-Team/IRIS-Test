@@ -10,6 +10,9 @@ end%
 
 
 function testBarcon(this)
+    if verLessThan('matlab', 'R2016b')
+        return
+    end
     x = Series(qq(2000,1), randn(40, 4));
     y = sum(x, 2);
     figure('Visible', this.TestData.Visible);

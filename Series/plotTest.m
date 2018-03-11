@@ -15,6 +15,10 @@ end%
 
 
 function testPlainPlot(this)
+    if verLessThan('matlab', 'R2016b')
+        return
+    end
+
     list = fieldnames(this.TestData);
     for i = 1 : numel(list)
         x = this.TestData.(list{i});
@@ -28,6 +32,10 @@ end%
 
 
 function testPlotAxesRange(this)
+    if verLessThan('matlab', 'R2016b')
+        return
+    end
+
     list = fieldnames(this.TestData);
     for i = 1 : numel(list)
         x = this.TestData.(list{i});
@@ -51,6 +59,10 @@ end%
 
 
 function testDateFormat(this)
+    if verLessThan('matlab', 'R2016b')
+        return
+    end
+
     list = fieldnames(this.TestData);
     for i = 1 : numel(list)
         x = this.TestData.(list{i});
@@ -68,6 +80,10 @@ end%
 
 
 function testBar(this)
+    if verLessThan('matlab', 'R2016b')
+        return
+    end
+
     q = Series(qq(2000), rand(40,1));
     figure('Visible', 'off');
     plot(q);
