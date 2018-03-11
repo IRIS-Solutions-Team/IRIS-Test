@@ -15,7 +15,7 @@ end%
 
 
 function testPlainPlot(this)
-    if verLessThan('matlab', 'R2016b')
+    if verLessThan('matlab', '9.1')
         return
     end
 
@@ -32,7 +32,7 @@ end%
 
 
 function testPlotAxesRange(this)
-    if verLessThan('matlab', 'R2016b')
+    if verLessThan('matlab', '9.1')
         return
     end
 
@@ -59,7 +59,7 @@ end%
 
 
 function testDateFormat(this)
-    if verLessThan('matlab', 'R2016b')
+    if verLessThan('matlab', '9.1')
         return
     end
 
@@ -80,7 +80,7 @@ end%
 
 
 function testBar(this)
-    if verLessThan('matlab', 'R2016b')
+    if verLessThan('matlab', '9.1')
         return
     end
 

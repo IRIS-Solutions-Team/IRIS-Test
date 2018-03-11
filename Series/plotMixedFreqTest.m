@@ -10,7 +10,7 @@ end%
 
 
 function testSameRangeNoEnforcement(this)
-    if verLessThan('matlab', 'R2016b')
+    if verLessThan('matlab', '9.1')
         return
     end
 
@@ -40,7 +40,7 @@ end%
 
 
 function testDifferentRangeNoEnforcement(this)
-    if verLessThan('matlab', 'R2016b')
+    if verLessThan('matlab', '9.1')
         return
     end
 
@@ -78,7 +78,7 @@ end%
 
 
 function testDifferentRangeEnforcement(this)
-    if verLessThan('matlab', 'R2016b')
+    if verLessThan('matlab', '9.1')
         return
     end
 
