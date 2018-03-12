@@ -5,7 +5,7 @@ end%
 
 function setupOnce(this)
     close all
-    this.TestData.Visible = 'on';
+    this.TestData.Visible = 'off';
 end%
 
 
@@ -26,5 +26,10 @@ function testBarcon(this)
     assertGreaterThan(this, xLim(1), datetime(qq(2000,4)));
     assertGreaterThan(this, xLim(2), datetime(qq(2002,4)));
     assertLessThan(this, xLim(2), datetime(qq(2003,1)));
+end%
+
+
+function teardownOnce(this)
+    close all
 end%
 

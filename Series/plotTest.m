@@ -96,3 +96,8 @@ function testBar(this)
     assertGreaterThan(this, xLim2(2), xLim1(2));
 end%
 
+
+function teardownOnce(this)
+    close all
+end%
+

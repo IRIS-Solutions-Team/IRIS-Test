@@ -100,3 +100,8 @@ function testDifferentRangeEnforcement(this)
     end
 end%
 
+
+function teardownOnce(this)
+    close all
+end%
+
