@@ -10,6 +10,9 @@ end%
 
 
 function testBothInf(this)
+    if verLessThan('matlab', '9.1')
+        return
+    end
     d = struct( );
     d.x = Series(qq(2000,1), randn(40, 4));
     d.y = Series(mm(2000,1), randn(120, 4));
@@ -24,6 +27,9 @@ end%
 
 
 function testOneRange(this)
+    if verLessThan('matlab', '9.1')
+        return
+    end
     d = struct( );
     d.x = Series(qq(2000,1), randn(40, 4));
     d.y = Series(mm(2000,1), randn(120, 4));
@@ -38,6 +44,9 @@ end%
 
 
 function testBothRange(this)
+    if verLessThan('matlab', '9.1')
+        return
+    end
     d = struct( );
     d.x = Series(qq(2000,1), randn(40, 4));
     d.y = Series(mm(2000,1), randn(120, 4));
