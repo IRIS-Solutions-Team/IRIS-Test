@@ -13,18 +13,18 @@ for i = 1 : 4
     ax(end+1) = subplot(2, 2, i);
     yyaxis left
     plot(rand(10)-0.5);
-    visual.hline(ax(i), -2);
-    visual.highlight(2:4);
-    visual.vline(4);
-    visual.zeroline( );
+    visual.hline(ax(i), -2, 'HandleVisibility=', 'On');
+    visual.highlight(2:4, 'HandleVisibility=', 'On');
+    visual.vline(4, 'HandleVisibility=', 'On');
+    visual.zeroline('HandleVisibility=', 'On');
 
     yyaxis right
     plot((1:10)-5, 'LineWidth' , 3);
 end
-visual.vline(ax, 6, 'Text', 'This is 6');
-visual.highlight(ax, 6:8);
-visual.zeroline(ax);
-visual.hline(ax, 2);
+visual.vline(ax, 6, 'Text', 'This is 6', 'HandleVisibility=', 'On');
+visual.highlight(ax, 6:8, 'HandleVisibility=', 'On');
+visual.zeroline(ax, 'HandleVisibility=', 'On');
+visual.hline(ax, 2, 'HandleVisibility=', 'On');
 
 %% Test Highlight 
 

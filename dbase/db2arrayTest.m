@@ -20,6 +20,27 @@ assertEqual(this, actDb, expDb);
 end % testArray2dbMoreVars( )
 
 
+function testArray2dbMoreVarsComments(this)
+% More variables than dates.
+TIME_SERIES_CONSTRUCTOR = getappdata(0, 'IRIS_TimeSeriesConstructor');
+expDb = struct( );
+expDb.a = TIME_SERIES_CONSTRUCTOR(1:4, rand(4, 2, 3, 5));
+expDb.b = TIME_SERIES_CONSTRUCTOR(1:4, rand(4, 2, 3, 5));
+expDb.c = TIME_SERIES_CONSTRUCTOR(1:4, rand(4, 2, 3, 5));
+expDb.x = TIME_SERIES_CONSTRUCTOR(1:4, rand(4, 2, 3, 5));
+expDb.y = TIME_SERIES_CONSTRUCTOR(1:4, rand(4, 2, 3, 5));
+expDb.z = TIME_SERIES_CONSTRUCTOR(1:4, rand(4, 2, 3, 5));
+[x, incl, rng] = db2array(expDb);
+actDb = array2db(x, rng, incl, 'Comments=', {'aa', 'bb', 'cc'});
+assertEqual(this, comment(actDb.a), repmat({'aa'}, 1, 2, 3, 5));
+assertEqual(this, comment(actDb.b), repmat({'bb'}, 1, 2, 3, 5));
+assertEqual(this, comment(actDb.c), repmat({'cc'}, 1, 2, 3, 5));
+assertEqual(this, comment(actDb.x), repmat({TimeSubscriptable.EMPTY_COMMENT}, 1, 2, 3, 5));
+assertEqual(this, comment(actDb.y), repmat({TimeSubscriptable.EMPTY_COMMENT}, 1, 2, 3, 5));
+assertEqual(this, comment(actDb.z), repmat({TimeSubscriptable.EMPTY_COMMENT}, 1, 2, 3, 5));
+end % testArray2dbMoreVars( )
+
+
 function testArray2dbMoreDates(this)
 % More dates than variables.
 TIME_SERIES_CONSTRUCTOR = getappdata(0, 'IRIS_TimeSeriesConstructor');
