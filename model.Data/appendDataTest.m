@@ -16,16 +16,19 @@ function testPreScalar(this)
     outputData.x = Series(range, 1:numPeriods);
     outputData.y = Series(startDate-1:endDate, 0:numPeriods);
     outputData.z = Series(startDate-2:endDate-1, 0:numPeriods);
+    outputData.a = Series(range, 1:numPeriods);
 
     inputData = struct( );
     inputData.x = Series(startPresample:endPostSample, @rand);
     inputData.y = Series(startPresample:endPostSample, @rand);
     inputData.z = Series(startPresample:endPostSample, @rand);
+    inputData.a = Series(startPresample:endPostSample, @rand);
 
     inputData1 = struct( );
     inputData1.x = Series(startPresample:endPostSample, @rand);
     inputData1.y = Series(startPresample:endPostSample, @rand);
     inputData1.z = Series(startPresample:endPostSample, @rand);
+    inputData1.a = Series(startPresample:endPostSample, @rand);
 
     outputData1 = appendData(x, inputData, outputData, range, true, false);
 
@@ -53,6 +56,8 @@ function testPreScalar(this)
     opt = struct('AppendPresample', inputData, 'AppendPostsample', false);
     outputData2 = appendData(x, inputData1, outputData, range, opt);
     assertEqual(this, outputData1, outputData2);
+
+    assertEqual(this, outputData1.a(:), outputData.a(:));
 end%
 
 
