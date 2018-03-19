@@ -61,6 +61,49 @@ function testPreScalar(this)
 end%
 
 
+function testPreScalarMissingSeries(this)
+    x = testClass( );
+    startDate = qq(2001,1);
+    endDate = qq(2005,4);
+    range = startDate : endDate;
+    numPeriods = numel(range);
+    startPresample = startDate-10;
+    endPostSample = endDate+10;
+
+    outputData = struct( );
+    outputData.x = Series(range, 1:numPeriods);
+    outputData.y = Series(startDate-1:endDate, 0:numPeriods);
+    outputData.z = Series(startDate-2:endDate-1, 0:numPeriods);
+    outputData.a = Series(range, 1:numPeriods);
+
+    inputData = struct( );
+    inputData.x = Series(startPresample:endPostSample, @rand);
+    inputData.z = Series(startPresample:endPostSample, @rand);
+    inputData.a = Series(startPresample:endPostSample, @rand);
+
+    outputData1 = appendData(x, inputData, outputData, range, true, false);
+
+    expX = [ 
+        inputData.x(startPresample:startDate-1)
+        outputData.x(startDate:endDate)
+    ];
+    actX = outputData1.x(:);
+    assertEqual(this, actX, expX);
+    
+    expY = [ 
+        outputData.y(startDate-1:endDate)
+    ];
+    actY = outputData1.y(:);
+    assertEqual(this, actY, expY);
+
+    expZ = [ 
+        inputData.z(startPresample:startDate-3)
+        outputData.z(startDate-2:endDate-1)
+    ];
+    actZ = outputData1.z(:);
+    assertEqual(this, actZ, expZ);
+end%
+
 
 function testPrePostScalar(this)
     x = testClass( );
@@ -138,7 +181,7 @@ function testPreMulti(this)
     endPostSample = endDate+10;
 
     outputData = struct( );
-    outputData.x = Series(range, repmat((1:numPeriods)', 1, 5, 3))
+    outputData.x = Series(range, repmat((1:numPeriods)', 1, 5, 3));
     outputData.y = Series(startDate-1:endDate, repmat((0:numPeriods)', 1, 5, 3));
     outputData.z = Series(startDate-2:endDate-1, repmat((0:numPeriods)', 1, 5, 3));
 
