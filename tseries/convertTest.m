@@ -1,6 +1,7 @@
-function tests = tseriesTest( )
+function tests = convertTest( )
 tests = functiontests(localfunctions( ));
 end%
+
 
 function testAggregate(this)
     x = Series(mm(2000, 1:13), 1:13);

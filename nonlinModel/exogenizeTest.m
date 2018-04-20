@@ -186,7 +186,7 @@ d1 = sstatedb(m,range);
 d1.p(exgDates) = d1.p(exgDates) + x;
 s1 = simulate(m,d1,range,'plan=',p1,nonlinOpt{:},'anticipate=',false);
 
-assertEqual(this,s1.p(exgDates),d1.p(exgDates),'AbsTol',1e-14);
+assertEqual(this,s1.p(exgDates),d1.p(exgDates),'AbsTol',1e-13);
 
 p2 = p1;
 d2 = zerodb(m,range);
@@ -194,8 +194,8 @@ d2.p(exgDates) = d2.p(exgDates) + x;
 s2 = simulate(m,d2,range,'plan=',p2,nonlinOpt{:}, ...
     'anticipate=',false,'deviation=',true);
 
-assertEqual(this,s2.p(exgDates),d2.p(exgDates),'AbsTol',1e-14);
-assertEqual(this,s1.epi(:),s2.epi(:),'AbsTol',1e-14);
+assertEqual(this,s2.p(exgDates),d2.p(exgDates),'AbsTol',1e-13);
+assertEqual(this,s1.epi(:),s2.epi(:),'AbsTol',1e-13);
 end
 
 

@@ -9,8 +9,8 @@ end
 function This = setupOnce(This) %#ok<*DEFNU>
 rng('default');
 range = qq(2000,1:40);
-x = tseries(range,@rand);
-x = cumsumk(x);
+x = tseries(range, @rand);
+x = cumsumk(x, range);
 This.TestData.X = x;
 This.TestData.Range = range;
 end % setupOnce()
