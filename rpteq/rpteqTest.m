@@ -62,7 +62,7 @@ actualOutput = run(q, inp, dates);
 Assert.equal(actualOutput, expectedOutput);
 
 
-% Test Direct File
+%% Test Direct File
 
 q = rpteq([ ...
     ' "Eq1" x=x{-1} + y{1} - y{-2} ;', ...

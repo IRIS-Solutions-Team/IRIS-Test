@@ -37,9 +37,10 @@ import parser.Preparser;
 inpCode = '!for < list > !do !export(testExportFileName?.model) x=?; !end !end';
 expCode = '';
 assign = struct('list', [10, 30, 20]);
-[actCode, ~, actualExport] = Preparser.parse([ ], inpCode, assign);
+[actCode, ~, actualExport] = Preparser.parse([ ], inpCode, 'assigned=', assign);
 actCode = Preparser.removeInsignificantWhs(actCode);
 expCode = Preparser.removeInsignificantWhs(expCode);
+
 Assert.equal(actCode, expCode);
 Assert.equal(length(actualExport), 3);
 expectedFileName = { ...

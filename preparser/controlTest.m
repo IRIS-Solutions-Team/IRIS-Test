@@ -1,6 +1,6 @@
 function Tests = controlTest()
 Tests = functiontests( localfunctions );
-end
+end%
 %#ok<*DEFNU>
 
 
@@ -13,7 +13,7 @@ expCode = 'x1=1; x2=2; x3=3;';
 actCode = parser.Preparser.removeInsignificantWhs(actCode);
 expCode = parser.Preparser.removeInsignificantWhs(expCode);
 assertEqual(this, actCode, expCode);
-end
+end%
 
 
 
@@ -25,7 +25,7 @@ expCode = 'x1=1; x2=2; x3=3;';
 actCode = parser.Preparser.removeInsignificantWhs(actCode);
 expCode = parser.Preparser.removeInsignificantWhs(expCode);
 assertEqual(this, actCode, expCode);
-end
+end%
 
 
 
@@ -37,7 +37,7 @@ expCode = 'x1=1; x2=2; x3=3; x4=4; x5=5;';
 actCode = parser.Preparser.removeInsignificantWhs(actCode);
 expCode = parser.Preparser.removeInsignificantWhs(expCode);
 assertEqual(this, actCode, expCode);
-end
+end%
 
 
 
@@ -49,19 +49,19 @@ expCode = 'A1=1; A2=2; B1=1; B2=2;';
 actCode = parser.Preparser.removeInsignificantWhs(actCode);
 expCode = parser.Preparser.removeInsignificantWhs(expCode);
 assertEqual(this, actCode, expCode);
-end
+end%
 
 
 
 
 function testForEval(this)
 c = '!for ?@=1,2 !do !for ?#=$[1:K]$ !do X?@?#=?@+?#; !end !end';
-actCode = parser.Preparser.parse([ ], c, struct('K',2));
+actCode = parser.Preparser.parse([ ], c, 'assigned=', struct('K',2));
 expCode = 'X11=1+1; X12=1+2; X21=2+1; X22=2+2;';
 actCode = parser.Preparser.removeInsignificantWhs(actCode);
 expCode = parser.Preparser.removeInsignificantWhs(expCode);
 assertEqual(this, actCode, expCode);
-end
+end%
 
 
 
@@ -73,7 +73,7 @@ expCode = 'x1=1; x2=2; x3=3;';
 actCode = parser.Preparser.removeInsignificantWhs(actCode);
 expCode = parser.Preparser.removeInsignificantWhs(expCode);
 assertEqual(this, actCode, expCode);
-end
+end%
 
 
 
@@ -81,13 +81,13 @@ end
 function testIf(this)
 c = '!if sw1==1; x=1; !elseif sw1==2; x=2; !else x=3; !end';
 
-actCode = parser.Preparser.parse([ ], c, struct('sw1',1));
+actCode = parser.Preparser.parse([ ], c, 'assigned=', struct('sw1',1));
 expCode = 'x=1;';
 actCode = parser.Preparser.removeInsignificantWhs(actCode);
 expCode = parser.Preparser.removeInsignificantWhs(expCode);
 assertEqual(this, actCode, expCode);
 
-actCode = parser.Preparser.parse([ ], c, struct('sw1',2));
+actCode = parser.Preparser.parse([ ], c, 'assigned=', struct('sw1',2));
 expCode = 'x=2;';
 actCode = parser.Preparser.removeInsignificantWhs(actCode);
 expCode = parser.Preparser.removeInsignificantWhs(expCode);
@@ -104,7 +104,7 @@ assertEqual(this, actCode, expCode);
 [~, actId] = lastwarn( );
 assertEqual(this, actId, expId);
 warning(q);
-end
+end%
 
 
 
@@ -137,7 +137,7 @@ expCode = 'x = 3 ;';
 actCode = parser.Preparser.removeInsignificantWhs(actCode);
 expCode = parser.Preparser.removeInsignificantWhs(expCode);
 assertEqual(this, actCode, expCode);
-end
+end%
 
 
 
@@ -145,19 +145,19 @@ end
 function testSwitch(this)
 c = '!switch sw1; !case 1; x=1; !case 2; x=2; !otherwise x=3; !end';
 
-actCode = parser.Preparser.parse([ ], c, struct('sw1',1));
+actCode = parser.Preparser.parse([ ], c, 'assigned=', struct('sw1',1));
 expCode = 'x=1;';
 actCode = parser.Preparser.removeInsignificantWhs(actCode);
 expCode = parser.Preparser.removeInsignificantWhs(expCode);
 assertEqual(this, actCode, expCode);
 
-actCode = parser.Preparser.parse([ ], c, struct('sw1',2));
+actCode = parser.Preparser.parse([ ], c, 'assigned=', struct('sw1',2));
 expCode = 'x=2;';
 actCode = parser.Preparser.removeInsignificantWhs(actCode);
 expCode = parser.Preparser.removeInsignificantWhs(expCode);
 assertEqual(this, actCode, expCode);
 
-actCode = parser.Preparser.parse([ ], c, struct('sw1', NaN));
+actCode = parser.Preparser.parse([ ], c, 'assigned=', struct('sw1', NaN));
 expCode = 'x=3;';
 actCode = parser.Preparser.removeInsignificantWhs(actCode);
 expCode = parser.Preparser.removeInsignificantWhs(expCode);
@@ -174,7 +174,7 @@ assertEqual(this, actCode, expCode);
 [~, actId] = lastwarn( );
 assertEqual(this, actId, expId);
 warning(q);
-end
+end%
 
 
 
@@ -200,14 +200,12 @@ expCode = '"!for" x1=1; "!for"  x2=2; "!for"  x3=3; "!for"  x4=4; "!for"  x5=5;'
 actCode = parser.Preparser.removeInsignificantWhs(actCode);
 expCode = parser.Preparser.removeInsignificantWhs(expCode);
 assertEqual(this, actCode, expCode);
-end
-
-
+end%
 
 
 function testCtrlParameters(this)
 c = '!if 0;!end !if 0;!end !if a; A !end';
-[actCode, ~, ~, actAssigned] = parser.Preparser.parse([ ], c, struct('a', true));
+[actCode, ~, ~, actAssigned] = parser.Preparser.parse([ ], c, 'assigned=', struct('a', true));
 actCode = parser.Preparser.removeInsignificantWhs(actCode);
 expCode = 'A';
 expAssigned = {'a'};
@@ -216,7 +214,7 @@ assertEqual(this, actAssigned, expAssigned);
 
 c = '!if a && b; A !else B !end !if b; !if c; C !else D !end !end';
 [actCode, ~, ~, actAssigned] = parser.Preparser.parse([ ], c, ...
-    struct('a', false, 'b', true, 'c', false));
+    'assigned=', struct('a', false, 'b', true, 'c', false));
 actCode = parser.Preparser.removeInsignificantWhs(actCode);
 expCode = 'B D';
 expAssigned = {'a', 'b', 'c'};
@@ -232,4 +230,4 @@ actPSet = get(m, 'PSet');
 expPSet = struct('a', false, 'b', true, 'c', false);
 assertEqual(this, actEq, expEq);
 assertEqual(this, actPSet, expPSet);
-end
+end%

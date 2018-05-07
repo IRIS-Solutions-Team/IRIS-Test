@@ -24,7 +24,7 @@ end
 function testClone(this)
 import parser.*;
 c = '!variables A, Bb, Ccc !equations A=0; Bb=0; Ccc=0;';
-actCode = Preparser.cloneAllNames(c, 'US_?');
+actCode = Preparser.cloneAllNames(c, 'US_$');
 expCode = '!variables US_A, US_Bb, US_Ccc !equations US_A=0; US_Bb=0; US_Ccc=0;';
 actCode = Preparser.removeInsignificantWhs(actCode);
 expCode = Preparser.removeInsignificantWhs(expCode);
@@ -63,21 +63,21 @@ import parser.*;
 d = struct( );
 d.sw1 = true;
 d.sw2 = true;
-actCode = Preparser.parse('testInlineIf.model', [ ], d);
+actCode = Preparser.parse('testInlineIf.model', [ ], 'assigned=', d);
 expCode = '!transition_variables x !transition_equations x= 1 ;';
 actCode = Preparser.removeInsignificantWhs(actCode);
 expCode = Preparser.removeInsignificantWhs(expCode);
 assertEqual(this, actCode, expCode);
 
 d.sw1 = false;
-actCode = Preparser.parse('testInlineIf.model', [ ], d);
+actCode = Preparser.parse('testInlineIf.model', [ ], 'assigned=', d);
 expCode = '!transition_variables x !transition_equations x= 10 ;';
 actCode = Preparser.removeInsignificantWhs(actCode);
 expCode = Preparser.removeInsignificantWhs(expCode);
 assertEqual(this, actCode, expCode);
 
 d.sw2 = false;
-actCode = Preparser.parse('testInlineIf.model', [ ], d);
+actCode = Preparser.parse('testInlineIf.model', [ ], 'assigned=', d);
 expCode = '!transition_variables x !transition_equations x= 100 ;';
 actCode = Preparser.removeInsignificantWhs(actCode);
 expCode = Preparser.removeInsignificantWhs(expCode);

@@ -5,7 +5,7 @@ function forCtrlHelper(inpCode, expCode, assign)
     catch
         assign = struct( ); 
     end %#ok<VUNUS, NOCOM>
-    actCode = Preparser.parse([ ], inpCode, assign);
+    actCode = Preparser.parse([ ], inpCode, 'assigned=', assign);
     actCode = Preparser.removeInsignificantWhs(actCode);
     expCode = Preparser.removeInsignificantWhs(expCode);
     Assert.equal(actCode, expCode);
