@@ -1,0 +1,8 @@
+!transition_variables
+    x,y
+!log_variables
+    x,y
+!transition_equations
+    x = x{-1} !! x = 0.1;
+    y =# normcdf(log(x));
+
