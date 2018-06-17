@@ -75,8 +75,6 @@ end
 
 return
 
-    
-
 
     function runTest( )
         s = simulate(n, d, 1:nSim, 'Anticipate=', ant, ...

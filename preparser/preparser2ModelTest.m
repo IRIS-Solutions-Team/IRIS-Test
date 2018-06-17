@@ -19,13 +19,13 @@ end % testImport()
 
 
 function testExport(This)
-if utils.exist('testExport.m','file')
-    utils.delete('testExport.m');
+if exist('testExport.m','file')==2
+    delete('testExport.m');
 end
 m = model('testP2MExport.model','sw1=',true);
 flag = exist('testExport.m','file');
 assertEqual(This,flag,2);
-utils.delete('testExport.m');
+delete('testExport.m');
 pSet = get(m,'pSet');
 xList = get(m,'xList');
 assertEqual(This,pSet,struct('sw1',true));
