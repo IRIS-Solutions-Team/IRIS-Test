@@ -4,5 +4,5 @@
     x,y
 !transition_equations
     x = x{-1} !! x = 0.1;
-    y =# normcdf(log(x));
+    y =# tan(log(x));
 
