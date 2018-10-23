@@ -24,6 +24,7 @@ function testWrongFreqConcat(this)
     end
     assertEqual(this, actualId, expectedId);
 
+    expectedId = 'IRIS:Dates:MixedFrequency';
     try
         [a; b];
     catch Error
@@ -47,14 +48,14 @@ end%
 
 function testEmpty(~)
     x = tseries( );
-    Assert.equaln(x.Start, DateWrapper(NaN));
-    Assert.equaln(x.End, DateWrapper(NaN));
+    check.equaln(x.Start, DateWrapper(NaN));
+    check.equaln(x.End, DateWrapper(NaN));
     x = tseries.empty(0, 2, 3);
-    Assert.equal(x.Data, double.empty(0, 2, 3));
-    Assert.equaln(x.Start, DateWrapper(NaN));
+    check.equal(x.Data, double.empty(0, 2, 3));
+    check.equaln(x.Start, DateWrapper(NaN));
     x = tseries.empty([0, 2, 3]);
-    Assert.equal(x.Data, double.empty(0, 2, 3));
-    Assert.equaln(x.Start, DateWrapper(NaN));
+    check.equal(x.Data, double.empty(0, 2, 3));
+    check.equaln(x.Start, DateWrapper(NaN));
 end%
 
 
@@ -62,8 +63,8 @@ function testGet(~)
     sdate = qq(2010,1);
     edate = qq(2011,2);
     x = tseries(sdate:edate, 1) ;
-    Assert.equal(get(x,'start'), sdate);
-    Assert.equal(get(x,'end'), edate);
+    check.equal(get(x,'start'), sdate);
+    check.equal(get(x,'end'), edate);
 end%
 
 

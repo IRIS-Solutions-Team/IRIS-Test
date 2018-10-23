@@ -5,7 +5,7 @@ if ~isOptim
     return
 end
 
-% Set up
+% Set up once
 
 assertEqual = @(x, y) assert(isequal(x, y));
 assertEqualTol = @(x, y) assert(maxabs(x, y)<1e-5);
@@ -76,3 +76,4 @@ assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
 
 assertEqualTol(pEst2.a, pEst0.a);
 assertEqualTol(pEst2.c, pEst0.c);
+

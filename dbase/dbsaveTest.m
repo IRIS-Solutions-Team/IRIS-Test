@@ -86,13 +86,14 @@ c = file2char('dbsaveTest7.csv');
 c = strrep(c, '2001Q1', '2001M1');
 char2file(c, 'dbsaveTest7_.csv');
 
+errorID = '';
 try
-    err = MException('', '');
     dbload('dbsaveTest7_.csv');
 catch err
+    errorID = err.identifier;
 end
 
-Assert.equal(err.identifier, 'IRIS:Dbase:LoadMixedFrequency');
+check.equal(errorID, 'IRIS:Dates:MixedFrequency');
 
 %% Error invalid NameFunc= option
 

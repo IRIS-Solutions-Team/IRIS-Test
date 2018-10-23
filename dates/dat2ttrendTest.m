@@ -4,7 +4,7 @@ assertEqual = @(x, y) assert(isequal(x, y));
 %% Base Year Input Argument
 
 for freq = [1, 2, 4, 12]
-    rng = datcode(freq, 1990) : datcode(freq, 2100);
+    rng = numeric.datecode(freq, 1990) : numeric.datecode(freq, 2100);
     nPer = length(rng);
     for b = 1980 : 10 : 2110
         ty = dat2ttrend(rng, b);
@@ -24,7 +24,7 @@ end
 
 baseYear = iris.get('BaseYear');
 for freq = [1, 2, 4, 12]
-    rng = datcode(freq, 1990) : datcode(freq, 2100);
+    rng = numeric.datecode(freq, 1990) : numeric.datecode(freq, 2100);
     nPer = length(rng);
     for b = 1980 : 10 : 2110
         iris.set('BaseYear', b);
@@ -45,7 +45,7 @@ iris.set('BaseYear', baseYear);
 
 m = model( );
 for freq = [1, 2, 4, 12]
-    rng = datcode(freq, 1990) : datcode(freq, 2100);
+    rng = numeric.datecode(freq, 1990) : numeric.datecode(freq, 2100);
     nPer = length(rng);
     for b = 1980 : 10 : 2110
         m = set(m, 'BaseYear', b);

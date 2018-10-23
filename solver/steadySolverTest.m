@@ -8,7 +8,6 @@ m.dlt = 0.20;
 m.z = 1;
 m0 = sstate(m, 'Solver=', {'IRIS', 'Display=', 'none'});
 
-assertEqual = @(x, y) assert(isequal(x, y));
 assertEqualTol = @(x, y) assert(abs(x-y)<1e-8);
 assertStrInFile = @(file, c) assert(~isempty(strfind(file2char(file), c)));
 assertStrNotInFile = @(file, c) assert(isempty(strfind(file2char(file), c)));
@@ -40,19 +39,19 @@ assertStrInFile('test_steady_solver_in', 'Numerical');
 assertStrNotInFile('test_steady_solver_in', 'Analytical');
 
 %% User-Supplied Solver Expecting Gradients to Be Returned from Objective Function
-% No need to adjust option PrepareGradient= as long as it is @auto; if a
-% user-supplied solver is called, @auto will result in
-% PrepareGradient=true.
+% Context='Steady' means default for SpecifyObjectiveGradient=true; we need
+% to set PrepareGradient=true when calling steady(_) because default is
+% PrepareGradient=false for user supplied solvers.
 
-opt = solver.Options( );
-fn = @(fn, x) solver.algorithm.lm(fn, x, opt);
+opt = solver.Options('IRIS-Qnsd', 'Context=', 'Steady'); 
+fn = @(fn, x) solver.algorithm.qnsd(fn, x, opt);
 
 delete test_steady_solver_ua
 diary test_steady_solver_ua
-m3 = sstate(m, 'Solver=', fn);
+m3 = sstate(m, 'Solver=', fn, 'PrepareGradient=', true);
 diary off
 
-assertEqualTol(m3.y, m0.y);
+check.relTol(m3.y, m0.y, 1e-10);
 assertStrInFile('test_steady_solver_ua', 'Analytical');
 assertStrNotInFile('test_steady_solver_ua', 'Numerical');
 
@@ -62,34 +61,36 @@ assertStrNotInFile('test_steady_solver_ua', 'Numerical');
 % some more overhead time will be wasted preparing analytical gradients (which are
 % not used).
 
-opt = solver.Options('Steady', 'SpecifyObjectiveGradient=', false);
-fn = @(fn, x) solver.algorithm.lm(fn, x, opt);
+opt = solver.Options( 'IRIS-Qnsd', ...
+                      'Context=', 'Steady', ...
+                      'SpecifyObjectiveGradient=', false );
+check.equal(opt.SpecifyObjectiveGradient, false);
+fn = @(fn, x) solver.algorithm.qnsd(fn, x, opt);
 
 delete test_steady_solver_un
 diary test_steady_solver_un
 m4 = sstate(m, 'Solver=', fn, 'PrepareGradient=', false);
 diary off
 
-assertEqualTol(m4.y, m0.y);
+check.relTol(m4.y, m0.y, 1e-10);
 assertStrInFile('test_steady_solver_un', 'Numerical');
 assertStrNotInFile('test_steady_solver_un', 'Analytical');
+
 
 %% User-Supplied Solver Expecting Gradients but These Are Not Prepared/Supplied
 % If user solver expects analytical gradients but option PrepareGradient=
 % is set false, IRIS will throw an error.
 
-opt = solver.Options('Steady', 'SpecifyObjectiveGradient=', true);
-fn = @(fn, x) solver.algorithm.lm(fn, x, opt);
+opt = solver.Options( 'IRIS-Qnsd', ...
+                      'Context=', 'Steady' );
+check.equal(opt.SpecifyObjectiveGradient, true);
+fn = @(fn, x) solver.algorithm.qnsd(fn, x, opt);
 
-delete test_steady_solver_uax
-diary test_steady_solver_uax
+errorID = '';
 try
     m5 = sstate(m, 'Solver=', fn, 'PrepareGradient=', false);
 catch err
-    assertEqual(err.identifier, 'IRIS:Solver:SteadyGradientRequestedButNotPrepared');
+    errorID = err.identifier;
 end
-diary off
-
-assertStrInFile('test_steady_solver_uax', 'Analytical');
-assertStrNotInFile('test_steady_solver_uax', 'Numerical');
+check.equal(errorID, 'IRIS:Solver:GradientRequestedButNotPrepared');
 

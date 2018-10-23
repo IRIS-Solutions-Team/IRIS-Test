@@ -12,29 +12,33 @@ for i = 1 : 4
     visual.zeroline('HandleVisibility=', 'On');
 end
 
+
 %% Test Highlight 
 
 h = findobj(f, 'Tag', 'highlight');
-assert(numel(h)==4);
+check.equal(numel(h), 4);
+
 
 %% Test VLine 
 
 v = findobj(f, 'Tag', 'vline');
 assert(numel(v)==4);
 
+
 %% Test VLine-Caption 
 
 c = findobj(f, 'Tag', 'vline-caption');
 assert(numel(c)==4);
+
 
 %% Test ZeroLine 
 
 z = findobj(f, 'Tag', 'zeroline');
 assert(numel(z)==4);
 
+
 %% Test HLine 
 
 o = findobj(f, 'Tag', 'hline');
 assert(numel(o)==4);
-
 

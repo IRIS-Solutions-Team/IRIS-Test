@@ -20,19 +20,19 @@ x = Series(1, data);
 
 xi = interp(x);
 actualData = xi(:);
-Assert.absTol(expectedDataPchip, actualData, 1e-12);
+check.absTol(expectedDataPchip, actualData, 1e-12);
 
 xi = interp(x, 'Method=', 'pchip');
 actualData = xi(:);
-Assert.absTol(expectedDataPchip, actualData, 1e-12);
+check.absTol(expectedDataPchip, actualData, 1e-12);
 
 xi = interp(x, 'Method=', 'linear');
 actualData = xi(:);
-Assert.absTol(expectedDataLinear, actualData, 1e-12);
+check.absTol(expectedDataLinear, actualData, 1e-12);
 
 xi = interp(x, 'Method=', 'nearest');
 actualData = xi(:);
-Assert.absTol(expectedDataNearest, actualData, 1e-12);
+check.absTol(expectedDataNearest, actualData, 1e-12);
 
 
 %% Quarterly Frequency
@@ -41,19 +41,19 @@ x = Series(qq(2000, 1), data);
 
 xi = interp(x);
 actualData = xi(:);
-Assert.absTol(expectedDataPchip, actualData, 1e-12);
+check.absTol(expectedDataPchip, actualData, 1e-12);
 
 xi = interp(x, 'Method=', 'pchip');
 actualData = xi(:);
-Assert.absTol(expectedDataPchip, actualData, 1e-12);
+check.absTol(expectedDataPchip, actualData, 1e-12);
 
 xi = interp(x, 'Method=', 'linear');
 actualData = xi(:);
-Assert.absTol(expectedDataLinear, actualData, 1e-12);
+check.absTol(expectedDataLinear, actualData, 1e-12);
 
 xi = interp(x, 'Method=', 'nearest');
 actualData = xi(:);
-Assert.absTol(expectedDataNearest, actualData, 1e-12);
+check.absTol(expectedDataNearest, actualData, 1e-12);
 
 
 %% Daily Frequency
@@ -62,18 +62,18 @@ x = Series(dd(2000, 1, 1), data);
 
 xi = interp(x);
 actualData = xi(:);
-Assert.absTol(expectedDataPchip, actualData, 1e-12);
+check.absTol(expectedDataPchip, actualData, 1e-12);
 
 xi = interp(x, 'Method=', 'pchip');
 actualData = xi(:);
-Assert.absTol(expectedDataPchip, actualData, 1e-12);
+check.absTol(expectedDataPchip, actualData, 1e-12);
 
 xi = interp(x, 'Method=', 'linear');
 actualData = xi(:);
-Assert.absTol(expectedDataLinear, actualData, 1e-12);
+check.absTol(expectedDataLinear, actualData, 1e-12);
 
 xi = interp(x, 'Method=', 'nearest');
 actualData = xi(:);
-Assert.absTol(expectedDataNearest, actualData, 1e-12);
+check.absTol(expectedDataNearest, actualData, 1e-12);
 
 

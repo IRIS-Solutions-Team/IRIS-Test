@@ -1,0 +1,21 @@
+!transition_variables
+    x, y, z
+!parameters
+    a, b, c, d
+!transition_shocks
+    ex, ey, ez
+!log_variables
+    !all_but
+
+!transition_equations
+    x/exp(ex) = a; % Force numerical algorithm when solving steady state
+    y/exp(ey) = b;
+    z/exp(ez) = x^c * y^d ;
+
+!measurement_variables
+    obs_x, obs_y, obs_z
+!measurement_equations
+    obs_x = x;
+    obs_y = y;
+    obs_z = z;
+

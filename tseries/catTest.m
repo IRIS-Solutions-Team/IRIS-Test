@@ -13,10 +13,10 @@ x2 = Series(start, x2Data);
 x3 = Series(start, x3Data);
 
 xx = [x1, x2, x3];
-Assert.equal([x1Data, x2Data, x3Data], xx(:));
+check.equal([x1Data, x2Data, x3Data], xx(:));
 
 xx = cat(3, x1, x2, x3);
-Assert.equal(cat(3, x1Data, x2Data, x3Data), xx(:));
+check.equal(cat(3, x1Data, x2Data, x3Data), xx(:));
 
 %% Integer Frequency Shifted
 
@@ -27,9 +27,9 @@ x2 = Series(start+sh, x2Data);
 x3 = Series(start, x3Data);
 
 xx = [x1, x2, x3];
-Assert.equaln([x1Data; nan(sh, 1)],  xx(:, 1));
-Assert.equaln([nan(sh, 1); x2Data],  xx(:, 2));
-Assert.equaln([x3Data; nan(sh, 1)],  xx(:, 3));
+check.equaln([x1Data; nan(sh, 1)],  xx(:, 1));
+check.equaln([nan(sh, 1); x2Data],  xx(:, 2));
+check.equaln([x3Data; nan(sh, 1)],  xx(:, 3));
 
 %% Integer Frequency with Numeric
 
@@ -39,10 +39,10 @@ x2 = Series(start, x2Data);
 x3 = Series(start, x3Data);
 
 xx = [x1, x2, 10, x3];
-Assert.equaln(x1Data,  xx(:, 1));
-Assert.equaln(x2Data,  xx(:, 2));
-Assert.equaln(10*ones(size(x1Data)),  xx(:, 3));
-Assert.equaln(x3Data,  xx(:, 4));
+check.equaln(x1Data,  xx(:, 1));
+check.equaln(x2Data,  xx(:, 2));
+check.equaln(10*ones(size(x1Data)),  xx(:, 3));
+check.equaln(x3Data,  xx(:, 4));
 
 %% Quarterly Frequency
 
@@ -52,10 +52,10 @@ x2 = Series(start, x2Data);
 x3 = Series(start, x3Data);
 
 xx = [x1, x2, x3];
-Assert.equal([x1Data, x2Data, x3Data], xx(:));
+check.equal([x1Data, x2Data, x3Data], xx(:));
 
 xx = cat(3, x1, x2, x3);
-Assert.equal(cat(3, x1Data, x2Data, x3Data), xx(:));
+check.equal(cat(3, x1Data, x2Data, x3Data), xx(:));
 
 %% Quarterly Frequency Shifted
 
@@ -66,9 +66,9 @@ x2 = Series(start+sh, x2Data);
 x3 = Series(start, x3Data);
 
 xx = [x1, x2, x3];
-Assert.equaln([x1Data; nan(sh, 1)],  xx(:, 1));
-Assert.equaln([nan(sh, 1); x2Data],  xx(:, 2));
-Assert.equaln([x3Data; nan(sh, 1)],  xx(:, 3));
+check.equaln([x1Data; nan(sh, 1)],  xx(:, 1));
+check.equaln([nan(sh, 1); x2Data],  xx(:, 2));
+check.equaln([x3Data; nan(sh, 1)],  xx(:, 3));
 
 %% Cat with Empty
 
@@ -76,12 +76,37 @@ start = qq(2000, 1);
 x1 = Series(start, x1Data);
 
 xx = [x1; Series];
-Assert.equaln(x1Data,  xx(:));
+check.equaln(x1Data,  xx(:));
 
 xx = [Series; x1];
-Assert.equaln(x1Data,  xx(:));
+check.equaln(x1Data,  xx(:));
 
 xx = [Series; Series];
-Assert.equaln(nan(0,1),  xx(:));
+check.equaln(nan(0,1),  xx(:));
 
+
+%% Cat with Different yet Consistent Size
+
+x1 = Series([ ], zeros(0, 2, 3));
+x2 = Series(NaN, zeros(0, 3, 2));
+try
+    [x1; x2];
+    isError = false;
+catch
+    isError = true;
+end
+check.equal(isError, false);
+
+
+%% Cat with Different and Inconsistent Size
+
+x1 = Series([ ], zeros(0, 2, 3));
+x2 = Series(NaN, zeros(0, 3, 1));
+try
+    [x1; x2];
+    isError = false;
+catch
+    isError = true;
+end
+check.equal(isError, true);
 
