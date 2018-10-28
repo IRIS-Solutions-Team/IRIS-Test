@@ -1,10 +1,10 @@
 
 close all
-figureOpt = {'Visible', 'Off'};
+figureOpt = {'Visible', 'On'};
 startDate = qq(2000,1);
 x = tseries(startDate, rand(8, 2), 'DateFormat=', 'YPF');
 dateFormat = 'PFYYYY';
-exp1 = dat2char(x.Start);
+exp1 = dat2char(x.Start, 'DateFormat=', iris.get('PlotDateFormat'));
 exp2 = dat2char(x.Start, 'DateFormat=', dateFormat);
 
 
