@@ -13,7 +13,7 @@ freq = enumeration('Frequency');
 freq = freq(~isnan(freq) & freq<=365);
 for i = 1 : numel(freq)
     start = numeric.datecode(freq(i), 2000);
-    x = Series(start, data);
+    x = tseries(start, data);
     figure('Visible', figureVisible);
     spy(x);
 end
@@ -23,7 +23,7 @@ close all
 %% Test Interpreter Option
 
 start = qq(2001,1);
-x = Series(start, data);
+x = tseries(start, data);
 names = arrayfun(@(x) sprintf('a_%g', x), 1:size(data, 2), 'UniformOutput', false);
 figure( );
 spy(x, 'Names=', names, 'Interpreter=', 'None');

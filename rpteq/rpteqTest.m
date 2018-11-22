@@ -28,7 +28,7 @@ outp.z = comment(outp.z, 'Eq2');
 outp.w = comment(outp.w, 'Eq3');
 
 outpClip = outp;
-% Do not clip `y`.
+% Do not clip y
 outpClip.x = resize(outpClip.x, dates);
 outpClip.z = resize(outpClip.z, dates);
 outpClip.w = resize(outpClip.w, dates);

@@ -37,7 +37,7 @@ function testPlain(this)
     assertEqual(this, fit1.Data+e1.Data, yy.Data, 'AbsTol', 1e-14);
     assertEqual(this, double(dates1), double(qq(2000,1:20)'), 'AbsTol', 1e-14);
     assertEqual(this, b1, b3, 'AbsTol', 1e-14);
-end
+end%
 
 
 function testRange(this)
