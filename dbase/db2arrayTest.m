@@ -6,7 +6,7 @@ end
 
 function testArray2dbMoreVars(this)
 % More variables than dates.
-TIME_SERIES_CONSTRUCTOR = getappdata(0, 'IRIS_TimeSeriesConstructor');
+TIME_SERIES_CONSTRUCTOR = iris.get('DefaultTimeSeriesConstructor');
 expDb = struct( );
 expDb.a = TIME_SERIES_CONSTRUCTOR(1:4, rand(4, 2, 3, 5));
 expDb.b = TIME_SERIES_CONSTRUCTOR(1:4, rand(4, 2, 3, 5));
@@ -22,7 +22,7 @@ end % testArray2dbMoreVars( )
 
 function testArray2dbMoreVarsComments(this)
 % More variables than dates.
-TIME_SERIES_CONSTRUCTOR = getappdata(0, 'IRIS_TimeSeriesConstructor');
+TIME_SERIES_CONSTRUCTOR = iris.get('DefaultTimeSeriesConstructor');
 expDb = struct( );
 expDb.a = TIME_SERIES_CONSTRUCTOR(1:4, rand(4, 2, 3, 5));
 expDb.b = TIME_SERIES_CONSTRUCTOR(1:4, rand(4, 2, 3, 5));
@@ -43,7 +43,7 @@ end % testArray2dbMoreVars( )
 
 function testArray2dbMoreDates(this)
 % More dates than variables.
-TIME_SERIES_CONSTRUCTOR = getappdata(0, 'IRIS_TimeSeriesConstructor');
+TIME_SERIES_CONSTRUCTOR = iris.get('DefaultTimeSeriesConstructor');
 expDb = struct( );
 expDb.x = TIME_SERIES_CONSTRUCTOR(1:4, rand(4, 2, 3, 5));
 expDb.y = TIME_SERIES_CONSTRUCTOR(1:4, rand(4, 2, 3, 5));
@@ -56,7 +56,7 @@ end % testArray2dbMoreDates( )
 
 function testArray2dbNotRange(this)
 % Dates are not continuous range.
-TIME_SERIES_CONSTRUCTOR = getappdata(0, 'IRIS_TimeSeriesConstructor');
+TIME_SERIES_CONSTRUCTOR = iris.get('DefaultTimeSeriesConstructor');
 rng = qq(2000, [1, 10, 7, 6]);
 expDb = struct( );
 expDb.x = TIME_SERIES_CONSTRUCTOR(rng, rand(4, 2, 3, 5));
@@ -72,7 +72,7 @@ end % testArray2dbNotRange( )
 
 function testArray2dbHiDim(this)
 % Higher dimensions equal in all tseries.
-TIME_SERIES_CONSTRUCTOR = getappdata(0, 'IRIS_TimeSeriesConstructor');
+TIME_SERIES_CONSTRUCTOR = iris.get('DefaultTimeSeriesConstructor');
 rng = mm(2000, 1:10);
 nPer = length(rng);
 db = struct( );
@@ -96,7 +96,7 @@ end % testArray2dbHiDim( )
 
 function testArray2dbHiDimMissing(this)
 % Higher dimensions missing in some tseries.
-TIME_SERIES_CONSTRUCTOR = getappdata(0, 'IRIS_TimeSeriesConstructor');
+TIME_SERIES_CONSTRUCTOR = iris.get('DefaultTimeSeriesConstructor');
 rng = yy(2000):yy(2005);
 nPer = length(rng);
 db = struct( );
