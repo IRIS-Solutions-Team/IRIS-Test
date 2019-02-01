@@ -55,9 +55,9 @@ qty = getp(m, 'Quantity');
 ell = lookup(qty, get(m, 'PList'));
 posPout = ell.PosName;
 ny = get(m, 'ny');
-ac = evalDtrends(m, posPout, G, @all);
+ac = evalTrendEquations(m, posPout, G, @all);
 
-% All parameters are pout, so they are reset to 0 in evalDtrends.
+% All parameters are pout, so they are reset to 0 in evalTrendEquations.
 alp = 0;
 bet = 0;
 gam = 0;
@@ -93,7 +93,7 @@ h = G(2, :, :);
 ttrend = G(3, :, :);
 ell = lookup(qty, {'del', 'zet', 'eta'});
 posPout = ell.PosName;
-ac = evalDtrends(m, posPout, G, @all); %#ok<*NASGU>
+ac = evalTrendEquations(m, posPout, G, @all); %#ok<*NASGU>
 alp = m.alp;
 bet = m.bet;
 gam = m.gam;
@@ -101,7 +101,7 @@ del = 0;
 eps = m.eps;
 zet = m.zet;
 eta = m.eta;
-[~, ac] = evalDtrends(m, posPout, G, @all);
+[~, ac] = evalTrendEquations(m, posPout, G, @all);
 ex = zeros(ny, 3, nPer);
 ex(3, 1, :) = -ttrend.^2; % c
 ex(4, 2, :) = g;
@@ -131,9 +131,9 @@ ng = get(m, 'ng');
 ny = get(m, 'ny');
 g = bsxfun(@times, [1, 2.5, -3, 10, 0], permute(1:nAlt, [1, 3, 2]));
 h = bsxfun(@times, [10, 9, 8, 7, 6], permute(1:nAlt, [1, 3, 2]));
-ac = evalDtrends(m, [ ], [g; h; repmat(ttrend, 1, 1, nAlt)], @all);
+ac = evalTrendEquations(m, [ ], [g; h; repmat(ttrend, 1, 1, nAlt)], @all);
 
-% All parameters are pout, so they are reset to 0 in evalDtrends.
+% All parameters are pout, so they are reset to 0 in evalTrendEquations.
 for i = 1 : nAlt
     ex = zeros(ny, nPer);
     ex(1, :) = 0; % a
