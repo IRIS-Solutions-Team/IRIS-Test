@@ -12,6 +12,7 @@ assertEqualTol = @(x, y) assert(abs(x-y)<1e-8);
 assertStrInFile = @(file, c) assert(~isempty(strfind(file2char(file), c)));
 assertStrNotInFile = @(file, c) assert(isempty(strfind(file2char(file), c)));
 
+
 %% IRIS Solver or Optim Tbx Solver with Analytical Gradients
 % This is by default. See the flag Analytical displayed under Jacob-Norm
 % heading in the solver screen output.
@@ -38,12 +39,14 @@ assertEqualTol(m2.y, m0.y);
 assertStrInFile('test_steady_solver_in', 'Numerical');
 assertStrNotInFile('test_steady_solver_in', 'Analytical');
 
+
 %% User-Supplied Solver Expecting Gradients to Be Returned from Objective Function
 % Context='Steady' means default for SpecifyObjectiveGradient=true; we need
 % to set PrepareGradient=true when calling steady(_) because default is
 % PrepareGradient=false for user supplied solvers.
 
-opt = solver.Options('IRIS-Qnsd', 'Context=', 'Steady'); 
+opt = solver.Options( 'IRIS-Qnsd', ...
+                      'SpecifyObjectiveGradient=', true );
 fn = @(fn, x) solver.algorithm.qnsd(fn, x, opt);
 
 delete test_steady_solver_ua
@@ -55,6 +58,7 @@ check.relTol(m3.y, m0.y, 1e-10);
 assertStrInFile('test_steady_solver_ua', 'Analytical');
 assertStrNotInFile('test_steady_solver_ua', 'Numerical');
 
+
 %% User-Supplied Solver Not Expecting Gradients to Be Returned from Objective Function
 % Set option PrepareGradient=false. This is not critical though; if not set
 % to false, steady state will be computed exactly the same way except
@@ -62,7 +66,6 @@ assertStrNotInFile('test_steady_solver_ua', 'Numerical');
 % not used).
 
 opt = solver.Options( 'IRIS-Qnsd', ...
-                      'Context=', 'Steady', ...
                       'SpecifyObjectiveGradient=', false );
 check.equal(opt.SpecifyObjectiveGradient, false);
 fn = @(fn, x) solver.algorithm.qnsd(fn, x, opt);
@@ -82,7 +85,7 @@ assertStrNotInFile('test_steady_solver_un', 'Analytical');
 % is set false, IRIS will throw an error.
 
 opt = solver.Options( 'IRIS-Qnsd', ...
-                      'Context=', 'Steady' );
+                      'SpecifyObjectiveGradien=', true );
 check.equal(opt.SpecifyObjectiveGradient, true);
 fn = @(fn, x) solver.algorithm.qnsd(fn, x, opt);
 

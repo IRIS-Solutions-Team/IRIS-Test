@@ -8,7 +8,7 @@
      3       26   4.00791e-13      0             1   8.95103e-07   8.95103e-07   8.95103e-07*
      4       33   1.11022e-16      0             1   4.00679e-13   4.00791e-13           NaN
 
-Successfully converged. Both step tolerance and function tolerance satisfied.
+Block 1: Successfully converged. Both step tolerance and function tolerance satisfied.
 
 
   Iter Fn-Count       Fn-Norm Lambda     Step-Size   Fn-Norm-Chg     Max-X-Chg Max-Jacob-Chg 
@@ -23,7 +23,7 @@ Successfully converged. Both step tolerance and function tolerance satisfied.
      6       53   7.55951e-15      0             1   9.00895e-08   2.07104e-07   4.81617e-07*
      7       60   2.77556e-16      0             1   7.28195e-15   1.57652e-14           NaN
 
-Successfully converged. Both step tolerance and function tolerance satisfied.
+Block 2: Successfully converged. Both step tolerance and function tolerance satisfied.
 
 
   Iter Fn-Count       Fn-Norm Lambda     Step-Size   Fn-Norm-Chg     Max-X-Chg Max-Jacob-Chg 
@@ -38,7 +38,7 @@ Successfully converged. Both step tolerance and function tolerance satisfied.
      6       55   6.93889e-18      0             1   8.20627e-10   1.55669e-08   8.20627e-10*
      7       62   6.93889e-18      0             1             0             0           NaN
 
-Successfully converged. Both step tolerance and function tolerance satisfied.
+Block 3: Successfully converged. Both step tolerance and function tolerance satisfied.
 
 
   Iter Fn-Count       Fn-Norm Lambda     Step-Size   Fn-Norm-Chg     Max-X-Chg Max-Jacob-Chg 
@@ -52,7 +52,7 @@ Successfully converged. Both step tolerance and function tolerance satisfied.
      5       45     6.245e-17      0             1   6.52634e-09   1.79058e-08   6.52634e-09*
      6       52   4.85723e-17      0             1   1.38778e-17   2.22045e-16           NaN
 
-Successfully converged. Both step tolerance and function tolerance satisfied.
+Block 4: Successfully converged. Both step tolerance and function tolerance satisfied.
 
 
   Iter Fn-Count       Fn-Norm Lambda     Step-Size   Fn-Norm-Chg     Max-X-Chg Max-Jacob-Chg 
@@ -65,5 +65,5 @@ Successfully converged. Both step tolerance and function tolerance satisfied.
      4       33   9.35918e-13      0             1   1.36814e-06   1.36814e-06   1.36814e-06*
      5       40             0      0             1   9.35918e-13   9.35918e-13           NaN
 
-Successfully converged. Both step tolerance and function tolerance satisfied.
+Block 5: Successfully converged. Both step tolerance and function tolerance satisfied.
 
