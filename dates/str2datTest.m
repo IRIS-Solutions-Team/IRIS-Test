@@ -83,3 +83,21 @@ for i = 1 : 12
     assertEqual(actual, expected);
 end
 
+
+%% Yearly
+
+actual = str2dat('2020Y');
+expected = yy(2020);
+assertEqual(actual, expected);
+
+actual = str2dat('2020Y', 'DateFormat=', 'YYYYF');
+expected = yy(2020);
+assertEqual(actual, expected);
+
+
+%% Yearly Year Only
+
+actual = str2dat('2020', 'DateFormat=', 'YYYY');
+expected = yy(2020);
+assertEqual(actual, expected);
+

@@ -43,3 +43,13 @@ end
 
 d = dbload('dbloadTest1.csv', 'Case=', 'lower');
 assertEqual(sort(fieldnames(d)), {'x'; 'y'; 'z'});
+
+
+%% Yearly Dates YYYY
+
+actual = dbload('dbloadTest3.csv', 'DateFormat=', 'YYYY');
+expected = struct( 'ts1', Series(yy(2008), [1;1]), ...
+                   'ts2', Series(yy(2008), [2;2]) );
+assertEqual(actual, expected);
+
+
