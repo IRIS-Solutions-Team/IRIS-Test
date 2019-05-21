@@ -1,5 +1,5 @@
 
-!transition_variables
+!transition-variables
 
     'Output' Y, 'Labor' N, 'Wage rate' W
     'Nominal Marginal Cost' Q, 'Consumption Habit' H, 'Productivity' A
@@ -11,7 +11,7 @@
     'Inflation Q/Q' dP, 'Inflation Y/Y' d4P, 'Wage Inflation Q/Q' dW
     'Real Marginal Cost' RMC
    
-!transition_shocks
+!transition-shocks
 
     'Consumption Demand Shock' Ey, 'Cost Push Shock' Ep, 
     'Productivity Shock' Ea, 'Policy Shock' Er
@@ -27,12 +27,12 @@
     'Price Stickiness !! \xi_p' xip, rhoa, rhor, kappap, kappan
 
 
-!measurement_variables
+!measurement-variables
 
     'Short Term Rate' Short, 'Price Inflation' Infl,
     'Output Growth' Growth, 'Wage Inflation' Wage
    
-!measurement_shocks
+!measurement-shocks
 
     'Measurement Error on Price Inflation' Mp,
     'Measurement Error on Wage Inflation' Mw
@@ -47,9 +47,9 @@
 % keyword |!all_but| reverses the logic of this section -- all variables
 % will be log-linearized except those listed here.
    
-!log_variables
+!log-variables
 
-    !all_but
+    !all-but
     Short, Infl, Growth, Wage
  
 %
@@ -64,7 +64,7 @@
 % equations also can be annotated with a single-quoted text preceding the
 % equation.
 
-!transition_equations
+!transition-equations
 
     % Consumers
 
@@ -115,7 +115,7 @@
    
 %% Write Measurement Equations
 
-!measurement_equations
+!measurement-equations
 
     Short =  100*(R^4 - 1);
     Infl = 100*((P/P{-1})^4 - 1 + Mp);
