@@ -39,18 +39,25 @@ m = solve(m);
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 p = Plan(m, 1:20);
-p = anticipate(p, false, 'Ey');
+p = anticipate(p, false, {'Ey', 'Y'});
 p = exogenize(p, 1:20, 'P');
 p = endogenize(p, 1:20, 'Ep');
 p = swap(p, 1:1, {'Y', 'Ey'});
 
 d = zerodb(m, 1:20);
-d.Y(1) = d.Y(1) .* exp(randn(1,1)*0.02);
+%d.Y(1:20) = d.Y(1:20) .* exp(randn(20,1)*0.02);
+d.Y(1:1) = d.Y(1:1) .* exp(randn(1,1)*0.02);
 d.P(1:20) = d.P(1:20) .* exp(randn(20,1)*0.02);
 
 g = sstatedb(m, 1:20);
 g.Y(1) = g.Y(1) .* exp(randn(1,1)*0.02);
 g.P(1:20) = g.P(1:20) .* exp(randn(20,1)*0.02);
+
+p0 = Plan(m, 1:20);
+p0 = anticipate(p0, false, {'Ey'});
+p0 = exogenize(p0, 1:20, 'P');
+p0 = endogenize(p0, 1:20, 'Ep');
+p0 = swap(p0, 1:1, {'Y', 'Ey'});
 
 
 %% Test Contributions Linear Zerodb
@@ -58,6 +65,10 @@ g.P(1:20) = g.P(1:20) .* exp(randn(20,1)*0.02);
 [z, zi] = simulate( m, d, 1:20, ...
                     'Plan=', p, ...
                     'Deviation=', true );
+
+[z0, z0i] = simulate( m, d, 1:20, ...
+                      'Plan=', p0, ...
+                      'Deviation=', true );
 
 [s, si] = simulate( m, z, 1:20, ...
                     'Plan=', clear(p), ...
@@ -69,7 +80,8 @@ g.P(1:20) = g.P(1:20) .* exp(randn(20,1)*0.02);
                     'Contributions=', true );
 
 assertEqual(testCase, zi.TimeFrames, si.TimeFrames);
-assertContributions(m, s, z);
+assertEqual(testCase, zi.TimeFrames, z0i.TimeFrames);
+assertContributions(m, z0, z);
 assertContributions(m, s, c);
 
 
