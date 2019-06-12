@@ -1,6 +1,9 @@
 
+% Set up once
+
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 close all
-figureOpt = {'Visible', 'On'};
+figureOpt = {'Visible', 'Off'};
 startDate = qq(2000,1);
 x = tseries(startDate, rand(8, 2), 'DateFormat=', 'YPF');
 dateFormat = 'PFYYYY';
@@ -19,8 +22,8 @@ datxtick(gca( ), newRange);
 
 newRangeDec = dat2dec(newRange, 'c');
 xLim = get(gca( ), 'XLim');
-check.absTol(newRangeDec(1), xLim(1), 0.001);    
-check.absTol(newRangeDec(end), xLim(end), 0.001);    
+assertEqual(testCase, newRangeDec(1), xLim(1), 'AbsTol', 0.001);    
+assertEqual(testCase, newRangeDec(end), xLim(end), 'AbsTol', 0.001);    
 
 
 %% Test Different DatePositions
@@ -33,7 +36,7 @@ figure(figureOpt{:});
 plot(x.Range, x, 'DatePosition=', 'end');
 xTick2 = get(gca(), 'XTick');
 
-check.greater(xTick2, xTick1);
+assertGreaterThan(testCase, xTick2, xTick1);
 
 
 %% Test Different Plot Functions and DateFormats
@@ -47,8 +50,8 @@ visual.next(numel(list), figureOpt{:});
 cellfun(@(func) func(visual.next( ), x.Range, x, 'DatePosition=', 'end', 'DateFormat=', dateFormat), list);
 act2 = getFirstDate( );
 
-check.equal(exp1, act1);
-check.equal(exp2, act2);
+assertEqual(testCase, exp1, act1);
+assertEqual(testCase, exp2, act2);
 
 
 %% Test plotyy with Different DateFormats
@@ -61,8 +64,8 @@ figure(figureOpt{:});
 plotyy(x.Range, x{:, 1}, x{:, 2}, 'DateFormat=', dateFormat);
 act2 = getFirstDate( );
 
-check.equal(exp1, act1);
-check.equal(exp2, act2);
+assertEqual(testCase, exp1, act1);
+assertEqual(testCase, exp2, act2);
 
 %
 % Local functions

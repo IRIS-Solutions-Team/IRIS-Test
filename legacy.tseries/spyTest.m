@@ -1,4 +1,7 @@
 
+% Set up once
+
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 close all
 data = rand(40, 10);
 n = numel(data);
@@ -34,7 +37,7 @@ catch
     interpreter = '';
 end
 if ~isempty(interpreter)
-    check.equal(lower(char(interpreter)), 'none');
+    assertEqual(testCase, lower(char(interpreter)), 'none');
 end
 close all
 

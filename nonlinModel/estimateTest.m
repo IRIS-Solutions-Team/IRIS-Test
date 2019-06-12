@@ -1,6 +1,7 @@
 
 % Set Up
 
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 m0 = model('simple_SPBC.model') ;
 
 m0.alpha = 1.03^(1/4);
@@ -36,72 +37,72 @@ endhist = DateWrapper(endhist);
 
 isOptim = ~isempty(ver('optim'));
 
-
 %% Test get
 
 m = m0;
 
 actual = get(m, 'exList') ;
 expected = {'Ey', 'Ep', 'Ea', 'Er', 'Ew'} ;
-Assert.equal(actual, expected) ;
+assertEqual(testCase, actual, expected) ;
 
 actual = get(m, 'yList');
 expected = {'Short', 'Infl', 'Growth', 'Wage'} ;
-Assert.equal(actual, expected) ;
+assertEqual(testCase, actual, expected) ;
 
 actual = get(m, 'eyList');
 expected = {'Mp', 'Mw'};
-Assert.equal(actual, expected) ;
+assertEqual(testCase, actual, expected) ;
 
 actual = get(m, 'pList') ;
 expected = {'alpha', 'beta', 'gamma', 'delta', 'k', 'pi', 'eta', 'psi', ...
     'chi', 'xiw', 'xip', 'rhoa', 'rhor', 'kappap', 'kappan', 'Short_', ...
     'Infl_', 'Growth_', 'Wage_'} ;
-Assert.equal(actual, expected) ;
+assertEqual(testCase, actual, expected) ;
 
 actual = get(m, 'stdList') ;
-expected = {'std_Mp', 'std_Mw', 'std_Ey', 'std_Ep', 'std_Ea', 'std_Er', ...
-    'std_Ew'} ;
-Assert.equal(actual, expected) ;
+expected = { 'std_Mp', 'std_Mw', 'std_Ey', 'std_Ep', 'std_Ea', 'std_Er', ...
+             'std_Ew' } ;
+assertEqual(testCase, actual, expected) ;
+
 
 %% Test isname
 
 m = m0;
-Assert.equal(isname(m, 'alpha'), true) ;
-Assert.equal(isname(m, 'alph'), false) ;
+assertEqual(testCase, isname(m, 'alpha'), true) ;
+assertEqual(testCase, isname(m, 'alph'), false) ;
 
 
 %% Test isnan 
 
 m = m0;
-Assert.equal(isnan(m), true) ;
+assertEqual(testCase, isnan(m), true) ;
 
 
 %% Test issolved
 
 m = m0;
 s = m1;
-Assert.equal(issolved(model( )), logical.empty(1, 0));
-Assert.equal(issolved(m), false) ;
-Assert.equal(issolved(s), true) ;
+assertEqual(testCase, issolved(model( )), logical.empty(1, 0));
+assertEqual(testCase, issolved(m), false) ;
+assertEqual(testCase, issolved(s), true) ;
 
 
 %% Test alter
 
 m = m0;
-Assert.equal(length(alter(m, 3)), 3) ;
-Assert.equal(length(m([1, 1, 1])), 3) ;
+assertEqual(testCase, length(alter(m, 3)), 3) ;
+assertEqual(testCase, length(m([1, 1, 1])), 3) ;
 
 
 %% Test chksstate
 
 m = m0;
 s = m1;
-Assert.equal(issolved(model( )), logical.empty(1, 0)) ;
-Assert.equal(issolved(m), false) ;
-Assert.equal(chksstate(m, 'error=', false, 'warning=', false), false) ;
-Assert.equal(issolved(s), true) ;
-Assert.equal(chksstate(s, 'error=', false, 'warning=', false), true) ;
+assertEqual(testCase, issolved(model( )), logical.empty(1, 0)) ;
+assertEqual(testCase, issolved(m), false) ;
+assertEqual(testCase, chksstate(m, 'error=', false, 'warning=', false), false) ;
+assertEqual(testCase, issolved(s), true) ;
+assertEqual(testCase, chksstate(s, 'error=', false, 'warning=', false), true) ;
 
 %}
 %% Test estimate
@@ -140,16 +141,16 @@ if isOptim
     for iName = 1 : numel(pNames)
         actual = est.(pNames{iName}) ;
         expected = cmp.est.(pNames{iName}) ;
-        Assert.relTol(actual, expected, 1e-3) ;
+        assertEqual(testCase, actual, expected, 'RelTol', 1e-3) ;
     end
 
     fNames = fields(cmp.delta) ;
     for ii = 1 : numel(fNames)
         actual = delta.(fNames{ii}) ;
         expected = cmp.delta.(fNames{ii}) ;
-        Assert.relTol(actual, expected, 1e-2) ;
+        assertEqual(testCase, actual, expected, 'RelTol', 1e-2) ;
     end
-    Assert.relTol(double(Pdelta), double(cmp.Pdelta), 1e-3) ;
+    assertEqual(testCase, double(Pdelta), double(cmp.Pdelta), 'RelTol', 1e-3) ;
 end
 
 %% Test loglik
@@ -161,9 +162,9 @@ m = m1;
 [~, V2, ~, Pe2, Delta2] = loglik(m, d, starthist:endhist, ...
     'outOfLik=', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
 
-Assert.equal(V1, V2);
-Assert.equal(Delta1, Delta2);
-Assert.equal(Pe1, Pe2);
+assertEqual(testCase, V1, V2);
+assertEqual(testCase, Delta1, Delta2);
+assertEqual(testCase, Pe1, Pe2);
 
 
 %% Test Fast loglik
@@ -189,7 +190,7 @@ for i = 1 : length(chi)
     obj2(i) = loglik(m);
 end
 
-Assert.equal(obj1, obj2);
+assertEqual(testCase, obj1, obj2);
 
 
 %% Test loglik Decomposition
@@ -203,5 +204,6 @@ obj2 = loglik(m, d, starthist:endhist, ...
     'outOfLik=', {'Short_', 'Wage_', 'Infl_', 'Growth_'}, ...
     'objDecomp=', true);
 
-Assert.absTol(obj1, obj2(1), 1e-12);
-Assert.absTol(obj2(1), sum(obj2(2:end)), 1e-12);
+assertEqual(testCase, obj1, obj2(1), 'AbsTol', 1e-12);
+assertEqual(testCase, obj2(1), sum(obj2(2:end)), 'AbsTol', 1e-12);
+
