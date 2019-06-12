@@ -1,7 +1,7 @@
 classdef testClass < model.Data
     properties (Dependent)
         NumOfVariants
-        NamesOfAppendablesInData
+        NamesOfAppendables
     end
 
     methods
@@ -10,7 +10,7 @@ classdef testClass < model.Data
         end%
 
         
-        function list = get.NamesOfAppendablesInData(this)
+        function list = get.NamesOfAppendables(this)
             list = {'x', 'y', 'z'};
         end%
     end
