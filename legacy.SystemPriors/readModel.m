@@ -1,5 +1,5 @@
 function m = readModel( )
-m = Model('simple_SPBC.model');
+m = model('simple_SPBC.model');
 m.alpha = 1.03^(1/4);
 m.beta = 0.985^(1/4);
 m.gamma = 0.60;

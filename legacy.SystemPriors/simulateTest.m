@@ -1,54 +1,62 @@
-function tests = ffrfTest( )
+function tests = simulateTest( )
 tests = functiontests( localfunctions( ) );
 end
 
 
 function setupOnce(this)
     this.TestData.Model = readModel( );
-    this.TestData.Freq = 0 : 0.01 : pi;
 end
 
 
 function testSystemProperty(this)
     m = this.TestData.Model;
-    freq = this.TestData.Freq;
-    expectedF = ffrf(m, freq);
-    p = ffrf(m, freq, 'SystemProperty=', 'X');
-    update(p, m);
+    d = sstatedb(m, 1:40);
+    d.Ep(5) = 0.01;
+    p = simulate(m, d, 1:40, 'SystemProperty=', 'S');
+    s = simulate(m, d, 1:40);
+    update(p, m, 1);
     eval(p, m);
-    actualF = p.Outputs{1};
-    this.assertEqual(double(actualF), double(expectedF), 'AbsTol', 1e-10);
+    actualSim = p.Outputs{1}(1, :)';
+    expectedSim = s.Short(1:40);
+    actualProp = sum(actualSim);
+    expectedProp = sum(expectedSim);
+    this.assertEqual(actualProp, expectedProp, 'AbsTol', 1e-10);
 end
 
 
 function testSystemPropertyUpdate(this)
     m = this.TestData.Model;
-    freq = this.TestData.Freq;
-    p = ffrf(m, freq, 'SystemProperty=', 'X');
+    d = sstatedb(m, 1:40);
+    d.Ep(5) = 0.01;
+    p = simulate(m, d, 1:40, 'SystemProperty=', 'S');
     for xiw = 55 : 5 : 70
         m.xiw = xiw;
-        m = sstate(m, 'Growth=', true, 'Display=', false);
+        chksstate(m);
         m = solve(m);
-        expectedF = ffrf(m, freq);
-        update(p, m);
+        s = simulate(m, d, 1:40);
+        update(p, m, 1);
         eval(p, m);
-        actualF = p.Outputs{1};
-        this.assertEqual(double(actualF), double(expectedF), 'AbsTol', 1e-10);
+        actualSim = p.Outputs{1}(1, :)';
+        expectedSim = s.Short(1:40);
+        actualProp = sum(actualSim);
+        expectedProp = sum(expectedSim);
+        this.assertEqual(actualProp, expectedProp, 'AbsTol', 1e-10);
     end
 end
 
 
 function testSystemPrior(this)
     m = this.TestData.Model;
-    freq = this.TestData.Freq;
-    expectedF = ffrf(m, freq);
-    p = ffrf(m, freq, 'SystemProperty=', 'F');
+    d = sstatedb(m, 1:40);
+    d.Ep(5) = 0.01;
+    s = simulate(m, d, 1:40);
+    p = simulate(m, d, 1:40, 'SystemProperty=', 'Sim');
+    f1 = distribution.Normal.fromMeanStd(40, 5);
     spw = SystemPriorWrapper(m);
     spw.addSystemProperty(p);
-    f1 = distribution.Normal.fromMeanStd(0, 2);
-    spw.addSystemPrior('abs(sum(F(12, 3, :)))', f1);
+    spw.addSystemPrior('sum(Sim(log_P, :))', f1);
     [actualLogDensity, actualContrib, actualProp] = eval(spw, m);
-    expectedProp = abs(sum(expectedF(12, 3, :)));
+    expectedProp = sum(log(s.P(1:40)));
     expectedContrib = -f1.logPdf(expectedProp(1));
     expectedLogDensity = sum(expectedContrib);
     this.assertEqual(actualProp, expectedProp, 'AbsTol', 1e-10);
@@ -59,19 +67,20 @@ end
 
 function testSystemPriorUpdate(this)
     m = this.TestData.Model;
-    freq = this.TestData.Freq;
-    p = ffrf(m, freq, 'SystemProperty=', 'F');
+    d = sstatedb(m, 1:40);
+    d.Ep(5) = 0.01;
+    p = simulate(m, d, 1:40, 'SystemProperty=', 'Sim');
+    f1 = distribution.Normal.fromMeanStd(40, 5);
     spw = SystemPriorWrapper(m);
     spw.addSystemProperty(p);
-    f1 = distribution.Normal.fromMeanStd(0, 2);
-    spw.addSystemPrior('abs(sum(F(12, 3, :)))', f1);
+    spw.addSystemPrior('sum(Sim(log_P, :))', f1);
     for xiw = 55 : 5 : 70
         m.xiw = xiw;
-        m = sstate(m, 'Growth=', true, 'Display=', false);
+        chksstate(m);
         m = solve(m);
-        expectedF = ffrf(m, freq);
+        s = simulate(m, d, 1:40);
         [actualLogDensity, actualContrib, actualProp] = eval(spw, m);
-        expectedProp = abs(sum(expectedF(12, 3, :)));
+        expectedProp = sum(log(s.P(1:40)));
         expectedContrib = -f1.logPdf(expectedProp(1));
         expectedLogDensity = sum(expectedContrib);
         this.assertEqual(actualProp, expectedProp, 'AbsTol', 1e-10);
