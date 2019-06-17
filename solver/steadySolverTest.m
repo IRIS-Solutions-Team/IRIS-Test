@@ -1,4 +1,8 @@
 
+% Set Up Once
+
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+
 m = model('test_steady_solver.model');
 m.sgm = 1;
 m.bet = 0.95;
@@ -54,7 +58,7 @@ diary test_steady_solver_ua
 m3 = sstate(m, 'Solver=', fn, 'PrepareGradient=', true);
 diary off
 
-check.relTol(m3.y, m0.y, 1e-10);
+assertEqual(testCase, m3.y, m0.y, 'RelTol', 1e-10);
 assertStrInFile('test_steady_solver_ua', 'Analytical');
 assertStrNotInFile('test_steady_solver_ua', 'Numerical');
 
@@ -67,7 +71,9 @@ assertStrNotInFile('test_steady_solver_ua', 'Numerical');
 
 opt = solver.Options( 'IRIS-Qnsd', ...
                       'SpecifyObjectiveGradient=', false );
-check.equal(opt.SpecifyObjectiveGradient, false);
+
+assertEqual(testCase, opt.SpecifyObjectiveGradient, false);
+assertEqual(testCase, opt.SpecifyObjectiveGradient, false);
 fn = @(fn, x) solver.algorithm.qnsd(fn, x, opt);
 
 delete test_steady_solver_un
@@ -75,7 +81,7 @@ diary test_steady_solver_un
 m4 = sstate(m, 'Solver=', fn, 'PrepareGradient=', false);
 diary off
 
-check.relTol(m4.y, m0.y, 1e-10);
+assertEqual(testCase, m4.y, m0.y, 'RelTol', 1e-10);
 assertStrInFile('test_steady_solver_un', 'Numerical');
 assertStrNotInFile('test_steady_solver_un', 'Analytical');
 
@@ -85,8 +91,9 @@ assertStrNotInFile('test_steady_solver_un', 'Analytical');
 % is set false, IRIS will throw an error.
 
 opt = solver.Options( 'IRIS-Qnsd', ...
-                      'SpecifyObjectiveGradien=', true );
-check.equal(opt.SpecifyObjectiveGradient, true);
+                      'SpecifyObjectiveGradient=', true );
+
+assertEqual(testCase, opt.SpecifyObjectiveGradient, true);
 fn = @(fn, x) solver.algorithm.qnsd(fn, x, opt);
 
 errorID = '';
@@ -95,5 +102,18 @@ try
 catch err
     errorID = err.identifier;
 end
-check.equal(errorID, 'IRIS:Solver:GradientRequestedButNotPrepared');
+
+assertEqual(testCase, errorID, 'IRIS:Solver:GradientRequestedButNotPrepared');
+
+
+%% Optimization Toolbox LSQNONLIN
+
+m5 = sstate(m, 'Solver=', 'lsqnonlin');
+assertEqual(testCase, m5.y, m0.y, 'RelTol', 1e-10);
+
+
+%% Optimization Toolbox FSOLVE
+
+m6 = sstate(m, 'Solver=', 'fsolve');
+assertEqual(testCase, m6.y, m0.y, 'RelTol', 1e-10);
 
