@@ -1,4 +1,5 @@
 function modelParserErrorHelper(code, expId, varargin)
+    testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     posLast = find(expId==':', 1, 'last');
     fileName = [ strrep(expId(posLast+1:end), ':', ''), '.model' ];
     char2file(code, fileName);
@@ -11,10 +12,10 @@ function modelParserErrorHelper(code, expId, varargin)
     end
     expId = exception.Base.underscore2capital(expId);
     try
-        Assert.equal(actId, ['IRIS:',expId]);
+        assertEqual(testCase, actId, ['IRIS:',expId]);
     catch
         model(fileName, varargin{:});
     end
-end
+end%
 
 

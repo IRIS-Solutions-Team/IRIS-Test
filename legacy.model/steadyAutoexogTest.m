@@ -146,8 +146,9 @@ end
 
 m = testData.Model;
 act = get(m, 'Autoswaps');
-exp = struct( 'Steady', struct('k', 'del', 'y', 'alp'), ...
-              'Simulate', struct( ) );
+exp = model.component.AutoswapStruct( );
+exp.Steady = struct('k', 'del', 'y', 'alp');
+exp.Simulate = struct( );
 assertEqual(testCase, act, exp);
 
 

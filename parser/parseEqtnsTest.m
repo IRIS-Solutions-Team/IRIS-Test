@@ -1,4 +1,9 @@
 
+% Set Up Once
+
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+
+%% Test One
 
 TYPE = @int8;
 
@@ -16,7 +21,7 @@ opt = struct('SteadyOnly', false);
 [~, equation] = parse(b, [ ], code, quantity, equation, euc, [ ], opt);
 [~, actId] = lastwarn( );
 
-Assert.equal(actId, expId);
+assertEqual(testCase, actId, expId);
 warning(q);
 
 actInput = equation.Input;
@@ -116,14 +121,14 @@ expMaxShDynamic = 20;
 actMinShDynamic = min(euc.MinShDynamic);
 expMinShDynamic = -200;
 
-Assert.equal(actInput, expInput);
-Assert.equal(actType, expType);
-Assert.equal(actLabel, expLabel);
-Assert.equal(actLhsDynamic, expLhsDynam);
-Assert.equal(actRhsDynamic, expRhsDynam);
-Assert.equal(actSignDynamic, expSignDynamic);
-Assert.equal(actLhsSteady, expLhsSteady);
-Assert.equal(actRhsSteady, expRhsSteady);
-Assert.equal(actSignSteady, expSignSteady);
-Assert.equal(actMaxShDynamic, expMaxShDynamic);
-Assert.equal(actMinShDynamic, expMinShDynamic);
+assertEqual(testCase, actInput, expInput);
+assertEqual(testCase, actType, expType);
+assertEqual(testCase, actLabel, expLabel);
+assertEqual(testCase, actLhsDynamic, expLhsDynam);
+assertEqual(testCase, actRhsDynamic, expRhsDynam);
+assertEqual(testCase, actSignDynamic, expSignDynamic);
+assertEqual(testCase, actLhsSteady, expLhsSteady);
+assertEqual(testCase, actRhsSteady, expRhsSteady);
+assertEqual(testCase, actSignSteady, expSignSteady);
+assertEqual(testCase, actMaxShDynamic, expMaxShDynamic);
+assertEqual(testCase, actMinShDynamic, expMinShDynamic);

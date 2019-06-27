@@ -1,6 +1,8 @@
 
 % Setup once
 
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+
 m = model('filterInitTest.model', 'Linear=', true);
 m = solve(m);
 m = sstate(m);
@@ -17,9 +19,9 @@ d.y_bar(0) = -0.5;
 
 [~, f1] = filter(m, d, filterRange, 'InitCond=', d, 'MeanOnly=', true);
 
-check.absTol(d.x_bar(0), f1.x_bar(0), 1e-10);
-check.absTol(d.y_bar(0), f1.y_bar(0), 1e-10);
+assertEqual(testCase, d.x_bar(0), f1.x_bar(0), 'AbsTol', 1e-10);
+assertEqual(testCase, d.y_bar(0), f1.y_bar(0), 'AbsTol', 1e-10);
 
-check.absTol(d.x_obs(filterRange), f1.x(filterRange), 1e-10);
-check.absTol(d.y_obs(filterRange), f1.y(filterRange), 1e-10);
+assertEqual(testCase, d.x_obs(filterRange), f1.x(filterRange), 'AbsTol', 1e-10);
+assertEqual(testCase, d.y_obs(filterRange), f1.y(filterRange), 'AbsTol', 1e-10);
 

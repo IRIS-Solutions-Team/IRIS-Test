@@ -1,6 +1,8 @@
 
 % Setup once
 
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+
 m = model('3eq.model', 'Linear=', true);
 m = solve(m);
 m = sstate(m);
@@ -24,9 +26,9 @@ p = plan(m, 1:20);
 p = exogenize(p, 'pie, y, r', 1:20);
 p = endogenize(p, 'epie, ey, er', 1:20);
 w = simulate(m, s, 1:20, 'Plan=', p);
-check.equal(s.y(:), w.y(:));
-check.equal(s.pie(:), w.pie(:));
-check.equal(s.r(:), w.r(:));
+assertEqual(testCase, s.y(:), w.y(:));
+assertEqual(testCase, s.pie(:), w.pie(:));
+assertEqual(testCase, s.r(:), w.r(:));
 
 
 %% Test Exogenize Unanticipated
@@ -38,9 +40,9 @@ p = plan(m, 1:20);
 p = exogenize(p, 'pie, y, r', 1:20);
 p = endogenize(p, 'epie, ey, er', 1:20);
 w = simulate(m, s, 1:20, 'Plan=', p, 'Anticipate=', false);
-check.equal(s.y(:), w.y(:));
-check.equal(s.pie(:), w.pie(:));
-check.equal(s.r(:), w.r(:));
+assertEqual(testCase, s.y(:), w.y(:));
+assertEqual(testCase, s.pie(:), w.pie(:));
+assertEqual(testCase, s.r(:), w.r(:));
 
 
 %% Test Exogenize Nonlinear
@@ -67,6 +69,7 @@ end
 
 
 function runTest(n, d, p, nSim, phillips, ant, maxNumelJv)
+    testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     tol = 1e-9;
     nNonl = 25;
     list = get(n, 'xList');
@@ -76,8 +79,8 @@ function runTest(n, d, p, nSim, phillips, ant, maxNumelJv)
         'Nonlinper=', nNonl, ...
         'MaxNumelJv=', maxNumelJv);
     z = dbeval(s, phillips);
-    check.lessThan(abs(z), tol);
-    check.absTol(s.Y(1:nSim), exp(s.y(1:nSim)/100), tol);
+    assertLessThan(testCase, abs(z), tol);
+    assertEqual(testCase, s.Y(1:nSim), exp(s.y(1:nSim)/100), 'AbsTol', tol);
     d1 = s;
     d1.epie(:) = 0;
     d1.er(:) = 0;
@@ -88,7 +91,7 @@ function runTest(n, d, p, nSim, phillips, ant, maxNumelJv)
         'MaxNumelJv=', maxNumelJv);
     for i = 1 : length(list)
         name = list{i};
-        check.absTol(s.(name)(1:nSim), w.(name)(1:nSim), tol);
+        assertEqual(testCase, s.(name)(1:nSim), w.(name)(1:nSim), 'AbsTol', tol);
     end
     c = simulate(n, w, 1:nSim, 'Anticipate=', ant, 'Contributions=', true, ...
         'Method=', 'Selective', 'MaxIter=', 10000, 'Display=', 0, ...
@@ -102,7 +105,7 @@ function runTest(n, d, p, nSim, phillips, ant, maxNumelJv)
             aggregFn = @sum;
         end
         cc = aggregFn(c.(name), 2);
-        check.absTol(s.(name)(1:nSim), cc(1:nSim), tol);
+        assertEqual(testCase, s.(name)(1:nSim), cc(1:nSim), 'AbsTol', tol);
     end        
 end%
 
