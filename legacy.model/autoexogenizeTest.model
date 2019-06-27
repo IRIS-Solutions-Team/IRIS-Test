@@ -3,12 +3,16 @@
 !shocks
     ex, ey, ez, ea
 !equations
-    x = 1;
-    y = 1;
-    z = 1;
-    a = 1;
+    x = ex;
+    y = ey;
+    z = ez;
+    a = ea;
+
+!simulate-autoswaps
+    x ~ ex;
+    y ~ ey;
+
+% Legacy keyword
 !dynamic_autoexog
-    x := ex;
-    y := ey;
     z := ez;
 

@@ -57,7 +57,13 @@ p0 = Plan(m, 1:20);
 p0 = anticipate(p0, false, {'Ey'});
 p0 = exogenize(p0, 1:20, 'P');
 p0 = endogenize(p0, 1:20, 'Ep');
+
+status = warning('query');
+warning('off');
+lastwarn('');
 p0 = swap(p0, 1:1, {'Y', 'Ey'});
+assertNotEqual(testCase, lastwarn( ), '');
+warning(status);
 
 
 %% Test Contributions Linear Zerodb
