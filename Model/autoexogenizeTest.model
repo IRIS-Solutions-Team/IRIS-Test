@@ -1,0 +1,18 @@
+!variables
+    x, y, z, a
+!shocks
+    ex, ey, ez, ea
+!equations
+    x = ex;
+    y = ey;
+    z = ez;
+    a = ea;
+
+!simulate-autoswaps
+    x ~ ex;
+    y ~ ey;
+
+% Legacy keyword
+!dynamic_autoexog
+    z := ez;
+
