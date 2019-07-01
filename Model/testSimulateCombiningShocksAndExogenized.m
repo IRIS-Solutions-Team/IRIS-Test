@@ -30,7 +30,7 @@ p = Plan(m, range);
 p = swap(p, range, {'y', 'ey'});
 
 d = sstatedb(m, range);
-d.y(range) = randn(numel(range), 1)*0.4;
+d.y(range) = randn(numel(range), 1)*0.5;
 
 s = simulate( m, d, range, ...
               'AppendPresample=', true, ...
@@ -61,7 +61,7 @@ p = Plan(m, range, 'DefaultAnticipationStatus=', false);
 p = swap(p, range, {'y', 'ey'});
 
 d = sstatedb(m, range);
-d.y(range) = randn(numel(range), 1)*0.1;
+d.y(range) = randn(numel(range), 1)*0.5;
 
 s = simulate( m, d, range, ...
               'AppendPresample=', true, ...
