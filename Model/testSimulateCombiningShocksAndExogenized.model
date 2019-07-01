@@ -1,0 +1,77 @@
+
+!variables
+
+    'Output Gap' y
+    'Inflation Q/Q' pi, 'Inflation Y/Y' pi4
+    'Policy Rate', r, 'Inflation Rarget' t, r_unc
+    'Central Bank Credibility' c, 'Signal to Credibility' s
+    y_exp, pi_exp, pi_react
+    
+%
+
+%% Declare parameters
+
+!parameters
+    
+    alp, sgm
+    bet, gam, del, 
+    the, kap, phi
+    rho, tau
+    psi, omg 
+    
+%
+    
+%% Declare shocks
+    
+!shocks
+
+    'Demand shock' ey, 'Cost-push shock' epi
+    'Change in inflation target' et  
+    'Monetary policy shock' er
+    
+!equations
+
+    % Expectations
+    y_exp = y{1} !! y_exp = 0;
+    pi_exp = pi{1} !! pi_exp = tau;
+    pi_react = pi4{3} - t{3} !! pi_react = 0;
+
+    % Aggregate Demand
+    'Aggregate Demand' y = alp*y{-1} ...
+        + (1-alp)*y_exp - sgm*(r - pi_exp - rho) + ey !! y = 0;
+    
+    % Convex (Nonlinear) Phillips curve
+    'Phillips curve' pi - pi{-1} ...
+        =# c*bet*(pi_exp - pi) + gam/del*(exp(del*y)-1) + epi !! pi = tau; %?phillips?
+    
+    % Simple Monetary Policy Rule
+    'Policy Rule' r_unc = the*r{-1} ...
+        + (1-the)*(rho + t + kap*pi_react) + er ...
+        !! r_unc = rho + t;
+
+    %r =# max(r_unc, 0) !! r = r_unc;
+    r = r_unc;
+    
+    % Definition of Y/Y Inflation
+    'Y/Y Inflation' pi4 = movavg(pi, -4) !! pi4 = tau;
+
+    % Inflation target: `phi` is either 0 or 1
+    'Inflation Target' t = phi*(t{-1} + et) + (1-phi)*tau !! t = tau;
+
+    % Law of Motion for the Stock of Central Bank Credibility
+    'Credibility Stock' c = psi*c{-1} + (1-psi)*s !! c = 1;
+        
+	% Credibility Signal Responding to Deviations in Inflation From Target
+    'Credibility Signal' s =# exp(-(omg*(pi4{-1} - t{-1}))^2) !! s = 1; %?credibilitySignal?
+
+
+!measurement_variables
+
+    Y, PI, R
+
+!measurement_equations
+
+    'Output Measurement' Y = y;
+    'Inflation Measurement' PI = pi;
+    'Policy Rate Measurement' R = r;
+
