@@ -75,4 +75,3 @@ for i = 4 : numel(output)
     assertLessThan(testCase, abs(output{i}(range)), 1e-5);
 end
 
-
