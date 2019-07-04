@@ -2,3 +2,6 @@ fpas_report_results/
 *.mat
 *.pdf
 *.m~
+test_steady_solver*
+*.html
+
