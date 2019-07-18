@@ -8,7 +8,7 @@
     z = ez;
     a = ea;
 
-!simulate-autoswaps
+!autoswaps-simulate
     x ~ ex;
     y ~ ey;
 

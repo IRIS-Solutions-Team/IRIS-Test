@@ -16,7 +16,7 @@ Model>>>>>
     y = del*k + c;
     y = k^alp * 1;
     alp*y = (r+del-1)*k;
-!steady-autoswaps
+!autoswaps-steady
     k ~ del;
 % Legacy keyword
 !steady_autoexog

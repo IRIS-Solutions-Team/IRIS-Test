@@ -11,6 +11,14 @@ testData.Model = m;
 
 
 
+%% Test Legacy Function Name autoexogenise ForGPMN
+
+m = testData.Model;
+act = autoexogenise(m);
+exp = struct('x', 'ex', 'y', 'ey', 'z', 'ez');
+assertEqual(testCase, act, exp);
+
+
 %% Test One
 
 m = testData.Model;
