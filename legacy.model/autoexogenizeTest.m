@@ -15,7 +15,7 @@ testData.Model = m;
 
 m = testData.Model;
 act = autoexogenise(m);
-exp = struct('x', 'ex', 'y', 'ey', 'z', 'ez');
+exp = struct('x', 'ex', 'y', 'ey', 'z', 'ez', 'b', 'eb');
 assertEqual(testCase, act, exp);
 
 
@@ -27,7 +27,7 @@ p = autoexogenize(p, 'x', 1:5);
 p = autoexogenize(p, 'y', 2:6);
 p = autoexogenize(p, 'z', 3:7);
 
-expXAnch = false(4, 10);
+expXAnch = false(5, 10);
 expXAnch(1, 1:5) = true;
 expXAnch(2, 2:6) = true;
 expXAnch(3, 3:7) = true;
@@ -43,7 +43,7 @@ m = testData.Model;
 p = plan(m, 1:10);
 p = autoexogenize(p, {'x', 'y'}, 1:5);
 
-expXAnch = false(4, 10);
+expXAnch = false(5, 10);
 expXAnch(1:2, 1:5) = true;
 assertEqual( testCase, p.XAnch, expXAnch );
 
@@ -56,7 +56,7 @@ m = testData.Model;
 p = plan(m, 1:10);
 p = autoexogenize(p, {'x', 'y', 'z'}, 1:5);
 
-expXAnch = false(4, 10);
+expXAnch = false(5, 10);
 expXAnch(1:3, 1:5) = true;
 assertEqual( testCase, p.XAnch, expXAnch );
 
@@ -71,6 +71,7 @@ p = autoexogenize(p, @all, 1:5);
 
 expXAnch = false(4, 10);
 expXAnch(1:3, 1:5) = true;
+expXAnch(5, 1:5) = true;
 assertEqual( testCase, p.XAnch, expXAnch );
 
 
@@ -88,7 +89,7 @@ catch
     isErr = true;
 end
 
-expXAnch = false(4, 10);
+expXAnch = false(5, 10);
 
 assertEqual( testCase, isErr, true );
 assertEqual( testCase, p.XAnch, expXAnch );

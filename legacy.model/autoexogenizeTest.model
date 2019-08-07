@@ -1,12 +1,13 @@
 !variables
-    x, y, z, a
+    x, y, z, a, b
 !shocks
-    ex, ey, ez, ea
+    ex, ey, ez, ea, eb
 !equations
     x = ex;
     y = ey;
     z = ez;
     a = ea;
+    b = eb;
 
 !autoswaps-simulate
     x ~ ex;
@@ -15,4 +16,8 @@
 % Legacy keyword
 !dynamic_autoexog
     z := ez;
+
+% Legacy keyword issue #210
+!autoexogenise
+    b := eb;
 

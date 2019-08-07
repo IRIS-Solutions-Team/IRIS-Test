@@ -1,4 +1,8 @@
 
+% Set Up Once
+
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+
 assertWithinTol = @(x) assert(all(abs(x(:))<=1e-10));
 assertOutsideTol = @(x) assert(all(abs(x(:))>1e-10));
 
@@ -10,14 +14,28 @@ m.x = m.x_bar;
 m.y = 0 + 1i*m.dy_bar;
 m.z = 10 + 1i*m.dz_bar;
 
-%% Test CHKSSTATE
+%% Test CHKSSTATE 
 
 flag = chksstate(m, 'Kind=', 'Steady');
-assert(flag);
-flag = chksstate(m, 'Kind=', 'Dynamic');
-assert(flag);
+assertEqual(testCase, flag, true);
 
-%% Test CHKSSTATE with Mulitiple Variants
+flag = chksstate(m, 'Kind=', 'Dynamic');
+assertEqual(testCase, flag, true);
+
+
+%% Test chksstate and checkStady with more output arguments / Issue #208 
+
+[flag, list] = chksstate(m);
+[flag, dcy, list] = chksstate(m);
+assertEmpty(testCase, list);
+
+[flag, list] = checkSteady(m);
+[flag, dcy, list] = checkSteady(m);
+assertEmpty(testCase, list);
+assertLessThan(testCase, abs(dcy), 1e-10);
+
+
+%% Test CHKSSTATE with Mulitiple Variants 
 
 m2 = alter(m, 20);
 m2.z(2) = 11 + 2i;
