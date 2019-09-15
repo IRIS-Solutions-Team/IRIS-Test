@@ -1,4 +1,4 @@
-classdef testClass < model.Data
+classdef testClass < shared.DatabankPipe
     properties (Dependent)
         NumOfVariants
         NamesOfAppendables
