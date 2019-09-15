@@ -1,12 +1,6 @@
-function Tests = dbfunTest()
-Tests = functiontests(localfunctions);
-end
-%#ok<*DEFNU>
 
-
-
-
-function setupOnce(this)
+% Set Up Once
+this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 d1 = struct( );
 d1.a = [1,2,3];
 d1.a_u  = [10,20,30];
@@ -20,12 +14,10 @@ d2 = d1;
 d2.sub1 = d1;
 d2.sub2 = d1;
 this.TestData.Dbase2 = d2;
-end
 
 
+%% Test Name Filter
 
-
-function testNameFilter(this)
 d = this.TestData.Dbase1;
 
 fn = @(x) x*2;
@@ -61,12 +53,12 @@ expDb4.a_u = fn(d.a_u);
 expDb4.b_u = fn(d.b_u);
 expDb4.c_u = fn(d.c_u);
 assertEqual(this,actDb4,expDb4);
-end
 
 
 
 
-function testNameFilterFresh(this)
+%% Test Name Filter Fresh
+
 d = this.TestData.Dbase1;
 fn = @(x) x*2;
 
@@ -91,12 +83,12 @@ expDb3.a_u = fn(d.a_u);
 expDb3.b_u = fn(d.b_u);
 expDb3.c_u = fn(d.c_u);
 assertEqual(this,actDb3,expDb3);
-end
 
 
 
 
-function testClassFilter(this)
+%% Test Class Filter
+
 d = this.TestData.Dbase1;
 fn = @(x) x*2;
 
@@ -121,12 +113,12 @@ expDb3.b_u = fn(d.b_u);
 expDb3.c = fn(d.c);
 expDb3.c_u = fn(d.c_u);
 assertEqual(this,actDb3,expDb3);
-end
 
 
 
 
-function testClassFilterFresh(this)
+%% Test Class Filter Fresh
+
 d = this.TestData.Dbase1;
 fn = @(x) x*2;
 
@@ -151,12 +143,12 @@ expDb3.b_u = fn(d.b_u);
 expDb3.c = fn(d.c);
 expDb3.c_u = fn(d.c_u);
 assertEqual(this,actDb3,expDb3);
-end
 
 
 
 
-function testCombined(this)
+%% Test Combined
+
 d = this.TestData.Dbase1;
 fn = @(x) x*2;
 
@@ -174,12 +166,12 @@ actDb2 = dbfun(fn,d, ...
 expDb2 = d;
 expDb2.c_u = fn(d.c_u);
 assertEqual(this,actDb2,expDb2);
-end
 
 
 
 
-function testCombinedFresh(this)
+%% Test Combined Fresh
+
 d = this.TestData.Dbase1;
 fn = @(x) x*2;
 
@@ -199,12 +191,12 @@ actDb2 = dbfun(fn,d, ...
 expDb2 = struct( );
 expDb2.c_u = fn(d.c_u);
 assertEqual(this,actDb2,expDb2);
-end
 
 
 
 
-function testCombinedSubdb(this)
+%% Test Combined Nested Databanks
+
 d = this.TestData.Dbase1;
 dd = d;
 dd.d1 = dbfun(@(x) x+1,d);
@@ -255,12 +247,13 @@ expDb4.d1.b = fn(dd.d1.b);
 expDb4.d2.a = fn(dd.d2.a);
 expDb4.d2.b = fn(dd.d2.b);
 assertEqual(this,actDb4,expDb4);
-end
 
 
 
 
-function testError1(this)
+
+%% Test Error One
+
 d = this.TestData.Dbase1;
 fn = @(x) log(x);
 
@@ -288,12 +281,12 @@ expDb2.b_u = NaN;
 expDb2.c = fn(d.c);
 expDb2.c_u = fn(d.c_u);
 assertEqual(this, actDb2, expDb2);
-end
 
 
 
 
-function testSubdbase(this)
+%% Test Nested Databanks
+
 d1 = this.TestData.Dbase1;
 d2 = this.TestData.Dbase2;
 fn = @(x) x*2;
@@ -301,12 +294,12 @@ d1 = dbfun(fn, d1);
 d2 = dbfun(fn, d2);
 assertEqual(this, d2.sub1, d1);
 assertEqual(this, d2.sub2, d1);
-end
 
 
 
 
-function testSecondaryDbase(this)
+%% Test Secondary Databank
+
 d1 = this.TestData.Dbase1;
 fn = @(x,y,z) [x, y, z];
 actDb = dbfun(fn, d1, d1, d1);
@@ -318,5 +311,4 @@ for i = 1 : length(lsField)
         ];
 end
 assertEqual(this, actDb, expDb);
-end
 

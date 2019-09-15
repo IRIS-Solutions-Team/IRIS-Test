@@ -57,3 +57,27 @@ function testWildBootstrap(this)
     end
 end
 
+
+
+function testEfronBootstrapSVAR(this)
+    v = this.TestData.v;
+    d = this.TestData.d;
+    vd = this.TestData.vd;
+    range = this.TestData.range;
+    order = get(v, 'Order');
+    [v, vd] = SVAR(v, vd, 'Method=', 'Chol');
+    numDraws = 10;
+    [bootD, draw] = resample(v, vd, range(order+1:end), numDraws, 'Method=', 'Bootstrap');
+    res_x = vd.res_x(:, 1);
+    res_y = vd.res_y(:, 1);
+    res_z = vd.res_z(:, 1);
+    for v = 1 : numDraws
+        perm = draw(:, v);
+        assertEqual(this, bootD.res_x(:, v), res_x(perm), 'AbsTol', 1e-10)
+        assertEqual(this, bootD.res_y(:, v), res_y(perm), 'AbsTol', 1e-10)
+        assertEqual(this, bootD.res_z(:, v), res_z(perm), 'AbsTol', 1e-10)
+    end
+end
+
+
+

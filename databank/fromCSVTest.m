@@ -53,16 +53,16 @@ expected = struct( 'ts1', Series(yy(2008), [1;1]), ...
 assertEqual(testCase, actual, expected);
 
 
-%% Option OutputType='containers.Map'
+%% Option OutputType='Dictionary'
 
-d = databank.fromCSV('fromCSVTest1.csv', 'OutputType=', 'containers.Map');
+d = databank.fromCSV('fromCSVTest1.csv', 'OutputType=', 'Dictionary');
 
-lsf = keys(d);
+lsf = cellstr(keys(d));
 exp = {'X', 'Y', 'Z'};
 assertEqual(testCase, sort(lsf), exp);
 for i = 1 : numel(lsf)
     name = lsf{i};
-    x = d(name);
+    x = retrieve(d, name);
     assertEqual(testCase, x.Start, qq(2001,1));
     assertEqual(testCase, x.End, qq(2004,4));
     assertEqual(testCase, x.Data, (1:16).'*10^(i-1));
@@ -72,14 +72,14 @@ end
 %% MultipleCSV Files
 
 inputFiles = {'fromCSVTest1.csv', 'fromCSVTest4.csv'};
-d = databank.fromCSV(inputFiles, 'OutputType=', 'containers.Map');
+d = databank.fromCSV(inputFiles, 'OutputType=', 'Dictionary');
 
-lsf = keys(d);
+lsf = cellstr(keys(d));
 exp = {'X', 'Y', 'Z', 'A', 'B', 'C'};
 assertEqual(testCase, sort(lsf), sort(exp));
 for i = 1 : numel(lsf)
     name = lsf{i};
-    x = d(name);
+    x = retrieve(d, name);
     assertEqual(testCase, x.Start, qq(2001,1));
     assertEqual(testCase, x.End, qq(2004,4));
 end

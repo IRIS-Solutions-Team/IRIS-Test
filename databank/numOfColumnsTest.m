@@ -10,7 +10,6 @@ randChar = @(varargin) char(96+randi(26, varargin{:}));
 
 d = struct( );
 dict = Dictionary( );
-m = containers.Map( );
 for i = 1 : 10
     name = randChar(1, 10);
     sizeOfSeries = [10+randi(10), randi(3), randi(3)];
@@ -26,22 +25,17 @@ for i = 1 : 10
     end
     d.(name) = x;
     dict.(name) = x;
-    m(name) = x;
 end
 
 allFields = fieldnames(d);
 assertEqual(testCase, databank.backend.numOfColumns(d, allFields), ...
                       databank.backend.numOfColumns(dict, allFields) );
 
-assertEqual(testCase, databank.backend.numOfColumns(d, allFields), ...
-                      databank.backend.numOfColumns(m, allFields) );
-
 
 %% Test with Extra Entry Name
 
 d = struct( );
 dict = Dictionary( );
-m = containers.Map( );
 for i = 1 : 10
     name = randChar(1, 10);
     sizeOfSeries = [10+randi(10), randi(3), randi(3)];
@@ -57,7 +51,6 @@ for i = 1 : 10
     end
     d.(name) = x;
     dict.(name) = x;
-    m(name) = x;
 end
 
 allFields = fieldnames(d);
@@ -69,7 +62,4 @@ assertEqual(testCase, noc(end-1:end), [NaN, NaN]);
 
 assertEqual(testCase, databank.backend.numOfColumns(d, allFields), ...
                       databank.backend.numOfColumns(dict, allFields) );
-
-assertEqual(testCase, databank.backend.numOfColumns(d, allFields), ...
-                      databank.backend.numOfColumns(m, allFields) );
 
