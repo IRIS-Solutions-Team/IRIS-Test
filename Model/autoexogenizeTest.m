@@ -14,7 +14,7 @@ testData.Model = m;
 %% Test One
 
 m = testData.Model;
-p = Plan.fromModel(m, 1:10);
+p = Plan.forModel(m, 1:10);
 p = autoswap(p, 1:5, 'x');
 p = autoswap(p, 2:6, 'y');
 p = autoswap(p, 3:7, 'z');

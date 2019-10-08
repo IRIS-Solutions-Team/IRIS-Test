@@ -1,0 +1,10 @@
+!variables
+    x, y, z
+!shocks
+    ex, ey, ez
+!equations
+    x = 0.9*x{+1} + ex + 0.1*ey;
+    y = 0.9*y{-1} + ey + 0.1*ex;
+    z = 0.9*z{-1} + ez + 0.1*ex;
+
+    
