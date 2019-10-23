@@ -447,6 +447,7 @@ priors.c1_dl_cpi_core = {nan,0.1,0.99,logdist.beta(mInput.c1_dl_cpi_core,0.02)};
     'display','iter');
   optimizer = @(F,P0,PLow,PHigh,OptimSet) ...
                    fminsearch(@(X) F(X)+chkbnd(X,PLow,PHigh),P0,opts);              
+
 % running estimation               
 warnStruct = warning('off','IRIS:Dbase:NameNotExist');
 [p_est,~,~,~,mod_est] = estimate(mInput,db_obs.tunedb,DateWrapper(startHist:endHist),priors,[],...

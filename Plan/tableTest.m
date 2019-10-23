@@ -16,6 +16,11 @@ p = endogenize(p, p.Start, {'ey', 'ez'});
 p = exogenize(p, p.Start+1, {'y'}, 'SwapId', 2);
 p = endogenize(p, p.Start+1, {'ey'});
 
+
+%% Test Table with Databank
+
 d = zerodb(m, qq(2001,1):qq(2004,4));
-table(p, d)
+t = table(p, d);
+assertEqual(this, size(t), [7, 6]);
+assertEqual(this, t{:,1}, char({'x', 'y', 'z', 'ex', 'ey', 'ez', 'y'}));
 

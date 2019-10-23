@@ -1,11 +1,11 @@
 classdef testClass < shared.DatabankPipe
     properties (Dependent)
-        NumOfVariants
+        NumVariants
         NamesOfAppendables
     end
 
     methods
-        function n = get.NumOfVariants(this)
+        function n = get.NumVariants(this)
             n = 1;
         end%
 

@@ -67,19 +67,21 @@ filtHistOut = this.TestData.filtHistOut;
 
 % run the filter
 warnStruct = warning('off','IRIS:Dbase:NameNotExist');
-[~,filtHistAct] = filter(m,filtHistInp.db,filtRange,filtHistInp.stddev, ...
-  'deviation', false, 'relative', false);
+[~,filtHistAct] = filter( m,filtHistInp.db,filtRange, ...
+                          'Override=', filtHistInp.stddev, ...
+                          'Deviation=', false, 'Relative=', false);
+
 warning(warnStruct.state,'IRIS:Dbase:NameNotExist');
 
 % remove 'ttrend' field -- there was no such field in the old IRIS
 filtHistAct.std = rmfield(filtHistAct.std,'ttrend');
 
-% compare series
 vList = dbnames(filtHistAct.std,'classFilter','tseries');
-assertEqual(this,...
-  db2array(filtHistAct.std,vList,filtRange),...
-  db2array(filtHistOut.std,vList,filtRange),...
-  'AbsTol',this.TestData.stdSeriesAbsTol);
+act1 = db2array(filtHistAct.std,vList,filtRange);
+out1 = db2array(filtHistOut.std,vList,filtRange);
+
+% compare series
+assertEqual(this, real(act1), real(out1), 'AbsTol',this.TestData.stdSeriesAbsTol);
 
 % compare non-tseries
 assertEqual(this,...
