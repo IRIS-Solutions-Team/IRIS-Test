@@ -3,7 +3,7 @@
 
 this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
-m = Model('tableTest.model', 'linear=', true);
+m = Model('test.model', 'linear=', true);
 m = solve(m);
 m = steady(m);
 
