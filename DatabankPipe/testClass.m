@@ -1,16 +1,11 @@
 classdef testClass < shared.DatabankPipe
-    properties (Dependent)
-        NumVariants
-        NamesOfAppendables
-    end
-
     methods
-        function n = get.NumVariants(this)
+        function n = countVariants(this)
             n = 1;
         end%
 
         
-        function list = get.NamesOfAppendables(this)
+        function list = nameAppendables(this)
             list = {'x', 'y', 'z'};
         end%
     end

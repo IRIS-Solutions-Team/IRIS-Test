@@ -1,4 +1,6 @@
 
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+
 assertEqualTol = @(x, y) assert(maxabs(x-y)<=1e-9);
 
 m0 = model('3eq.model', 'linear=', true);
@@ -20,8 +22,8 @@ act2 = dbcol(s12, 2);
 list = fieldnames(exp1);
 for i = 1 : length(list)
     name = list{i};
-    assertEqualTol(act1.(name)(:), exp1.(name)(:));
-    assertEqualTol(act2.(name)(:), exp2.(name)(:));
+    assertLessThan(testCase, abs(act1.(name)(:)-exp1.(name)(:)), 1e-9);
+    assertLessThan(testCase, abs(act2.(name)(:)-exp2.(name)(:)), 1e-9);
 end
 
 
@@ -39,7 +41,7 @@ act2 = dbpage(s12, 2);
 list = fieldnames(exp1);
 for i = 1 : length(list)
     name = list{i};
-    assertEqualTol(act1.(name)(:), exp1.(name)(:));
-    assertEqualTol(act2.(name)(:), exp2.(name)(:));
+    assertLessThan(testCase, abs(act1.(name)(:)-exp1.(name)(:)), 1e-9);
+    assertLessThan(testCase, abs(act2.(name)(:)-exp2.(name)(:)), 1e-9);
 end
 

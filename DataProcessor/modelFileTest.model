@@ -1,0 +1,15 @@
+
+!variables
+    x, y
+!shocks
+    res_x, res_y
+!postprocessor
+    diff_x = diff(x);
+
+!equations
+    x = 0.8*x{-1} + res_x;
+    y = 10 + 0.8*(10 - y{-1}) + res_y;
+
+!postprocessor
+    z = x + y;
+    cx = cx{-1} + x;

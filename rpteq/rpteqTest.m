@@ -1,4 +1,6 @@
 
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+
 dates = ii(1 : 100);
 xDates = dates(1)-10 : dates(end)+10;
 
@@ -38,7 +40,7 @@ outpClip.w = resize(outpClip.w, dates);
 q = rpteq('test.rpteq');
 expectedOutput = outpClip;
 actualOutput = run(q, inp, dates);
-Assert.equal(actualOutput, expectedOutput);
+assertEqual(testCase, actualOutput, expectedOutput);
 
 
 %% Test File Overlay
@@ -46,7 +48,7 @@ Assert.equal(actualOutput, expectedOutput);
 q = rpteq('test.rpteq');
 expectedOutput = outp;
 actualOutput = run(q, inp, dates, 'dbOverlay=', true);
-Assert.equal(actualOutput, expectedOutput);
+assertEqual(testCase, actualOutput, expectedOutput);
 
 
 %% Test Model File
@@ -56,10 +58,10 @@ q = get(m, 'reporting');
 
 expectedOutput = outpClip;
 actualOutput = reporting(m, inp, dates);
-Assert.equal(actualOutput, expectedOutput);
+assertEqual(testCase, actualOutput, expectedOutput);
 
 actualOutput = run(q, inp, dates);
-Assert.equal(actualOutput, expectedOutput);
+assertEqual(testCase, actualOutput, expectedOutput);
 
 
 %% Test Direct File
@@ -71,5 +73,5 @@ q = rpteq([ ...
     ]);
 expectedOutput = outpClip;
 actualOutput = run(q, inp, dates);
-Assert.equal(actualOutput, expectedOutput);
+assertEqual(testCase, actualOutput, expectedOutput);
 

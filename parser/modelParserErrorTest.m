@@ -90,19 +90,6 @@ code = '!transition_variables x; !transition_equations x; !links a:=x;';
 modelParserErrorHelper(code, expId);
 
 
-%% Terst Invalid Lhs Update 1
-
-expId = 'Equation:INVALID_LHS_REVISION';
-code = '!transition_variables x; !transition_equations x; !parameters a; !revisions a{1}:=x; b{1}:=x;';
-modelParserErrorHelper(code, expId);
-
-
-%% Test Invalid Lhs Update 2
-expId = 'Equation:INVALID_LHS_REVISION';
-code = '!transition_variables x; !transition_equations x; !parameters a; !revisions a:=x;';
-modelParserErrorHelper(code, expId);
-
-
 %% Test Multiple Lhs Dtrend
 
 expId = 'Equation:MULTIPLE_LHS_DTREND';

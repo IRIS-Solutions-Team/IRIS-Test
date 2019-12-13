@@ -1,0 +1,13 @@
+!variables
+    xx, trend, gap
+!shocks
+    e_trend, e_gap
+!equations
+    diff(diff(trend)) = e_trend;
+    gap = e_gap;
+    xx = trend + gap;
+!measurement-variables
+    x
+!measurement-equations
+    x = xx;
+

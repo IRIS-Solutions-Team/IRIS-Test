@@ -1,4 +1,9 @@
 
+% Set up
+
+this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+
+
 %% dbsave mixing Series and numeric scalars
 
 d = struct( );
@@ -8,7 +13,8 @@ d.a = 2;
 dbsave(d, 'dbsaveTest1.csv');
 dd = dbload('dbsaveTest1.csv');
 
-Assert.equalFields(d, dd, 1e-8);
+assertEqualStructs(this, d, dd);
+
 
 %% dbsave mixing Series and 1-N-N numeric arrays
 
@@ -19,7 +25,8 @@ d.a = rand(1, 5, 10);
 dbsave(d, 'dbsaveTest2.csv');
 dd = dbload('dbsaveTest2.csv');
 
-Assert.equalFields(d, dd, 1e-8);
+assertEqualStructs(this, d, dd);
+
 
 %% dbsave mixing Series and N-N-N numeric arrays
 
@@ -30,7 +37,8 @@ d.a = rand(100, 5, 10);
 dbsave(d, 'dbsaveTest3.csv');
 dd = dbload('dbsaveTest3.csv');
 
-Assert.equalFields(d, dd, 1e-8);
+assertEqualStructs(this, d, dd);
+
 
 %% dbsave mixing ND Series and 1-N-N numeric arrays
 
@@ -42,7 +50,8 @@ d.a = rand(33, 5, 10);
 dbsave(d, 'dbsaveTest4.csv');
 dd = dbload('dbsaveTest4.csv');
 
-Assert.equalFields(d, dd, 1e-8);
+assertEqualStructs(this, d, dd);
+
 
 %% dbsave with userdata field
 
@@ -54,7 +63,8 @@ d.userdata = struct('A', 1, 'B', 'XXX', 'C', {{1, 2, 3}});
 dbsave(d, 'dbsaveTest5.csv');
 dd = dbload('dbsaveTest5.csv');
 
-Assert.equalFields(d, dd, 1e-8);
+assertEqualStructs(this, d, dd);
+
 
 %% Error invalid data format
 
@@ -74,7 +84,8 @@ try
 catch err
 end
 
-Assert.equal(err.identifier, 'IRIS:Dbase:InvalidLoadFormat');
+assertEqual(this, err.identifier, 'IRIS:Dbase:InvalidLoadFormat');
+
 
 %% Error mixed frequency
 
@@ -93,7 +104,8 @@ catch err
     errorID = err.identifier;
 end
 
-check.equal(errorID, 'IRIS:Dates:MixedFrequency');
+assertEqual(this, errorID, 'IRIS:Dates:MixedFrequency');
+
 
 %% Error invalid NameFunc= option
 
@@ -108,7 +120,8 @@ try
 catch err
 end
 
-Assert.equal(err.identifier, 'IRIS:Dbase:InvalidOptionNameFunc');
+assertEqual(this, err.identifier, 'IRIS:Dbase:InvalidOptionNameFunc');
+
 
 %% Error loading userdata field
 
@@ -128,6 +141,27 @@ try
 catch err
 end
 
-Assert.equal(err.identifier, 'IRIS:Dbase:ErrorLoadingUserData');
+assertEqual(this, err.identifier, 'IRIS:Dbase:ErrorLoadingUserData');
+
+
+%
+% Local Functions
+%
+
+function assertEqualStructs(this, d1, d2)
+    list = fieldnames(d1);
+    assertEqual(this, sort(list), sort(fieldnames(d2)));
+    for i = 1 : numel(list)
+        x1 = d1.(list{i});
+        x2 = d2.(list{i});
+        assertEqual(this, class(x1), class(x2));
+        if isa(x1, 'TimeSubscriptable') 
+           x1 = x1.Data;
+           x2 = x2.Data;
+        end
+        assertEqual(this, x1, x1, 'AbsTol', 1e-8);
+    end
+end%
+
 
 

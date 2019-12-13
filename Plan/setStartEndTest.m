@@ -4,6 +4,9 @@
 this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 m = Model('test.model', 'linear=', true);
+m.std_ex = 1;
+m.std_ey = 2;
+m.std_ez = 1.5;
 m = solve(m);
 m = steady(m);
 
@@ -13,7 +16,7 @@ p = swap(p, p.Start+(0:1), {'x', 'ex'});
 p = swap(p, p.Start+(2:3), {'x', 'ex'});
 p = exogenize(p, p.Start, {'y', 'z'});
 p = endogenize(p, p.Start, {'ey', 'ez'});
-p = exogenize(p, p.Start+1, {'y'}, 'SwapId', 2);
+p = exogenize(p, p.Start+1, {'y'}, 'SwapLink', 2);
 p = endogenize(p, p.Start+1, {'ey'});
 
 
@@ -28,7 +31,11 @@ for name = p.RANGE_DEPENDENT
     id = p.(name);
     id1 = p1.(name);
     id = id(:, 2:end);
-    id(:, 1) = 0;
+    if name=="SigmasOfExogenous"
+        id(:, 1, :) = NaN;
+    else
+        id(:, 1) = 0;
+    end
     assertEqual(this, id, id1);
 end
 
@@ -54,7 +61,11 @@ for name = p.RANGE_DEPENDENT
     id = p.(name);
     id1 = p1.(name);
     id = id(:, 1:end-1);
-    id(:, end) = 0;
+    if name=="SigmasOfExogenous"
+        id(:, end) = NaN;
+    else
+        id(:, end) = 0;
+    end
     assertEqual(this, id, id1);
 end
 

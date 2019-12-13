@@ -13,7 +13,7 @@ p = swap(p, p.Start+(0:1), {'x', 'ex'});
 p = swap(p, p.Start+(2:3), {'x', 'ex'});
 p = exogenize(p, p.Start, {'y', 'z'});
 p = endogenize(p, p.Start, {'ey', 'ez'});
-p = exogenize(p, p.Start+1, {'y'}, 'SwapId', 2);
+p = exogenize(p, p.Start+1, {'y'}, 'SwapLink', 2);
 p = endogenize(p, p.Start+1, {'ey'});
 
 

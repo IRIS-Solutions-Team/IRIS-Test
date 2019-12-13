@@ -99,7 +99,7 @@ filtForeOut = this.TestData.filtForeOut;
 
 % run the filter
 warnStruct = warning('off','IRIS:Dbase:NameNotExist');
-[~,filtForeAct] = filter(m,filtForeInp.db,filtRange,filtForeInp.stddev, ...
+[~,filtForeAct] = filter(m,filtForeInp.db,filtRange,'override', filtForeInp.stddev, ...
   'deviation', false, 'relative', false);
 warning(warnStruct.state,'IRIS:Dbase:NameNotExist');
 

@@ -1,0 +1,38 @@
+!variables
+    a
+!equations
+    a=1;
+!shocks
+    ea
+!transition_variables
+    b
+!transition_shocks
+    eb
+!transition_equations
+    b=2;
+!transition-variables
+    c
+!transition_shocks
+    ec
+!transition-equations
+    c=3;
+!log_variables
+    !all_but
+    a
+!log-variables
+    !all-but
+    b
+!log_variables
+    !allbut
+    d
+!measurement-variables
+    d
+!measurement-equations
+    d=4;
+!reporting
+    x = a + b + c + d;
+!reporting_equations
+    y = a - b;
+!reporting-equations
+    z = c - d;
+

@@ -28,8 +28,8 @@ for i = 1 : 10
 end
 
 allFields = fieldnames(d);
-assertEqual(testCase, databank.backend.numOfColumns(d, allFields), ...
-                      databank.backend.numOfColumns(dict, allFields) );
+assertEqual(testCase, databank.backend.countColumns(d, allFields), ...
+                      databank.backend.countColumns(dict, allFields) );
 
 
 %% Test with Extra Entry Name
@@ -56,10 +56,10 @@ end
 allFields = fieldnames(d);
 allFields = [allFields; {'a_b'; 'c_'}];
 
-noc = databank.backend.numOfColumns(d, allFields);
+noc = databank.backend.countColumns(d, allFields);
 
 assertEqual(testCase, noc(end-1:end), [NaN, NaN]);
 
-assertEqual(testCase, databank.backend.numOfColumns(d, allFields), ...
-                      databank.backend.numOfColumns(dict, allFields) );
+assertEqual(testCase, databank.backend.countColumns(d, allFields), ...
+                      databank.backend.countColumns(dict, allFields) );
 
