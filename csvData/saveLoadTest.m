@@ -1,4 +1,5 @@
 
+clear
 assertEqual = @(x, y) assert(isequaln(x, y));
 assertEqualTol = @(x, y, tol) assert(all(size(x)==size(y)) && all(abs(x(:) - y(:))<1e-12));
 

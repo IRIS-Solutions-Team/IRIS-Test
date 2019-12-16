@@ -1,9 +1,12 @@
 
 modelObj = Model( );
+seriesObj = Series( );
 explanatoryEquationObj = ExplanatoryEquation( );
 
 tests = [
     preparePlan(modelObj, '--test')
+
+    init(seriesObj, '--test')
 
     textual.locate('--test')
 

@@ -6,7 +6,7 @@ d = struct( );
 d.x = Series(qq(1990,1), rand(200,2));
 
 
-%% Import Package
+% Import Package
 %
 % Otherwise all function and object names need to be preceeded by `rephase.`
 %
@@ -14,7 +14,7 @@ d.x = Series(qq(1990,1), rand(200,2));
 import rephrase.*
 
 
-%% Start New Report
+% Start New Report
 
 r = Report( ...
     'Forecast Report', ...
@@ -27,7 +27,7 @@ r = Report( ...
 );
 
 
-%% Create New Table
+% Create New Table
 
 t = Table( ...
     'Table 1', qq(2000,1:20), ...
@@ -41,19 +41,19 @@ t = Table( ...
 );
 
        
-%% Add Elements to the Table
+% Add Elements to the Table
 
 t + table.Series('Series 1', d.x);
 t + table.Subheading('Inflation Decomposition');
 t + table.Series('Series 2', d.x);
 
 
-%% Add the Table to the Report
+% Add the Table to the Report
 
 r + t
 
 
-%% Start New Figure
+% Start New Figure
 
 sty = struct( );
 sty.Axes.FontSize = 5;
@@ -67,48 +67,48 @@ f = Figure( ...
 );
 
         
-%% Add Elements to the Figure
+% Add Elements to the Figure
 
     ch = figure.Chart( 'Chart 1', [ ], 'Highlight=', qq(2001,1:4));
         ch + figure.chart.Series('Series 1', d.x, {@plot, 'LineWidth=', 2});
     f + ch
     
     
-%% Add the Figure to the Report
+% Add the Figure to the Report
 
 r + f
 
 
-%% Create Another Table and Add It to the Report
+% Create Another Table and Add It to the Report
 
 t = Table('Table 2', qq(2001,1:20));
 t + table.Series('Series 1', d.x)
 r + t
 
 
-%% Add a Section Divider to the Report
+% Add a Section Divider to the Report
 
 r + Section('Section 1');
 
 
-%% Create New Matrix
+% Create New Matrix
 
 m = Matrix( 'Matrix 1', rand(4,5), ...
             'ColumnNames=', {'First', 'Second'}, ...
             'RowNames=', {'First', 'Second', 'Third'} );
 
         
-%% Add the Matrix to the Report
+% Add the Matrix to the Report
 
 r + m
 
 
-%% Display the Structure of the Report
+% Display the Structure of the Report
 
 detail(r)
 
 
-%% Publish the Report to HTML
+% Publish the Report to HTML
 
 [fileName, code] = publish(r);
 disp(fileName)

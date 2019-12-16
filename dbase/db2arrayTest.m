@@ -1,11 +1,10 @@
-function tests = db2arrayTest( )
-tests = functiontests(localfunctions);
-end
-%#ok<*DEFNU>
+% Set Up Once
+
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 
-function testArray2dbMoreVars(this)
-% More variables than dates.
+%% Test More Variables Than Dates
+
 TIME_SERIES_CONSTRUCTOR = iris.get('DefaultTimeSeriesConstructor');
 expDb = struct( );
 expDb.a = TIME_SERIES_CONSTRUCTOR(1:4, rand(4, 2, 3, 5));
@@ -16,12 +15,11 @@ expDb.y = TIME_SERIES_CONSTRUCTOR(1:4, rand(4, 2, 3, 5));
 expDb.z = TIME_SERIES_CONSTRUCTOR(1:4, rand(4, 2, 3, 5));
 [x, incl, rng] = db2array(expDb);
 actDb = array2db(x, rng, incl);
-assertEqual(this, actDb, expDb);
-end % testArray2dbMoreVars( )
+assertEqual(testCase, actDb, expDb);
 
 
-function testArray2dbMoreVarsComments(this)
-% More variables than dates.
+%% Test More Variables Than Dates with Comments
+
 TIME_SERIES_CONSTRUCTOR = iris.get('DefaultTimeSeriesConstructor');
 expDb = struct( );
 expDb.a = TIME_SERIES_CONSTRUCTOR(1:4, rand(4, 2, 3, 5));
@@ -32,17 +30,16 @@ expDb.y = TIME_SERIES_CONSTRUCTOR(1:4, rand(4, 2, 3, 5));
 expDb.z = TIME_SERIES_CONSTRUCTOR(1:4, rand(4, 2, 3, 5));
 [x, incl, rng] = db2array(expDb);
 actDb = array2db(x, rng, incl, 'Comments=', {'aa', 'bb', 'cc'});
-assertEqual(this, comment(actDb.a), repmat({'aa'}, 1, 2, 3, 5));
-assertEqual(this, comment(actDb.b), repmat({'bb'}, 1, 2, 3, 5));
-assertEqual(this, comment(actDb.c), repmat({'cc'}, 1, 2, 3, 5));
-assertEqual(this, comment(actDb.x), repmat({TimeSubscriptable.EMPTY_COMMENT}, 1, 2, 3, 5));
-assertEqual(this, comment(actDb.y), repmat({TimeSubscriptable.EMPTY_COMMENT}, 1, 2, 3, 5));
-assertEqual(this, comment(actDb.z), repmat({TimeSubscriptable.EMPTY_COMMENT}, 1, 2, 3, 5));
-end % testArray2dbMoreVars( )
+assertEqual(testCase, comment(actDb.a), repmat({'aa'}, 1, 2, 3, 5));
+assertEqual(testCase, comment(actDb.b), repmat({'bb'}, 1, 2, 3, 5));
+assertEqual(testCase, comment(actDb.c), repmat({'cc'}, 1, 2, 3, 5));
+assertEqual(testCase, comment(actDb.x), repmat({TimeSubscriptable.EMPTY_COMMENT}, 1, 2, 3, 5));
+assertEqual(testCase, comment(actDb.y), repmat({TimeSubscriptable.EMPTY_COMMENT}, 1, 2, 3, 5));
+assertEqual(testCase, comment(actDb.z), repmat({TimeSubscriptable.EMPTY_COMMENT}, 1, 2, 3, 5));
 
 
-function testArray2dbMoreDates(this)
-% More dates than variables.
+%% Test More Dates Than Variables
+
 TIME_SERIES_CONSTRUCTOR = iris.get('DefaultTimeSeriesConstructor');
 expDb = struct( );
 expDb.x = TIME_SERIES_CONSTRUCTOR(1:4, rand(4, 2, 3, 5));
@@ -50,12 +47,11 @@ expDb.y = TIME_SERIES_CONSTRUCTOR(1:4, rand(4, 2, 3, 5));
 expDb.z = TIME_SERIES_CONSTRUCTOR(1:4, rand(4, 2, 3, 5));
 [x, incl, rng] = db2array(expDb);
 actDb = array2db(x, rng, incl);
-assertEqual(this, actDb, expDb);
-end % testArray2dbMoreDates( )
+assertEqual(testCase, actDb, expDb);
 
 
-function testArray2dbNotRange(this)
-% Dates are not continuous range.
+%% Test Dates Not Continuous
+
 TIME_SERIES_CONSTRUCTOR = iris.get('DefaultTimeSeriesConstructor');
 rng = qq(2000, [1, 10, 7, 6]);
 expDb = struct( );
@@ -64,14 +60,13 @@ expDb.y = TIME_SERIES_CONSTRUCTOR(rng, rand(4, 2, 3, 5));
 expDb.z = TIME_SERIES_CONSTRUCTOR(rng, rand(4, 2, 3, 5));
 expRng = min(rng) : max(rng);
 [x, incl, actRng] = db2array(expDb);
-assertEqual(this, actRng, expRng);
+assertEqual(testCase, actRng, expRng);
 actDb = array2db(x, expRng, incl);
-assertEqual(this, actDb, expDb);
-end % testArray2dbNotRange( )
+assertEqual(testCase, actDb, expDb);
 
 
-function testArray2dbHiDim(this)
-% Higher dimensions equal in all tseries.
+%% Test Higher Dims Equal in All Series
+
 TIME_SERIES_CONSTRUCTOR = iris.get('DefaultTimeSeriesConstructor');
 rng = mm(2000, 1:10);
 nPer = length(rng);
@@ -89,13 +84,12 @@ expArr = [x, y, z];
 actArr = db2array(db);
 actSize = size(actArr);
 expSize = [length(rng), 3, 1, 1, 5];
-assertEqual(this, actSize, expSize);
-assertEqual(this, actArr, expArr);
-end % testArray2dbHiDim( )
+assertEqual(testCase, actSize, expSize);
+assertEqual(testCase, actArr, expArr);
 
 
-function testArray2dbHiDimMissing(this)
-% Higher dimensions missing in some tseries.
+%% Test Higher Dims Missing in some Series
+
 TIME_SERIES_CONSTRUCTOR = iris.get('DefaultTimeSeriesConstructor');
 rng = yy(2000):yy(2005);
 nPer = length(rng);
@@ -116,13 +110,13 @@ z = cat(3, z, z);
 
 expArr = [x, y, z];
 actArr = db2array(db);
-assertEqual(this, actArr, expArr);
+assertEqual(testCase, actArr, expArr);
 
 expArr = [y, z, x];
 actArr = db2array(db, {'y', 'z', 'x'});
-assertEqual(this, actArr, expArr);
+assertEqual(testCase, actArr, expArr);
 
 expArr = [y, z, x];
 actArr = db2array(db, {'y', 'z', 'x'}, rng);
-assertEqual(this, actArr, expArr);
-end % testArray2dbHiDimMissin( )
+assertEqual(testCase, actArr, expArr);
+
