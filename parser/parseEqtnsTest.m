@@ -17,7 +17,7 @@ euc = parser.EquationUnderConstruction( );
 q = warning('query');
 expId = 'IRIS:TheParser:EmptyEquation';
 warning('off', expId);
-opt = struct('SteadyOnly', false);
+opt = struct('SteadyOnly', false, 'EquationSwitch', @auto);
 [~, equation] = parse(b, [ ], code, quantity, equation, euc, [ ], opt);
 [~, actId] = lastwarn( );
 
