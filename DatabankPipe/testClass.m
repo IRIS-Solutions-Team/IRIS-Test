@@ -8,6 +8,12 @@ classdef testClass < shared.DatabankPipe
         function list = nameAppendables(this)
             list = {'x', 'y', 'z'};
         end%
+
+
+        function [minSh, maxSh] = getActualMinMaxShifts(this)
+            minSh = 0;
+            maxSh = 0;
+        end%
     end
 end
 

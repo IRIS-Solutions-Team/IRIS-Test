@@ -28,7 +28,7 @@ p1.Start = p1.Start + 1;
 
 assertEqual(this, double(p.Start)+1, double(p1.Start), 'AbsTol', 1e-5);
 assertEqual(this, double(p.End), double(p1.End), 'AbsTol', 1e-5);
-for name = p.RANGE_DEPENDENT
+for name = reshape(p.RANGE_DEPENDENT, 1, [ ])
     id = p.(name);
     id1 = p1.(name);
     id = id(:, 2:end);
@@ -58,7 +58,7 @@ p1.End = p1.End - 1;
 
 assertEqual(this, double(p.End)-1, double(p1.End), 'AbsTol', 1e-5);
 assertEqual(this, double(p.Start), double(p1.Start), 'AbsTol', 1e-5);
-for name = p.RANGE_DEPENDENT
+for name = reshape(p.RANGE_DEPENDENT, 1, [ ])
     id = p.(name);
     id1 = p1.(name);
     id = id(:, 1:end-1);

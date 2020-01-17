@@ -5,7 +5,7 @@ randChar = @(varargin) char(96+randi(26, varargin{:}));
 
 d = struct( );
 dict = Dictionary( );
-for i = 1 : 10
+for i = 1 : 100
     name = randChar(1, 10);
     sizeOfSeries = [10+randi(10), randi(3), randi(3)];
     data = round(rand(sizeOfSeries), 2);
@@ -27,6 +27,7 @@ userDataFields = {'Source', 'Description'};
 databank.toCSV( d, 'serializeTest1.csv', Inf, ...
                 'Decimals=', 2, ...
                 'UserDataFields=', userDataFields );
+
 databank.toCSV( dict, 'serializeTest2.csv', Inf, ...
                 'Decimals=', 2, ...
                 'UserDataFields=', userDataFields );

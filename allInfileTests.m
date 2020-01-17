@@ -1,11 +1,16 @@
+function tests = allInfileTests( )
 
 modelObj = Model( );
+planObj = Plan( );
 seriesObj = Series( );
 explanatoryEquationObj = ExplanatoryEquation( );
 
 tests = [
     ... Model
     preparePlan(modelObj, '--test')
+
+    ... Plan
+    exogenizeWhenData(planObj, '--test')
 
     ... Series
     init(seriesObj, '--test')
@@ -19,6 +24,7 @@ tests = [
 
     ... Parser
     parse(parser.theparser.Equation, '--test')
+    parser.Interp.parse('--test')
 
     ... Dates
     isfreq('--test')
@@ -26,6 +32,7 @@ tests = [
     ... ExplanatoryEquation
     ExplanatoryEquation.fromFile('--test')
     ExplanatoryEquation.fromString('--test')
+    ExplanatoryEquation.fromModel('--test')
     getDataBlock(explanatoryEquationObj, '--test')
     simulate(explanatoryEquationObj, '--test')
     createModelData(explanatoryEquationObj, '--test')
@@ -33,10 +40,12 @@ tests = [
     regress(explanatoryEquationObj, '--test')
     residuals(explanatoryEquationObj, '--test')
     blazer(explanatoryEquationObj, '--test')
+    checkUniqueLhs(explanatoryEquationObj, '--test')
+    lookup(explanatoryEquationObj, '--test')
 
     ... regression.Term
     regression.Term.parseInputSpecs('--test')
 ];
 
-run(tests);
+end%
 

@@ -21,6 +21,6 @@ p = endogenize(p, p.Start+1, {'ey'});
 
 d = zerodb(m, qq(2001,1):qq(2004,4));
 t = table(p, d);
-assertEqual(this, size(t), [7, 6]);
-assertEqual(this, t{:,1}, char({'x', 'y', 'z', 'ex', 'ey', 'ez', 'y'}));
-
+assertEqual(this, size(t), [7, 7]);
+assertEqual(this, t{:, 1}, ["x"; "y"; "z"; "ex"; "ey"; "ez"; "y"]);
+assertEqual(this, t{:, 3}, int16([-1;-1;-1;-1;-1;-1;2]));

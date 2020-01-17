@@ -29,8 +29,8 @@ x1 = double(x1('trend', 'x'));
 x2 = double(x2('trend', 'x'));
 x3 = double(x3('trend', 'x'));
 
-assertEqual(testCase, x1, x2, 'AbsTol', 1e-8);
-assertEqual(testCase, x1, x3, 'AbsTol', 1e-8);
+assertEqual(testCase, x1, x2, 'RelTol', 1e-8);
+assertEqual(testCase, x1, x3, 'RelTol', 1e-8);
 
 
 %% Test XSF
@@ -48,6 +48,6 @@ x1 = double(x1('trend', 'x'));
 x2 = double(x2('trend', 'x'));
 x3 = double(x3('trend', 'x'));
 
-assertEqual(testCase, x1, x2, 'AbsTol', 1e-8);
-assertEqual(testCase, x1, x3, 'AbsTol', 1e-8);
+assertEqual(testCase, x1, x2, 'RelTol', 1e-8);
+assertEqual(testCase, x1, x3, 'RelTol', 1e-8);
 

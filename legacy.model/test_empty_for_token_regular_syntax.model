@@ -1,7 +1,7 @@
-% Old syntax:
+% Regular syntax
 
 !for
-    ? = $[ {'', 'F'} ]$, G
+    ? = $[{'', 'F'}]$, G
 !do
     !variables
         y?
