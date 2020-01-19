@@ -36,7 +36,7 @@ d1 = databank.fromCSV('serializeTest1.csv');
 dict1 = databank.fromCSV('serializeTest2.csv', 'OutputType=', 'Dictionary');
 
 
-%% Test with Struct 
+%% Test Struct 
 
 compareDatabanks(d, d1, userDataFields);
 
@@ -46,10 +46,7 @@ compareDatabanks(d, d1, userDataFields);
 compareDatabanks(dict, dict1, userDataFields);
 
 
-%
-% Local Functions
-%
-
+%% Local Functions
 
 function compareDatabanks(d, d1, userDataFields)
     this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
