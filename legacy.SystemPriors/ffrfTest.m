@@ -43,7 +43,7 @@ function testSystemPrior(this)
     freq = this.TestData.Freq;
     expectedF = ffrf(m, freq);
     p = ffrf(m, freq, 'SystemProperty=', 'F');
-    spw = SystemPriorWrapper(m);
+    spw = SystemPriorWrapper.forModel(m);
     spw.addSystemProperty(p);
     f1 = distribution.Normal.fromMeanStd(0, 2);
     spw.addSystemPrior('abs(sum(F(12, 3, :)))', f1);
@@ -61,7 +61,7 @@ function testSystemPriorUpdate(this)
     m = this.TestData.Model;
     freq = this.TestData.Freq;
     p = ffrf(m, freq, 'SystemProperty=', 'F');
-    spw = SystemPriorWrapper(m);
+    spw = SystemPriorWrapper.forModel(m);
     spw.addSystemProperty(p);
     f1 = distribution.Normal.fromMeanStd(0, 2);
     spw.addSystemPrior('abs(sum(F(12, 3, :)))', f1);

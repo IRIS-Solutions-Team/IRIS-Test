@@ -11,7 +11,7 @@ endFilter = endData;
 filterRange = startFilter:endFilter;
 numPeriods = numel(filterRange);
 
-b = BareLinearKalman([2, 2, 1, 1], numPeriods);
+b = LinearSystem([2, 2, 2, 1, 1], numPeriods);
 
 T = diag([0.9, 0.5]);
 R = eye(2);

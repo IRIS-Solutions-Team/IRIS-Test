@@ -32,7 +32,6 @@ tests = [
     ... ExplanatoryEquation
     ExplanatoryEquation.fromFile('--test')
     ExplanatoryEquation.fromString('--test')
-    ExplanatoryEquation.fromModel('--test')
     getDataBlock(explanatoryEquationObj, '--test')
     simulate(explanatoryEquationObj, '--test')
     createModelData(explanatoryEquationObj, '--test')

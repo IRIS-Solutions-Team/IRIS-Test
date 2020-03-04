@@ -47,7 +47,7 @@ function testSystemPriorOneOutput(this)
     freq = this.TestData.Freq;
     expectedS = xsf(m, freq);
     p = xsf(m, freq, 'SystemProperty=', 'Pws');
-    spw = SystemPriorWrapper(m);
+    spw = SystemPriorWrapper.forModel(m);
     spw.addSystemProperty(p);
     f1 = distribution.Normal.fromMeanStd(1000, 5);
     spw.addSystemPrior('abs(sum(Pws(1, 2, :)))', f1);
@@ -72,7 +72,7 @@ function testSystemPriorTwoOutputs(this)
     freq = this.TestData.Freq;
     [expectedS, expectedD] = xsf(m, freq);
     p = xsf(m, freq, 'SystemProperty=', {'Pws', 'Spd'});
-    spw = SystemPriorWrapper(m);
+    spw = SystemPriorWrapper.forModel(m);
     spw.addSystemProperty(p);
     f1 = distribution.Normal.fromMeanStd(1000, 5);
     f2 = distribution.Normal.fromMeanStd(20, 2);
@@ -97,7 +97,7 @@ function testSystemPriorUpdate(this)
     m = this.TestData.Model;
     freq = this.TestData.Freq;
     p = xsf(m, freq, 'SystemProperty=', {'Pws', 'Spd'});
-    spw = SystemPriorWrapper(m);
+    spw = SystemPriorWrapper.forModel(m);
     spw.addSystemProperty(p);
     f1 = distribution.Normal.fromMeanStd(1000, 5);
     f2 = distribution.Normal.fromMeanStd(20, 2);

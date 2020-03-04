@@ -1,12 +1,12 @@
 function tests = gammaFamilyTest( )
 tests = functiontests(localfunctions);
-end
+end%
 
 
 function setupOnce(this)
     this.TestData.AlphaVec = [1, 2, 3, 5, 9, 7.5, 0.5];
     this.TestData.BetaVec = [2, 2, 2, 1, 0.5, 1, 1];
-end
+end%
 
 
 function testGammaConstructors(this)
@@ -31,7 +31,7 @@ function testGammaConstructors(this)
             this.assertEqual(g1.Beta, g4.Beta, 'AbsTol', 1e-10);
         end
     end
-end
+end%
     
 
 function testInvGammaConstructors(this)
@@ -48,10 +48,10 @@ function testInvGammaConstructors(this)
         this.assertEqual(g1.Beta, g2.Beta, 'AbsTol', 1e-10);
         this.assertEqual(g1.Alpha, g3.Alpha, 'AbsTol', 1e-10);
         this.assertEqual(g1.Beta, g3.Beta, 'AbsTol', 1e-10);
-        mode = 1/(beta*(alpha+1));
+        mode = beta/(alpha+1);
         this.assertEqual(g1.Mode, mode, 'AbsTol', 1e-10);
         this.assertEqual(g2.Mode, mode, 'AbsTol', 1e-10);
         this.assertEqual(g3.Mode, mode, 'AbsTol', 1e-10);
     end
-end
+end%
 

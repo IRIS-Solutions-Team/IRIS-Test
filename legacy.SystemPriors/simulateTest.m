@@ -52,7 +52,7 @@ function testSystemPrior(this)
     s = simulate(m, d, 1:40);
     p = simulate(m, d, 1:40, 'SystemProperty=', 'Sim');
     f1 = distribution.Normal.fromMeanStd(40, 5);
-    spw = SystemPriorWrapper(m);
+    spw = SystemPriorWrapper.forModel(m);
     spw.addSystemProperty(p);
     spw.addSystemPrior('sum(Sim(log_P, :))', f1);
     [actualLogDensity, actualContrib, actualProp] = eval(spw, m);
@@ -71,7 +71,7 @@ function testSystemPriorUpdate(this)
     d.Ep(5) = 0.01;
     p = simulate(m, d, 1:40, 'SystemProperty=', 'Sim');
     f1 = distribution.Normal.fromMeanStd(40, 5);
-    spw = SystemPriorWrapper(m);
+    spw = SystemPriorWrapper.forModel(m);
     spw.addSystemProperty(p);
     spw.addSystemPrior('sum(Sim(log_P, :))', f1);
     for xiw = 55 : 5 : 70

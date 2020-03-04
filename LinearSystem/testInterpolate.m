@@ -22,7 +22,7 @@ x0 = x0*factor;
 
 x = yearly(indicator, startYear:endYear);
 
-%% Create Kalman Object
+%% Create LinearSystem Object
 
 sigma = 0;
 damp = 0;
@@ -50,7 +50,7 @@ for i = 1 : numYears
     b(:, :, i) = inva0;
 end
 
-k = BareLinearKalman([4, 4, 1, 0], numYears); 
+k = LinearSystem([4, 4, 4, 1, 0], numYears); 
 k = steadySystem(k, 'NotNeeded');
 k = timeVaryingSystem(k, 1:numYears, {a, b, zeros(4, 1), z, [ ], 0}, {eye(4), [ ]});
 init = { x0, zeros(4) };

@@ -45,28 +45,6 @@ actStart = fq.Start;
 expStart = qq(2000, 2);
 assert(isequal(actStart, expStart));
 
-%% Test Integer 
-
-i = tseries(10, data);
-fi = apct(i);
-actData = fi.Data;
-expData = 100*((data(2:end, :)./data(1:end-1, :)) - 1);
-assert(isequal(actData, expData));
-actStart = fi.Start;
-expStart = ii(11);
-assert(isequal(actStart, expStart));
-
-%% Test Integer with Lead and Power 
-
-i = tseries(10, data);
-fi = apct(i, +1, 6);
-actData = fi.Data;
-expData = 100*((data(1:end-1, :)./data(2:end, :)).^6 - 1);
-assert(isequal(actData, expData));
-actStart = fi.Start;
-expStart = ii(10);
-assert(isequal(actStart, expStart));
-
 %% Test Daily 
 
 d = tseries(dd(2000, 1, 1), data);

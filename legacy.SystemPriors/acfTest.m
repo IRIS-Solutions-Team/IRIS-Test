@@ -43,7 +43,7 @@ function testSystemPriorOneOutput(this)
     m = this.TestData.Model;
     expectedC = acf(m);
     p = acf(m, 'SystemProperty=', 'Cov');
-    spw = SystemPriorWrapper(m);
+    spw = SystemPriorWrapper.forModel(m);
     spw.addSystemProperty(p);
     f1 = distribution.Normal.fromMeanStd(10, 5);
     f2 = distribution.Normal.standardized( );
@@ -68,7 +68,7 @@ function testSystemPriorTwoOutputs(this)
     m = this.TestData.Model;
     [expectedC, expectedR] = acf(m);
     p = acf(m, 'SystemProperty=', {'Cov', 'Corr'});
-    spw = SystemPriorWrapper(m);
+    spw = SystemPriorWrapper.forModel(m);
     spw.addSystemProperty(p);
     f1 = distribution.Normal.fromMeanStd(10, 5);
     f2 = distribution.Normal.standardized( );
@@ -92,7 +92,7 @@ end%
 function testSystemPriorUpdate(this)
     m = this.TestData.Model;
     p = acf(m, 'SystemProperty=', {'Cov', 'Corr'});
-    spw = SystemPriorWrapper(m);
+    spw = SystemPriorWrapper.forModel(m);
     spw.addSystemProperty(p);
     f1 = distribution.Normal.fromMeanStd(10, 5);
     f2 = distribution.Normal.standardized( );

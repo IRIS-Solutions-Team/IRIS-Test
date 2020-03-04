@@ -37,7 +37,7 @@ d = zeros(1, 1);
 OmegaV = 1;
 OmegaW = [ ];
 
-m = BareLinearKalman([4, 1, 1, 0], numQuarters);
+m = LinearSystem([4, 4, 1, 1, 0], numQuarters);
 m = steadySystem(m, 'NotNeeded');
 m = timeVaryingSystem(m, 1:numQuarters, {T, R, k, Z, H, d}, {OmegaV, OmegaW});
 
