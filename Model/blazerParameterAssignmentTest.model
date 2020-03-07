@@ -1,0 +1,15 @@
+!variables
+    x, y, z, u
+
+!parameters
+    a, b, c, d
+
+!log-variables
+    !all-but
+    u 
+
+!equations
+    a = x;
+    log(b) = y;
+    c = z/z{-1};
+    -d = u - u{-5};
