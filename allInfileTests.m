@@ -38,7 +38,6 @@ tests = [
     defineDependent(explanatoryEquationObj, '--test')
     regress(explanatoryEquationObj, '--test')
     residuals(explanatoryEquationObj, '--test')
-    blazer(explanatoryEquationObj, '--test')
     checkUniqueLhs(explanatoryEquationObj, '--test')
     lookup(explanatoryEquationObj, '--test')
 

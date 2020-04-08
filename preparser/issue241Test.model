@@ -1,0 +1,22 @@
+
+!parameters
+  rho
+!for 
+  ?state = <MyStates>
+!do
+  !transition-variables
+  ?state
+  !transition_equations
+  ?state = rho*?state{-1};  
+!end
+
+
+!for 
+  ?state = <1:K>
+!do
+  !transition-variables
+  z?state
+  !transition_equations
+  z?state = rho*z?state{-1};  
+!end
+

@@ -1,4 +1,6 @@
 
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+
 %% %%  testForBody(this)
 
 inpCode = '!for ?1=$[1:3]$ !do !for ?2=$[1:?1]$ !do ?1?2 !end !end';
@@ -41,14 +43,14 @@ assign = struct('list', [10, 30, 20]);
 actCode = Preparser.removeInsignificantWhs(actCode);
 expCode = Preparser.removeInsignificantWhs(expCode);
 
-Assert.equal(actCode, expCode);
-Assert.equal(length(actualExport), 3);
+assertEqual(testCase, actCode, expCode);
+assertEqual(testCase, numel(actualExport), 3);
 expectedFileName = { ...
     'testExportFileName10.model', ...
     'testExportFileName30.model', ...
     'testExportFileName20.model', ...
     };
-Assert.equal({actualExport.FileName}, expectedFileName);
+assertEqual(testCase, {actualExport.FileName}, expectedFileName);
 expectedContents = { ...
     'x=10;', ...
     'x=30;', ...
@@ -57,5 +59,5 @@ expectedContents = { ...
 actualContents = {actualExport.Contents};
 actualContents = Preparser.removeInsignificantWhs(actualContents);
 expectedContents = Preparser.removeInsignificantWhs(expectedContents);
-Assert.equal(actualContents, expectedContents);
+assertEqual(testCase, actualContents, expectedContents);
 

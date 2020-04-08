@@ -1,0 +1,11 @@
+!variables
+x
+!shocks
+eps
+!equations
+x = 0.8*x{-1} + eps;
+!measurement-variables
+obs_x
+!measurement-equations
+obs_x = x;
+

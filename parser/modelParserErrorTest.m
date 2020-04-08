@@ -85,7 +85,7 @@ modelParserErrorHelper(code, expId);
 
 %% Test Invalid Lhs Link
 
-expId = 'Equation:INVALID_LHS_LINK';
+expId = 'Equation:UndeclaredMistypedName';
 code = '!transition_variables x; !transition_equations x; !links a:=x;';
 modelParserErrorHelper(code, expId);
 

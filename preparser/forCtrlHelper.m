@@ -1,12 +1,11 @@
 function forCtrlHelper(inpCode, expCode, assign)
-    import parser.Preparser;
-    try
-        assign; 
-    catch
+    import parser.Preparser
+    testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+    if nargin<3
         assign = struct( ); 
-    end %#ok<VUNUS, NOCOM>
+    end
     actCode = Preparser.parse([ ], inpCode, 'assigned=', assign);
     actCode = Preparser.removeInsignificantWhs(actCode);
     expCode = Preparser.removeInsignificantWhs(expCode);
-    Assert.equal(actCode, expCode);
+    assertEqual(testCase, actCode, expCode);
 end
