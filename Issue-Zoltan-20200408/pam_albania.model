@@ -1,0 +1,568 @@
+
+!transition_variables
+
+  "Domestic production"     Yd
+  "Export production"       Yx
+  "Export reference level"  Yx_ref
+  
+  "Real private consumption"                C
+  
+  "Real investment"                         I
+  "Real investment in domestic production"  Id
+  "Real investment in export production"    Ix
+  "Real capital in domestic production"     Kd
+  "Real capital in export production"       Kx
+  
+  "Real government consumption"             G
+  
+  "Real imports"                            M
+  "Real imports in domestic production"     Md
+  "Real imports in export production"       Mx
+  
+  "Labor"                                   N
+  "Labor in domestic production"            Nd
+  "Labor in export production"              Nx
+  "Variable labor in domestic production"   NVd
+  "Variable Labor in export production"     NVx
+  
+  "Consumer price level"          Pc
+  "Price of domestic production"  Pd
+  "Export price"                  Px
+  "Export price"                  Px0
+  "Import price"                  Pm
+  
+  "Rental price of capital in domestic production"  PRkd
+  "Rental price of capital in export production"    PRkx
+  "Shadow price of capital in domestic production"  Qd
+  "Shadow price of capital in export production"    Qx
+  
+  "Nominal wage"                            W
+  "Flexible Wage Rate (Absent Rigidities)"  Wflex
+  
+  "Nominal short rate"        Rg
+  "Neutral short rate"        Rg_bar
+  "Nominal short rate, FCY"   Rg_fcy
+  "Real interest rate"        RRg
+  "Exchange rate"             S
+  "Real exchange rate"        RER
+  "Sovereign risk premium"    PREM
+  
+  "Real marginal cost of distributors"  RMC
+  
+  "Government deficit ratio"      DEF_NGDP
+  "Primary deficit ratio"         PDEF_NGDP
+  "Interest payments ratio"       INTP_NGDP
+  "Expenditures ratio"            GEXP_NGDP
+  "Revenues ratio"                GREV_NGDP
+  "Lump sum tax ratio"            TAXls_NGDP 
+  "Income tax ratio"              TAXL_NGDP 
+  "VAT tax ratio"                 TAXC_NGDP 
+  "Profit tax ratio"              TAXPIE_NGDP
+  "Government consumption ratio"  PG_NGDP
+  "Government wage ratio"         WG_NGDP
+  
+  "Income tax rate"   tauL
+  "VAT tax rate"      tauC
+  "Profit tax rate"   tauPIE
+  
+  "Primary deficit ratio target" PDEF_NGDP_tar
+  
+  "Lump sum tax ratio, exogenous"             TAXls_NGDP_exog
+  "Income tax rate, exogenous"                tauL_exog
+  "VAT tax rate, exogenous"                   tauC_exog
+  "Profit tax rate, exogenous"                tauPIE_exog
+  "Government consumption ratio, exogenous"   PG_NGDP_exog
+  "Government wage ratio, exogenous"          WG_NGDP_exog
+  
+  "Government debt ratio, total"        Bg_NGDP
+  "Government debt ratio, LCY"          Bg_lcy_NGDP
+  "Government debt ratio, FCY, in LCY"  Bg_fcy_NGDP
+  
+  "Net foreign assets"        NFA_NGDP
+  "Trade balance ratio"       TB_NGDP
+  "Private debt ratio, FCY"   Bh_fcy_NGDP
+  
+  "Net worth"                 V
+  "Disposable labor income"   DLI
+  
+   "Shadow price of income"  Lambda
+ 
+  "Labor augmenting productivity"                       A
+  "Labor augmenting productivity in export production"  Ax
+  
+  "Foreign price level"   Pw_star
+  "Nominal foreign rate"  Rw_star
+  
+  "Nominal GDP"           NGDP
+  "Consumption ratio"     PC_NGDP
+  "Investment ratio"      PI_NGDP
+  "Labor cost ratio"      WN_NGDP
+  "Capital cost ratio"    PRkK_NGDP
+  "Import ratio"          PM_NGDP
+  "Export ratio"          PX_NGDP
+  "Profit of producers"   PIE_NGDP
+  
+  "Real GDP growth" dGDP
+  
+  "Labor/import ratio"              NVd_Md
+  "DLI/consumption ratio"           DLI_Pc_C
+  "Auxiliary calibration constant"  V_A_nu0
+  
+!parameters
+          
+  "Households' time preference"                     beta
+  "Elasticity of intertemporal substitution"        sigma
+  "Habit formation"                                 chi
+  "Current income in consumption"                   psi
+  "Inverse elasticity of labor supply"              eta
+  "Labor Supply Scale Parameter"                    theta
+  
+  "Net worth effect, slope"       nu
+  "Net worth effect, intercept"   nu0
+  
+  "Depreciation of capital"               delta
+  
+  "Labor share in domestic production"    gammaNd 
+  "Capital share in domestic production"  gammaKd
+  "Import share in domestic production"   gammaMd
+  "Overhead labor in domestic production" nd
+  
+  "Labor share in export production"      gammaNx 
+  "Capital share in export production"    gammaKx
+  "Import share in export production"     gammaMx
+  "Overhead labor in export production"   nx
+  
+  "Price adjustment cost"                 xiP
+  
+  "Investment/capital adjustment cost"                  xiId
+  "Weight of investment/capital in adjustment cost"     phid
+  "Labor/import adjustment cost in domestic production" xiNdMd
+    
+  "Investment/capital adjustment cost"                  xiIx
+  "Weight of investment/capital in adjustment cost"     phix
+  "Labor/inmport adjustment cost in export production"  xiNxMx
+  
+  "Export production adjustmet cost"      xiYx
+  
+  "Markup of distributors"  mu
+  "Markup of exporters"     mux
+  
+  "Inflation target"                    ss_dP
+  "Interest rate smoothing"             rho_Rg
+  "Weight to inflation in MP rule"      kappa_dP
+  "Persistence of neutral rate"         rho_Rg_bar
+  
+  "Endogenous premium, intercept" zeta0
+  "Endogenous premium, slope"     zeta1
+  
+  "Government debt ratio target"      ss_Bg_NGDP
+  "Government debt ratio smoothing"   rho_B
+  
+  "Steady state lump sum ratio"                 ss_TAXls_NGDP
+  "Steady state income tax rate"                ss_tauL
+  "Steady state VAT tax rate"                   ss_tauC
+  "Steady state profit tax rate"                ss_tauPIE
+  "Steady state government consumption ratio"   ss_PG_NGDP
+  "Steady state government wage ratio"          ss_WG_NGDP
+  
+  "Lump sum ratio switch"         sw_TAXls_NGDP
+  "Income tax rate switch"        sw_tauL
+  "VAT tax rate switch"           sw_tauC
+  "Profit tax rate"               sw_tauPIE    
+  "Government consumption ratio"  sw_PG_NGDP   
+  "Government wage ratio "        sw_WG_NGDP     
+  
+  "Persistence of government consumption ratio" rho_PG_NGDP
+ 
+  "Persistence in Real Wage"                  rho_W
+  "Persistence of productivity growth shock"  rho_dA
+  "Persistence of export productivity"        rho_Ax
+
+  "Steady state growth of productivity"         ss_dA
+  "Steady state productivity in export sector"  ss_Ax
+
+  "Foreign inflation target"          ss_dPw_star
+  "Foreign interest rate"             ss_Rw_star
+  "Foreign interest rate persistence" rho_Rw_star
+  "Foreign inflation persistence"     rho_dPw_star
+
+!transition_shocks
+
+  "Government debt ratio shock"         shk_Bg_NGDP 
+  "Lump sum tax ratio shocks"           shk_TAXls_NGDP
+  "Income tax rate shock"               shk_tauL
+  "VAT tax rate shock"                  shk_tauC
+  "Profit tax rate shock"               shk_tauPIE
+  "Government consumption ratio shock"  shk_PG_NGDP  
+  "Government wage ratio shock"         shk_WG_NGDP
+  
+  "Productivity growth shock"           shk_dA
+  "Export productivity shock"           shk_Ax
+  
+  "Foreign interest rate shock"         shk_Rw_star
+  "Foreign inflation shock"             shk_dPw_star
+  
+  "Private consumption shock"                 shk_C
+  "Investment in domestic production shock"   shk_Id
+  "Investment in export production shock"     shk_Ix
+  "Imports in domestic production shock"      shk_Md
+  "Imports in export production shock"        shk_Mx
+  "Phillips curve shock"                      shk_dPc
+  "Monetary policy shock"                     shk_Rg
+  "Real wage shock"                           shk_W_Pc
+
+!log_variables
+
+  !all_but 
+   Bg_NGDP, Bg_lcy_NGDP, Bg_fcy_NGDP, INTP_NGDP, DEF_NGDP, PIE_NGDP, PG_NGDP_exog, PG_NGDP, PC_NGDP, PI_NGDP, PM_NGDP,
+   WN_NGDP, PRkK_NGDP, PX_NGDP, Bh_fcy_NGDP, TB_NGDP, tauL, tauC, tauPIE, tauPIE_exog, tauL_exog, tauC_exog, PDEF_NGDP, GEXP_NGDP, 
+   GREV_NGDP, TAXls_NGDP, TAXL_NGDP, TAXC_NGDP, TAXPIE_NGDP, NFA_NGDP
+   
+   PDEF_NGDP_tar
+   TAXls_NGDP_exog
+   V_A_nu0
+   WG_NGDP
+   WG_NGDP_exog
+   check1
+   
+!substitutions
+
+  AdjId0 = xiId * (log(Id)      - (1 - phid) * log((ss_dA + delta - 1) * Kd{-1})  - phid * log(ss_dA * Id{-1}));
+  AdjId1 = xiId * (log(Id{+1})  - (1 - phid) * log((ss_dA + delta - 1) * Kd)      - phid * log(ss_dA * Id));
+  AdjIx0 = xiIx * (log(Ix)      - (1 - phix) * log((ss_dA + delta - 1) * Kx{-1})  - phix * log(ss_dA * Ix{-1}));
+  AdjIx1 = xiIx * (log(Ix{+1})  - (1 - phix) * log((ss_dA + delta - 1) * Kx)      - phix * log(ss_dA * Ix));
+  
+  AdjNdMd0 = xiNdMd * (log(NVd      / Md)     - log(NVd{-1} / Md{-1}) + log(ss_dA));
+  AdjNdMd1 = xiNdMd * (log(NVd{+1}  / Md{+1}) - log(NVd     / Md)     + log(ss_dA));
+  AdjNxMx0 = xiNxMx * (log(NVx      / Mx)     - log(NVx{-1} / Mx{-1}) + log(ss_dA));
+  AdjNxMx1 = xiNxMx * (log(NVx{+1}  / Mx{+1}) - log(NVx     / Mx)     + log(ss_dA));
+  
+!links
+
+  gammaNx := gammaNd;
+  gammaKx := gammaKd;
+
+  gammaMx := 1 - gammaKx - gammaNx; 
+  gammaMd := 1 - gammaKd - gammaNd;
+  
+   mux := mu + 0.01;
+  
+!transition_equations
+
+% __Households__
+
+  % Shadow price of income
+  Lambda * Pc * (C - chi * C{-1} * ss_dA * (1 + shk_C) - psi * DLI_Pc)^sigma = ...
+    A^(sigma - 1) * (1 - chi - psi * &DLI_Pc_C)^sigma !! Lambda * Pc * C^sigma = A^(sigma - 1);
+  
+  % Intertemporal choice
+  Lambda = beta * Lambda{+1} * Rg + nu * nu0 / (Pc * V) * (1/nu0 - V/A); % !! RRg = ss_dA/beta;
+  
+  % Disposable labor income
+  DLI = (1 - tauL) * (W * N + WG_NGDP * NGDP) - TAXls_NGDP * NGDP;
+  
+  % Household's net worth
+  V = (Qd * Kd + Qx * Kx + Bg_lcy_NGDP * NGDP + Bh_fcy_NGDP * NGDP) / Pc;
+
+  % Labor supply with flexible Wage Rate
+  theta * N^eta = Lambda * (1 - tauL) * Wflex ...
+   !! theta * N^eta = Lambda * (1 - tauL) * W;
+
+  % Actual Wage Rate with Real Rigidities
+  log(W_Pc) = rho_W*log(ss_dA*W_Pc{-1}) + (1-rho_W)*log(Wflex/Pc) + log(1 + shk_W_Pc) ...
+   !! W = Wflex;
+
+% __Supply of capital and investment for domestic production__ 
+
+  % Tobin's q (capital supply)
+  Lambda * Qd = beta * Lambda{+1} * (PRkd{+1} + Qd{+1} * (1 - delta) + (1 - phid) * Pc{+1} * $AdjId1$ * Id{+1} / Kd) * (1 + shk_Id) ...
+     + nu * nu0 / (Pc * V) * (1/nu0 - V/A) * Qd;
+  
+  % Investment demand
+  Lambda * Qd = Lambda * Pc * (1 + $AdjId0$) - beta * Lambda{+1} * Pc{+1} * phid * $AdjId1$ * Id{+1} / Id !! Qd/Pc =1;
+  
+  % Capital accumulation
+  Kd =# (1 - delta) * Kd{-1} + Id;
+  
+% __Supply of capital and investment for exports__  
+
+  % Tobin's q (capital supply)
+  Lambda * Qx = beta * Lambda{+1} * (PRkx{+1} + Qx{+1} * (1 - delta) + (1 - phix) * Pc{+1} * $AdjIx1$ * Ix{+1} / Kx) * (1 + shk_Ix) ...
+     + nu * nu0 / (Pc * V) * (1/nu0 - V/A) * Qx;
+  
+  % Investment demand
+  Lambda * Qx = Lambda * Pc * (1 + $AdjIx0$) - beta * Lambda{+1} * Pc{+1} * phix * $AdjIx1$ * Ix{+1}  / Ix !! Qx/Pc =1;
+  
+   % Capital accumulation
+  Kx =# (1 - delta) * Kx{-1} + Ix;
+  
+% __Domestic Producers__
+
+  % Variable labor in domestic production
+  NVd = Nd - nd * &Nd;
+
+  % Production function
+  Yd = (Kd{-1})^gammaKd * (A*NVd)^gammaNd * Md^gammaMd;
+
+  % Capital demand
+  PRkd * Kd{-1} = Pd * gammaKd * Yd;
+
+  % Labor demand
+  W * NVd = Pd * Yd * (gammaNd - $AdjNdMd0$ + beta * $AdjNdMd1$);
+  
+  % Import demand
+  Pm * Md = Pd * Yd * (gammaMd + $AdjNdMd0$ - beta * $AdjNdMd1$) * (1 + shk_Md);
+
+% __Exports Producers__
+
+  % Variable labor in domestic production
+  NVx = Nx - nx * &Nx;
+
+  % Production function
+  Yx = (Kx{-1})^gammaKx * (A*Ax*NVx)^gammaNx * Mx^gammaMx;
+
+  % Capital demand
+  mux * PRkx * Kx{-1} = Px0 * gammaKx * Yx;
+
+  % Labor demand
+  mux * W * NVx = Px0 * Yx * (gammaNx - $AdjNxMx0$ + beta * $AdjNxMx1$);
+  
+  % Import demand
+  mux * Pm * Mx = Px0 * Yx * (gammaMx + $AdjNxMx0$ - beta * $AdjNxMx1$) * (1 + shk_Mx);
+  
+  % Export price with adjustment cost
+  Px = Px0 * (1 + xiYx * log(Yx / Yx_ref)) !! Px = Px0;
+  
+  % Reference export level
+  Yx_ref = Yx{-1} * ss_dA;
+  
+% __Prices__
+
+  % Real marginal cost of distributors
+  RMC = mu * Pd * (1 + tauC) / Pc;
+
+  % Phillips curve
+  log(dPc) = 1/(1 + beta) * log(dPc{-1}) + beta/(1 + beta) * log(dPc{+1}) + 1/(xiP * (1 + beta) * (1 + tauC) * (mu - 1)) * log(RMC) ... 
+    + log(1 + shk_dPc) !! RMC = 1; 
+  
+% __Monetary policy__
+
+  % FCY interest rate
+  Rg_fcy = Rw_star * PREM;
+
+  % UIP
+  Rg = Rg_fcy * dS{+1};
+
+  % Risk premium
+  PREM = exp(-zeta1 * (NFA_NGDP - zeta0));
+
+  % Monetary policy rule
+  log(Rg) = rho_Rg * log(Rg{-1}) + (1-rho_Rg) * (log(Rg_bar) + kappa_dP * (log(dPc{+1})-log(ss_dP))) + log(1 + shk_Rg) !!  dPc = ss_dP;
+ 
+  % Neutral rate  
+  log(Rg_bar) = rho_Rg_bar * log(Rg_bar{-1}) + (1 - rho_Rg_bar) * log(&Rg)  !! Rg_bar = Rg;
+
+  % Fisher equation
+  RRg = Rg / dPc{+1} !! Rg = RRg * dPc;
+
+  % Real exchange rate
+  RER = S * Pw_star / Pc;
+  
+% __Fiscal__
+
+  % Fiscal rule: debt ratio should slowly return to the target
+  Bg_NGDP =# rho_B * Bg_NGDP{-1} + (1 - rho_B)*ss_Bg_NGDP + shk_Bg_NGDP !! Bg_NGDP = ss_Bg_NGDP;
+  
+  % Government debt ratio
+  Bg_NGDP =# ...
+    + Bg_lcy_NGDP{-1} / dNGDP ...
+    + Bg_fcy_NGDP{-1} / dNGDP * dS ...
+    + DEF_NGDP;
+  
+  % Debt financing
+  Bg_NGDP =# Bg_lcy_NGDP + Bg_fcy_NGDP;
+  
+  % Financing rule
+  Bg_lcy_NGDP = 0.5 * Bg_NGDP;
+  
+  % Interest payments
+  INTP_NGDP =# (Rg{-1} - 1) * Bg_lcy_NGDP{-1} / dNGDP + ...
+    (Rg_fcy{-1} - 1) * Bg_fcy_NGDP{-1} * dS / dNGDP;
+  
+  % Deficit ratio: the equation actually gives tax ratio as the policy instrument
+  DEF_NGDP =# INTP_NGDP + PDEF_NGDP_tar;
+
+  % Government consumption process, in % of GDP
+  PG_NGDP_exog =# rho_PG_NGDP * PG_NGDP{-1} + (1 - rho_PG_NGDP) * ss_PG_NGDP + shk_PG_NGDP;
+  
+  % Government wages, in % GDP
+  WG_NGDP_exog =# ss_WG_NGDP + shk_WG_NGDP; 
+  
+  % Primary deficit
+  PDEF_NGDP =# GEXP_NGDP - GREV_NGDP;
+  
+  % Expenditures 
+  GEXP_NGDP =# PG_NGDP + WG_NGDP;
+  
+  % Revenues
+  GREV_NGDP =# TAXls_NGDP + TAXL_NGDP + TAXC_NGDP + TAXPIE_NGDP;
+  
+  % Personal income tax
+  TAXL_NGDP =# tauL * (WN_NGDP + WG_NGDP);
+  
+  % VAT tax
+  TAXC_NGDP =# tauC / (1 + tauC) * (PC_NGDP + PI_NGDP + PG_NGDP);
+  
+  % Profit tax
+  TAXPIE_NGDP =# tauPIE * PIE_NGDP;
+  
+  % Personal income tax rate
+  tauL_exog =# ss_tauL + shk_tauL;
+  
+  % VAT tax rate
+  tauC_exog =# ss_tauC + shk_tauC;
+  
+  % Profit tax rate
+  tauPIE_exog =# ss_tauPIE + shk_tauPIE;
+  
+  % Lump-sum tax ratio
+  TAXls_NGDP_exog =# ss_TAXls_NGDP + shk_TAXls_NGDP;
+  
+  % Switch for lump sum taxes
+  0 =# sw_TAXls_NGDP * (PDEF_NGDP - PDEF_NGDP_tar) + ...
+    (1 - sw_TAXls_NGDP) * (TAXls_NGDP - TAXls_NGDP_exog);
+  
+  % Switch for government consumption
+  0 =# sw_PG_NGDP * (PDEF_NGDP - PDEF_NGDP_tar) + ...
+    (1 - sw_PG_NGDP) * (PG_NGDP - PG_NGDP_exog);
+  
+  % Switch for government wages
+  0 =# sw_WG_NGDP * (PDEF_NGDP - PDEF_NGDP_tar) + ...
+    (1 - sw_WG_NGDP) * (WG_NGDP - WG_NGDP_exog);
+  
+  % Switch for labor tax rate
+  0 =# sw_tauL * (PDEF_NGDP - PDEF_NGDP_tar) + ...
+    (1 - sw_tauL) * (tauL - tauL_exog);
+  
+  % Switch for VAT tax rate
+  0 =# sw_tauC * (PDEF_NGDP - PDEF_NGDP_tar) + ...
+    (1 - sw_tauC) * (tauC - tauC_exog);
+  
+  % Switch for profit tax rate
+  0 =# sw_tauPIE * (PDEF_NGDP - PDEF_NGDP_tar) + ...
+    (1 - sw_tauPIE) * (tauPIE - tauPIE_exog);
+  
+% __Equilibrium__
+
+  % Final goods market
+  Yd =# C + I + G;
+  
+  % Investment
+  I =# Id + Ix;
+    
+  % Labor
+  N =# Nd + Nx;
+  
+  % Import
+  M =# Md + Mx;
+  
+% __External balance__
+  
+  % Trade balance
+  TB_NGDP =# PX_NGDP - PM_NGDP;
+  
+  % Net foreign assets
+  NFA_NGDP = Bh_fcy_NGDP - Bg_fcy_NGDP;
+  
+  % Net foreign position
+  NFA_NGDP =# ...
+    + Rg_fcy{-1} * Bh_fcy_NGDP{-1} * dS / dNGDP ...
+    - Rg_fcy{-1} * Bg_fcy_NGDP{-1} * dS / dNGDP ...
+    + TB_NGDP;
+  
+% __External processes__
+  
+  % Productivity growth process
+  log(dA) = rho_dA * log(dA{-1}) + (1 - rho_dA) * (log(ss_dA) + log(1 + shk_dA)) !! dA = ss_dA;
+
+  % Relative export-specific productivity
+  log(Ax) = rho_Ax*log(Ax{-1}) + (1-rho_Ax)*log(ss_Ax) + log(1 + shk_Ax) !! Ax = ss_Ax;
+
+% __Foreign variables__ 
+  
+  log(Rw_star)  = rho_Rw_star * log(Rw_star{-1}) + (1 - rho_Rw_star)*log(ss_Rw_star) + shk_Rw_star   !! Rw_star = ss_Rw_star;
+  log(dPw_star) = rho_dPw_star * log(dPw_star{-1}) + (1 - rho_dPw_star)*log(ss_dPw_star) + shk_dPw_star !! dPw_star = ss_dPw_star;
+  
+% __External prices
+
+  Pm = S * Pw_star;
+  
+  Px = S * Pw_star;
+   
+% __GDP ratios__
+
+  NGDP  =# Pc*Yd  + Px*Yx - Pm*M;
+
+  PC_NGDP   =   Pc * C  / NGDP;
+  PI_NGDP   =   Pc * I  / NGDP;
+  PM_NGDP   =   Pm * M  / NGDP;
+  PX_NGDP   =   Px * Yx / NGDP;
+  PG_NGDP   =   Pc * G  / NGDP;
+  WN_NGDP   =   W  * N  / NGDP;
+  PRkK_NGDP =# (PRkd * Kd{-1} + PRkx * Kx{-1})/NGDP;
+  PIE_NGDP  =# (Pc / (1 + tauC) * Yd + Px * Yx)/NGDP - WN_NGDP - PRkK_NGDP - PM_NGDP;
+  
+% __Other ratios__
+
+  V_A_nu0   = V/A - 1/nu0;
+  NVd_Md    = NVd/Md;
+  DLI_Pc_C  = DLI_Pc / C;
+
+% __Real variables__
+
+  !for 
+    ? = W, DLI, PRkd, PRkx
+  !do
+    !variables
+        ?_Pc
+    !equations
+        ?_Pc = ? / Pc;
+  !end
+  
+% __Rates of Change__
+
+!for 
+    ? = 
+    Yd, Yx, C, I, G, Id, Ix, M, Md, Mx, Kd, Kx, N, Nd, Nx
+    W_Pc, S, Pm, Px, Px0, Pd, RER, A, Ax, Pc, Pw_star, NGDP
+    PRkd, PRkx, V, DLI_Pc, Qd, Qx
+!do
+    !variables
+        d?
+    !equations
+        d? = ?/?{-1};
+!end
+
+% Real GDP growth
+dGDP =# ...
+  + movavg(PC_NGDP, -2) * dC ...
+  + movavg(PI_NGDP, -2) * dI ...
+  + movavg(PG_NGDP, -2) * dG ...
+  + movavg(PX_NGDP, -2) * dYx ...
+  - movavg(PM_NGDP, -2) * dM ...
+  ;
+
+% Checks
+
+!variables
+
+check1
+
+!equations
+
+Pc * (C + I) + Bg_lcy_NGDP * NGDP + Bh_fcy_NGDP * NGDP =# ...
+  + (1 - tauL) * (W * N + WG_NGDP * NGDP) + PRkd * Kd{-1} + PRkx * Kx{-1} ...
+  + (1 - tauPIE) * PIE_NGDP * NGDP - TAXls_NGDP * NGDP ...
+  + Rg{-1} * Bg_lcy_NGDP{-1} * NGDP{-1} ...
+  + Rg_fcy{-1} * Bh_fcy_NGDP{-1} * NGDP{-1} * dS + check1;
+   
