@@ -27,10 +27,10 @@ assertNotEqual(this, dd, dd1);
 ds = this.TestData.ds;
 dd = copy(this.TestData.dd);
 
-ds1 = databank.copy(ds, @all);
+ds1 = databank.copy(ds, 'SourceNames=', @all);
 assertEqual(this, ds, ds1);
 
-dd1 = databank.copy(dd, @all);
+dd1 = databank.copy(dd, 'SourceNames=', @all);
 assertEqual(this, dd, dd1);
 dd.a = 100;
 assertNotEqual(this, dd, dd1);
@@ -42,10 +42,10 @@ ds = this.TestData.ds;
 dd = copy(this.TestData.dd);
 
 sourceNames = {'a', 'b'};
-ds1 = databank.copy(ds, sourceNames);
+ds1 = databank.copy(ds, 'SourceNames=', sourceNames);
 assertEqual(this, rmfield(ds, {'c', 'd'}), ds1);
 
-dd1 = databank.copy(dd, sourceNames);
+dd1 = databank.copy(dd, 'SourceNames=', sourceNames);
 assertEqual(this, remove(copy(dd), ["c", "d"]), dd1);
 dd.a = 100;
 assertNotEqual(this, remove(copy(dd), ["c", "d"]), dd1);
@@ -57,12 +57,12 @@ ds = this.TestData.ds;
 dd = copy(this.TestData.dd);
 
 sourceNames = {'a', 'b'};
-ds1 = databank.copy(ds, sourceNames, @empty, {'AA', 'BB'});
+ds1 = databank.copy(ds, 'SourceNames=', sourceNames, 'TargetDb=', @empty, 'TargetNames=', {'AA', 'BB'});
 exp = struct('AA', ds.a, 'BB', ds.b);
 assertEqual(this, exp, ds1);
 
-dd1 = databank.copy(dd, sourceNames, @empty, {'AA', 'BB'});
-dd1 = databank.copy(dd, sourceNames, @empty, ["AA", "BB"]);
+dd1 = databank.copy(dd, 'SourceNames=', sourceNames, 'TargetDb=', @empty, 'TargetNames=', {'AA', 'BB'});
+dd1 = databank.copy(dd, 'SourceNames=', sourceNames, 'TargetDb=', @empty, 'TargetNames=', ["AA", "BB"]);
 exp = Dictionary( );
 store(exp, 'AA', dd.a, 'BB', dd.b);
 exp = Dictionary( );

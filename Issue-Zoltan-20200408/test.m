@@ -1,4 +1,6 @@
 
+clc
+
 % Create Model Object from text file
 
 m = Model('pam_albania.model', 'Linear', false);
@@ -91,23 +93,24 @@ endoExoList = {
 
 ssOptions = {
   'Growth=',     true, ...
-  'Solver=',     {'IRIS-Qnsd', 'SpecifyObjectiveGradient=', false, 'Display=', false}, ...
+  'Solver=',     {'IRIS-Qnsd', 'SpecifyObjectiveGradient=', false, 'Display=', 'none'}, ...
   'Fix=',        {'A', 'Pw_star'}, ...
   'Endogenize=', endoExoList(:,1), ...
   'Exogenize=',  endoExoList(:,2) ...
   };
 
 m.check1 = 0;
-m = steady(m, ssOptions{:});
+m = steady(m, ssOptions{:}, 'SaveAs=', 'aaa.model');
 checkSteady(m);
 m = solve(m);
 m0 = m;
+
 
 % Set target steady state values
 
 m.RRg           = 1.04; % temporary higher real rate (in this version we have fixed RER, no apppreciation)
 m.PM_NGDP       = 0.45; % average of import to GDP (from data)
-%m.WN_NGDP       = 0.40;  % share of wages on GDP (estimation)
+m.WN_NGDP       = 0.40;  % share of wages on GDP (estimation)
 m.PRkK_NGDP     = 0.237;
 m.Bh_fcy_NGDP   = 0;
 m.TAXL_NGDP     = 0.074;
@@ -133,15 +136,18 @@ endoExoList = {
 % Calculation options
 ssOptions = {
   'Growth=',     true, ...
-  'Solver=',     {'IRIS-Qnsd', 'SpecifyObjectiveGradient=', false, 'Display=', false}, ...
+  'Solver=',     {'IRIS-Qnsd', 'SpecifyObjectiveGradient=', false, 'Display=', 'none'}, ...
   'Fix=',        {'A', 'Pw_star'}, ...
   'Endogenize=', endoExoList(:,1), ...
   'Exogenize=',  endoExoList(:,2) ...
+  'Blazer=', {'SaveAs=', 'xxx.model'} ...
   };
 
+blazer(m, ssOptions{:}, 'SaveAs=', 'xxx.model'); 
 m = steady(m, ssOptions{:});
 checkSteady(m);
 m = solve(m);
+return
 
 % Make sure that the exogenous equation for net transfers is consistent
 % with the calculated steady-state

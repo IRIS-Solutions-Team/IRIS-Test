@@ -22,7 +22,7 @@ testCase.TestData.Model = Model(f);
 %% Unique Test
 
 m = testCase.TestData.Model;
-q = ExplanatoryEquation.fromModel(m, ["v", "y", "w"]);
+q = ExplanatoryTest.fromModel(m, ["v", "y", "w"]);
 assertEqual(testCase, [q.LhsName], ["v", "y", "w"]);
 assertEqual(testCase, [q.InputString], ["v=1;", "y=1;", "w=1;"]); 
 

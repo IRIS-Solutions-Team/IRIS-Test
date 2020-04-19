@@ -1,0 +1,728 @@
+%% [IrisToolbox] Blazer File 19-Apr-2020 19:36:19
+% Number of Blocks: 67
+% Number of Equations: 126
+
+
+                                                                           
+%% Block #1
+% Number of Equations: 0
+% Empty
+%     Level( )
+%     Change( )
+
+
+
+                                                                           
+%% Block #2
+% Number of Equations: 1
+% Assign
+%     Level(RMC)
+%     Change(RMC)
+
+    RMC=1;
+
+
+                                                                           
+%% Block #3
+% Number of Equations: 0
+% Empty
+%     Level( )
+%     Change( )
+
+
+
+                                                                           
+%% Block #4
+% Number of Equations: 0
+% Empty
+%     Level( )
+%     Change( )
+
+
+
+                                                                           
+%% Block #5
+% Number of Equations: 0
+% Empty
+%     Level( )
+%     Change( )
+
+
+
+                                                                           
+%% Block #6
+% Number of Equations: 0
+% Empty
+%     Level( )
+%     Change( )
+
+
+
+                                                                           
+%% Block #7
+% Number of Equations: 1
+% Assign
+%     Level(Ax)
+%     Change(Ax)
+
+    Ax=ss_Ax;
+
+
+                                                                           
+%% Block #8
+% Number of Equations: 1
+% Assign
+%     Level(dAx)
+%     Change(dAx)
+
+    dAx=Ax/Ax{-1};
+
+
+                                                                           
+%% Block #9
+% Number of Equations: 1
+% Assign
+%     Level(dPw_star)
+%     Change(dPw_star)
+
+    dPw_star=ss_dPw_star;
+
+
+                                                                           
+%% Block #10
+% Number of Equations: 1
+% Solve for 
+%     Level( )
+%     Change( )
+
+    dPw_star=Pw_star/Pw_star{-1};
+
+
+                                                                           
+%% Block #11
+% Number of Equations: 1
+% Assign
+%     Level(WG_NGDP_exog)
+%     Change(WG_NGDP_exog)
+
+    WG_NGDP_exog=#ss_WG_NGDP+shk_WG_NGDP;
+
+
+                                                                           
+%% Block #12
+% Number of Equations: 1
+% Assign
+%     Level(tauPIE_exog)
+%     Change(tauPIE_exog)
+
+    tauPIE_exog=#ss_tauPIE+shk_tauPIE;
+
+
+                                                                           
+%% Block #13
+% Number of Equations: 1
+% Assign
+%     Level(tauC_exog)
+%     Change(tauC_exog)
+
+    tauC_exog=#ss_tauC+shk_tauC;
+
+
+                                                                           
+%% Block #14
+% Number of Equations: 1
+% Assign
+%     Level(tauL_exog)
+%     Change(tauL_exog)
+
+    tauL_exog=#ss_tauL+shk_tauL;
+
+
+                                                                           
+%% Block #15
+% Number of Equations: 1
+% Assign
+%     Level(TAXls_NGDP_exog)
+%     Change(TAXls_NGDP_exog)
+
+    TAXls_NGDP_exog=#ss_TAXls_NGDP+shk_TAXls_NGDP;
+
+
+                                                                           
+%% Block #16
+% Number of Equations: 1
+% Assign
+%     Level(dPc)
+%     Change(dPc)
+
+    dPc=ss_dP;
+
+
+                                                                           
+%% Block #17
+% Number of Equations: 1
+% Solve for 
+%     Level(Pc)
+%     Change(Pc)
+
+    dPc=Pc/Pc{-1};
+
+
+                                                                           
+%% Block #18
+% Number of Equations: 1
+% Solve for 
+%     Level(Qd)
+%     Change(Qd)
+
+    Qd/Pc=1;
+
+
+                                                                           
+%% Block #19
+% Number of Equations: 1
+% Assign
+%     Level(dQd)
+%     Change(dQd)
+
+    dQd=Qd/Qd{-1};
+
+
+                                                                           
+%% Block #20
+% Number of Equations: 1
+% Solve for 
+%     Level(Qx)
+%     Change(Qx)
+
+    Qx/Pc=1;
+
+
+                                                                           
+%% Block #21
+% Number of Equations: 1
+% Assign
+%     Level(dQx)
+%     Change(dQx)
+
+    dQx=Qx/Qx{-1};
+
+
+                                                                           
+%% Block #22
+% Number of Equations: 1
+% Assign
+%     Level(Rw_star)
+%     Change(Rw_star)
+
+    Rw_star=ss_Rw_star;
+
+
+                                                                           
+%% Block #23
+% Number of Equations: 1
+% Assign
+%     Level(Bg_NGDP)
+%     Change(Bg_NGDP)
+
+    Bg_NGDP=ss_Bg_NGDP;
+
+
+                                                                           
+%% Block #24
+% Number of Equations: 1
+% Assign
+%     Level(Bg_lcy_NGDP)
+%     Change(Bg_lcy_NGDP)
+
+    Bg_lcy_NGDP=0.5*Bg_NGDP;
+
+
+                                                                           
+%% Block #25
+% Number of Equations: 1
+% Solve for 
+%     Level(Bg_fcy_NGDP)
+%     Change(Bg_fcy_NGDP)
+
+    Bg_NGDP=#Bg_lcy_NGDP+Bg_fcy_NGDP;
+
+
+                                                                           
+%% Block #26
+% Number of Equations: 1
+% Assign
+%     Level(dA)
+%     Change(dA)
+
+    dA=ss_dA;
+
+
+                                                                           
+%% Block #27
+% Number of Equations: 1
+% Solve for 
+%     Level( )
+%     Change( )
+
+    dA=A/A{-1};
+
+
+                                                                           
+%% Block #28
+% Number of Equations: 60
+% Solve for 
+%     Level(DEF_NGDP, INTP_NGDP, PREM, NFA_NGDP, TB_NGDP, dNGDP, Ix, Id, nu0, V, Lambda, G, PG_NGDP_exog, GEXP_NGDP, TAXPIE_NGDP, TAXL_NGDP, GREV_NGDP, TAXC_NGDP, PDEF_NGDP, PG_NGDP, PC_NGDP, PI_NGDP, PRkK_NGDP, S, Nx, Nd, Px0, NVx, Md, Pd, NVd, Mx, Pm, Px, Yd, Yx, tauC, WN_NGDP, M, C, I, Kd, Kx, N, PRkd, PRkx, tauL, W, Bh_fcy_NGDP, Rg, Rg_fcy, NGDP, TAXls_NGDP, WG_NGDP, tauPIE, PIE_NGDP, dS, PM_NGDP, PX_NGDP, PDEF_NGDP_tar)
+%     Change(DEF_NGDP, INTP_NGDP, PREM, NFA_NGDP, TB_NGDP, dNGDP, Ix, Id, V, Lambda, G, PG_NGDP_exog, GEXP_NGDP, TAXPIE_NGDP, TAXL_NGDP, GREV_NGDP, TAXC_NGDP, PDEF_NGDP, PG_NGDP, PC_NGDP, PI_NGDP, PRkK_NGDP, S, Nx, Nd, Px0, NVx, Md, Pd, NVd, Mx, Pm, Px, Yd, Yx, tauC, WN_NGDP, M, C, I, Kd, Kx, N, PRkd, PRkx, tauL, W, Bh_fcy_NGDP, Rg, Rg_fcy, NGDP, TAXls_NGDP, WG_NGDP, tauPIE, PIE_NGDP, dS, PM_NGDP, PX_NGDP, PDEF_NGDP_tar)
+
+    DEF_NGDP=#INTP_NGDP+PDEF_NGDP_tar;
+    INTP_NGDP=#(Rg{-1}-1)*Bg_lcy_NGDP{-1}/dNGDP+(Rg_fcy{-1}-1)*Bg_fcy_NGDP{-1}*dS/dNGDP;
+    PREM=exp(-zeta1*(NFA_NGDP-zeta0));
+    NFA_NGDP=Bh_fcy_NGDP-Bg_fcy_NGDP;
+    NFA_NGDP=#+Rg_fcy{-1}*Bh_fcy_NGDP{-1}*dS/dNGDP-Rg_fcy{-1}*Bg_fcy_NGDP{-1}*dS/dNGDP+TB_NGDP;
+    Bg_NGDP=#+Bg_lcy_NGDP{-1}/dNGDP+Bg_fcy_NGDP{-1}/dNGDP*dS+DEF_NGDP;
+    Kx=#(1-delta)*Kx{-1}+Ix;
+    Kd=#(1-delta)*Kd{-1}+Id;
+    V_A_nu0=V/A-1/nu0;
+    Lambda=beta*Lambda{+1}*Rg+nu*nu0/(Pc*V)*(1/nu0-V/A);
+    Lambda*Qx=beta*Lambda{+1}*(PRkx{+1}+Qx{+1}*(1-delta)+(1-phix)*Pc{+1}*xiIx*(log(Ix{+1})-(1-phix)*log((ss_dA+delta-1)*Kx)-phix*log(ss_dA*Ix))*Ix{+1}/Kx)*(1+shk_Ix)+nu*nu0/(Pc*V)*(1/nu0-V/A)*Qx;
+    Yd=#C+I+G;
+    PG_NGDP_exog=#rho_PG_NGDP*PG_NGDP{-1}+(1-rho_PG_NGDP)*ss_PG_NGDP+shk_PG_NGDP;
+    GEXP_NGDP=#PG_NGDP+WG_NGDP;
+    TAXPIE_NGDP=#tauPIE*PIE_NGDP;
+    TAXL_NGDP=#tauL*(WN_NGDP+WG_NGDP);
+    PDEF_NGDP=#GEXP_NGDP-GREV_NGDP;
+    TAXC_NGDP=#tauC/(1+tauC)*(PC_NGDP+PI_NGDP+PG_NGDP);
+    0=#sw_PG_NGDP*(PDEF_NGDP-PDEF_NGDP_tar)+(1-sw_PG_NGDP)*(PG_NGDP-PG_NGDP_exog);
+    PG_NGDP=Pc*G/NGDP;
+    PC_NGDP=Pc*C/NGDP;
+    PI_NGDP=Pc*I/NGDP;
+    PRkK_NGDP=#(PRkd*Kd{-1}+PRkx*Kx{-1})/NGDP;
+    Pm=S*Pw_star;
+    NVx=Nx-nx*&Nx;
+    NVd=Nd-nd*&Nd;
+    Px=Px0;
+    mux*W*NVx=Px0*Yx*(gammaNx-xiNxMx*(log(NVx/Mx)-log(NVx{-1}/Mx{-1})+log(ss_dA))+beta*xiNxMx*(log(NVx{+1}/Mx{+1})-log(NVx/Mx)+log(ss_dA)));
+    W*NVd=Pd*Yd*(gammaNd-xiNdMd*(log(NVd/Md)-log(NVd{-1}/Md{-1})+log(ss_dA))+beta*xiNdMd*(log(NVd{+1}/Md{+1})-log(NVd/Md)+log(ss_dA)));
+    RMC=mu*Pd*(1+tauC)/Pc;
+    Yd=(Kd{-1})^gammaKd*(A*NVd)^gammaNd*Md^gammaMd;
+    M=#Md+Mx;
+    mux*Pm*Mx=Px0*Yx*(gammaMx+xiNxMx*(log(NVx/Mx)-log(NVx{-1}/Mx{-1})+log(ss_dA))-beta*xiNxMx*(log(NVx{+1}/Mx{+1})-log(NVx/Mx)+log(ss_dA)))*(1+shk_Mx);
+    Px=S*Pw_star;
+    Pm*Md=Pd*Yd*(gammaMd+xiNdMd*(log(NVd/Md)-log(NVd{-1}/Md{-1})+log(ss_dA))-beta*xiNdMd*(log(NVd{+1}/Md{+1})-log(NVd/Md)+log(ss_dA)))*(1+shk_Md);
+    PX_NGDP=Px*Yx/NGDP;
+    0=#sw_tauC*(PDEF_NGDP-PDEF_NGDP_tar)+(1-sw_tauC)*(tauC-tauC_exog);
+    WN_NGDP=W*N/NGDP;
+    NGDP=#Pc*Yd+Px*Yx-Pm*M;
+    Lambda*Pc*C^sigma=A^(sigma-1);
+    I=#Id+Ix;
+    PRkd*Kd{-1}=Pd*gammaKd*Yd;
+    Yx=(Kx{-1})^gammaKx*(A*Ax*NVx)^gammaNx*Mx^gammaMx;
+    N=#Nd+Nx;
+    Lambda*Qd=beta*Lambda{+1}*(PRkd{+1}+Qd{+1}*(1-delta)+(1-phid)*Pc{+1}*xiId*(log(Id{+1})-(1-phid)*log((ss_dA+delta-1)*Kd)-phid*log(ss_dA*Id))*Id{+1}/Kd)*(1+shk_Id)+nu*nu0/(Pc*V)*(1/nu0-V/A)*Qd;
+    mux*PRkx*Kx{-1}=Px0*gammaKx*Yx;
+    0=#sw_tauL*(PDEF_NGDP-PDEF_NGDP_tar)+(1-sw_tauL)*(tauL-tauL_exog);
+    theta*N^eta=Lambda*(1-tauL)*W;
+    V=(Qd*Kd+Qx*Kx+Bg_lcy_NGDP*NGDP+Bh_fcy_NGDP*NGDP)/Pc;
+    Rg=Rg_fcy*dS{+1};
+    Rg_fcy=Rw_star*PREM;
+    dNGDP=NGDP/NGDP{-1};
+    GREV_NGDP=#TAXls_NGDP+TAXL_NGDP+TAXC_NGDP+TAXPIE_NGDP;
+    0=#sw_WG_NGDP*(PDEF_NGDP-PDEF_NGDP_tar)+(1-sw_WG_NGDP)*(WG_NGDP-WG_NGDP_exog);
+    0=#sw_tauPIE*(PDEF_NGDP-PDEF_NGDP_tar)+(1-sw_tauPIE)*(tauPIE-tauPIE_exog);
+    PIE_NGDP=#(Pc/(1+tauC)*Yd+Px*Yx)/NGDP-WN_NGDP-PRkK_NGDP-PM_NGDP;
+    dS=S/S{-1};
+    PM_NGDP=Pm*M/NGDP;
+    TB_NGDP=#PX_NGDP-PM_NGDP;
+    0=#sw_TAXls_NGDP*(PDEF_NGDP-PDEF_NGDP_tar)+(1-sw_TAXls_NGDP)*(TAXls_NGDP-TAXls_NGDP_exog);
+
+
+                                                                           
+%% Block #29
+% Number of Equations: 1
+% Assign
+%     Level(dPd)
+%     Change(dPd)
+
+    dPd=Pd/Pd{-1};
+
+
+                                                                           
+%% Block #30
+% Number of Equations: 1
+% Assign
+%     Level(W_Pc)
+%     Change(W_Pc)
+
+    W_Pc=W/Pc;
+
+
+                                                                           
+%% Block #31
+% Number of Equations: 1
+% Assign
+%     Level(dW_Pc)
+%     Change(dW_Pc)
+
+    dW_Pc=W_Pc/W_Pc{-1};
+
+
+                                                                           
+%% Block #32
+% Number of Equations: 1
+% Assign
+%     Level(dNd)
+%     Change(dNd)
+
+    dNd=Nd/Nd{-1};
+
+
+                                                                           
+%% Block #33
+% Number of Equations: 1
+% Assign
+%     Level(dYd)
+%     Change(dYd)
+
+    dYd=Yd/Yd{-1};
+
+
+                                                                           
+%% Block #34
+% Number of Equations: 1
+% Assign
+%     Level(RER)
+%     Change(RER)
+
+    RER=S*Pw_star/Pc;
+
+
+                                                                           
+%% Block #35
+% Number of Equations: 1
+% Assign
+%     Level(dRER)
+%     Change(dRER)
+
+    dRER=RER/RER{-1};
+
+
+                                                                           
+%% Block #36
+% Number of Equations: 1
+% Solve for 
+%     Level(RRg)
+%     Change(RRg)
+
+    Rg=RRg*dPc;
+
+
+                                                                           
+%% Block #37
+% Number of Equations: 1
+% Assign
+%     Level(Rg_bar)
+%     Change(Rg_bar)
+
+    Rg_bar=Rg;
+
+
+                                                                           
+%% Block #38
+% Number of Equations: 1
+% Assign
+%     Level(dIx)
+%     Change(dIx)
+
+    dIx=Ix/Ix{-1};
+
+
+                                                                           
+%% Block #39
+% Number of Equations: 1
+% Assign
+%     Level(dKx)
+%     Change(dKx)
+
+    dKx=Kx/Kx{-1};
+
+
+                                                                           
+%% Block #40
+% Number of Equations: 1
+% Assign
+%     Level(dM)
+%     Change(dM)
+
+    dM=M/M{-1};
+
+
+                                                                           
+%% Block #41
+% Number of Equations: 1
+% Assign
+%     Level(dYx)
+%     Change(dYx)
+
+    dYx=Yx/Yx{-1};
+
+
+                                                                           
+%% Block #42
+% Number of Equations: 1
+% Assign
+%     Level(Yx_ref)
+%     Change(Yx_ref)
+
+    Yx_ref=Yx{-1}*ss_dA;
+
+
+                                                                           
+%% Block #43
+% Number of Equations: 1
+% Assign
+%     Level(dV)
+%     Change(dV)
+
+    dV=V/V{-1};
+
+
+                                                                           
+%% Block #44
+% Number of Equations: 1
+% Assign
+%     Level(dC)
+%     Change(dC)
+
+    dC=C/C{-1};
+
+
+                                                                           
+%% Block #45
+% Number of Equations: 1
+% Assign
+%     Level(PRkx_Pc)
+%     Change(PRkx_Pc)
+
+    PRkx_Pc=PRkx/Pc;
+
+
+                                                                           
+%% Block #46
+% Number of Equations: 1
+% Assign
+%     Level(dPRkx)
+%     Change(dPRkx)
+
+    dPRkx=PRkx/PRkx{-1};
+
+
+                                                                           
+%% Block #47
+% Number of Equations: 1
+% Assign
+%     Level(dPx0)
+%     Change(dPx0)
+
+    dPx0=Px0/Px0{-1};
+
+
+                                                                           
+%% Block #48
+% Number of Equations: 1
+% Assign
+%     Level(dPx)
+%     Change(dPx)
+
+    dPx=Px/Px{-1};
+
+
+                                                                           
+%% Block #49
+% Number of Equations: 1
+% Assign
+%     Level(dPm)
+%     Change(dPm)
+
+    dPm=Pm/Pm{-1};
+
+
+                                                                           
+%% Block #50
+% Number of Equations: 1
+% Assign
+%     Level(dN)
+%     Change(dN)
+
+    dN=N/N{-1};
+
+
+                                                                           
+%% Block #51
+% Number of Equations: 1
+% Assign
+%     Level(dNx)
+%     Change(dNx)
+
+    dNx=Nx/Nx{-1};
+
+
+                                                                           
+%% Block #52
+% Number of Equations: 1
+% Assign
+%     Level(dMx)
+%     Change(dMx)
+
+    dMx=Mx/Mx{-1};
+
+
+                                                                           
+%% Block #53
+% Number of Equations: 1
+% Assign
+%     Level(NVd_Md)
+%     Change(NVd_Md)
+
+    NVd_Md=NVd/Md;
+
+
+                                                                           
+%% Block #54
+% Number of Equations: 1
+% Assign
+%     Level(dMd)
+%     Change(dMd)
+
+    dMd=Md/Md{-1};
+
+
+                                                                           
+%% Block #55
+% Number of Equations: 1
+% Solve for 
+%     Level(Wflex)
+%     Change(Wflex)
+
+    W=Wflex;
+
+
+                                                                           
+%% Block #56
+% Number of Equations: 1
+% Solve for 
+%     Level(check1)
+%     Change(check1)
+
+    Pc*(C+I)+Bg_lcy_NGDP*NGDP+Bh_fcy_NGDP*NGDP=#+(1-tauL)*(W*N+WG_NGDP*NGDP)+PRkd*Kd{-1}+PRkx*Kx{-1}+(1-tauPIE)*PIE_NGDP*NGDP-TAXls_NGDP*NGDP+Rg{-1}*Bg_lcy_NGDP{-1}*NGDP{-1}+Rg_fcy{-1}*Bh_fcy_NGDP{-1}*NGDP{-1}*dS+check1;
+
+
+                                                                           
+%% Block #57
+% Number of Equations: 1
+% Assign
+%     Level(DLI)
+%     Change(DLI)
+
+    DLI=(1-tauL)*(W*N+WG_NGDP*NGDP)-TAXls_NGDP*NGDP;
+
+
+                                                                           
+%% Block #58
+% Number of Equations: 1
+% Assign
+%     Level(DLI_Pc)
+%     Change(DLI_Pc)
+
+    DLI_Pc=DLI/Pc;
+
+
+                                                                           
+%% Block #59
+% Number of Equations: 1
+% Assign
+%     Level(DLI_Pc_C)
+%     Change(DLI_Pc_C)
+
+    DLI_Pc_C=DLI_Pc/C;
+
+
+                                                                           
+%% Block #60
+% Number of Equations: 1
+% Assign
+%     Level(dDLI_Pc)
+%     Change(dDLI_Pc)
+
+    dDLI_Pc=DLI_Pc/DLI_Pc{-1};
+
+
+                                                                           
+%% Block #61
+% Number of Equations: 1
+% Assign
+%     Level(dG)
+%     Change(dG)
+
+    dG=G/G{-1};
+
+
+                                                                           
+%% Block #62
+% Number of Equations: 1
+% Assign
+%     Level(dI)
+%     Change(dI)
+
+    dI=I/I{-1};
+
+
+                                                                           
+%% Block #63
+% Number of Equations: 1
+% Assign
+%     Level(dGDP)
+%     Change(dGDP)
+
+    dGDP=#+(((PC_NGDP)+(PC_NGDP{-1}))/2)*dC+(((PI_NGDP)+(PI_NGDP{-1}))/2)*dI+(((PG_NGDP)+(PG_NGDP{-1}))/2)*dG+(((PX_NGDP)+(PX_NGDP{-1}))/2)*dYx-(((PM_NGDP)+(PM_NGDP{-1}))/2)*dM;
+
+
+                                                                           
+%% Block #64
+% Number of Equations: 1
+% Assign
+%     Level(dId)
+%     Change(dId)
+
+    dId=Id/Id{-1};
+
+
+                                                                           
+%% Block #65
+% Number of Equations: 1
+% Assign
+%     Level(dKd)
+%     Change(dKd)
+
+    dKd=Kd/Kd{-1};
+
+
+                                                                           
+%% Block #66
+% Number of Equations: 1
+% Assign
+%     Level(PRkd_Pc)
+%     Change(PRkd_Pc)
+
+    PRkd_Pc=PRkd/Pc;
+
+
+                                                                           
+%% Block #67
+% Number of Equations: 1
+% Assign
+%     Level(dPRkd)
+%     Change(dPRkd)
+
+    dPRkd=PRkd/PRkd{-1};
+

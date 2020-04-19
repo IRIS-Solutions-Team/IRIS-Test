@@ -15,7 +15,7 @@ assertEqual(m1.c, m1.a);
 
 %% Test with Disabled Link
 
-m2 = disable(m, '!links', 'a');
+m2 = deactivateLink(m, 'a');
 m2 = refresh(m2);
 assertEqual(m2.e, m2.f);
 assertEqual(m2.b, 2*m2.f);

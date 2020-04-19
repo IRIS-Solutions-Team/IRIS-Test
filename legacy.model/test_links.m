@@ -124,14 +124,14 @@ assertEqual(real(m1.x), real(m1.y));
 %% Test Solve with Lock
 
 m1 = testData.Model;
-m1 = disable(m1, '!links', 'mux', 'rhox');
+m1 = deactivateLink(m1, {'mux', 'rhox'});
 m1 = solve(m1);
 m1 = sstate(m1);
 assertNotEqual(real(m1.rhox), real(m1.rhoy));
 assertNotEqual(real(m1.mux), real(m1.muy));
 assertNotEqual(real(m1.x), real(m1.y));
 
-m1 = enable(m1, '!links', 'mux');
+m1 = activateLink(m1, 'mux');
 m1 = solve(m1);
 m1 = sstate(m1);
 assertNotEqual(real(m1.rhox), real(m1.rhoy));
@@ -146,10 +146,10 @@ assertEqual(real(m1.x), real(m1.y));
 m0 = testData.Model;
 d = testData.InputData;
 range = testData.Range;
-expStatus = isactive(m0, '!links');
-m0 = disable(m0, '!links');
+expStatus = isLinkActive(m0);
+m0 = deactivateLink(m0, @all);
 expStatus = structfun(@not, expStatus, 'UniformOutput', false);
-actStatus = isactive(m0, '!links');
+actStatus = isLinkActive(m0);
 assertEqual(actStatus, expStatus);
 
 m0 = solve(m0);
@@ -171,12 +171,12 @@ if isOptim
     assertEqual(round(est0.rhoy, 1), m0.rhoy);
 end
 
-% Estimate with mu links enabled.
+% Estimate with mu links active
 if isOptim
     m1 = assign(m0, est0);
     m1 = solve(m1);
     m1 = sstate(m1);
-    m1 = enable(m1, '!links', 'mux');
+    m1 = activateLink(m1, 'mux');
     E1 = struct( );
     E1.muy = { NaN };
     E1.rhox = { NaN, 0.05, 0.95 };

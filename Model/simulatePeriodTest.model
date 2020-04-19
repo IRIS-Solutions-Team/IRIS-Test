@@ -1,0 +1,10 @@
+
+!variables
+    X, Y
+
+!equations
+    X = 0.8*X{-1} + Y + eps;
+    Y = 0.3*X;
+
+!shocks
+    eps

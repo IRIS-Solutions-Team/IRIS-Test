@@ -1,0 +1,28 @@
+%% [IrisToolbox] Blazer File 19-Apr-2020 19:36:11
+% Number of Blocks: 3
+% Number of Equations: 4
+% LHS Variables: (x, a, y, z)
+% RHS-Only Variables: (b)
+
+                                                                           
+%% Block #1
+% Number of Equations: 1
+% Iterate Period by Period
+
+    y=y{-1};
+
+                                                                           
+%% Block #2
+% Number of Equations: 1
+% Assign
+
+    a=b;
+
+                                                                           
+%% Block #3
+% Number of Equations: 2
+% Iterate Period by Period
+
+    z=x{-1};
+    x=y{-1}+z{-1}+a;
+

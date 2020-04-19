@@ -12,7 +12,7 @@ endDate = qq(5,4);
 
 d = steadydb(m, startDate:endDate, 'ShockFunc', @randn);
 s = simulate(m, d, startDate:endDate);
-f = databank.copy(s, get(m, 'YNames'));
+f = databank.copy(s, 'SourceNames=', get(m, 'YNames'));
 
 [~, ff0] = filter(m, f, startDate:endDate);
 outp1 = loglik(m, f, startDate:endDate, 'ObjFuncContributions=', true, 'Relative=', false);

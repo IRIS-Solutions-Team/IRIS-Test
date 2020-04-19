@@ -85,8 +85,8 @@ warning(status);
                     'Deviation=', true, ...
                     'Contributions=', true );
 
-assertEqual(testCase, zi.TimeFrames, si.TimeFrames);
-assertEqual(testCase, zi.TimeFrames, z0i.TimeFrames);
+assertEqual(testCase, zi.Frames, si.Frames);
+assertEqual(testCase, zi.Frames, z0i.Frames);
 assertContributions(m, z0, z);
 assertContributions(m, s, c);
 
