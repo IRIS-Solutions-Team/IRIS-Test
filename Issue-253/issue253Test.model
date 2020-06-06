@@ -1,0 +1,21 @@
+!variables
+
+x1, x2
+
+!equations
+
+!if a<10 && a>0 
+
+    !for
+        ? = 1, 2
+    !do
+        x?=<?+100>;
+    !end
+
+!else
+
+    x1=0;
+    x2=0;
+
+!end
+

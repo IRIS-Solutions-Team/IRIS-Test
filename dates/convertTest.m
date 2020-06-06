@@ -1,5 +1,8 @@
 
-%% Test convert with Frequency
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+
+
+%% Test Convert with Frequency
 
 dates = { yy(2000)
           hh(2000)
@@ -24,11 +27,11 @@ for d = 1 : numel(dates)
         d1 = convert(dates{d}, freq{f});
         d2 = convert(dates{d}, num{f});
         d3 = convert(dates{d}, letters{f});
-        check.equal( double(freq{f}), ...
+        assertEqual(testCase, double(freq{f}), ...
                      DateWrapper.getFrequencyAsNumeric(d1) );
-        check.equal( double(freq{f}), ...
+        assertEqual(testCase, double(freq{f}), ...
                      DateWrapper.getFrequencyAsNumeric(d2) );
-        check.equal( double(freq{f}), ...
+        assertEqual(testCase, double(freq{f}), ...
                      DateWrapper.getFrequencyAsNumeric(d3) );
     end
 end

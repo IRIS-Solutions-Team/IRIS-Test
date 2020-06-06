@@ -1,0 +1,8 @@
+!variables
+x
+!parameters
+a
+!links
+a:=-1;
+!equations
+x=a;

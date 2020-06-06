@@ -1,0 +1,17 @@
+!variables
+    x, y
+!parameters
+    a, b=0
+!shocks
+    e, f, g
+!equations
+    x= 0*x + a + e;
+    y = y{-1};
+!links
+    std_g := 0.2;
+    a := std_g + 0.5;
+    std_e := 1;
+    std_f := 2;
+    corr_e__f := a;
+    y = corr_e__f + 10;
+

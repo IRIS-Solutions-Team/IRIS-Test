@@ -1,4 +1,4 @@
-function tests = movingTest( )
+function tests = cumsumkTest( )
 tests = functiontests(localfunctions( ));
 end
 
@@ -16,7 +16,7 @@ function testExpsm(this)
     x = this.TestData.Series;
     range = x.Range;
     k = -4;
-    data1 = numeric.cumsumk(data, k);
+    data1 = series.cumsumk(data, k);
     x1 = cumsumk(x, range(5:end));
     x2 = cumsumk(x, range(5:end), 'K=', k);
     assertEqual(this, data1, x1.Data, 'AbsTol', 1e-10);

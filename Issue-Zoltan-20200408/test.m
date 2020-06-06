@@ -1,6 +1,4 @@
 
-clc
-
 % Create Model Object from text file
 
 m = Model('pam_albania.model', 'Linear', false);

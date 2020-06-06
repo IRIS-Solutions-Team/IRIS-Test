@@ -53,17 +53,6 @@ g = sstatedb(m, 1:20);
 g.Y(1) = g.Y(1) .* exp(randn(1,1)*0.02);
 g.P(1:20) = g.P(1:20) .* exp(randn(20,1)*0.02);
 
-p0 = Plan(m, 1:20);
-p0 = anticipate(p0, false, {'Ey'});
-p0 = exogenize(p0, 1:20, 'P');
-p0 = endogenize(p0, 1:20, 'Ep');
-
-status = warning('query');
-warning('off');
-lastwarn('');
-p0 = swap(p0, 1:1, {'Y', 'Ey'});
-assertNotEqual(testCase, lastwarn( ), '');
-warning(status);
 
 
 %% Test Contributions Linear Zerodb
@@ -71,10 +60,6 @@ warning(status);
 [z, zi] = simulate( m, d, 1:20, ...
                     'Plan=', p, ...
                     'Deviation=', true );
-
-[z0, z0i] = simulate( m, d, 1:20, ...
-                      'Plan=', p0, ...
-                      'Deviation=', true );
 
 [s, si] = simulate( m, z, 1:20, ...
                     'Plan=', clear(p), ...
@@ -86,8 +71,6 @@ warning(status);
                     'Contributions=', true );
 
 assertEqual(testCase, zi.Frames, si.Frames);
-assertEqual(testCase, zi.Frames, z0i.Frames);
-assertContributions(m, z0, z);
 assertContributions(m, s, c);
 
 
