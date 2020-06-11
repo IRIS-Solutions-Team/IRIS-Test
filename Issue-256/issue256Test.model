@@ -1,0 +1,21 @@
+!for
+    x, y, z
+!do
+    !transition-variables
+        "Variables ?" ?
+    !transition-shocks
+        "Shock to ?" eps_?
+    !parameters
+        "Autoregression in ?" rho_?
+    !transition-equations
+        "Equation for ?" diff(?) = rho_?*diff(?{-1}) + eps_?;
+
+    !measurement-variables
+        "Observable for ?" obs_?
+    !measurement-shocks
+        "Measurement Error for ?" eps_obs_?
+    !measurement-equations
+        "Measurement Equation for ?" obs_? = ? + eps_obs_?;
+
+!end
+

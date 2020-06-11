@@ -1,0 +1,49 @@
+    !transition-variables
+        "Variables x" x
+    !transition-shocks
+        "Shock to x" eps_x
+    !parameters
+        "Autoregression in x" rho_x
+    !transition-equations
+        "Equation for x" ((x)-(x{-1})) = rho_x*((x{-1})-(x{-1-1})) + eps_x;
+
+    !measurement-variables
+        "Observable for x" obs_x
+    !measurement-shocks
+        "Measurement Error for x" eps_obs_x
+    !measurement-equations
+        "Measurement Equation for x" obs_x = x + eps_obs_x;
+
+
+    !transition-variables
+        "Variables y" y
+    !transition-shocks
+        "Shock to y" eps_y
+    !parameters
+        "Autoregression in y" rho_y
+    !transition-equations
+        "Equation for y" ((y)-(y{-1})) = rho_y*((y{-1})-(y{-1-1})) + eps_y;
+
+    !measurement-variables
+        "Observable for y" obs_y
+    !measurement-shocks
+        "Measurement Error for y" eps_obs_y
+    !measurement-equations
+        "Measurement Equation for y" obs_y = y + eps_obs_y;
+
+
+    !transition-variables
+        "Variables z" z
+    !transition-shocks
+        "Shock to z" eps_z
+    !parameters
+        "Autoregression in z" rho_z
+    !transition-equations
+        "Equation for z" ((z)-(z{-1})) = rho_z*((z{-1})-(z{-1-1})) + eps_z;
+
+    !measurement-variables
+        "Observable for z" obs_z
+    !measurement-shocks
+        "Measurement Error for z" eps_obs_z
+    !measurement-equations
+        "Measurement Equation for z" obs_z = z + eps_obs_z;

@@ -1,0 +1,13 @@
+!transition-variables
+    x
+!measurement-variables
+    y, z
+!transition-shocks
+    e
+!transition-equations
+    x = e;
+!measurement-shocks
+    u, v
+!measurement-equations
+    y = x - x{-1} + u;
+    z = x - x{-2} + v;
