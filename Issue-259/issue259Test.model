@@ -1,0 +1,7 @@
+!variables
+    x
+!equations
+    x=a;
+!parameters
+    a
+

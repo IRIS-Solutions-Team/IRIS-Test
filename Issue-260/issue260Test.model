@@ -1,0 +1,11 @@
+
+!variables
+    x@, y@
+!parameters
+    a, b, ss_x, ss_y
+!shocks
+    shock_x, shock_y
+!equations
+    x = ss_x + a*(x{-1} - ss_x) + shock_x;
+    y = ss_y + b*(y{-1} - ss_y) + shock_y;
+

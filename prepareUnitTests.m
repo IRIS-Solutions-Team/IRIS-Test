@@ -31,6 +31,7 @@ function list = listUnitTests( )
         "+databank/filter"
         "+databank/batch"
         "dates/isfreq"
+        "Model/createTrendArray"
         ..."+model/+component/@Quantity/initializeLogStatus"
         ..."Explanatory/initializeLogStatus"
         "Explanatory/getDataBlock"
