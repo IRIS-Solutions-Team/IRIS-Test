@@ -1,8 +1,13 @@
 
 this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
-% db = databank.fromFred({'CLVMNACSCAB1GQEA19->gdp_eu', 'CLVMNACSCAB1GQDE->gdp_ge'});
-load testInterpolate.mat db
+try
+    db = databank.fromCSV('testInterpolate.csv');
+catch
+    db = databank.fromFred({'CLVMNACSCAB1GQEA19->gdp_eu', 'CLVMNACSCAB1GQDE->gdp_ge'});
+    range = databank.range(db, 'Frequency=', Frequency.QUARTERLY);
+    databank.toCSV(db, 'testInterpolate.csv', range);
+end
 
 indicator = db.gdp_ge;
 series = convert(db.gdp_eu, Frequency.YEARLY, 'Method=', @sum);

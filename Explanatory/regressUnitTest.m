@@ -3,8 +3,8 @@
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 % Set up Once
-    m1 = Explanatory.fromString('x = ? + ?*x{-1} + ?*y');
-    m2 = Explanatory.fromString('a = ? + ?*a{-1} + ?*x');
+    m1 = Explanatory.fromString('x = @ + @*x{-1} + @*y');
+    m2 = Explanatory.fromString('a = @ + @*a{-1} + @*x');
     startDate = qq(2001,1);
     endDate = qq(2010, 4);
     baseRange = startDate:endDate;
@@ -21,7 +21,6 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     testCase.TestData.Databank1 = db1;
     testCase.TestData.Databank2 = db2;
     testCase.TestData.BaseRange = baseRange;
-
 
 
 %% Test ARX
@@ -92,9 +91,9 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     m = [m1, m2];
     db2 = testCase.TestData.Databank2;
     baseRange = testCase.TestData.BaseRange;
-
+    %
     [est, outputDb] = regress(m, db2, baseRange);
-
+    %
     exp_parameters = nan(1, 3, 3);
     for i = 1 : 3
         y = db2.x(baseRange, i);
@@ -102,7 +101,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
         exp_parameters(:, :, i) = transpose(X\y);
     end
     assertEqual(testCase, est(1).Parameters, exp_parameters, 'AbsTol', 1e-12);
-
+    %
     exp_parameters = nan(1, 3, 3);
     for i = 1 : 3
         y = db2.a(baseRange);

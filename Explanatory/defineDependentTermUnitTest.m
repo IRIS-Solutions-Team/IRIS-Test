@@ -1,58 +1,34 @@
+% saveAs=Explanatory/defineDependentTermUnitTest.m
 
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 % Set up once
-    expy = ExplanatoryTest( );
+    expy = Explanatory( );
     expy = setp(expy, 'VariableNames', ["x", "y", "z"]);
     testCase.TestData.Model = expy;
 
 
-%% Test Pointer
-    expy = testCase.TestData.Model;
-    expy = defineDependentTerm(expy, 3, "Transform=", "log");
-    act = getp(expy, 'DependentTerm');
-    exp = regression.Term(expy, 3, "Transform", "log");
-    exp.Fixed = 1;
-    exp.ContainsLhsName = true;
-    assertEqual(testCase, act, exp);
-    act = expy.LhsName;
-    exp = "z";
-    assertEqual(testCase, act, exp);
-
-
 %% Test Name
     expy = testCase.TestData.Model;
-    expy = defineDependentTerm(expy, "z", "Transform=", "log");
+    expy = defineDependentTerm(expy, "z");
     act = getp(expy, 'DependentTerm');
-    exp = regression.Term(expy, 3, "Transform", "log");
-    exp.Fixed = 1;
-    exp.ContainsLhsName = true;
-    assertEqual(testCase, act, exp);
-    act = expy.LhsName;
-    exp = "z";
-    assertEqual(testCase, act, exp);
+    assertEqual(testCase, act.Position, 3);
+    assertEqual(testCase, act.Shift, 0);
+    assertEqual(testCase, string(act.Expression), "x(3,t,v)");
 
 
 %% Test Transform
     expy = testCase.TestData.Model;
-    expy = defineDependentTerm(expy, "log(z)");
+    expy = defineDependentTerm(expy, "difflog(z,-4)");
     act = getp(expy, 'DependentTerm');
-    exp = regression.Term(expy, 3, "Transform", "log");
-    exp.Fixed = 1;
-    exp.ContainsLhsName = true;
-    assertEqual(testCase, act, exp);
-    act = expy.LhsName;
-    exp = "z";
-    assertEqual(testCase, act, exp);
-
+    assertEqual(testCase, string(act.Expression), "(log(x(3,t,v))-log(x(3,t-4,v)))");
 
 %% Test Invalid Shift
     expy = testCase.TestData.Model;
     thrownError = false;
     try
-        expy = defineDependentTerm(expy, "z", "Transform=", "log", "Shift=", -1);
+        expy = defineDependentTerm(expy, "log(z{-1})");
     catch exc
         thrownError = true;
     end
     assertEqual(testCase, thrownError, true);
-

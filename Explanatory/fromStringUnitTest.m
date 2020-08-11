@@ -1,163 +1,174 @@
+% saveAs=Explanatory/fromStringUnitTest.m
 
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 %% Test Plain Vanilla
     input = "x = @*a + b*x{-1} + @*log(c);";
-    act = ExplanatoryTest.fromString(input);
-    exp = ExplanatoryTest( );
+    act = Explanatory.fromString(input);
+    exp = Explanatory( );
     exp = setp(exp, 'VariableNames', ["x", "a", "b", "c"]);
     exp = setp(exp, 'InputString', regexprep(input, "\s+", ""));
-    exp = defineDependentTerm(exp, 1);
-    exp = addExplanatoryTerm(exp, 2);
-    exp = addExplanatoryTerm(exp, 4, "Transform=", "log");
-    exp = addExplanatoryTerm(exp, "b*x{-1}", "Fixed=", 1);
-    assertEqual(testCase, act, exp);
+    exp = defineDependentTerm(exp, "x");
+    exp = addExplanatoryTerm(exp, NaN, "a");
+    exp = addExplanatoryTerm(exp, NaN, "log(c)");
+    exp = addExplanatoryTerm(exp, 1, "b*x{-1}");
+    exp = seal(exp);
+    %
+    exp_struct = struct(exp);
+    act_struct = struct(act);
+    assertEqual(testCase, sort(fieldnames(exp_struct)), sort(fieldnames(act_struct)));
+    for n = keys(exp_struct)
+        if isa(exp_struct.(n), 'function_handle')
+            assertEqual(testCase, char(exp_struct.(n)), char(act_struct.(n)));
+        else
+            assertEqual(testCase, exp_struct.(n), act_struct.(n));
+        end
+    end
+    %
     assertEqual(testCase, act.RhsContainsLhsName, true);
 
 
 %% Test Exogenous
     input = "x = @*a + b*z{-1} + @*log(c);";
-    act = ExplanatoryTest.fromString(input);
-    exp = ExplanatoryTest( );
+    act = Explanatory.fromString(input);
+    exp = Explanatory( );
     exp = setp(exp, 'VariableNames', ["x", "a", "b", "z", "c"]);
     exp = setp(exp, 'InputString', regexprep(input, "\s+", ""));
-    exp = defineDependentTerm(exp, 1);
-    exp = addExplanatoryTerm(exp, 2);
-    exp = addExplanatoryTerm(exp, 5, "Transform=", "log");
-    exp = addExplanatoryTerm(exp, "b*z{-1}", "Fixed=", 1);
-    assertEqual(testCase, act, exp);
+    exp = defineDependentTerm(exp, "x");
+    exp = addExplanatoryTerm(exp, NaN, "a");
+    exp = addExplanatoryTerm(exp, NaN, "log(c)");
+    exp = addExplanatoryTerm(exp, 1, "b*z{-1}");
+    exp = seal(exp);
+    %
+    exp_struct = struct(exp);
+    act_struct = struct(act);
+    assertEqual(testCase, sort(fieldnames(exp_struct)), sort(fieldnames(act_struct)));
+    for n = keys(exp_struct)
+        if isa(exp_struct.(n), 'function_handle')
+            assertEqual(testCase, char(exp_struct.(n)), char(act_struct.(n)));
+        else
+            assertEqual(testCase, exp_struct.(n), act_struct.(n));
+        end
+    end
+    %
     assertEqual(testCase, act.RhsContainsLhsName, false);
 
 
 %% Test Legacy String
     input = "x = @*a + b*x{-1} + @*log(c);";
     legacyInput = replace(input, "@", "?");
-    act = ExplanatoryTest.fromString(legacyInput);
+    act = Explanatory.fromString(legacyInput);
     act = setp(act, 'InputString', replace(getp(act, 'InputString'), "?", "@"));
-    exp = ExplanatoryTest.fromString(input);
-    assertEqual(testCase, act, exp);
+    exp = Explanatory.fromString(input);
+    %
+    exp_struct = struct(exp);
+    act_struct = struct(act);
+    assertEqual(testCase, sort(fieldnames(exp_struct)), sort(fieldnames(act_struct)));
+    for n = keys(exp_struct)
+        if isa(exp_struct.(n), 'function_handle')
+            assertEqual(testCase, char(exp_struct.(n)), char(act_struct.(n)));
+        else
+            assertEqual(testCase, exp_struct.(n), act_struct.(n));
+        end
+    end
+    %
     assertEqual(testCase, act.RhsContainsLhsName, true);
-
-
-%% Test Sum
-    act = ExplanatoryTest.fromString("x = y{-1} + x{-2};");
-    exp_ExplanatoryTerm = regression.Term( );
-    exp_ExplanatoryTerm.Position = NaN;
-    exp_ExplanatoryTerm.Shift = 0;
-    exp_ExplanatoryTerm.Incidence = sort([complex(2, -1), complex(1, -2)]); 
-    exp_ExplanatoryTerm.Transform = "";
-    exp_ExplanatoryTerm.Expression = @(x,t,date__,controls__)x(2,t-1,:)+x(1,t-2,:);
-    exp_ExplanatoryTerm.Fixed = 1;
-    exp_ExplanatoryTerm.ContainsLhsName = true;
-    exp_ExplanatoryTerm.MinShift = -2;
-    exp_ExplanatoryTerm.MaxShift = 0;
-    temp = getp(act, 'ExplanatoryTerms');
-    temp.Incidence = sort(temp.Incidence);
-    act = setp(act, 'ExplanatoryTerms', temp);
-    assertEqual(testCase, getp(act, 'ExplanatoryTerms'), exp_ExplanatoryTerm);
-    assertEqual(testCase, act.RhsContainsLhsName, true);
-
-
-%% Test Exogenous Sum
-    act = ExplanatoryTest.fromString("x = y{-1} + z{-2};");
-    exp_ExplanatoryTerm = regression.Term( );
-    exp_ExplanatoryTerm.Position = NaN;
-    exp_ExplanatoryTerm.Shift = 0;
-    exp_ExplanatoryTerm.Incidence = sort([complex(2, -1), complex(3, -2)]); 
-    exp_ExplanatoryTerm.Transform = "";
-    exp_ExplanatoryTerm.Expression = @(x,t,date__,controls__)x(2,t-1,:)+x(3,t-2,:);
-    exp_ExplanatoryTerm.Fixed = 1;
-    exp_ExplanatoryTerm.ContainsLhsName = false;
-    exp_ExplanatoryTerm.MinShift = -2;
-    exp_ExplanatoryTerm.MaxShift = 0;
-    temp = getp(act, 'ExplanatoryTerms');
-    temp.Incidence = sort(temp.Incidence);
-    act = setp(act, 'ExplanatoryTerms', temp);
-    assertEqual(testCase, getp(act, 'ExplanatoryTerms'), exp_ExplanatoryTerm);
-    assertEqual(testCase, act.RhsContainsLhsName, false);
 
 
 %% Test Lower
-    act = ExplanatoryTest.fromString( ...
+    act = Explanatory.fromString( ...
         ["xa = Xa{-1} + xA{-2} + xb", "XB = xA{-1}"], ...
         'EnforceCase=', @lower ...
     );
-    exp = ExplanatoryTest.fromString( ...
+    exp = Explanatory.fromString( ...
         ["xa = xa{-1} + xa{-2} + xb", "xb = xa{-1}"] ...
     );
-    assertEqual(testCase, act, exp);
+    %
+    exp_struct = struct(exp);
+    act_struct = struct(act);
+    assertEqual(testCase, sort(fieldnames(exp_struct)), sort(fieldnames(act_struct)));
+    for n = keys(exp_struct)
+        if isa(exp_struct.(n), 'function_handle')
+            assertEqual(testCase, char(exp_struct.(n)), char(act_struct.(n)));
+        else
+            assertEqual(testCase, exp_struct.(n), act_struct.(n));
+        end
+    end
 
 
 %% Test Upper
-    act = ExplanatoryTest.fromString( ...
+    act = Explanatory.fromString( ...
         ["xa = Xa{-1} + xA{-2} + xb", "XB = xA{-1}"], ...
         'EnforceCase=', @upper ...
     );
-    exp = ExplanatoryTest.fromString( ...
+    exp = Explanatory.fromString( ...
         ["XA = XA{-1} + XA{-2} + XB", "XB = XA{-1}"] ...
     );
     for i = 1 : numel(exp)
         exp(i) = setp(exp(i), 'ResidualNamePattern', upper(getp(exp(i), 'ResidualNamePattern')));
         exp(i) = setp(exp(i), 'FittedNamePattern', upper(getp(exp(i), 'FittedNamePattern')));
-        exp(i) = setp(exp(i), 'DateReference', upper(getp(exp(i), 'DateReference')));
     end
-    assertEqual(testCase, act, exp);
+    %
+    exp_struct = struct(exp);
+    act_struct = struct(act);
+    assertEqual(testCase, sort(fieldnames(exp_struct)), sort(fieldnames(act_struct)));
+    for n = keys(exp_struct)
+        if isa(exp_struct.(n), 'function_handle')
+            assertEqual(testCase, char(exp_struct.(n)), char(act_struct.(n)));
+        else
+            assertEqual(testCase, exp_struct.(n), act_struct.(n));
+        end
+    end
 
 
 %% Test Static If
-    q = ExplanatoryTest.fromString("x = z + if(isfreq(date__, 1) & date__<yy(5), -10, 10)");
+    q = Explanatory.fromString("x = z + if(w<0, -10, 10)");
     inputDb = struct( );
     inputDb.x = Series(0, 0);
     inputDb.z = Series(1:10, @rand);
+    inputDb.w = -1;
     simDb1 = simulate(q, inputDb, 1:10);
-    assertEqual(testCase, simDb1.x(1:10), inputDb.z(1:10)+10);
+    assertEqual(testCase, simDb1.x(1:10), inputDb.z(1:10)-10);
     inputDb = struct( );
     inputDb.x = Series(yy(0), 0);
     inputDb.z = Series(yy(1:10), @rand);
+    inputDb.w = 1;
     [simDb2, info2] = simulate(q, inputDb, yy(1:10));
-    add = [-10; -10; -10; -10; 10; 10; 10; 10; 10; 10];
-    assertEqual(testCase, simDb2.x(yy(1:10)), inputDb.z(yy(1:10))+add, 'AbsTol', 1e-14);
-    assertEqual(testCase, info2.DynamicStatus, false);
-    [simDb3, info3] = simulate(q, inputDb, yy(1:10), 'Blazer=', {'Dynamic=', true});
-    add = [-10; -10; -10; -10; 10; 10; 10; 10; 10; 10];
-    assertEqual(testCase, simDb3.x(yy(1:10)), inputDb.z(yy(1:10))+add, 'AbsTol', 1e-14);
-    assertEqual(testCase, info3.DynamicStatus, true);
+    assertEqual(testCase, simDb2.x(yy(1:10)), inputDb.z(yy(1:10))+10);
 
 
-%% Test Dynamic If
-    q = ExplanatoryTest.fromString("x = x{-1} + if(isfreq(date__, 1) & date__<yy(5), dummy1, dummy0)");
-    inputDb = struct( );
-    inputDb.x = Series(0, 0);
-    inputDb.dummy1 = Series(1:10, @rand);
-    inputDb.dummy0 = -Series(1:10, @rand);
-    simDb1 = simulate(q, inputDb, 1:10);
-    assertEqual(testCase, simDb1.x(1:10), cumsum(inputDb.dummy0(1:10)), 'AbsTol', 1e-14);
-    inputDb = struct( );
-    inputDb.x = Series(yy(0), 0);
-    inputDb.dummy1 = Series(yy(1:10), @rand);
-    inputDb.dummy0 = -Series(yy(1:10), @rand);
-    simDb2 = simulate(q, inputDb, yy(1:10));
-    temp = [inputDb.dummy1(yy(1:4)); inputDb.dummy0(yy(5:10))];
-    assertEqual(testCase, simDb2.x(yy(1:10)), cumsum(temp), 'AbsTol', 1e-14);
-
-
-%% Test Compare Dynamic Static
-    q = ExplanatoryTest.fromString([
-        "x = x{-1} + if(isfreq(date__, 1) & date__<yy(5), dummy1, dummy0)"
-        "y = 1 + if(isfreq(date__, 1) & date__<yy(5), dummy1, dummy0)"
+%% Test Compare Dynamic Static If
+    q = Explanatory.fromString([
+        "x = x{-1} + if(w<0, dummy1, dummy0)"
+        "y = 1 + if(w, dummy1, dummy0)"
     ]);
     inputDb = struct( );
     inputDb.x = Series(yy(0:9), 1);
+    inputDb.w = -1;
     inputDb.dummy1 = Series(yy(1:10), @rand);
     inputDb.dummy0 = -Series(yy(1:10), @rand);
-    simDb = simulate(q, inputDb, yy(1:10), 'Blazer=', {'Dynamic=', false});
-    temp = 1 + [inputDb.dummy1(yy(1:4)); inputDb.dummy0(yy(5:10))];
-    assertEqual(testCase, simDb.x(yy(1:10)), temp, 'AbsTol', 1e-14);
-    assertEqual(testCase, simDb.y(yy(1:10)), temp, 'AbsTol', 1e-14);
+    simDb = simulate(q, inputDb, yy(1:10), "Blazer=", {"Dynamic=", false});
+    temp = 1 + inputDb.dummy1;
+    assertEqual(testCase, simDb.x(yy(1:10)), temp(yy(1:10)), "AbsTol", 1e-14);
+    assertEqual(testCase, simDb.y(yy(1:10)), temp(yy(1:10)), "AbsTol", 1e-14);
+    inputDb.w = Series();
+    inputDb.w(yy(1:10)) = -1;
+    inputDb.w(yy(6:10)) = 1;
+    simDb = simulate(q, inputDb, yy(1:10));
+    assertEqual(testCase, simDb.y(yy(1:10)), temp(yy(1:10)), "AbsTol", 1e-14);
+    temp = inputDb.x{yy(0)};
+    for t = yy(1:10)
+        if inputDb.w(t)<0 
+            temp(t) = temp(t-1) + inputDb.dummy1(t);
+        else
+            temp(t) = temp(t-1) + inputDb.dummy0(t);
+        end
+    end
+    assertEqual(testCase, simDb.x(yy(1:10)), temp(yy(1:10)), "AbsTol", 1e-14);
 
 
 %% Test Switch Variable
-    q = ExplanatoryTest.fromString([
+    q = Explanatory.fromString([
         "x = if(switch__, dummy1, dummy0)"
     ]);
     inputDb = struct( );
@@ -173,13 +184,13 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 
 %% Test Residual Name
-    q = ExplanatoryTest.fromString([
+    q = Explanatory.fromString([
         "x = x{-1}"
         "y = y{-1}"
     ], 'ResidualNamePattern=', ["", "_ma"]);
     assertEqual(testCase, [q.LhsName], ["x", "y"]);
     assertEqual(testCase, [q.ResidualName], ["x_ma", "y_ma"]);
-    q = ExplanatoryTest.fromString([
+    q = Explanatory.fromString([
         "x = x{-1}"
         "y = y{-1}"
     ], 'ResidualNamePattern=', ["", "_ma"], 'EnforceCase=', @upper);
@@ -188,16 +199,15 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 
 %% Test Fitted name
-    q = ExplanatoryTest.fromString([
+    q = Explanatory.fromString([
         "x = x{-1}"
         "y = y{-1}"
     ], 'FittedNamePattern=', ["", "_fitted"]);
     assertEqual(testCase, [q.LhsName], ["x", "y"]);
     assertEqual(testCase, [q.FittedName], ["x_fitted", "y_fitted"]);
-    q = ExplanatoryTest.fromString([
+    q = Explanatory.fromString([
         "x = x{-1}"
         "y = y{-1}"
     ], 'FittedNamePattern=', ["", "_fitted"], 'EnforceCase=', @upper);
     assertEqual(testCase, [q.LhsName], ["X", "Y"]);
     assertEqual(testCase, [q.FittedName], ["X_FITTED", "Y_FITTED"]);
-

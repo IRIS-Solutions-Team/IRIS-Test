@@ -2,7 +2,7 @@
 list = listUnitTests( );
 wd = fileparts(mfilename("fullpath"));
 
-for func = list
+for func = reshape(list, 1, [ ])
     code = grabcode(which(func));
     saveAs = regexp(code, "^%\s*saveAs\s*=\s*(.*?)$", "LineAnchors", "Tokens", "Once");
     if isempty(saveAs) || isempty(saveAs{1}) || isequal(saveAs{1}, "")
@@ -27,25 +27,36 @@ function list = listUnitTests( )
     list = [
         "+shared/@Plan/preparePlan"
         "NumericTimeSubscriptable/rmse"
+        "NumericTimeSubscriptable/genip"
+        "NumericTimeSubscriptable/grow"
         "TimeSubscriptable/init"
+        "TimeSubscriptable/getDataFromMultiple"
         "+databank/filter"
         "+databank/batch"
+        "+databank/fromFred"
         "dates/isfreq"
         "Model/createTrendArray"
-        ..."+model/+component/@Quantity/initializeLogStatus"
-        ..."Explanatory/initializeLogStatus"
+        "+model/+component/@Quantity/implementGet"
+        "+model/+component/@Quantity/initializeLogStatus"
+        "Explanatory/regress"
+        "Explanatory/initializeLogStatus"
         "Explanatory/getDataBlock"
         "Explanatory/lookup"
-        "Explanatory/createModelData"
-        "Explanatory/regress"
+        "Explanatory/createData4Regress"
+        "Explanatory/createData4Simulate"
         "Explanatory/residuals"
         "Explanatory/checkUniqueLhs"
+        "Explanatory/fromFile"
+        "Explanatory/fromModel"
+        "Explanatory/fromString"
+        "Explanatory/defineDependentTerm"
+        "Explanatory/simulate"
         "+parser/Interp.m"
         "+parser/+theparser/@Equation/parse"
         "+textual/locate"
         "+textual/abbreviate"
         "+simulate/if"
+        "+series/+x13/season"
     ];
-    list = reshape(list, 1, [ ]);
 end%
 

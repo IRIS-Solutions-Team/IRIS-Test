@@ -1,11 +1,13 @@
+% saveAs=Explanatory/simulateUnitTest.m
+
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 % Set up once
-    m1 = ExplanatoryTest.fromString("x = 0.8*x{-1} + (1-0.8)*c");
-    m2 = ExplanatoryTest.fromString("a = b + ?*(a{-1} - b) + ?");
-    m3 = ExplanatoryTest.fromString("z = x + a{-1}");
-    m4 = ExplanatoryTest.fromString("difflog(w) = 0.3*log(5/w{-1})");
-    m5 = ExplanatoryTest.fromString("c = y");
+    m1 = Explanatory.fromString("x = 0.8*x{-1} + (1-0.8)*c");
+    m2 = Explanatory.fromString("a = b + @*(a{-1} - b) + @");
+    m3 = Explanatory.fromString("z = x + a{-1}");
+    m4 = Explanatory.fromString("difflog(w) = 0.3*log(5/w{-1})");
+    m5 = Explanatory.fromString("c = y");
     startDate = numeric.qq(2001,1);
     endDate = numeric.qq(2010, 4);
     range = DateWrapper.roundColon(startDate, endDate);
@@ -34,7 +36,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     for t = range
         exd(t) = 0.8*exd(t-1) + (1-0.8)*db.y(t);
     end
-    assertEqual(testCase, s.x.Data, exd.Data, 'AbsTol', 1e-12);
+    assertEqual(testCase, s.x.Data, exd.Data, 'absTol', 1e-12);
     assertEqual(testCase, sort(fieldnames(db)), sort(setdiff(fieldnames(s), 'res_x')));
     assertEqual(testCase, s.w.Data, db.w.Data);
 
@@ -50,7 +52,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
             temp = 0.3*log(5/exp_w(t-1));
             exp_w(t) = exp_w(t-1)*exp(temp);
         end
-        assertEqual(testCase, s.w.Data(:, i), exp_w.Data, 'AbsTol', 1e-12);
+        assertEqual(testCase, s.w.Data(:, i), exp_w.Data, 'absTol', 1e-12);
     end
 
 
@@ -58,7 +60,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     m2 = testCase.TestData.Model2;
     m2 = alter(m2, 3);
     rho = rand(1, 1, 3);
-    m2.FreeParameters = [rho, zeros(1, 1, 3)];
+    m2.Parameters = [rho, zeros(1, 1, 3), ones(1, 1, 3)];
     db = testCase.TestData.Databank;
     db.a = [db.a, db.a+1, db.a+2];
     range = testCase.TestData.Range;
@@ -68,7 +70,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
         for t = range
             exd(t) = rho(i)*exd(t-1) + (1-rho(i))*db.b(t);
         end
-        assertEqual(testCase, s.a.Data(:, i), exd.Data, 'AbsTol', 1e-12);
+        assertEqual(testCase, s.a.Data(:, i), exd.Data, 'absTol', 1e-12);
     end
 
 
@@ -86,13 +88,12 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
             exd(t) = exd(t) + res_x;
         end
     end
-    assertEqual(testCase, s.x.Data, exd.Data, 'AbsTol', 1e-12);
+    assertEqual(testCase, s.x.Data, exd.Data, 'absTol', 1e-12);
 
 
 %% Test ARX Parameters
     m2 = testCase.TestData.Model2;
     rho = rand(1);
-
     temp = getp(m2, 'Parameters');
     temp(1:2) = [rho, 0];
     m2 = setp(m2, 'Parameters', temp);
@@ -103,7 +104,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     for t = range
         exp_a(t) = rho*exp_a(t-1) + (1-rho)*db.b(t);
     end
-    assertEqual(testCase, s.a.Data, exp_a.Data, 'AbsTol', 1e-12);
+    assertEqual(testCase, s.a.Data, exp_a.Data, 'absTol', 1e-12);
 
 
 %% Test ARX System
@@ -118,21 +119,28 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     range = testCase.TestData.Range;
     s = simulate(m, db, range);
     exp_z = s.x{range} + s.a{-1}{range};
-    assertEqual(testCase, s.z.Data, exp_z.Data, 'AbsTol', 1e-12);
+    assertEqual(testCase, s.z.Data, exp_z.Data, 'absTol', 1e-12);
 
 
 %% Test ARX System Variants
+    % m2 = Explanatory.fromString("a = b + @*(a{-1} - b) + @");
     m = [ testCase.TestData.Model1
           testCase.TestData.Model2
           testCase.TestData.Model3 ];
-    m = alter(m, 3);
-    rho = rand(1, 1, 3);
-    m(2).FreeParameters = [rho, zeros(1, 1, 3)];
+    nv = 3;
+    m = alter(m, nv);
+    rho = rand(1, 1, nv);
+    m(2).Parameters = [rho, zeros(1, 1, nv), ones(1, 1, nv)];
     db = testCase.TestData.Databank;
     range = testCase.TestData.Range;
+    db.res_a = Series(range, randn(numel(range), nv));
     s = simulate(m, db, range);
+    for v = 1 : nv
+        exp_res_a = s.a{:,v} - (s.b{:,min(v,end)} + rho(v)*(s.a{-1}{:,v} - s.b{:,min(v,end)}) - 0);
+        assertEqual(testCase, exp_res_a(range), s.res_a(range, v), 'absTol', 1e-12);
+    end
     exp_z = s.x{range} + s.a{-1}{range};
-    assertEqual(testCase, s.z.Data, exp_z.Data, 'AbsTol', 1e-12);
+    assertEqual(testCase, s.z.Data, exp_z.Data, 'absTol', 1e-12);
 
 
 %% Test ARX System with Prepend
@@ -140,19 +148,39 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
           testCase.TestData.Model2
           testCase.TestData.Model3 ];
     rho = rand(1);
-    m(2).FreeParameters = [rho, 0];
+    m(2).Parameters = [rho, 0, 1];
     range = testCase.TestData.Range;
     db = testCase.TestData.Databank;
     db.x(range(1)+(-10:-2)) = rand(9, 1);
     s = simulate(m, db, range, 'PrependInput=', true);
     exp_z = s.x{range} + s.a{-1}{range};
-    assertEqual(testCase, s.z.Data, exp_z.Data, 'AbsTol', 1e-12);
+    assertEqual(testCase, s.z.Data, exp_z.Data, 'absTol', 1e-12);
     assertEqual(testCase, double(s.x.Start), range(1)-10);
     assertEqual(testCase, s.x(range(1)+(-10:-2)), db.x(range(1)+(-10:-2)));
 
+%% Test ARX System Variants
+    % m2 = Explanatory.fromString("a = b + @*(a{-1} - b) + @");
+    m = [ testCase.TestData.Model1
+          testCase.TestData.Model2
+          testCase.TestData.Model3 ];
+    nv = 3;
+    m = alter(m, nv);
+    rho = rand(1, 1, nv);
+    m(2).Parameters = [rho, zeros(1, 1, nv), ones(1, 1, nv)];
+    db = testCase.TestData.Databank;
+    range = testCase.TestData.Range;
+    db.res_a = Series(range, randn(numel(range), nv));
+    s = simulate(m, db, range);
+    for v = 1 : nv
+        exp_res_a = s.a{:,v} - (s.b{:,min(v,end)} + rho(v)*(s.a{-1}{:,v} - s.b{:,min(v,end)}) - 0);
+        assertEqual(testCase, exp_res_a(range), s.res_a(range, v), 'absTol', 1e-12);
+    end
+    exp_z = s.x{range} + s.a{-1}{range};
+    assertEqual(testCase, s.z.Data, exp_z.Data, 'absTol', 1e-12);
+
 
 %% Test Blazer
-    xq = ExplanatoryTest.fromString([
+    xq = Explanatory.fromString([
         "x = 0.8*y{-1} + 0.8*z{-1}"
         "y = 0.8*x{-1}"
         "a = 0.8*b{-1} + 0.8*a{-2}"
@@ -167,16 +195,16 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     db.z = Series(0, rand);
     simRange = 1:1000;
     [simDb1, info1] = simulate(xq, db, simRange);
-    [simDb2, info2] = simulate(xq, db, simRange, 'Blazer=', {'Reorder=', false, 'Dynamic=', true});
+    [simDb2, info2] = simulate(xq, db, simRange, 'blazer=', {'reorder=', false, 'dynamic=', true});
     [simDb3, info3] = simulate(xq([1,3,4,5,2]), db, simRange);
     for i = reshape(string(fieldnames(simDb1)), 1, [ ]);
-        assertEqual(testCase, simDb1.(i).Data, simDb2.(i).Data, 'AbsTol', 1e-12);
-        assertEqual(testCase, simDb1.(i).Data, simDb3.(i).Data, 'AbsTol', 1e-12);
+        assertEqual(testCase, simDb1.(i).Data, simDb2.(i).Data, 'absTol', 1e-12);
+        assertEqual(testCase, simDb1.(i).Data, simDb3.(i).Data, 'absTol', 1e-12);
     end
 
 
 %% Test All ExogenizeWhenData
-    xq = ExplanatoryTest.fromString([
+    xq = Explanatory.fromString([
         "a = b{-1}"
         "b = c{-1}"
         "c = d{-1}"
@@ -186,25 +214,25 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     db.c = Series(0:8, 0:10:80);
     db.b = Series(0:6, 0:100:600);
     simDb1 = simulate(xq, db, 1:10);
-
+    %
     p2 = Plan.forExplanatory(xq, 1:10);
     p2 = exogenizeWhenData(p2, 1:10, @all);
     simDb2 = simulate(xq, db, 1:10, 'Plan=', p2);
-
-    assertEqual(testCase, simDb1.c(1:10), db.d{-1}(1:10), 'AbsTol', 1e-14);
-    assertEqual(testCase, simDb2.c(1:8), db.c(1:8), 'AbsTol', 1e-14);
-    assertEqual(testCase, simDb2.c(9:10), db.d{-1}(9:10), 'AbsTol', 1e-14);
-
-    assertEqual(testCase, simDb1.b(1:10), simDb1.c{-1}(1:10), 'AbsTol', 1e-14);
-    assertEqual(testCase, simDb2.b(1:6), db.b(1:6), 'AbsTol', 1e-14);
-    assertEqual(testCase, simDb2.b(7:10), simDb2.c{-1}(7:10), 'AbsTol', 1e-14);
-
-    assertEqual(testCase, simDb1.a(1:10), simDb1.b{-1}(1:10), 'AbsTol', 1e-14);
-    assertEqual(testCase, simDb2.a(1:10), simDb2.b{-1}(1:10), 'AbsTol', 1e-14);
+    %
+    assertEqual(testCase, simDb1.c(1:10), db.d{-1}(1:10), 'absTol', 1e-14);
+    assertEqual(testCase, simDb2.c(1:8), db.c(1:8), 'absTol', 1e-14);
+    assertEqual(testCase, simDb2.c(9:10), db.d{-1}(9:10), 'absTol', 1e-14);
+    %
+    assertEqual(testCase, simDb1.b(1:10), simDb1.c{-1}(1:10), 'absTol', 1e-14);
+    assertEqual(testCase, simDb2.b(1:6), db.b(1:6), 'absTol', 1e-14);
+    assertEqual(testCase, simDb2.b(7:10), simDb2.c{-1}(7:10), 'absTol', 1e-14);
+    %
+    assertEqual(testCase, simDb1.a(1:10), simDb1.b{-1}(1:10), 'absTol', 1e-14);
+    assertEqual(testCase, simDb2.a(1:10), simDb2.b{-1}(1:10), 'absTol', 1e-14);
 
 
 %% Test Some ExogenizeWhenData
-    xq = ExplanatoryTest.fromString([
+    xq = Explanatory.fromString([
         "a = b{-1};"
         ":exogenous b = c{-1};"
         "c = d{-1};"
@@ -214,39 +242,80 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     db.c = Series(0:8, 0:10:80);
     db.b = Series(0:6, 0:100:600);
     simDb1 = simulate(xq, db, 1:10);
-
+    %
     [~, ~, listExogenous] = lookup(xq, ':exogenous');
     p2 = Plan.forExplanatory(xq, 1:10);
     p2 = exogenizeWhenData(p2, 1:10, listExogenous);
     simDb2 = simulate(xq, db, 1:10, 'Plan=', p2);
-
-    assertEqual(testCase, simDb1.c(1:10), db.d{-1}(1:10), 'AbsTol', 1e-14);
-    assertEqual(testCase, simDb2.c(1:10), db.d{-1}(1:10), 'AbsTol', 1e-14);
-
-    assertEqual(testCase, simDb1.b(1:10), simDb1.c{-1}(1:10), 'AbsTol', 1e-14);
-    assertEqual(testCase, simDb2.b(1:6), db.b(1:6), 'AbsTol', 1e-14);
-    assertEqual(testCase, simDb2.b(7:10), simDb2.c{-1}(7:10), 'AbsTol', 1e-14);
-
-    assertEqual(testCase, simDb1.a(1:10), simDb1.b{-1}(1:10), 'AbsTol', 1e-14);
-    assertEqual(testCase, simDb2.a(1:10), simDb2.b{-1}(1:10), 'AbsTol', 1e-14);
-
+    %
+    assertEqual(testCase, simDb1.c(1:10), db.d{-1}(1:10), 'absTol', 1e-14);
+    assertEqual(testCase, simDb2.c(1:10), db.d{-1}(1:10), 'absTol', 1e-14);
+    %
+    assertEqual(testCase, simDb1.b(1:10), simDb1.c{-1}(1:10), 'absTol', 1e-14);
+    assertEqual(testCase, simDb2.b(1:6), db.b(1:6), 'absTol', 1e-14);
+    assertEqual(testCase, simDb2.b(7:10), simDb2.c{-1}(7:10), 'absTol', 1e-14);
+    %
+    assertEqual(testCase, simDb1.a(1:10), simDb1.b{-1}(1:10), 'absTol', 1e-14);
+    assertEqual(testCase, simDb2.a(1:10), simDb2.b{-1}(1:10), 'absTol', 1e-14);
+    %
     simDb3 = simulate(xq, simDb2, 1:10);
-    assertEqual(testCase, simDb2.b(1:10), simDb3.b(1:10), 'AbsTol', 1e-14);
+    assertEqual(testCase, simDb2.b(1:10), simDb3.b(1:10), 'absTol', 1e-14);
 
 
 %% Test Runtime If
-    xq = ExplanatoryTest.fromString([
-        "a = a{-1} + if(date__==qq(2001,4), 5, 0);"
+    xq = Explanatory.fromString([
+        "a = a{-1} + if(a{-1}>20, 1, 5);"
         "b = b{-1} + if(b{-1}<0, 1, 0);"
     ]);
     db = struct( );
     db.a = Series(qq(2000,4), 10);
     db.b = Series(qq(2000,4), -3);
     simDb = simulate(xq, db, qq(2001,1):qq(2004,4));
-    exp_a = Series(qq(2000,4):qq(2004,4), 10);
-    exp_a(qq(2001,4):end) = 15;
-    assertEqual(testCase, simDb.a(:), exp_a(:), 'AbsTol', 1e-14);
+    exp_a = Series(qq(2000,4):qq(2004,4), [10:5:25, 26:38]');
+    assertEqual(testCase, simDb.a(:), exp_a(:), 'absTol', 1e-14);
     exp_b = Series(qq(2000,4):qq(2004,4), 0);
     exp_b(qq(2000,4):qq(2001,2)) = [-3;-2;-1];
-    assertEqual(testCase, simDb.b(:), exp_b(:), 'AbsTol', 1e-14);
+    assertEqual(testCase, simDb.b(:), exp_b(:), 'absTol', 1e-14);
+
+
+%% Test Runtime Ifnan
+    xq = Explanatory.fromString([
+        "b = ifnan(0.8*c{-1}, z);"
+    ], "ControlNames=", "z");
+    db = struct( );
+    db.c = Series(qq(2000,4), rand(20,1));
+    db.c(qq(2001,4))=NaN;
+    db.c(qq(2003,1:2))=NaN;
+    db.z = 100;
+    simDb = simulate(xq, db, qq(2001,1):qq(2004,4));
+    assertEqual(testCase, simDb.b(qq(2001,4)+1), db.z);
+    assertEqual(testCase, simDb.b(qq(2003,1:2)+1), repmat(db.z, 2, 1));
+    assertEqual(testCase, simDb.b(qq(2001,1:4)), 0.8*simDb.c(qq(2001,1:4)-1), "absTol", 1e-14);
+    assertEqual(testCase, simDb.b(qq(2003,4):qq(2004,4)), 0.8*simDb.c((qq(2003,4):qq(2004,4))-1), "absTol", 1e-14);
+
+
+%% Test Identity
+    xq = Explanatory.fromString([
+        "x === a + sin(b)"
+        "y = a + sin(b)"
+    ]);
+    db = struct( );
+    db.a = Series(1:10, randn(10, 2));
+    db.b = Series(1:10, randn(10, 2));
+    simDb1 = simulate(xq, db, 1:10);
+    assertFalse(testCase, isfield(simDb1, "res_x"));
+    assertTrue(testCase, isfield(simDb1, "res_y"));
+    assertEqual(testCase, simDb1.x(1:10), db.a(1:10)+sin(db.b(1:10)), "absTol", 1e-14);
+    assertEqual(testCase, simDb1.y(1:10), db.a(1:10)+sin(db.b(1:10)), "absTol", 1e-14);
+    assertEqual(testCase, simDb1.res_y(1:10), zeros(10, 2));
+
+    db.res_x = Series(1:10, randn(10, 2)); 
+    db.res_y = Series(1:10, randn(10, 2)); 
+    simDb2 = simulate(xq, db, 1:10);
+    assertTrue(testCase, isfield(simDb2, "res_x")); % [^1] 
+    assertTrue(testCase, isfield(simDb2, "res_y"));
+    assertEqual(testCase, simDb2.x(1:10), db.a(1:10)+sin(db.b(1:10)), "absTol", 1e-14);
+    assertEqual(testCase, simDb2.y(1:10), db.a(1:10)+sin(db.b(1:10))+db.res_y(1:10), "absTol", 1e-14);
+    assertEqual(testCase, simDb2.res_y(1:10), db.res_y(1:10));
+    % [^1]: res_x is carried over from the input db but unused
 

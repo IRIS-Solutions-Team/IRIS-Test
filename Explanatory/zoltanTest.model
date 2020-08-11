@@ -1,0 +1,27 @@
+%% FR
+!equations ( :FR :XXX )
+
+% WOB
+
+:ene_wob
+WOBPET_NT = @ + @*D2005 + REFPETEUR_STIP;
+
+:ene_wob
+WOBDIES_NT = @ + @*D2005 + REFDIESEUR_STIP;
+
+:ene_wob
+WOBGAS_NT = @ + @*D2005 + REFDIESEUR_STIP;
+
+:ene_wob
+diff(WOBPET_NT) = @*WOBREFPET_NT_EC{-1} + @*diff(REFPETEUR_STIP) +
+@*diff(REFPETEUR_STIP{-1}) + @*diff(REFPETEUR_STIP{-4});
+
+:ene_wob
+diff(WOBDIES_NT) = @*WOBREFDIES_NT_EC{-1} + @*diff(REFDIESEUR_STIP) +
+@*diff(REFDIESEUR_STIP{-1}) + @*diff(WOBDIES_NT{-2}) +
+@*diff(WOBDIES_NT{-3});
+
+:ene_wob
+diff(WOBGAS_NT) = @*WOBREFGAS_NT_EC{-1} + @*diff(REFDIESEUR_STIP) +
+@*diff(REFDIESEUR_STIP{-1}) + @*diff(WOBGAS_NT{-1}) +
+@*diff(REFDIESEUR_STIP{-3}) + @*diff(REFDIESEUR_STIP{-2});

@@ -1,9 +1,7 @@
-function tests = convertTest( )
-tests = functiontests(localfunctions( ));
-end%
 
+this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
-function testAggregate(this)
+%% Test Aggregate
     x = Series(mm(2000, 1:13), 1:13);
     xMean = convert(x, 4, 'Method=', @mean);
     xFirst1 = convert(x, 4, 'Method=', 'first');
@@ -26,10 +24,10 @@ function testAggregate(this)
     assertEqual(this, actLast2, [3;6;9;12]);
     assertEqual(this, actSelect1, [1;4;7;10;13]);
     assertEqual(this, actSelect2, [1.5;4.5;7.5;10.5]);
-end%
 
 
-function testAggregateIgnoreNaN(this)
+
+%% Test AggregateIgnoreNaN
     x = Series(mm(2000, 1:13), 1:13);
     xMean = convert(x, 4, 'Method=', @mean, 'IgnoreNaN=', true);
     xFirst1 = convert(x, 4, 'Method=', 'first', 'IgnoreNaN=', true);
@@ -52,35 +50,52 @@ function testAggregateIgnoreNaN(this)
     assertEqual(this, actLast2, [3;6;9;12;13]);
     assertEqual(this, actSelect1, [1;4;7;10;13]);
     assertEqual(this, actSelect2, [1.5;4.5;7.5;10.5]);
-end%
 
 
-function testCommentAggregate(this)
+
+%% Test CommentAggregate
     expectedComment = {'Aaa', 'Bbb', 'Ccc', 'Ddd', 'Eee', 'Fff'};
     expectedComment = reshape(expectedComment, 1, 2, 3);
     x = Series(mm(2000, 1:40), rand(40, 2, 3), expectedComment);
     y = convert(x, 4);
     actualComment = y.Comment;
     assertEqual(this, actualComment, expectedComment);
-end%
+
         
 
-function testCommentInterpolate(this)
+%% Test CommentInterpolate
     expectedComment = {'Aaa', 'Bbb', 'Ccc', 'Ddd', 'Eee', 'Fff'};
     expectedComment = reshape(expectedComment, 1, 2, 3);
     x = Series(qq(2000, 1:40), rand(40, 2, 3), expectedComment);
     y = convert(x, 12);
     actualComment = y.Comment;
     assertEqual(this, actualComment, expectedComment);
-end%
+
         
 
-function testCommentInterpolateAndMatch(this)
+%% Test CommentInterpolateAndMatch
     expectedComment = {'Aaa', 'Bbb', 'Ccc', 'Ddd', 'Eee', 'Fff'};
     expectedComment = reshape(expectedComment, 1, 2, 3);
-    x = Series(qq(2000, 1:40), rand(40, 2, 3), expectedComment);
-    y = convert(x, 12, 'Method=', 'QuadSum');
-    actualComment = y.Comment;
-    assertEqual(this, actualComment, expectedComment);
-end%
+    for freq = [1, 2, 4] 
+        x = Series(numeric.datecode(freq, 2001), rand(10*freq, 2, 3), expectedComment);
+        y = convert(x, 12, 'Method=', 'QuadSum');
+        y1 = convert(x, 12, 'Method=', "QuadSum");
+        z = convert(x, 12, 'Method=', 'QuadMean');
+        z1 = convert(x, 12, 'Method=', "QuadMean");
+        expectedData = x.Data;
+        actualSum = zeros(0, 2, 3);
+        actualMean = zeros(0, 2, 3);
+        within = round(12/freq);
+        for i = 1 : within : size(y.Data, 1)
+            actualSum = [actualSum; sum(y.Data(i+(0:within-1), :, :), 1)];
+            actualMean = [actualMean; mean(z.Data(i+(0:within-1), :, :), 1)];
+        end
+        assertEqual(this, y.Data, y1.Data, "AbsTol", 1e-14);
+        assertEqual(this, z.Data, z1.Data, "AbsTol", 1e-14);
+        assertEqual(this, actualSum, expectedData, "AbsTol", 1e-14);
+        assertEqual(this, actualMean, expectedData, "AbsTol", 1e-14);
+        actualComment = y.Comment;
+        assertEqual(this, actualComment, expectedComment);
+    end
+
         

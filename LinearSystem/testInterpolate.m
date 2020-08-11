@@ -1,8 +1,15 @@
 
 this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
-% db = databank.fromFred({'CLVMNACSCAB1GQEA19->gdp_eu', 'CLVMNACSCAB1GQDE->gdp_ge'});
-load testInterpolate.mat db
+% Set up Once
+
+try
+    db = databank.fromCSV('testInterpolate.csv');
+catch
+    db = databank.fromFred({'CLVMNACSCAB1GQEA19->gdp_eu', 'CLVMNACSCAB1GQDE->gdp_ge'});
+    range = databank.range(db, 'Frequency=', Frequency.QUARTERLY);
+    databank.toCSV(db, 'testInterpolate.csv', range);
+end
 
 startYear = yy(2001);
 endYear = yy(2018);
@@ -21,6 +28,7 @@ x0 = indicator(startQuarter+[-4;-3;-2;-1]);
 x0 = x0*factor;
 
 x = yearly(indicator, startYear:endYear);
+
 
 %% Create LinearSystem Object
 
