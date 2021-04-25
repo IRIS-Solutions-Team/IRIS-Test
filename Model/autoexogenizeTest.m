@@ -3,15 +3,13 @@
 
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
-m = Model('autoexogenizeTest.model', 'Linear=', true);
+m = Model('autoexogenizeTest.model', 'Linear', true);
 m = solve(m);
 m = sstate(m);
 testData.Model = m;
 
 
-
-
-%% Test One
+%% Test One 
 
 m = testData.Model;
 p = Plan.forModel(m, 1:10);
@@ -33,9 +31,7 @@ exp(3, 1+(3:7)) = true;
 assertEqual(testCase, act, exp);
 
 
-
-
-%% Test Two
+%% Test Two 
 
 m = testData.Model;
 p = Plan(m, 1:10);
@@ -99,7 +95,7 @@ assertEqual(testCase, act, exp);
 
 
 
-%% Test Autoexogenize Error
+%% Test Autoexogenize Error 
 
 m = testData.Model;
 p = Plan(m, 1:10);
@@ -118,7 +114,7 @@ assertEqual(testCase, p.InxOfAnticipatedExogenized, exp);
 
 
 
-%% Test Simulate
+%% Test Simulate 
 
 m = testData.Model;
 d = sstatedb(m, 1:20);
@@ -128,7 +124,7 @@ p = autoswap(p, 1:20, {'x', 'z'});
 d.x(1:20) = rand(20, 1);
 d.y(1:20) = rand(20, 1);
 d.z(1:20) = rand(20, 1);
-s = simulate(m, d, 1:20, 'Plan=', p);
+s = simulate(m, d, 1:20, 'Plan', p);
 
 assertEqual(testCase, d.x(1:20), s.ex(1:20), 'AbsTol', 1e-10);
 assertEqual(testCase, zeros(20, 1), s.ey(1:20), 'AbsTol', 1e-10);

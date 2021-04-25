@@ -5,7 +5,7 @@ end
 
 
 function setupOnce(This)
-m = model('linearKalmanTest.model','linear=',true);
+m = model('linearKalmanTest.model','linear',true);
 m = solve(m);
 m = sstate(m);
 t = 1 : 100;
@@ -23,7 +23,7 @@ function testOutOfLik(This)
 m = This.TestData.Model;
 d = This.TestData.Dbase;
 t = This.TestData.Range;
-[mf,~,v,dlt] = filter(m,d,t,'outOfLik=','alpha,beta');
+[mf,~,v,dlt] = filter(m,d,t,'outOfLik','alpha,beta');
 assertEqual(This,dlt.alpha,-0.335027881140906,'RelTol',1e-14);
 assertEqual(This,dlt.beta,0.281864368642865,'RelTol',1e-14);
 assertEqual(This,v,0.106218584336833,'RelTol',1e-14);
@@ -36,9 +36,9 @@ function testChkFmse(This)
 m = This.TestData.Model;
 d = This.TestData.Dbase;
 t = This.TestData.Range;
-l = loglik(m,d,t,'chkFmse=',true,'fmseCondTol=',0.9);
+l = loglik(m,d,t,'chkFmse',true,'fmseCondTol',0.9);
 assertEqual(This,l,model.OBJ_FUNC_PENALTY);
-l = loglik(m,d,t,'chkFmse=',true,'fmseCondTol=',0.9,'objDecomp=',true);
+l = loglik(m,d,t,'chkFmse',true,'fmseCondTol',0.9,'objDecomp',true);
 assertEqual(This,l(1),model.OBJ_FUNC_PENALTY);
 assertEqual(This,isnan(l(2:end)),true(size(l(2:end))));
 end % testChkFmse( )

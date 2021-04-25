@@ -6,10 +6,10 @@ ax = gobjects(1, 0);
 for i = 1 : 4
     ax(end+1) = subplot(2, 2, i);
     plot(rand(10)-0.5);
-    visual.hline(ax(i), -2, 'HandleVisibility=', 'On');
-    visual.highlight(2:4, 'HandleVisibility=', 'On');
-    v = visual.vline(4, 'Text=', 'This is 4', 'HandleVisibility=', 'On');
-    visual.zeroline('HandleVisibility=', 'On');
+    visual.hline(ax(i), -2, 'HandleVisibility', 'On');
+    visual.highlight(2:4, 'HandleVisibility', 'On');
+    v = visual.vline(4, 'Text', 'This is 4', 'HandleVisibility', 'On');
+    visual.zeroline('HandleVisibility', 'On');
 end
 
 

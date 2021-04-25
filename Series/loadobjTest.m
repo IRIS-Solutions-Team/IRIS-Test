@@ -6,5 +6,4 @@ clear x
 load loadobjTest.mat x
 assert(isa(x, 'Series'));
 assert(isequal(class(x), 'Series'));
-assert(isa(x.Start, 'DateWrapper'));
-
+assert(isequal(x.Start, 1));

@@ -20,7 +20,7 @@ ModelNoShift>>>>>
 %}
 fileName = 'sourceDbTestNoShift.model';
 parser.grabTextFromCaller('ModelNoShift', fileName);
-m0 = model(fileName, 'linear=', true);
+m0 = model(fileName, 'linear', true);
 
 %{
 ModelLag>>>>>
@@ -41,7 +41,7 @@ ModelLag>>>>>
 %}
 fileName = 'sourceDbTestLag.model';
 parser.grabTextFromCaller('ModelLag', fileName);
-n0 = model(fileName, 'linear=', true);
+n0 = model(fileName, 'linear', true);
 
 
 %% Test zerodb
@@ -76,7 +76,7 @@ compareDatabanks(actDb, expDb);
 
 m = m0;
 range = 1:100000;
-d = zerodb(m, range, 'shockFunc=', @randn);
+d = zerodb(m, range, 'shockFunc', @randn);
 actStdEw = std(d.ew);
 actStdEx = std(d.ex);
 actStdEy = std(d.ey);

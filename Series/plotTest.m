@@ -68,7 +68,7 @@ function testDateFormat(this)
         x = this.TestData.(list{i});
         if isa(x, 'Series')
             figure('Visible', 'off');
-            h = plot(x, 'DateFormat=', 'uuuu');
+            h = plot(x, 'DateFormat', 'uuuu');
             dt = h.XData;
             if isa(dt, 'datetime')
                 assertEqual(this, dt.Format, 'uuuu');

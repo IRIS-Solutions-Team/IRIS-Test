@@ -7,7 +7,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 %% Test Saving to And Loading from CSV
 
 load csvTest.mat dbcab
-databank.toCSV(dbcab, 'temp1.csv', Inf, 'Decimals=', 15);
+databank.toCSV(dbcab, 'temp1.csv', Inf, 'Decimals', 15);
 db = databank.fromCSV('temp1.csv');
 flag = compareDatabanks(dbcab, db);
 assertEqual(testCase, flag, true);

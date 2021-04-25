@@ -1,4 +1,6 @@
 
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+
 rng(0);
 
 d = struct( );
@@ -10,23 +12,39 @@ v = VAR({'x', 'y', 'z'});
 v = estimate(v, d, 1:100);
 x = mean(v);
 
-assertEqualTol = @(x, y) assert(abs(x-y)<1e-8);
+assertEqualTol = @(x, y) assertEqual(testCase, x, y, "AbsTol", 1e-8);
 
-%% Hard Parameters
 
-fprintf(v, 'test_fprintf_hard.model', 'Declare=', true);
-mh = model('test_fprintf_hard.model', 'Linear=', true);
-mh = solve(mh);
-mh = sstate(mh);
+%% Hard Parameters with Plain Schur
 
+fprintf(v, 'test_fprintf_hard.model', 'Declare', true);
+mh = model('test_fprintf_hard.model', 'Linear', true);
+[mh, ~, info] = solve(mh);
+mh = steady(mh);
+
+assertEqual(testCase, info.SchurDecomposition, "schur");
 assertEqualTol(x(1), mh.x);
 assertEqualTol(x(2), mh.y);
 assertEqualTol(x(3), mh.z);
 
-%% Soft Parameters
 
-[~, d] = fprintf(v, 'test_fprintf_soft.model', 'Declare=', true, 'HardParameters=', false);
-ms = model('test_fprintf_hard.model', 'Linear=', true);
+%% Hard Parameters with Generalized Schur 
+
+fprintf(v, 'test_fprintf_hard.model', 'Declare', true);
+mh = model('test_fprintf_hard.model', 'Linear', true);
+[mh, ~, info] = solve(mh, "preferredSchur", "qz");
+mh = steady(mh);
+
+assertEqual(testCase, info.SchurDecomposition, "qz");
+assertEqualTol(x(1), mh.x);
+assertEqualTol(x(2), mh.y);
+assertEqualTol(x(3), mh.z);
+
+
+%% Soft Parameters 
+
+[~, d] = fprintf(v, 'test_fprintf_soft.model', 'Declare', true, 'HardParameters', false);
+ms = Model('test_fprintf_hard.model', 'Linear', true);
 ms = solve(ms);
 ms = sstate(ms);
 

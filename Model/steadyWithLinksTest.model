@@ -1,0 +1,14 @@
+!variables
+    x, y
+
+!parameters
+    a, b, c
+
+!equations
+    x = a;
+    y = b;
+
+!links
+    c := a - b;
+
+

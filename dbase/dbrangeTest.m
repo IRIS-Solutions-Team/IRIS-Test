@@ -49,15 +49,15 @@ act2 = dbrange(d,{'aa','bb'});
 assertEqual(This,act2,exp2);
 
 exp3 = range2;
-act3 = dbrange(d,{'aa','bb'},'startDate=','minRange');
+act3 = dbrange(d,{'aa','bb'},'startDate','minRange');
 assertEqual(This,act3,exp3);
 
 exp4 = range1;
-act4 = dbrange(d,{'aa','bb'},'endDate=','minRange');
+act4 = dbrange(d,{'aa','bb'},'endDate','minRange');
 assertEqual(This,act4,exp4);
 
 exp5 = range2(1) : range1(end);
-act5 = dbrange(d,{'aa','bb'},'startDate=','minRange','endDate=','minRange');
+act5 = dbrange(d,{'aa','bb'},'startDate','minRange','endDate','minRange');
 assertEqual(This,act5,exp5);
 end % testDbrangeOneFreq()
 
@@ -78,20 +78,20 @@ act1 = dbrange(d);
 assertEqual(This,act1,exp1);
 
 exp2 = { range2(1):range1(end), range3, range5 };
-act2 = dbrange(d,'startDate=','minRange','endDate=','minRange');
+act2 = dbrange(d,'startDate','minRange','endDate','minRange');
 assertEqual(This,act2,exp2);
 
 exp3 = exp2;
-act3 = dbrange(d,@all,'startDate=','minRange','endDate=','minRange');
+act3 = dbrange(d,@all,'startDate','minRange','endDate','minRange');
 assertEqual(This,act3,exp3);
 
 exp4 = exp2;
-act4 = dbrange(d,Inf,'startDate=','minRange','endDate=','minRange');
+act4 = dbrange(d,Inf,'startDate','minRange','endDate','minRange');
 assertEqual(This,act4,exp4);
 
 exp5 = exp2;
 act5 = dbrange(d,fieldnames(d), ...
-    'startDate=','minRange','endDate=','minRange');
+    'startDate','minRange','endDate','minRange');
 assertEqual(This,act5,exp5);
 end % testDbrangeOneFreq()
 

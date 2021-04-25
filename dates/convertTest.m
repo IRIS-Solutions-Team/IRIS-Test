@@ -28,11 +28,11 @@ for d = 1 : numel(dates)
         d2 = convert(dates{d}, num{f});
         d3 = convert(dates{d}, letters{f});
         assertEqual(testCase, double(freq{f}), ...
-                     DateWrapper.getFrequencyAsNumeric(d1) );
+                     dater.getFrequency(d1) );
         assertEqual(testCase, double(freq{f}), ...
-                     DateWrapper.getFrequencyAsNumeric(d2) );
+                     dater.getFrequency(d2) );
         assertEqual(testCase, double(freq{f}), ...
-                     DateWrapper.getFrequencyAsNumeric(d3) );
+                     dater.getFrequency(d3) );
     end
 end
 

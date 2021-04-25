@@ -25,7 +25,7 @@ range = This.TestData.Range;
 list = fieldnames(d);
 nList = length(list);
 
-[Fig,Ax] = dbplot(d, 'figureOpt=', {'visible=','off'});
+[Fig,Ax] = dbplot(d, 'figureOpt', {'visible','off'});
 assertEqual(This, length(Fig), 1);
 assertEqual(This, length(Ax), 1);
 assertEqual(This, length(Ax{1}), nList);
@@ -45,8 +45,8 @@ list = fieldnames(d);
 nList = length(list);
 
 [Fig,Ax] = dbplot( d, ...
-    'maxPerFigure=', 4, ...
-    'figureOpt=', {'visible=','off'} ...
+    'maxPerFigure', 4, ...
+    'figureOpt', {'visible','off'} ...
     );
 assertEqual(This, length(Fig), ceil(nList/4));
 assertEqual(This, length(Ax), ceil(nList/4));
@@ -66,7 +66,7 @@ nList = length(list);
 
 range = 2 : 5;
 [Fig,Ax] = dbplot( d, range, ...
-    'figureOpt=',{'visible=','off'} );
+    'figureOpt',{'visible','off'} );
 assertEqual(This, length(Fig), 1);
 assertEqual(This, length(Ax), 1);
 assertEqual(This, length(Ax{1}), nList);

@@ -41,8 +41,8 @@ steadyOptions = { 'Growth='; false
                   'Blocks='; true
                   'Solver='; steadySolverOptions };
 
-p0 = estimate(m, d, range, est, 'Steady=', true);
-p1 = estimate(m, d, range, est, 'Steady=', steadyOptions);
+p0 = estimate(m, d, range, est, 'Steady', true);
+p1 = estimate(m, d, range, est, 'Steady', steadyOptions);
 
 check.absTol(p0, p1, 1e-6)
 check.absTol(p0.a, 1.16, 1e-2)
@@ -64,7 +64,7 @@ steadyOptions = { 'Growth='; false
                   'Blocks='; true
                   'Solver='; steadySolverOptions };
 
-p2 = estimate(m, d, range, est, 'Steady=', steadyOptions, 'NoSolution=', 'Penalty');
+p2 = estimate(m, d, range, est, 'Steady', steadyOptions, 'NoSolution', 'Penalty');
 
 check.absTol(p2.a, 0.50, 1e-2)
 check.absTol(p2.b, 0.50, 1e-2)
@@ -73,10 +73,10 @@ check.absTol(p2.d, 0.50, 1e-2)
 
 errorID = '';
 try
-    p3 = estimate(m, d, range, est, 'Steady=', steadyOptions, 'NoSolution=', 'Error');
+    p3 = estimate(m, d, range, est, 'Steady', steadyOptions, 'NoSolution', 'Error');
 catch err
     errorID = err.identifier;
 end
 
-check.equal(errorID, 'IRIS:Model:Failed')
+check.equal(errorID, 'IrisToolbox:Model:Failed')
 

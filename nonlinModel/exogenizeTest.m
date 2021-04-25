@@ -20,7 +20,7 @@ m.tau = 3;
 m.rho = 2;
 m.psi = 0.9;
 m.omg = 1;
-m = sstate(m,'display=','none','blocks=',true,'growth=',true);
+m = sstate(m,'display','none','blocks',true,'growth',true);
 chksstate(m);
 m = solve(m);
 this.TestData.Model = m;
@@ -40,13 +40,13 @@ m.psi = 0.9;
 m.omg = 1;
 m.A = 0;
 m.B = 0;
-m = sstate(m,'display=','none','blocks=',true,'growth=',true);
+m = sstate(m,'display','none','blocks',true,'growth',true);
 chksstate(m);
 m = solve(m);
 this.TestData.ModelDtrends = m;
 
-nonlinOpt = {'method=','selective','tolerance=',1e-10, ...
-    'maxIter=',1000,'display=',0};
+nonlinOpt = {'method','selective','tolerance',1e-10, ...
+    'maxIter',1000,'display',0};
 this.TestData.NonlinOpt = nonlinOpt;
 end
 
@@ -68,7 +68,7 @@ p = endogenize(p,endgDates,'ey');
 d = sstatedb(m,range);
 d.y(exgDates) = d.y(exgDates)+rand(length(exgDates),1)/10;
 
-s1 = simulate(m,d,range,'plan=',p,nonlinOpt{:});
+s1 = simulate(m,d,range,'plan',p,nonlinOpt{:});
 s2 = simulate(m,s1,range,nonlinOpt{:});
 x1 = lhsmrhs(m,s1,range(5:end));
 x2 = lhsmrhs(m,s2,range(5:end));
@@ -97,14 +97,14 @@ p1 = exogenize(p1,exgDates,'y');
 p1 = endogenize(p1,endgDates,'ey');
 d1 = sstatedb(m,range);
 d1.y(exgDates) = d1.y(exgDates)+rand(length(exgDates),1)/10;
-s1 = simulate(m,d1,range,'plan=',p1,nonlinOpt{:});
+s1 = simulate(m,d1,range,'plan',p1,nonlinOpt{:});
 
 p2 = plan(m,range);
 p2 = exogenize(p2,exgDates,'Y');
 p2 = endogenize(p2,endgDates,'ey');
 d2 = sstatedb(m,range);
 d2.Y(exgDates) = d1.y(exgDates);
-s2 = simulate(m,d2,range,'plan=',p2,nonlinOpt{:});
+s2 = simulate(m,d2,range,'plan',p2,nonlinOpt{:});
 
 assertEqual(this,s1.y(exgDates),d1.y(exgDates),'AbsTol',1e-14);
 assertEqual(this,s2.Y(exgDates),d2.Y(exgDates),'AbsTol',1e-14);
@@ -130,7 +130,7 @@ p1 = exogenize(p1,exgDates,'y');
 p1 = endogenize(p1,endgDates,'ey');
 d1 = sstatedb(m,range);
 d1.y(exgDates) = d1.y(exgDates)+rand(length(exgDates),1)/10;
-s1 = simulate(m,d1,range,'plan=',p1,nonlinOpt{:},'nonlinPer=',N);
+s1 = simulate(m,d1,range,'plan',p1,nonlinOpt{:},'nonlinPer',N);
 x1 = lhsmrhs(m,s1,range(5:N));
 
 assertEqual(this,s1.y(exgDates),d1.y(exgDates),'AbsTol',1e-14);
@@ -156,7 +156,7 @@ p1 = exogenize(p1,exgDates,'y');
 p1 = endogenize(p1,endgDates,'ey');
 d1 = sstatedb(m,range);
 d1.y(exgDates) = d1.y(exgDates)+rand(length(exgDates),1)/10;
-s1 = simulate(m,d1,range,'plan=',p1,nonlinOpt{:},'nonlinPer=',N);
+s1 = simulate(m,d1,range,'plan',p1,nonlinOpt{:},'nonlinPer',N);
 x1 = lhsmrhs(m,s1,range(5:N));
 
 assertEqual(this,s1.y(exgDates),d1.y(exgDates),'AbsTol',1e-14);
@@ -184,15 +184,15 @@ p1 = exogenize(p1,exgDates,'p');
 p1 = endogenize(p1,endgDates,'epi');
 d1 = sstatedb(m,range);
 d1.p(exgDates) = d1.p(exgDates) + x;
-s1 = simulate(m,d1,range,'plan=',p1,nonlinOpt{:},'anticipate=',false);
+s1 = simulate(m,d1,range,'plan',p1,nonlinOpt{:},'anticipate',false);
 
 assertEqual(this,s1.p(exgDates),d1.p(exgDates),'AbsTol',1e-13);
 
 p2 = p1;
 d2 = zerodb(m,range);
 d2.p(exgDates) = d2.p(exgDates) + x;
-s2 = simulate(m,d2,range,'plan=',p2,nonlinOpt{:}, ...
-    'anticipate=',false,'deviation=',true);
+s2 = simulate(m,d2,range,'plan',p2,nonlinOpt{:}, ...
+    'anticipate',false,'deviation',true);
 
 assertEqual(this,s2.p(exgDates),d2.p(exgDates),'AbsTol',1e-13);
 assertEqual(this,s1.epi(:),s2.epi(:),'AbsTol',1e-13);
@@ -224,7 +224,7 @@ d = sstatedb(m,range);
 d.R(exgDates) = d.R(exgDates)+rand(length(exgDates),1)*0.1;
 d.PI(exgDates) = d.PI(exgDates)+rand(length(exgDates),1)*0.1;
 
-s1 = simulate(m,d,range,'plan=',p,nonlinOpt{:});
+s1 = simulate(m,d,range,'plan',p,nonlinOpt{:});
 s2 = simulate(m,s1,range,nonlinOpt{:});
 x1 = lhsmrhs(m,s1,range(5:end));
 x2 = lhsmrhs(m,s2,range(5:end));

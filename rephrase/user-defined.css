@@ -1,0 +1,16 @@
+.rephrase-table-data-cell,
+.rephrase-table-header-cell,
+.rephrase-matrix-header-cell-col
+{
+    text-align: right;
+}
+
+.rephrase-matrix-header-cell-row {
+    text-align: left;
+}
+
+.rephrase-matrix-data-cell
+{
+    text-align: right;
+}
+

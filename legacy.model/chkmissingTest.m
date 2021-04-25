@@ -7,7 +7,7 @@ end%
 
 
 function setupOnce(this)
-    m = model('chkmissing.model', 'Linear=', true);
+    m = model('chkmissing.model', 'Linear', true);
     m = alter(m, 4);
     m.a = [1, 1, 0, 0];
     m.b = [1, 0, 1, 0];
@@ -25,7 +25,7 @@ function test1(this)
     d.x = tseries(0, 1);
     d.y = tseries(0, NaN);
 
-    [actFlag, actLsMissing] = chkmissing(m, d, 1, 'Error=', false);
+    [actFlag, actLsMissing] = chkmissing(m, d, 1, 'Error', false);
     expFlag = false;
     expLsMissing = {'y{-1}'};
     assertEqual(this, actFlag, expFlag);
@@ -42,7 +42,7 @@ function test2(this)
     d.x = tseries(0, [1, 1, 1, 1]);
     d.y = tseries(0, [NaN, NaN, NaN, NaN]);
 
-    [actFlag, actLsMissing] = chkmissing(m, d, 1, 'Error=', false);
+    [actFlag, actLsMissing] = chkmissing(m, d, 1, 'Error', false);
     expFlag = false;
     expLsMissing = {'y{-1}'};
     assertEqual(this, actFlag, expFlag);
@@ -59,7 +59,7 @@ function test3(this)
     d.x = tseries(0, [1, 1, 1, 1]);
     d.y = tseries(0, [1, NaN, 1, NaN]);
 
-    [actFlag, actLsMissing] = chkmissing(m, d, 1, 'Error=', false);
+    [actFlag, actLsMissing] = chkmissing(m, d, 1, 'Error', false);
     expFlag = true;
     expLsMissing = cell(1, 0);
     assertEqual(this, actFlag, expFlag);
@@ -76,7 +76,7 @@ function test4(this)
     d.x = tseries(0, [1, 1, 1, 1]);
     d.y = tseries(0, [NaN, 1, NaN, 1]);
 
-    [actFlag, actLsMissing] = chkmissing(m, d, 1, 'Error=', false);
+    [actFlag, actLsMissing] = chkmissing(m, d, 1, 'Error', false);
     expFlag = false;
     expLsMissing = {'y{-1}'};
     assertEqual(this, actFlag, expFlag);
@@ -91,7 +91,7 @@ function test5(this)
     d.x = tseries(0, [1, NaN, 1, NaN]);
     d.y = tseries(0, [NaN, 1, NaN, 1]);
 
-    [actFlag, actLsMissing] = chkmissing(m, d, 1, 'Error=', false);
+    [actFlag, actLsMissing] = chkmissing(m, d, 1, 'Error', false);
     expFlag = false;
     expLsMissing = {'x{-1}', 'y{-1}'};
     assertEqual(this, actFlag, expFlag);
@@ -106,7 +106,7 @@ function test6(this)
     d.x = tseries(0, [1, 1, NaN, NaN]);
     d.y = tseries(0, [1, NaN, 1, NaN]);
 
-    [actFlag, actLsMissing] = chkmissing(m, d, 1, 'Error=', false);
+    [actFlag, actLsMissing] = chkmissing(m, d, 1, 'Error', false);
     expFlag = true;
     expLsMissing = cell(1, 0);
     assertEqual(this, actFlag, expFlag);

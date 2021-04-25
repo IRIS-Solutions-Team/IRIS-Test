@@ -6,7 +6,7 @@ start = mm(2000,1);
 finish = mm(2001,12);
 ar = [1.5, -0.6];
 order = numel(ar);
-numOfPeriods = rnglen(start, finish);
+numOfPeriods = dater.rangeLength(start, finish);
 numOfExtendedPeriods = numOfPeriods + order;
 
 

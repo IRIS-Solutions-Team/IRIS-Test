@@ -12,14 +12,14 @@ b = Series(x.Range, [-2, -0.8, 0.8, 2]);
 
 figure('Visible', false);
 hold on
-bands(x + b, 'Whitening=', [0.8, 0.7]);
+bands(x + b, 'Whitening', [0.8, 0.7]);
 a1 = plot(x);
 grid on
 
 figure('Visible', false);
 hold on
-bands(x + b, 'Smooth=', true, 'Whitening=', [0.8, 0.7]);
-a2 = plot(x, 'Smooth=', true);
+bands(x + b, 'Smooth', true, 'Whitening', [0.8, 0.7]);
+a2 = plot(x, 'Smooth', true);
 grid on
 
 assertEqual(testCase, numel(a1.XData), 20);

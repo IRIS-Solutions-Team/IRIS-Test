@@ -1,4 +1,6 @@
 
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+
 %% Test convert with Frequency
 
 series = { tseries(yy(2000), rand(400,1))
@@ -29,9 +31,9 @@ for d = 1 : numel(series)
         d1 = convert(series{d}, freq{f});
         d2 = convert(series{d}, num{f});
         d3 = convert(series{d}, letters{f});
-        check.equal( double(freq{f}), d1.FrequencyAsNumeric );
-        check.equal( double(freq{f}), d2.FrequencyAsNumeric );
-        check.equal( double(freq{f}), d3.FrequencyAsNumeric );
+        assertEqual(testCase, double(freq{f}), d1.FrequencyAsNumeric );
+        assertEqual(testCase, double(freq{f}), d2.FrequencyAsNumeric );
+        assertEqual(testCase, double(freq{f}), d3.FrequencyAsNumeric );
     end
 end
 

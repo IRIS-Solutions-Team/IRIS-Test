@@ -18,12 +18,12 @@ ex = '2010Q1';
 assertEqual(ac, ex);
 
 ac = dat2char(qq(2010,1), ...
-    'dateFormat=','YYYY-MM-EE');
+    'dateFormat','YYYY-MM-EE');
 ex = '2010-01-31';
 assertEqual(ac, ex);
 
 ac = dat2char(qq(2010,1), ...
-    'dateFormat=','YYYY-MM-WW');
+    'dateFormat','YYYY-MM-WW');
 ex = '2010-01-29';
 assertEqual(ac, ex);
 
@@ -40,18 +40,18 @@ ex = '2002W01';
 assertEqual(ac, ex);
 
 ac = dat2char(ww(2002,1), ...
-    'dateFormat=','YYYY-MM');
+    'dateFormat','YYYY-MM');
 ex = '2002-01';
 assertEqual(ac, ex);
 
 ac = dat2char(ww(2002,1), ...
-    'dateFormat=','$YYYY-MM-DD');
+    'dateFormat','$YYYY-MM-DD');
 ex = '2002-01-03';
 assertEqual(ac, ex);
 
 %% Daily
 
 ac = dat2char(dd(2002,1,1), ...
-    'dateFormat=','$YYYY-Mmm-DD');
+    'dateFormat','$YYYY-Mmm-DD');
 ex = '2002-Jan-01';
 assertEqual(ac, ex);

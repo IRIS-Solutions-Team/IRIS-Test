@@ -18,7 +18,7 @@ function testExpsm(this)
     k = -4;
     data1 = series.cumsumk(data, k);
     x1 = cumsumk(x, range(5:end));
-    x2 = cumsumk(x, range(5:end), 'K=', k);
+    x2 = cumsumk(x, range(5:end), 'K', k);
     assertEqual(this, data1, x1.Data, 'AbsTol', 1e-10);
     assertEqual(this, data1, x2.Data, 'AbsTol', 1e-10);
     expected = data;

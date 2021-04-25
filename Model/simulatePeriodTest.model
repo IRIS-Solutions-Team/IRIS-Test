@@ -1,10 +1,11 @@
 
 !variables
-    X, Y
+    X, Y, Z
 
 !equations
-    X = 0.8*X{-1} + Y + eps;
+    X = 0.8*X{-1} + 0.2*Y + eps;
     Y = 0.3*X;
+    Z = X{-1} + 0.9*Z{<K>};
 
 !shocks
     eps

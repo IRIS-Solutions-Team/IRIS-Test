@@ -16,7 +16,7 @@ function testBarcon(this)
     x = Series(qq(2000,1), randn(40, 4));
     y = sum(x, 2);
     figure('Visible', this.TestData.Visible);
-    barcon(x, 'ColorMap', copper( ), 'EvenlySpread=', true);
+    barcon(x, 'ColorMap', copper( ), 'EvenlySpread', true);
     hold on;
     plot(qq(2001,1):qq(2002,4), y, 'LineWidth', 3);
     a = gca( );

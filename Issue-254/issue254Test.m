@@ -4,7 +4,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 %% Test One Variant
 
-m = Model('issue254Test.model', 'Linear=', true);
+m = Model('issue254Test.model', 'Linear', true);
 m = solve(m);
 m = steady(m);
 
@@ -16,7 +16,7 @@ assertEqual(testCase, m.x, -1);
 %% Test Multiple Variants
 
 nv = 10;
-m = Model('issue254Test.model', 'Linear=', true);
+m = Model('issue254Test.model', 'Linear', true);
 m = alter(m, nv);
 m = solve(m);
 m = steady(m);

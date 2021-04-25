@@ -1,7 +1,7 @@
 
 assertEqual = @(x, y) assert(isequaln(x, y));
 
-m = model('test_order_links.model', 'OrderLinks=', true);
+m = model('test_order_links.model', 'OrderLinks', true);
 m.f = 1;
 m.d = 10;
 

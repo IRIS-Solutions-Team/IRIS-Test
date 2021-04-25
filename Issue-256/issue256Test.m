@@ -2,7 +2,7 @@
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 % Set up Once
-    m = Model('issue256Test.model', 'SavePreparsed=', 'xxx.model');
+    m = Model('issue256Test.model', 'SavePreparsed', 'xxx.model');
 
 %% Test Solution Vec
  

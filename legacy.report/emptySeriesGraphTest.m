@@ -1,28 +1,24 @@
-function tests = emptySeriesGraphTest
-tests = functiontests( localfunctions );
-end%
 
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
-function test_tseries(this)
+%% Test tseries
     x = report.new( );
     x.figure('Figure Title');
     x.graph('Graph Title');
     x.series('Series Name', tseries( ));
     status = warning('query');
     warning('off');
-    x.publish('emptySeriesGraphTest1.pdf', 'compile=', false);
+    x.publish('emptySeriesGraphTest1.pdf', 'compile', false);
     warning(status);
-end%
 
 
-function test_Series(this)
+%% Test Series
     x = report.new( );
     x.figure('Figure Title');
     x.graph('Graph Title');
     x.series('Series Name', Series( ));
     status = warning('query');
     warning('off');
-    x.publish('emptySeriesGraphTest2.pdf', 'compile=', false);
+    x.publish('emptySeriesGraphTest2.pdf', 'compile', false);
     warning(status);
-end%
 

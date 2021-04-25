@@ -6,6 +6,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     input = "x = @*a + b*x{-1} + @*log(c);";
     act = Explanatory.fromString(input);
     exp = Explanatory( );
+    exp = setp(exp, "IsLinear", true);
     exp = setp(exp, 'VariableNames', ["x", "a", "b", "c"]);
     exp = setp(exp, 'InputString', regexprep(input, "\s+", ""));
     exp = defineDependentTerm(exp, "x");
@@ -32,6 +33,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     input = "x = @*a + b*z{-1} + @*log(c);";
     act = Explanatory.fromString(input);
     exp = Explanatory( );
+    exp = setp(exp, "IsLinear", true);
     exp = setp(exp, 'VariableNames', ["x", "a", "b", "z", "c"]);
     exp = setp(exp, 'InputString', regexprep(input, "\s+", ""));
     exp = defineDependentTerm(exp, "x");
@@ -78,7 +80,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 %% Test Lower
     act = Explanatory.fromString( ...
         ["xa = Xa{-1} + xA{-2} + xb", "XB = xA{-1}"], ...
-        'EnforceCase=', @lower ...
+        'EnforceCase', @lower ...
     );
     exp = Explanatory.fromString( ...
         ["xa = xa{-1} + xa{-2} + xb", "xb = xa{-1}"] ...
@@ -88,6 +90,9 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     act_struct = struct(act);
     assertEqual(testCase, sort(fieldnames(exp_struct)), sort(fieldnames(act_struct)));
     for n = keys(exp_struct)
+        if n=="InputString"
+            continue
+        end
         if isa(exp_struct.(n), 'function_handle')
             assertEqual(testCase, char(exp_struct.(n)), char(act_struct.(n)));
         else
@@ -99,7 +104,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 %% Test Upper
     act = Explanatory.fromString( ...
         ["xa = Xa{-1} + xA{-2} + xb", "XB = xA{-1}"], ...
-        'EnforceCase=', @upper ...
+        'EnforceCase', @upper ...
     );
     exp = Explanatory.fromString( ...
         ["XA = XA{-1} + XA{-2} + XB", "XB = XA{-1}"] ...
@@ -113,6 +118,9 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     act_struct = struct(act);
     assertEqual(testCase, sort(fieldnames(exp_struct)), sort(fieldnames(act_struct)));
     for n = keys(exp_struct)
+        if n=="InputString"
+            continue
+        end
         if isa(exp_struct.(n), 'function_handle')
             assertEqual(testCase, char(exp_struct.(n)), char(act_struct.(n)));
         else
@@ -137,7 +145,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     assertEqual(testCase, simDb2.x(yy(1:10)), inputDb.z(yy(1:10))+10);
 
 
-%% Test Compare Dynamic Static If
+%% Test Compare Period=true and Period=false If
     q = Explanatory.fromString([
         "x = x{-1} + if(w<0, dummy1, dummy0)"
         "y = 1 + if(w, dummy1, dummy0)"
@@ -147,7 +155,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     inputDb.w = -1;
     inputDb.dummy1 = Series(yy(1:10), @rand);
     inputDb.dummy0 = -Series(yy(1:10), @rand);
-    simDb = simulate(q, inputDb, yy(1:10), "Blazer=", {"Dynamic=", false});
+    simDb = simulate(q, inputDb, yy(1:10), "blazer", {"period", false});
     temp = 1 + inputDb.dummy1;
     assertEqual(testCase, simDb.x(yy(1:10)), temp(yy(1:10)), "AbsTol", 1e-14);
     assertEqual(testCase, simDb.y(yy(1:10)), temp(yy(1:10)), "AbsTol", 1e-14);
@@ -187,13 +195,13 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     q = Explanatory.fromString([
         "x = x{-1}"
         "y = y{-1}"
-    ], 'ResidualNamePattern=', ["", "_ma"]);
+    ], 'ResidualNamePattern', ["", "_ma"]);
     assertEqual(testCase, [q.LhsName], ["x", "y"]);
     assertEqual(testCase, [q.ResidualName], ["x_ma", "y_ma"]);
     q = Explanatory.fromString([
         "x = x{-1}"
         "y = y{-1}"
-    ], 'ResidualNamePattern=', ["", "_ma"], 'EnforceCase=', @upper);
+    ], 'ResidualNamePattern', ["", "_ma"], 'EnforceCase', @upper);
     assertEqual(testCase, [q.LhsName], ["X", "Y"]);
     assertEqual(testCase, [q.ResidualName], ["X_MA", "Y_MA"]);
 
@@ -202,12 +210,12 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     q = Explanatory.fromString([
         "x = x{-1}"
         "y = y{-1}"
-    ], 'FittedNamePattern=', ["", "_fitted"]);
+    ], 'FittedNamePattern', ["", "_fitted"]);
     assertEqual(testCase, [q.LhsName], ["x", "y"]);
     assertEqual(testCase, [q.FittedName], ["x_fitted", "y_fitted"]);
     q = Explanatory.fromString([
         "x = x{-1}"
         "y = y{-1}"
-    ], 'FittedNamePattern=', ["", "_fitted"], 'EnforceCase=', @upper);
+    ], 'FittedNamePattern', ["", "_fitted"], 'EnforceCase', @upper);
     assertEqual(testCase, [q.LhsName], ["X", "Y"]);
     assertEqual(testCase, [q.FittedName], ["X_FITTED", "Y_FITTED"]);

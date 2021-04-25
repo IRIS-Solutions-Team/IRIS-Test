@@ -16,21 +16,21 @@ m.z = 10 + 1i*m.dz_bar;
 
 %% Test CHKSSTATE 
 
-flag = chksstate(m, 'Kind=', 'Steady');
+flag = chksstate(m, 'EquationSwitch', 'steady');
 assertEqual(testCase, flag, true);
 
-flag = chksstate(m, 'Kind=', 'Dynamic');
+flag = chksstate(m, 'EquationSwitch', 'dynamic');
 assertEqual(testCase, flag, true);
 
 
 %% Test chksstate and checkStady with more output arguments / Issue #208 
 
-[flag, list] = chksstate(m);
-[flag, dcy, list] = chksstate(m);
+[~, list] = chksstate(m);
+[~, dcy, list] = chksstate(m);
 assertEmpty(testCase, list);
 
-[flag, list] = checkSteady(m);
-[flag, dcy, list] = checkSteady(m);
+[~, list] = checkSteady(m);
+[~, dcy, list] = checkSteady(m);
 assertEmpty(testCase, list);
 assertLessThan(testCase, abs(dcy), 1e-10);
 
@@ -40,20 +40,20 @@ assertLessThan(testCase, abs(dcy), 1e-10);
 m2 = alter(m, 20);
 m2.z(2) = 11 + 2i;
 
-flag = chksstate(m2, 'Kind=', 'Steady', 'Error=', false);
+flag = chksstate(m2, 'EquationSwitch', 'steady', 'Error', false);
 assert( all(flag([1, 3:20])) );
 assert( ~flag(2) );
-flag = chksstate(m2, 'Kind=', 'Dynamic');
+flag = chksstate(m2, 'EquationSwitch', 'dynamic');
 assert( all(flag) );
 
 %% Test LHSMRHS with Steady-State Databank Integer Frequency
 
 range = 1 : 10;
 d = sstatedb(m, range);
-dcy = lhsmrhs(m, d, range, 'Kind=', 'Dynamic');
+dcy = lhsmrhs(m, d, range, 'EquationSwitch', 'dynamic');
 assertWithinTol(dcy);
 
-dcy = lhsmrhs(m, d, range, 'Kind=', 'Steady');
+dcy = lhsmrhs(m, d, range, 'EquationSwitch', 'steady');
 assertWithinTol(dcy(1:2, :));
 assertOutsideTol(dcy(3, :));
 
@@ -62,10 +62,10 @@ assertOutsideTol(dcy(3, :));
 
 range = qq(2000, 1) : qq(2003, 4);
 d = sstatedb(m, range);
-dcy = lhsmrhs(m, d, range, 'Kind=', 'Dynamic');
+dcy = lhsmrhs(m, d, range, 'EquationSwitch', 'dynamic');
 assertWithinTol(dcy);
 
-dcy = lhsmrhs(m, d, range, 'Kind=', 'Steady');
+dcy = lhsmrhs(m, d, range, 'EquationSwitch', 'steady');
 assertWithinTol(dcy(1:2, :));
 assertOutsideTol(dcy(3, :));
 
@@ -73,10 +73,10 @@ assertOutsideTol(dcy(3, :));
 %% Test LHSMRHS with Random Databank Integer Frequency
 
 range = 1 : 20;
-d = sstatedb(m, range, 'ShockFunc=', @randn);
+d = sstatedb(m, range, 'ShockFunc', @randn);
 
 eqtn = get(m, 'Eqtn:Dynamic');
-actualDcy = lhsmrhs(m, d, range, 'Kind=', 'Dynamic');
+actualDcy = lhsmrhs(m, d, range, 'EquationSwitch', 'dynamic');
 for i = 1 : length(eqtn)
     expectedDcy = dbeval(d, m, eqtn{i});
     expectedDcy = -expectedDcy(range).';
@@ -85,7 +85,7 @@ for i = 1 : length(eqtn)
 end
 
 eqtn = get(m, 'Eqtn:Steady');
-actualDcy = lhsmrhs(m, d, range, 'Kind=', 'Steady');
+actualDcy = lhsmrhs(m, d, range, 'EquationSwitch', 'steady');
 for i = 1 : length(eqtn)
     expectedDcy = dbeval(d, m, eqtn{i});
     expectedDcy = -expectedDcy(range).';
@@ -104,8 +104,8 @@ m2.y = 0 + 1i*m2.dy_bar;
 m2.z = 10 + 1i*m2.dz_bar;
 
 range = mm(2000, 1) : mm(2010, 12);
-d = sstatedb(m2, range, 'ShockFunc=', @randn);
-actualDcy = lhsmrhs(m2, d, range, 'Kind=', 'Dynamic');
+d = sstatedb(m2, range, 'ShockFunc', @randn);
+actualDcy = lhsmrhs(m2, d, range, 'EquationSwitch', 'dynamic');
 eqtn = get(m2, 'Eqtn:Dynamic');
 for v = 1 : length(m2)
     for i = 1 : length(eqtn)

@@ -31,9 +31,9 @@ outp.w = comment(outp.w, 'Eq3');
 
 outpClip = outp;
 % Do not clip y
-outpClip.x = resize(outpClip.x, dates);
-outpClip.z = resize(outpClip.z, dates);
-outpClip.w = resize(outpClip.w, dates);
+outpClip.x = clip(outpClip.x, dates);
+outpClip.z = clip(outpClip.z, dates);
+outpClip.w = clip(outpClip.w, dates);
 
 %% Test File 
 
@@ -47,7 +47,7 @@ assertEqual(testCase, actualOutput, expectedOutput);
 
 q = rpteq('test.rpteq');
 expectedOutput = outp;
-actualOutput = run(q, inp, dates, 'dbOverlay=', true);
+actualOutput = run(q, inp, dates, 'dbOverlay', true);
 assertEqual(testCase, actualOutput, expectedOutput);
 
 

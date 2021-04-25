@@ -3,7 +3,7 @@
 
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
-m = model('autoexogenizeTest.model', 'Linear=', true);
+m = model('autoexogenizeTest.model', 'Linear', true);
 m = solve(m);
 m = sstate(m);
 testData.Model = m;
@@ -107,7 +107,7 @@ p = autoexogenize(p, {'x', 'z'}, 1:20);
 d.x(1:20) = rand(20, 1);
 d.y(1:20) = rand(20, 1);
 d.z(1:20) = rand(20, 1);
-s = simulate(m, d, 1:20, 'Plan=', p);
+s = simulate(m, d, 1:20, 'Plan', p);
 
 assertEqual(testCase, d.x(1:20), s.ex(1:20), 'AbsTol', 1e-10);
 assertEqual(testCase, zeros(20, 1), s.ey(1:20), 'AbsTol', 1e-10);

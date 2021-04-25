@@ -34,7 +34,7 @@ function testExpsmInit(this)
     sizeData = size(data);
     beta = 0.75;
     data1 = numeric.expsm(data, beta, 0);
-    x1 = expsm(x, beta, 'Init=', 0);
+    x1 = expsm(x, beta, 'Init', 0);
     assertEqual(this, data1, x1.Data, 'AbsTol', 1e-10);
     expected = flipud(data);
     expected(end+1, 1) = 0;

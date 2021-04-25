@@ -31,7 +31,6 @@ end%
 function testStartInf(this)
     startDate = qq(2001, 1);
     numPeriods = 10;
-    endDate = startDate + numPeriods - 1;
     x = tseries(startDate, rand(numPeriods, 3, 2));
     y = clip(x, startDate+1, Inf);
     assertEqual(this, round(y.Start), round(startDate+1));
@@ -42,7 +41,6 @@ end%
 function testBeforeStartInf(this)
     startDate = qq(2001, 1);
     numPeriods = 10;
-    endDate = startDate + numPeriods - 1;
     x = tseries(startDate, rand(numPeriods, 3, 2));
     y = clip(x, startDate-1, Inf);
     assertEqual(this, round(y.Start), round(startDate));
@@ -72,14 +70,13 @@ function testStartFrequencyMismatch(this)
     catch Error
     end
     assertNotEqual(this, Error, [ ]);
-    assertEqual(this, Error.identifier, 'IRIS:Series:FrequencyMismatch');
+    assertEqual(this, Error.identifier, 'IrisToolbox:Series:FrequencyMismatch');
 end%
 
 
 function testEndFrequencyMismatch(this)
     startDate = qq(2001, 1);
     numPeriods = 10;
-    endDate = startDate + numPeriods - 1;
     x = tseries(startDate, rand(numPeriods, 3, 2));
     Error = [ ];
     try
@@ -87,7 +84,7 @@ function testEndFrequencyMismatch(this)
     catch Error
     end
     assertNotEqual(this, Error, [ ]);
-    assertEqual(this, Error.identifier, 'IRIS:Series:FrequencyMismatch');
+    assertEqual(this, Error.identifier, 'IrisToolbox:Series:FrequencyMismatch');
 end%
 
 

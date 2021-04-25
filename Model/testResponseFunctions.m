@@ -2,7 +2,7 @@
 % Setup once
 
 m = Model( 'testSimulateContributions.model', ...
-           'Growth=', true );
+           'Growth', true );
 
 m.alpha = 1.03^(1/4);
 m.beta = 0.985^(1/4);
@@ -32,7 +32,7 @@ m.std_Mw = 0;
 m.std_Ea = 0.001;
 
 m = sstate( m, ...
-            'Solver=', {'IRIS-Qnsd', 'Display=', false} );
+            'Solver', {'IRIS-Qnsd', 'Display', false} );
 chksstate(m);
 m = solve(m);
 
@@ -43,12 +43,12 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 listOfY = get(m, 'YNames');
 listOfE = get(m, 'ENames');
-s1 = srf(m, 1:10, 'Size=', log(1.01));
+s1 = srf(m, 1:10, 'Size', log(1.01));
 for i = 1 : numel(listOfE)
     name = listOfE{i};
     d = zerodb(m, 1:10);
     d.(name)(1) = log(1.01);
-    s2 = simulate(m, d, 1:10, 'Deviation=', true);
+    s2 = simulate(m, d, 1:10, 'Deviation', true);
     for j = 1 : numel(listOfY)
         assertEqual( testCase, ...
                      s1.(listOfY{j})(1:10, i), ...
@@ -63,12 +63,12 @@ end
 listOfY = get(m, 'YNames');
 listOfE = get(m, 'ENames');
 selectionOfE = fliplr(listOfE(1:2:end));
-s1 = srf(m, 1:10, 'Size=', log(1.01), 'Select=', selectionOfE);
+s1 = srf(m, 1:10, 'Size', log(1.01), 'Select', selectionOfE);
 for i = 1 : numel(selectionOfE)
     name = selectionOfE{i};
     d = zerodb(m, 1:10);
     d.(name)(1) = log(1.01);
-    s2 = simulate(m, d, 1:10, 'Deviation=', true);
+    s2 = simulate(m, d, 1:10, 'Deviation', true);
     for j = 1 : numel(listOfY)
         assertEqual( testCase, ...
                      s1.(listOfY{j})(1:10, i), ...
@@ -88,7 +88,7 @@ for i = 1 : numel(listOfInit)
     [name, lag] = getNameLag(initCond);
     d = zerodb(m, 1:10);
     d.(name)(1+lag) = 1.01;
-    s2 = simulate(m, d, 1:10, 'Deviation=', true);
+    s2 = simulate(m, d, 1:10, 'Deviation', true);
     for j = 1 : numel(listOfY)
         assertEqual( testCase, ...
                      s1.(listOfY{j})(1:10, i), ...

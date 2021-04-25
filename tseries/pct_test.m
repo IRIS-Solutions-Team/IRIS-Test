@@ -1,48 +1,41 @@
-function tests = tseriesTest( )
-    tests = functiontests(localfunctions( ));
-end
+
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 
-function this = setupOnce(this)
+% Set up Once
     data = rand(20, 2);
     x = tseries(qq(2000, 1), data);
     range = x.Range;
-    this.TestData = struct( ...
+    testCase.TestData = struct( ...
         'Data', data, ...
         'TimeSeries', x, ...
         'Range', range ...
     );
-end
 
 
 %% Test Percent Change on Quarterly Series
-function pctQuarterlyTest(this)
-    data = this.TestData.Data;
-    x = this.TestData.TimeSeries;
-    range = this.TestData.Range;
+    data = testCase.TestData.Data;
+    x = testCase.TestData.TimeSeries;
+    range = testCase.TestData.Range;
     y = pct(x);
-    assertEqual(this, y.Range, range(2:end));
-    assertEqual(this, y.Data, 100*(data(2:end, :)./data(1:end-1, :) - 1));
-end
+    assertEqual(testCase, double(y.Range), double(range(2:end)));
+    assertEqual(testCase, y.Data, 100*(data(2:end, :)./data(1:end-1, :) - 1));
 
 
 %% Test Four-Period Percent Change on Quarterly Series
-function pctQuarterlyFourPeriodTest(this)
-    data = this.TestData.Data;
-    x = this.TestData.TimeSeries;
-    range = this.TestData.Range;
+    data = testCase.TestData.Data;
+    x = testCase.TestData.TimeSeries;
+    range = testCase.TestData.Range;
     y = pct(x, -4);
-    assertEqual(this, y.Range, range(5:end));
-    assertEqual(this, y.Data, 100*(data(5:end, :)./data(1:end-4, :) - 1));
-end
+    assertEqual(testCase, double(y.Range), double(range(5:end)));
+    assertEqual(testCase, y.Data, 100*(data(5:end, :)./data(1:end-4, :) - 1));
 
 
 %% Test Percent Change on Quarterly Series Annualized
-function apctQuarterlyTest(this)
     data = rand(20, 2);
     x = tseries(qq(2000, 1), data);
-    range = this.TestData.Range;
-    y = pct(x, -1, 'OutputFreq', Frequency.YEARLY);
-    assertEqual(this, y.Range, range(2:end));
-    assertEqual(this, y.Data, 100*((data(2:end, :)./data(1:end-1, :)).^4 - 1));
-end
+    range = testCase.TestData.Range;
+    y = pct(x, -1, 'Annualize', true);
+    assertEqual(testCase, double(y.Range), double(range(2:end)));
+    assertEqual(testCase, y.Data, 100*((data(2:end, :)./data(1:end-1, :)).^4 - 1));
+

@@ -10,8 +10,12 @@ allSystemTests = matlab.unittest.TestSuite.fromFolder( ...
     'IncludingSubfolders', true ...
 );
 
-run(allSystemTests)
+warning("off", "MATLAB:structOnObject")
+
+a = run(allSystemTests)
+
+warning("on", "MATLAB:structOnObject")
 
 rmpath(thisFolder);
 
-
+close all

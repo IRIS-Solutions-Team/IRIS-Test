@@ -18,10 +18,10 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 % Test Long Range
     [dates, x, y, z] = getDataFromMultiple("longRange", d.x, d.y, d.z);
-    assertEqual(testCase, dates, qq(2020,1):qq(2020,42), "absTol", 1e-12);
+    assertEqual(testCase, dates, dater.colon(dater.qq(2020,1), dater.qq(2020,42)), "absTol", 1e-12);
 
 
 %% Test Short Range
     [dates, x, y, z] = getDataFromMultiple("shortRange", d.x, d.y, d.z);
-    assertEqual(testCase, dates, qq(2020,3):qq(2020,38), "absTol", 1e-12);
+    assertEqual(testCase, dates, dater.colon(dater.qq(2020,3), dater.qq(2020,38)), "absTol", 1e-12);
 

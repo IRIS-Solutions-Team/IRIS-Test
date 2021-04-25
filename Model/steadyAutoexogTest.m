@@ -30,7 +30,7 @@ m.alp = 0.5;
 m.bet = 0.95;
 m.del = 0.10;
 m.k = 20;
-m = sstate(m, 'display=', 'none');
+m = sstate(m, 'display', 'none');
 
 testData = struct( );
 testData.Model = m;
@@ -44,20 +44,20 @@ testData.Model = m;
 m = testData.Model;
 m.y = 1.05*m.y;
 m.k = 0.95*m.k;
-m1 = sstate(m, 'exogenize=', @auto, 'endogenize=', @auto, 'display=', 'none');
+m1 = sstate(m, 'exogenize', @auto, 'endogenize', @auto, 'display', 'none');
 
 m2 = m;
 m2.del = m1.del;
 m2.alp = m1.alp;
-m2 = sstate(m2, 'display=', 'none');
+m2 = sstate(m2, 'display', 'none');
 
 compareModels(m1, m2);
 
-m3 = sstate(m, 'exogenize=', @auto, 'endogenize=', 'alp', 'display=', 'none');
+m3 = sstate(m, 'exogenize', @auto, 'endogenize', 'alp', 'display', 'none');
 
 m4 = m;
 m4.alp = m3.alp;
-m4 = sstate(m4, 'display=', 'none');
+m4 = sstate(m4, 'display', 'none');
 
 compareModels(m3, m4);
 
@@ -69,9 +69,9 @@ compareModels(m3, m4);
 m = testData.Model;
 m.y = 1.05*m.y;
 m.k = 0.95*m.k;
-m1 = sstate(m, 'exogenize=', @auto, 'endogenize=', @auto, 'display=', 'none');
-m2 = sstate(m, 'exogenize=', 'y,k', 'endogenize=', @auto, 'display=', 'none');
-m3 = sstate(m, 'exogenize=', {'k','y'}, 'endogenize=', @auto, 'display=', 'none');
+m1 = sstate(m, 'exogenize', @auto, 'endogenize', @auto, 'display', 'none');
+m2 = sstate(m, 'exogenize', 'y,k', 'endogenize', @auto, 'display', 'none');
+m3 = sstate(m, 'exogenize', {'k','y'}, 'endogenize', @auto, 'display', 'none');
 compareModels(m1, m2);
 compareModels(m1, m3);
 
@@ -83,10 +83,10 @@ compareModels(m1, m3);
 m = testData.Model;
 m1 = m;
 m1.k = 0.95*m1.k;
-m1 = sstate(m1, 'exogenize=', 'k', 'endogenize=', @auto, 'display=', 'none');
+m1 = sstate(m1, 'exogenize', 'k', 'endogenize', @auto, 'display', 'none');
 m2 = m;
 m2.del = m1.del;
-m2 = sstate(m2, 'display=', 'none');
+m2 = sstate(m2, 'display', 'none');
 compareModels(m1, m2);
 
 
@@ -97,9 +97,9 @@ compareModels(m1, m2);
 m = testData.Model;
 m.y = 1.05*m.y;
 m.k = 0.95*m.k;
-m1 = sstate(m, 'exogenize=', @auto, 'endogenize=', @auto, 'display=', 'none');
-m2 = sstate(m, 'exogenize=', @auto, 'endogenize=', 'del,alp', 'display=', 'none');
-m3 = sstate(m, 'exogenize=', @auto, 'endogenize=', {'alp','del'}, 'display=', 'none');
+m1 = sstate(m, 'exogenize', @auto, 'endogenize', @auto, 'display', 'none');
+m2 = sstate(m, 'exogenize', @auto, 'endogenize', 'del,alp', 'display', 'none');
+m3 = sstate(m, 'exogenize', @auto, 'endogenize', {'alp','del'}, 'display', 'none');
 compareModels(m1, m2);
 compareModels(m1, m3);
 
@@ -112,30 +112,30 @@ m = testData.Model;
 m.y = 1.05*m.y;
 m.k = 0.95*m.k;
 try
-    sstate(m, 'exogenize=', 'y,kk', 'endogenize=', @auto, 'display=', 'none');
+    steady(m, 'exogenize', 'y,kk', 'endogenize', @auto, 'display', 'none');
 catch exc
-    id = 'IRIS:Blazer:CannotExogenize';
+    id = 'IrisToolbox:Model:CannotExogenize';
     assertEqual(testCase, exc.identifier, id);
 end
 
 try
-    sstate(m, 'exogenize=', 'y,c', 'endogenize=', @auto, 'display=', 'none');
+    steady(m, 'exogenize', 'y,c', 'endogenize', @auto, 'display', 'none');
 catch exc
-    id = 'IRIS:Blazer:CannotAutoexogenize';
+    id = 'IrisToolbox:Model:CannotAutoexogenize';
     assertEqual(testCase, exc.identifier, id);
 end
 
 try
-    sstate(m, 'exogenize=', @auto, 'endogenize=', 'alp,AAA', 'display=', 'none');
+    steady(m, 'exogenize', @auto, 'endogenize', 'alp,AAA', 'display', 'none');
 catch exc
-    id = 'IRIS:Blazer:CannotEndogenize';
+    id = 'IrisToolbox:Model:CannotEndogenize';
     assertEqual(testCase, exc.identifier, id);
 end
 
 try
-    sstate(m, 'exogenize=', @auto, 'endogenize=', 'alp,bet', 'display=', 'none');
+    steady(m, 'exogenize', @auto, 'endogenize', 'alp,bet', 'display', 'none');
 catch exc
-    id = 'IRIS:Blazer:CannotAutoendogenize';
+    id = 'IrisToolbox:Model:CannotAutoendogenize';
     assertEqual(testCase, exc.identifier, id);
 end
 

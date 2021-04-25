@@ -15,7 +15,7 @@ end%
 function testWrongFreqConcat(this)
     a = tseries(dd(1, 1, 1), 1);
     b = tseries(qq(2, 2), 2);
-    expectedId = 'IRIS:Series:CannotCatMixedFrequencies';
+    expectedId = 'IrisToolbox:Series:CannotCatMixedFrequencies';
     actualId = '';
     try
         [a, b];
@@ -24,7 +24,7 @@ function testWrongFreqConcat(this)
     end
     assertEqual(this, actualId, expectedId);
 
-    expectedId = 'IRIS:Dates:MixedFrequency';
+    expectedId = 'IrisToolbox:Dates:MixedFrequency';
     try
         [a; b];
     catch Error
@@ -46,25 +46,25 @@ function testCat(this)
 end%
 
 
-function testEmpty(~)
+function testEmpty(this)
     x = tseries( );
-    check.equaln(x.Start, DateWrapper(NaN));
-    check.equaln(x.End, DateWrapper(NaN));
+    assertEqual(this, x.Start, DateWrapper(NaN));
+    assertEqual(this, x.End, DateWrapper(NaN));
     x = tseries.empty(0, 2, 3);
-    check.equal(x.Data, double.empty(0, 2, 3));
-    check.equaln(x.Start, DateWrapper(NaN));
+    assertEqual(this, x.Data, double.empty(0, 2, 3));
+    assertEqual(this, x.Start, DateWrapper(NaN));
     x = tseries.empty([0, 2, 3]);
-    check.equal(x.Data, double.empty(0, 2, 3));
-    check.equaln(x.Start, DateWrapper(NaN));
+    assertEqual(this, x.Data, double.empty(0, 2, 3));
+    assertEqual(this, x.Start, DateWrapper(NaN));
 end%
 
 
-function testGet(~)
+function testGet(this)
     sdate = qq(2010,1);
     edate = qq(2011,2);
     x = tseries(sdate:edate, 1) ;
-    check.equal(get(x,'start'), sdate);
-    check.equal(get(x,'end'), edate);
+    assertEqual(this, get(x,'start'), sdate);
+    assertEqual(this, get(x,'end'), edate);
 end%
 
 

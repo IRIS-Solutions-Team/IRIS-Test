@@ -44,7 +44,7 @@ function testPlainLog(this)
     expX = exp(xx);
 
     yy1 = windex(xx, ww);
-    y2 = windex(expX, ww, 'Log=', true);
+    y2 = windex(expX, ww, 'Log', true);
     assertEqual(this, exp(yy1.Data), y2.Data, 'AbsTol', 1e-14);
 end
 
@@ -97,8 +97,8 @@ function testDivisia(this)
     expX = exp(x);
     expXx = exp(xx);
 
-    [yy1, ww1] = windex(expXx, ww, 'Method=', 'Divisia');
-    y2 = numeric.windex(expX, w, 'Method=', 'Divisia');
+    [yy1, ww1] = windex(expXx, ww, 'Method', 'Divisia');
+    y2 = numeric.windex(expX, w, 'Method', 'Divisia');
     assertEqual(this, size(y2), [size(x, 1), 1]);
     assertEqual(this, yy1.Data, y2, 'AbsTol', 1e-14);
     diffLogY2 = diff(log(y2), 1, 1);

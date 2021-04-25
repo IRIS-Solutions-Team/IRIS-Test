@@ -3,7 +3,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 % Set up Once
 
-    m = Model('issue260Test.model', 'Linear=', true);
+    m = Model('issue260Test.model', 'Linear', true);
     m.a = 0.8;
     m.b = -0.5;
     m.ss_x = 10;
@@ -18,7 +18,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 %% Test Filter
 
-    [~, f] = filter(m, s, 1:100, 'MeanOnly=', true);
+    [~, f] = filter(m, s, 1:100, 'MeanOnly', true);
     assertEqual(testCase, f.shock_x(2:100), s.shock_x(2:100), 'AbsTol', 1e-10);
     assertEqual(testCase, f.shock_y(2:100), s.shock_y(2:100), 'AbsTol', 1e-10);
 
@@ -35,9 +35,9 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 %% Test Diffloglik Relative False
 
-    [mll, grad, hess, v] = diffloglik(m, s, 1:100, ["a", "b"], 'Relative=', false);
-    [mll1, grad1, hess1, v1] = diffloglik(m, s, 1:100, "a", 'Relative=', false);
-    [mll2, grad2, hess2, v2] = diffloglik(m, s, 1:100, "b", 'Relative=', false);
+    [mll, grad, hess, v] = diffloglik(m, s, 1:100, ["a", "b"], 'Relative', false);
+    [mll1, grad1, hess1, v1] = diffloglik(m, s, 1:100, "a", 'Relative', false);
+    [mll2, grad2, hess2, v2] = diffloglik(m, s, 1:100, "b", 'Relative', false);
     assertEqual(testCase, hess(1, 1), hess1, 'AbsTol', 1e-10);
     assertEqual(testCase, hess(2, 2), hess2, 'AbsTol', 1e-10);
     assertEqual(testCase, v, 1);
@@ -47,5 +47,5 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     
 %% Test Diffloglik Progress
 
-    [mll, grad, hess, v] = diffloglik(m, s, 1:100, ["a", "b"], 'Progress=', true);
+    [mll, grad, hess, v] = diffloglik(m, s, 1:100, ["a", "b"], 'Progress', true);
 

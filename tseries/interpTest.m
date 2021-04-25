@@ -1,4 +1,6 @@
 
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+
 % Set up
 
 T = 40;
@@ -20,19 +22,19 @@ x = Series(1, data);
 
 xi = interp(x);
 actualData = xi(:);
-check.absTol(expectedDataPchip, actualData, 1e-12);
+assertEqual(testCase, expectedDataPchip, actualData, "absTol", 1e-12);
 
-xi = interp(x, 'Method=', 'pchip');
+xi = interp(x, 'Method', 'pchip');
 actualData = xi(:);
-check.absTol(expectedDataPchip, actualData, 1e-12);
+assertEqual(testCase, expectedDataPchip, actualData, "absTol", 1e-12);
 
-xi = interp(x, 'Method=', 'linear');
+xi = interp(x, 'Method', 'linear');
 actualData = xi(:);
-check.absTol(expectedDataLinear, actualData, 1e-12);
+assertEqual(testCase, expectedDataLinear, actualData, "absTol", 1e-12);
 
-xi = interp(x, 'Method=', 'nearest');
+xi = interp(x, 'Method', 'nearest');
 actualData = xi(:);
-check.absTol(expectedDataNearest, actualData, 1e-12);
+assertEqual(testCase, expectedDataNearest, actualData, "absTol", 1e-12);
 
 
 %% Quarterly Frequency
@@ -41,19 +43,19 @@ x = Series(qq(2000, 1), data);
 
 xi = interp(x);
 actualData = xi(:);
-check.absTol(expectedDataPchip, actualData, 1e-12);
+assertEqual(testCase, expectedDataPchip, actualData, "absTol", 1e-12);
 
-xi = interp(x, 'Method=', 'pchip');
+xi = interp(x, 'Method', 'pchip');
 actualData = xi(:);
-check.absTol(expectedDataPchip, actualData, 1e-12);
+assertEqual(testCase, expectedDataPchip, actualData, "absTol", 1e-12);
 
-xi = interp(x, 'Method=', 'linear');
+xi = interp(x, 'Method', 'linear');
 actualData = xi(:);
-check.absTol(expectedDataLinear, actualData, 1e-12);
+assertEqual(testCase, expectedDataLinear, actualData, "absTol", 1e-12);
 
-xi = interp(x, 'Method=', 'nearest');
+xi = interp(x, 'Method', 'nearest');
 actualData = xi(:);
-check.absTol(expectedDataNearest, actualData, 1e-12);
+assertEqual(testCase, expectedDataNearest, actualData, "absTol", 1e-12);
 
 
 %% Daily Frequency
@@ -62,18 +64,18 @@ x = Series(dd(2000, 1, 1), data);
 
 xi = interp(x);
 actualData = xi(:);
-check.absTol(expectedDataPchip, actualData, 1e-12);
+assertEqual(testCase, expectedDataPchip, actualData, "absTol", 1e-12);
 
-xi = interp(x, 'Method=', 'pchip');
+xi = interp(x, 'Method', 'pchip');
 actualData = xi(:);
-check.absTol(expectedDataPchip, actualData, 1e-12);
+assertEqual(testCase, expectedDataPchip, actualData, "absTol", 1e-12);
 
-xi = interp(x, 'Method=', 'linear');
+xi = interp(x, 'Method', 'linear');
 actualData = xi(:);
-check.absTol(expectedDataLinear, actualData, 1e-12);
+assertEqual(testCase, expectedDataLinear, actualData, "absTol", 1e-12);
 
-xi = interp(x, 'Method=', 'nearest');
+xi = interp(x, 'Method', 'nearest');
 actualData = xi(:);
-check.absTol(expectedDataNearest, actualData, 1e-12);
+assertEqual(testCase, expectedDataNearest, actualData, "absTol", 1e-12);
 
 

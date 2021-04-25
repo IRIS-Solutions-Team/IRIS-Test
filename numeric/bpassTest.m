@@ -26,8 +26,8 @@ function testNoDetrend(this)
     x = this.TestData.Series;
     data1 = numeric.bpass(data, [2, 40]);
     x1 = bpass(x, [2, 40]);
-    data2 = numeric.bpass(data, [2, 40], 'Detrend=', false);
-    x2 = bpass(x, [2, 40], 'Detrend=', false);
+    data2 = numeric.bpass(data, [2, 40], 'Detrend', false);
+    x2 = bpass(x, [2, 40], 'Detrend', false);
     assertEqual(this, data1, x1.Data, 'AbsTol', 1e-12);
     assertEqual(this, data2, x2.Data, 'AbsTol', 1e-12);
     assertGreaterThan(this, maxabs(data1-data2), 1e-5);
@@ -37,8 +37,8 @@ end
 function testAddTrend(this)
     data = this.TestData.Numeric;
     x = this.TestData.Series;
-    data1 = numeric.bpass(data, [2, 40], 'AddTrend=', true);
-    x1 = bpass(x, [2, 40], 'AddTrend=', true);
+    data1 = numeric.bpass(data, [2, 40], 'AddTrend', true);
+    x1 = bpass(x, [2, 40], 'AddTrend', true);
     assertEqual(this, data1, x1.Data, 'AbsTol', 1e-12);
 end 
 
@@ -48,8 +48,8 @@ function testLevelTrend(this)
     x = this.TestData.Series;
     data1 = numeric.bpass(data, [2, 40]);
     x1 = bpass(x, [2, 40]);
-    [data2, trendData2] = numeric.bpass(data, [2, 40], 'Detrend=', {'Diff=', false, 'Connect=', false});
-    [x2, trendX2] = bpass(x, [2, 40], 'Detrend=', {'Diff=', false, 'Connect=', false});
+    [data2, trendData2] = numeric.bpass(data, [2, 40], 'Detrend', {'Diff', false, 'Connect', false});
+    [x2, trendX2] = bpass(x, [2, 40], 'Detrend', {'Diff', false, 'Connect', false});
     assertEqual(this, data1, x1.Data, 'AbsTol', 1e-12);
     assertEqual(this, data2, x2.Data, 'AbsTol', 2e-22);
     assertGreaterThan(this, maxabs(data1-data2), 1e-5);

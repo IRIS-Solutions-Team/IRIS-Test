@@ -8,7 +8,7 @@ m = readModel( );
 %{
 %% Test System Property
     [expectedC, expectedR] = acf(m);
-    p = acf(m, 'SystemProperty=', {'C', 'R'});
+    p = acf(m, 'SystemProperty', {'C', 'R'});
     update(p, m);
     eval(p, m);
     actualC = p.Outputs{1};
@@ -18,10 +18,10 @@ m = readModel( );
 
 
 %% Test System Property Update
-    p = acf(m, 'SystemProperty=', {'C', 'R'});
+    p = acf(m, 'SystemProperty', {'C', 'R'});
     for xiw = 55 : 5 : 70
         m.xiw = xiw;
-        m = sstate(m, 'Growth=', true, 'Display=', false);
+        m = sstate(m, 'Growth', true, 'Display', false);
         m = solve(m);
         [expectedC, expectedR] = acf(m);
         update(p, m);
@@ -35,7 +35,7 @@ m = readModel( );
 
 %% Test System Prior One Output
     expectedC = acf(m);
-    p = acf(m, 'SystemProperty=', 'Cov');
+    p = acf(m, 'SystemProperty', 'Cov');
     spw = SystemPriorWrapper.forModel(m);
     spw.addSystemProperty(p);
     f1 = distribution.Normal.fromMeanStd(10, 5);
@@ -58,7 +58,7 @@ m = readModel( );
 
 %% Test System Prior Two Outputs
     [expectedC, expectedR] = acf(m);
-    p = acf(m, 'SystemProperty=', {'Cov', 'Corr'});
+    p = acf(m, 'SystemProperty', {'Cov', 'Corr'});
     spw = SystemPriorWrapper.forModel(m);
     spw.addSystemProperty(p);
     f1 = distribution.Normal.fromMeanStd(10, 5);
@@ -80,7 +80,7 @@ m = readModel( );
 
 
 %% Test System Prior Update
-    p = acf(m, 'SystemProperty=', {'Cov', 'Corr'});
+    p = acf(m, 'SystemProperty', {'Cov', 'Corr'});
     spw = SystemPriorWrapper.forModel(m);
     spw.addSystemProperty(p);
     f1 = distribution.Normal.fromMeanStd(10, 5);
@@ -91,7 +91,7 @@ m = readModel( );
     spw.addSystemPrior('Corr(Short, Infl, 1)', f2);
     for xiw = 55 : 5 : 70
         m.xiw = xiw;
-        m = sstate(m, 'Growth=', true, 'Display=', false);
+        m = sstate(m, 'Growth', true, 'Display', false);
         m = solve(m);
         [expectedC, expectedR] = acf(m);
         [actualLogDensity, actualContrib, actualProp] = eval(spw, m);
@@ -106,16 +106,16 @@ m = readModel( );
 
 
 %% Test System Prior Autocorrelation
-    p = acf(m, 'Order=', 2, 'SystemProperty=', ["Cov", "Corr"]);
+    p = acf(m, 'Order', 2, 'SystemProperty', ["Cov", "Corr"]);
     spw = SystemPriorWrapper.forModel(m);
     spw.addSystemProperty(p);
     f = distribution.Normal.fromMeanStd(0.5, 0.1);
     spw.addSystemPrior('Corr(log_R, log_R, 2)', f);
     for xiw = 55 : 5 : 70
         m.xiw = xiw;
-        m = sstate(m, 'Growth=', true, 'Display=', false);
+        m = sstate(m, 'Growth', true, 'Display', false);
         m = solve(m);
-        [expectedC, expectedR] = acf(m, 'Order=', 2);
+        [expectedC, expectedR] = acf(m, 'Order', 2);
         [actualLogDensity, actualContrib, actualProp] = eval(spw, m);
         expectedProp = [expectedR('log_R', 'log_R', 2)];
         expectedContrib = -[f.logPdf(expectedProp(1))];

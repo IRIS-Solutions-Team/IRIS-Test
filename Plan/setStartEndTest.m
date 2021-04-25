@@ -3,7 +3,7 @@
 
 this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
-m = Model('test.model', 'linear=', true);
+m = Model('test.model', 'linear', true);
 m.std_ex = 1;
 m.std_ey = 2;
 m.std_ez = 1.5;
@@ -32,7 +32,7 @@ for name = reshape(p.RANGE_DEPENDENT, 1, [ ])
     id = p.(name);
     id1 = p1.(name);
     id = id(:, 2:end);
-    if name=="SigmasOfExogenous"
+    if name=="SigmasExogenous"
         id(:, 1, :) = NaN;
     else
         id(:, 1) = 0;
@@ -62,7 +62,7 @@ for name = reshape(p.RANGE_DEPENDENT, 1, [ ])
     id = p.(name);
     id1 = p1.(name);
     id = id(:, 1:end-1);
-    if name=="SigmasOfExogenous"
+    if name=="SigmasExogenous"
         id(:, end) = NaN;
     else
         id(:, end) = 0;

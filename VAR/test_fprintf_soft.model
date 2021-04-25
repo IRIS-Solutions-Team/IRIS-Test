@@ -5,10 +5,10 @@
     res_x, res_y, res_z
 
 !equations
-	x = +K1 +A11*x{-1} +A12*y{-1} +A13*z{-1} +B11*res_x +B12*res_y +B13*res_z;
-	y = +K2 +A21*x{-1} +A22*y{-1} +A23*z{-1} +B21*res_x +B22*res_y +B23*res_z;
-	z = +K3 +A31*x{-1} +A32*y{-1} +A33*z{-1} +B31*res_x +B32*res_y +B33*res_z;
+    x = +K1 +A11*x{-1} +A12*y{-1} +A13*z{-1} +B11*res_x +B12*res_y +B13*res_z;
+    y = +K2 +A21*x{-1} +A22*y{-1} +A23*z{-1} +B21*res_x +B22*res_y +B23*res_z;
+    z = +K3 +A31*x{-1} +A32*y{-1} +A33*z{-1} +B31*res_x +B32*res_y +B33*res_z;
 
 !parameters
-    K1, A11, A12, A13, B11, B12, B13, K2, A21, A22, A23, B21, B22, B23, K3, 
-    A31, A32, A33, B31, B32, B33
+    K1, A11, A12, A13, B11, B12, B13, K2, A21, A22, A23, B21, B22, B23, K3, A31
+    A32, A33, B31, B32, B33

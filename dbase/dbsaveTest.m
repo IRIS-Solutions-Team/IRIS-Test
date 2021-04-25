@@ -84,7 +84,7 @@ try
 catch err
 end
 
-assertEqual(this, err.identifier, 'IRIS:Dbase:InvalidLoadFormat');
+assertEqual(this, err.identifier, 'IrisToolbox:Dbase:InvalidLoadFormat');
 
 
 %% Error mixed frequency
@@ -104,7 +104,7 @@ catch err
     errorID = err.identifier;
 end
 
-assertEqual(this, errorID, 'IRIS:Dates:MixedFrequency');
+assertEqual(this, errorID, 'IrisToolbox:Dates:MixedFrequency');
 
 
 %% Error invalid NameFunc= option
@@ -116,11 +116,11 @@ dbsave(d, 'dbsaveTest8.csv');
 
 try
     err = MException('', '');
-    dbload('dbsaveTest8.csv', 'NameFunc=', @(x) 1);
+    dbload('dbsaveTest8.csv', 'NameFunc', @(x) 1);
 catch err
 end
 
-assertEqual(this, err.identifier, 'IRIS:Dbase:InvalidOptionNameFunc');
+assertEqual(this, err.identifier, 'IrisToolbox:Dbase:InvalidOptionNameFunc');
 
 
 %% Error loading userdata field
@@ -141,7 +141,7 @@ try
 catch err
 end
 
-assertEqual(this, err.identifier, 'IRIS:Dbase:ErrorLoadingUserData');
+assertEqual(this, err.identifier, 'IrisToolbox:Dbase:ErrorLoadingUserData');
 
 
 %

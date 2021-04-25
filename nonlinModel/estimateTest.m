@@ -2,7 +2,7 @@
 % Set Up
 
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
-m0 = model('simple_SPBC.model') ;
+m0 = Model('simple_SPBC.model', 'growth', true) ;
 
 m0.alpha = 1.03^(1/4);
 m0.beta = 0.985^(1/4);
@@ -28,7 +28,7 @@ m0.std_Mw = 0;
 m0.std_Ea = 0.001;
 
 m1 = m0;
-m1 = sstate(m1, 'growth=', true, 'blocks=', true, 'display=', 'off');
+m1 = steady(m1);
 m1 = solve(m1);
 
 load nonlinModelData.mat d starthist endhist;
@@ -100,9 +100,9 @@ m = m0;
 s = m1;
 assertEqual(testCase, issolved(model( )), logical.empty(1, 0)) ;
 assertEqual(testCase, issolved(m), false) ;
-assertEqual(testCase, chksstate(m, 'error=', false, 'warning=', false), false) ;
+assertEqual(testCase, chksstate(m, 'error', false, 'warning', false), false) ;
 assertEqual(testCase, issolved(s), true) ;
-assertEqual(testCase, chksstate(s, 'error=', false, 'warning=', false), true) ;
+assertEqual(testCase, chksstate(s, 'error', false, 'warning', false), true) ;
 
 %}
 %% Test estimate
@@ -124,17 +124,17 @@ if isOptim
     E.corr_Er__Ep = {0,  -0.9,  0.9,  logdist.normal(0, 0.5)};
 
     filteropt = { ...
-        'outoflik=', {'Short_', 'Infl_', 'Growth_', 'Wage_'}, ...
-        'relative=', true, ...
+        'outoflik', {'Short_', 'Infl_', 'Growth_', 'Wage_'}, ...
+        'relative', true, ...
         };
 
     [est, pos, C, ~, ~, ~, delta, Pdelta] = ...
         estimate(m, d, starthist:endhist, E, ...
-        'filter=', filteropt, 'optimset=', {'display=', 'off'}, ...
-        'tolx=', 1e-8, 'tolfun=', 1e-8, ...
-        ...'evallik=', false, ...
-        'sstate=', false, 'solve=', true, 'nosolution=', 'penalty', ...
-        'chksstate=', false); %also test some default options
+        'filter', filteropt, 'optimset', {'display', 'iter'}, ...
+        'tolx', 1e-8, 'tolfun', 1e-8, ...
+        ...'evallik', false, ...
+        'steady', false, 'solve', true, 'noSolution', 'penalty', ...
+        'checkSteady', false); %also test some default options
 
     cmp = load('nonlinModelEstimation.mat') ;
     pNames = fields(est) ;
@@ -158,9 +158,9 @@ end
 m = m1;
 
 [~, ~, V1, Delta1, Pe1] = filter(m, d, starthist:endhist, ...
-    'outOfLik=', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
+    'outOfLik', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
 [~, V2, ~, Pe2, Delta2] = loglik(m, d, starthist:endhist, ...
-    'outOfLik=', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
+    'outOfLik', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
 
 assertEqual(testCase, V1, V2);
 assertEqual(testCase, Delta1, Delta2);
@@ -177,12 +177,12 @@ mm.chi = chi;
 chksstate(mm);
 mm = solve(mm);
 obj1 = loglik(mm, d, starthist:endhist, ...
-    'outOfLik=', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
+    'outOfLik', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
 
 obj2 = nan(size(chi));
 loglik(m, d, starthist:endhist, ...
-    'outOfLik=', {'Short_', 'Wage_', 'Infl_', 'Growth_'}, ...
-    'persist=', true);
+    'outOfLik', {'Short_', 'Wage_', 'Infl_', 'Growth_'}, ...
+    'persist', true);
 for i = 1 : length(chi)
     m.chi = chi(i);
     chksstate(m);
@@ -198,11 +198,11 @@ assertEqual(testCase, obj1, obj2);
 m = m1;
 
 obj1 = loglik(m, d, starthist:endhist, ...
-    'outOfLik=', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
+    'outOfLik', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
 
 obj2 = loglik(m, d, starthist:endhist, ...
-    'outOfLik=', {'Short_', 'Wage_', 'Infl_', 'Growth_'}, ...
-    'objDecomp=', true);
+    'outOfLik', {'Short_', 'Wage_', 'Infl_', 'Growth_'}, ...
+    'objDecomp', true);
 
 assertEqual(testCase, obj1, obj2(1), 'AbsTol', 1e-12);
 assertEqual(testCase, obj2(1), sum(obj2(2:end)), 'AbsTol', 1e-12);

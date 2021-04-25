@@ -12,7 +12,7 @@ function modelParserErrorHelper(code, expId, varargin)
     end
     expId = exception.Base.underscore2capital(expId);
     try
-        assertEqual(testCase, actId, ['IRIS:',expId]);
+        assertEqual(testCase, actId, ['IrisToolbox:',expId]);
     catch
         model(fileName, varargin{:});
     end

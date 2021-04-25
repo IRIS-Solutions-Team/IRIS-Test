@@ -10,14 +10,14 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     m5 = Explanatory.fromString("c = y");
     startDate = numeric.qq(2001,1);
     endDate = numeric.qq(2010, 4);
-    range = DateWrapper.roundColon(startDate, endDate);
+    range = dater.colon(startDate, endDate);
     db = struct( );
-    db.x = Series(DateWrapper.roundPlus(startDate, -1), 0);
+    db.x = Series(dater.plus(startDate, -1), 0);
     db.y = Series(range, @rand)*0.5 + 5;
     db.c = db.y;
-    db.a = Series(DateWrapper.roundPlus(startDate, -1), 0);
+    db.a = Series(dater.plus(startDate, -1), 0);
     db.b = Series(range, @rand)*0.5 + 5;
-    db.w = Series(DateWrapper.roundPlus(startDate, -1), 0.5+rand(1, 3)*10);
+    db.w = Series(dater.plus(startDate, -1), 0.5+rand(1, 3)*10);
     testCase.TestData.Model1 = m1;
     testCase.TestData.Model2 = m2;
     testCase.TestData.Model3 = m3;
@@ -135,8 +135,9 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     range = testCase.TestData.Range;
     db.res_a = Series(range, randn(numel(range), nv));
     s = simulate(m, db, range);
+    nb = size(s.b, 2);
     for v = 1 : nv
-        exp_res_a = s.a{:,v} - (s.b{:,min(v,end)} + rho(v)*(s.a{-1}{:,v} - s.b{:,min(v,end)}) - 0);
+        exp_res_a = s.a{:,v} - (s.b{:,min(v,nb)} + rho(v)*(s.a{-1}{:,v} - s.b{:,min(v,nb)}) - 0);
         assertEqual(testCase, exp_res_a(range), s.res_a(range, v), 'absTol', 1e-12);
     end
     exp_z = s.x{range} + s.a{-1}{range};
@@ -152,7 +153,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     range = testCase.TestData.Range;
     db = testCase.TestData.Databank;
     db.x(range(1)+(-10:-2)) = rand(9, 1);
-    s = simulate(m, db, range, 'PrependInput=', true);
+    s = simulate(m, db, range, 'PrependInput', true);
     exp_z = s.x{range} + s.a{-1}{range};
     assertEqual(testCase, s.z.Data, exp_z.Data, 'absTol', 1e-12);
     assertEqual(testCase, double(s.x.Start), range(1)-10);
@@ -171,8 +172,9 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     range = testCase.TestData.Range;
     db.res_a = Series(range, randn(numel(range), nv));
     s = simulate(m, db, range);
+    nb = size(s.b, 2);
     for v = 1 : nv
-        exp_res_a = s.a{:,v} - (s.b{:,min(v,end)} + rho(v)*(s.a{-1}{:,v} - s.b{:,min(v,end)}) - 0);
+        exp_res_a = s.a{:,v} - (s.b{:,min(v,nb)} + rho(v)*(s.a{-1}{:,v} - s.b{:,min(v,nb)}) - 0);
         assertEqual(testCase, exp_res_a(range), s.res_a(range, v), 'absTol', 1e-12);
     end
     exp_z = s.x{range} + s.a{-1}{range};
@@ -195,7 +197,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     db.z = Series(0, rand);
     simRange = 1:1000;
     [simDb1, info1] = simulate(xq, db, simRange);
-    [simDb2, info2] = simulate(xq, db, simRange, 'blazer=', {'reorder=', false, 'dynamic=', true});
+    [simDb2, info2] = simulate(xq, db, simRange, 'blazer', {'reorder', false, 'period', true});
     [simDb3, info3] = simulate(xq([1,3,4,5,2]), db, simRange);
     for i = reshape(string(fieldnames(simDb1)), 1, [ ]);
         assertEqual(testCase, simDb1.(i).Data, simDb2.(i).Data, 'absTol', 1e-12);
@@ -217,7 +219,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     %
     p2 = Plan.forExplanatory(xq, 1:10);
     p2 = exogenizeWhenData(p2, 1:10, @all);
-    simDb2 = simulate(xq, db, 1:10, 'Plan=', p2);
+    simDb2 = simulate(xq, db, 1:10, 'Plan', p2);
     %
     assertEqual(testCase, simDb1.c(1:10), db.d{-1}(1:10), 'absTol', 1e-14);
     assertEqual(testCase, simDb2.c(1:8), db.c(1:8), 'absTol', 1e-14);
@@ -246,7 +248,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     [~, ~, listExogenous] = lookup(xq, ':exogenous');
     p2 = Plan.forExplanatory(xq, 1:10);
     p2 = exogenizeWhenData(p2, 1:10, listExogenous);
-    simDb2 = simulate(xq, db, 1:10, 'Plan=', p2);
+    simDb2 = simulate(xq, db, 1:10, 'Plan', p2);
     %
     assertEqual(testCase, simDb1.c(1:10), db.d{-1}(1:10), 'absTol', 1e-14);
     assertEqual(testCase, simDb2.c(1:10), db.d{-1}(1:10), 'absTol', 1e-14);
@@ -281,7 +283,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 %% Test Runtime Ifnan
     xq = Explanatory.fromString([
         "b = ifnan(0.8*c{-1}, z);"
-    ], "ControlNames=", "z");
+    ], "ControlNames", "z");
     db = struct( );
     db.c = Series(qq(2000,4), rand(20,1));
     db.c(qq(2001,4))=NaN;
@@ -318,4 +320,3 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     assertEqual(testCase, simDb2.y(1:10), db.a(1:10)+sin(db.b(1:10))+db.res_y(1:10), "absTol", 1e-14);
     assertEqual(testCase, simDb2.res_y(1:10), db.res_y(1:10));
     % [^1]: res_x is carried over from the input db but unused
-

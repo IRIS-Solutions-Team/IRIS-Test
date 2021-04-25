@@ -28,7 +28,7 @@ xq = ExplanatoryEquation.fromString([
     "z = x{-1}"
 ]);
 fileName = './test_blazer.model';
-blazer(xq, 'SaveAs=', fileName);
+blazer(xq, 'saveAs', fileName);
 act = file2char(fileName); 
 assertEqual(testCase, contains(act, 'Number of Blocks: 3'), true);
 assertEqual(testCase, contains(act, 'Assign'), true); 

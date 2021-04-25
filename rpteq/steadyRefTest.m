@@ -7,7 +7,7 @@ end
 
 
 function setupOnce(this)
-m = model('steadyRefTest.model', 'linear=', true);
+m = model('steadyRefTest.model', 'linear', true);
 m.lx = 0;
 m.gy = 0.1;
 m = solve(m);

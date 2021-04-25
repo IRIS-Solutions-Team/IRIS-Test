@@ -1,0 +1,874 @@
+    !transition_variables
+    YW, YFNPO, YCTREP, YCT, YC, NDPFCV, CONSV, OGNWV, GSRUB, TRE, OG, GDPFC, OGV, PKT, RFPT, PIT, ERFPT, WG, LPRT, GTRSWP, WNA, LNA, L, U, RGTRU, WT, LT, 
+    PG, 
+    GENW, 
+    ISMGV, 
+    IG, 
+    INH, 
+    IGINFBC,
+    IOTHBC, IOTHME,
+    IGINFME, 
+    IOTH, IME, 
+    IBC, 
+    IGINF,
+    I,
+    PIG,
+    GDPE,
+    IHP, IHG, 
+    IHGV, PIH, IGV, 
+    IH, 
+    IGINFV, RGENW, FDOT,
+    IT, PGDPFC, POG, OT, POT, GDPM, PCONS, GSUB, GTE, YFN, YWNA, YCU, GDPMV, CONS, DEP, GTYSIB, GTYSIW, GTRSW, GTRU, GTRABR, GDPFCV, OTV, YWG, YWT, N1659,N,LF, LG,PWORLD,PM,NGE60,
+    dotPOT, dotPON, dotWT, dotPWORLD, dotULCT,
+   %AT         dotLPRT, dotURBAR, 
+    OW
+    URBAR
+    UR
+    ULCT
+    PCOMPT
+
+    IV
+    IHV
+    GV
+    ITV
+    ITVK
+    
+    %SAV
+    YPER
+    YPERD
+    YP
+    BPTRNE
+    NNPFCV
+    SAVRAT
+    
+    GE
+    GTR
+    GTRN
+    GTRNF
+    %GND
+    GNF
+    GNDT
+    GREV
+    GREVO
+    GTY
+    GREVABR
+    GTYC
+    GTTI
+    YPO
+    GEK
+    GTRKT
+    GKREST
+    GTYPER
+    GTYP
+    YPERT
+    YRPERD
+
+    %jl added 11/8/2020
+    GTTISHR
+    GKRESTSHR
+    YCUSHR
+    GREVOSHR
+    GTRKTSHR
+    N1659SHRN
+    
+    GREVABRSHR
+    GTRABRSHR
+    BPTCKSHR
+    BPTCK
+    BPSHR
+    BPTRNESHR
+    YCTREPSHR
+    YPERDSHR
+    IHPV
+            
+    %%% calibration
+    KYCTREP
+    AYCU1
+    RGTE
+    RGSUB
+    RGTYPEX
+    RGTYC
+    ADEP1
+    RGREVO
+    RGTRKT
+    LGSHRN_SS
+    RGTRSWP
+    RGTYSIB
+    RGTYSIW
+    RISMGV
+    RIGV
+    %IGVSHR_SS
+    ACONS2
+    DSVSHRT_SS
+    LFPR
+    RGDI
+    DSVSHR_SS
+    DEPT
+    AWT1
+    BPTRNESHR_SS
+    %AOT1
+    %AIHP1
+    %GTESHR_SS
+    GTYPERSHR_SS
+    DEPN
+    AN
+    %$$$$$AON2
+   
+    
+    %%% N Sector
+    ON
+ONV
+PON
+WN
+LLN
+ERFPN
+RFPN
+YCN
+YWN
+PKN
+PIN
+LPRN
+FDON
+ULCN
+INV
+IN
+INVK
+    
+    !log_variables
+    !allbut
+    NTSVSHR
+    DSVSHR
+    NOBSHR
+    NPOBSHR
+    GBORSHR
+    GBORPSHR
+    DSVSHRT_SS
+    RGDI
+    DSVSHR_SS
+    AWT1
+    BPSHR
+    %SAV
+    SAVRAT
+    SAVSHR
+    %AOT1
+    %AIHP1
+    BPTRNESHR
+    BPTRNESHR_SS
+    
+%     GREVOSHR
+%     GREVO
+%     RGREVO
+%     RGTYC
+%     GTYC
+%     GESHR
+%     GREVSHR
+%     GEKSHR
+%     GKREVSHR
+        
+    !parameters
+    AT=1;
+   %AN=1.4; %Endogenized through LNSHR_SS 
+    LNSHR_SS = 0.4;0.24;
+    GENWSHR_SS    = 0.08;0.1;
+    GTRABRSHR_SS  = 0.01;0.06;
+    IHGVSHR_SS    = 0.1;0.05;0.01;0.05;
+    YFNPOSHR_SS   =  0.1;0.3;0.2;
+    NGE60SHRN_SS  = 0.03;
+    NTSVSHR_SS= -0.1;-0.3;-.40;%-0.1 -- you need to reduce BPSHR_SS to -0.01, e.g
+    GKREVSHR_SS   = 0.01;0.09;
+    GREVABRSHR_SS = 0.02;0.05;
+    GTTISHR_SS    = 0.001;0.05;
+    GKRESTSHR_SS  = 0.02;
+    BPSHR_SS = -0.03;-0.2;-0.01;-0.15;-0.07;-0.13;%-0.01 when ntsvshr too low in abs
+    BPTCKSHR_SS  = 0.01;
+    
+    AGSRUB = 0.01;
+    
+    ATRE2  =    0.191145;
+    ITVSHR_SS = 0.15;0.35;0.2;0.25;0.31;
+    INVSHR_SS = 0.1;0.25;
+    ALPHAT= 0.65;0.5;0.5;
+    BETAT= 1-ALPHAT;0.35;0.5;0.5;
+    ALPHAN= ALPHAT;
+    BETAN= BETAT;
+    GTRSWSHR_SS = 0.036;
+    LSHRT_SS= 0.6;
+    
+   %AWT1 =  -0.5;-0.7;-0.5;log(0.6703);-0.4;0;0.234968;%2020 DV Endognized through LTSHR_SS, through OTVSHR_SS does not work
+    AWT2  = 0;1.0;
+    AWT3 = 0;-0.01; %DVAPO
+    AWT4 =  0.8;0.6;0.2;0.80; %DV 2020 Endognized through OTVSHR_SS does not work
+
+
+    AOT1  = -1.469498; %Endogenized through OTVSHR_SS and LTSHRL_SS does not work
+    AOT2  = 0.5;1.396002; %%% toto vymaze FDOT z OT
+    AOT3  =0.75;
+    AOT4 = 0.1;
+    AOT5 = 0.1;0.05;
+    AOT6 = 0.1;0.05;
+
+    AON1  = -1.469498; %Endogenized through OTVSHR_SS and LTSHRL_SS does not work
+    %$$$$$
+    AON2 = 0.4;0.5; % Endogenized through OTVSHR_SS
+    AON3  = 0.85;0.75;
+    AON4 = 0.05;0.1;
+    AON5 = 0.05;
+    AON6 = 0.05;
+
+
+    OGNWVSHR_SS   =  0.03;0.1;  
+
+    GVSHR_SS = 0.15;0.3;0.2;0.25;0.15;0.25;0.35;0.29;
+
+
+    ONVSHR_SS=0.4;0.45;0.5;0.3;0.43;            0.6;
+    
+    APOT1  = log(1.3056);0.266665;
+    APOT2  = 0.7;0.7;1; 0.525478;% toto vymaze ULCT z POT
+
+    APON1  = APOT1;
+    APON2  = 0.45;
+    APIG1  = 0;-0.030362;
+    APIG2  =  0.95;
+    APIH1 = -0.1;0;0.5; 0.000000;% %DV 2020 
+    APIH2 = 0.5; 0.000000;%DV 2020
+
+    AFDOT = 0.1;
+    AFDON = 0.1;
+
+    AIOTC =  0.1581;
+    AIOTG =  0.0151;
+    AIOTBC =  0.1411;
+    AIOTME =  0.1864;
+    CONSVSHR_SS = 0.8;0.65;0.5;0.75; 0.65;
+    APCONS1 = -0.525421;
+    APCONS2  = 0.783441;
+    APCONS3 =  2.18236;
+
+     AGTRSW = 1;
+
+    DEPSHR_SS=0.02;
+    ADEP2  =  1.00000;
+
+    AGTRNF = 0.5;
+    AGNF = 1;
+
+    GTYSIBSHR_SS = 0.17;
+    GTYSIWSHR_SS =0.05;
+    IHPVSHR_SS = 0.005;
+    APIT1  = 0;-3;3;%DV 2020 -0.034672;
+    APIT2  =  0.826340;
+    APIN1  = APIT1;
+    APIN2  = APIT2;
+    YCUSHR_SS=0.20
+    YCTREPSHR_SS =0.05;
+    UR_SS = 0.05;0.15;0.1;0.15;0.3;0.70; 
+    LAMT  =  4.0/100;
+    dotPWORLD_SS = 3.5/100;
+    RRSAT=15;
+    GTESHR_SS=0.078;0.12;
+    GSUBSHR_SS=0.01;
+    IGVSHR_SS=0.05;%endogenizing of IGVSHR through GBORPSHR_SS
+    %work endogenized through GBORPSHR_SS
+    GBORPSHR_SS = 0.03;0.05;0.03;0.05;0.12;0.18;0.12;
+    ISMGVSHR_SS=0.01;
+    WIGME = 0.30;
+    WIOME = 0.47;
+    KGTYSE = 0.13;
+    
+    GNDTSHR_SS = 0.6;1;0.6;1.6;2.9;1.6;3.9;
+
+    GREVOSHR_SS   = 0.0093;
+    
+    GTYCSHR_SS=0.017;
+    
+    GTRKTSHR_SS  = 0.0344;
+    
+    GTRUSHR_SS = 0.02;
+    
+    N1659SHRN_SS  = 0.6;0.75;0.56;
+
+
+
+    AOT0  = 0.6;0;
+    ALT0  = 0.6;0;
+    AIT0  = 0.6;0;
+
+    AON0  = 0.6;0;
+    ALLN0 = 0.6;0;
+    AIN0  = 0.6;0;
+
+    APOT0 = 0.6;0;
+    APOT3  = 5.5;
+
+    APON0 = 0.6;
+    APON3 = 5.5;
+
+    ACONS0 = 0.5;0;   
+
+    AWT0 = 0.5;
+    AWT5 = 5.5;
+    
+    
+    %RGDI=0.001; %endogenized through GNDTSHR_SS   
+    %LGSHRN_SS     = 0.15;0.08;0.1; Edogenized through GVSHR_SS 
+    %RISMGV=0.01;%endogenizing through ISMGVSHR_SS, but is the same base  
+    %RIGV=0.03;0.04;%endogenizing through IGVSHR_SS, but the same base, so does not matter
+    %RGSUB=0.01;endogenizing through GSUBSHR_SS
+    %RGTE=0.2;0.23; endogenizing through GTESHR_SS
+    %LFPR = 70;84.3984; % endogenized through UR_SS;
+    %KYCTREP = 0.2; endogenizing throuh YCTREPSHR_SS
+    %AYCU1  = 0.8; endogenizing through YCUSHR_SS
+    %AIHP1  = 0.005;0.1; %endogenized through IHPVSHR does not work
+    %RGTYSIW  =  0.08 ; %endogenized through GTYSIBSHR_SS
+    %RGTYSIB  =  0.26 ; %endogenized through GTYSIBSHR_SS
+    %ADEP1  = -3.38809;endogenizing through DEPSHR_SS
+    %ACONS2  = 0.80; %endogenized through CONSVSHR_SS
+    %RGTRSWP =0.5;0.8;1.1;%1153 DV 2020 endogenized throgh GTRSWSHR_SS
+    %DEPN endogenized through INVSHR
+    %DEPT = 0.55;0.65;0.5;0.03;% endogenized throgh ITVSHR_SS 
+    %BPTRNESHR_SS  = 0.1;%Endogenized through BPSHR_SS
+    %DSVSHRT_SS    = 5/100; endogenized through DSVSHR_SS 
+    %DSVSHR_SS     = 0.015;  % endogenized through NTSVSHR_SS
+ 
+    %RGREVO=0.01;0.03;    
+    %RGTYC=0.075;0.15;    
+    %RGTRKT = 0.1;0.30;   
+    %RGTYPEX  = 0.085 ;
+    %GTYPERSHR_SS = 0.075;
+    %OTVSHR_SS=0.68;
+    %OTVSHR_SS=0.68;
+    %LTSHRL_SS = 0.6;
+    %IVSHR_SS = 0.37;
+    %OTVSHR_SS = 0.68;
+   
+    
+    
+    !transition_shocks
+
+    SHK_OT
+    SHK_ON
+    SHK_CONS
+    SHK_LT
+    SHK_LLN
+    SHK_IT
+    SHK_IN
+    SHK_dotPOT
+    SHK_dotPON
+    SHK_dotWT
+
+   
+    
+    
+    
+    !transition_equations
+   % log(AT)=log(AT{-1});%+LAMT;
+   
+%% REAL SECTOR
+
+    NDPFCV=GDPMV-DEP-(GTE-GSUB);  % Net domestic product at factor cost = 
+                                  % GDP at market prices - Total depreciation - 
+                                  % (expenditure taxes - public subsidies)
+                                  
+                                  % GTE,GSUB - from GOV block
+                               
+    DEP=ADEP1*(OTV);              % Total depreciation = share of T-sector GDP
+
+    GDPMV=GDPFCV+(GTE-GSUB);      % GDP at market prices on an output basis =
+                                  % GDP at factor cost on an output basis +
+                                  % (expenditure taxes - public subsidies)
+                                  
+    GDPFCV=OTV+OGV+ONV;           % GDP at factor cost on an output basis =
+                                  % T-sector GDP + G-sector GDP + N-sector GDP
+                                  
+    OTV=POT*OT;                   % T-sector GDP = T-sector GDP volume * 
+                                  % Deflator of T-sector GDP 
+                                  
+    ONV=PON*ON;                   % same for N-sector
+    
+    OGV=YWG+OGNWV;                % G-sector GDP = G-sector wage bill + 
+                                  % Non-wage G-sector output value
+                                  
+    OGNWV/GDPMV=OGNWVSHR_SS;      % Non-wage G-sector output value as a 
+                                  % constant share of GDP
+                                  
+    % T-sector GDP volume - BEHAVIORAL
+    log(OT)= AOT0*log(OT{-1}) + (1-AOT0)*(AOT1+AOT2*log(OW)+...
+            (1-AOT2)*(AOT3*log(CONS)+AOT4*log(RGENW)+AOT5*log(IT)+AOT6*log(IG)+...
+            (1-AOT3-AOT4-AOT5-AOT6)*log(IH))) + SHK_OT ;
+
+    % N-sector GDP volume - BEHAVIORAL
+    log(ON)=AON0*log(ON{-1}) + (1-AON0)*(AON1+AON2*log(OW)+...
+            (1-AON2)*(AON3*log(CONS)+AON4*log(RGENW)+AON5*log(IN)+AON6*log(IG)+...
+            (1-AON3-AON4-AON5-AON6)*log(IH))) + SHK_ON;
+        
+                                  % IN, IG, IH - from investment block
+                                  % RGENV - from GOV block
+                                  
+    log(OW)=log(OW{-1})+LAMT;     % Weighted measure of world manufacturing output
+    
+   % Private consumption converges to a fixed share of Real personal disposable income (RPDI)
+    CONS=ACONS0*CONS{-1} + (1-ACONS0)*(ACONS2*(YRPERD)) + SHK_CONS;         
+                                  
+    YRPERD = YPERD/PCONS;         % RPDI = PDI deflated by private consumption deflator
+    
+    YPERD=YPER-(GTYP+GTYSIB);     % PDI = PI net of gov-related flows
+                                  % (personal income tax - subsidies)
+                                  
+    YPER=YP-YCU;                  % PI = private sector income - 
+                                  % Undistributed corporate profits 
+                                  
+    log(YCU)=log(YC)+log(AYCU1);  % Undistributed corporate profits 
+                                  % as a share of Total corporate profits
+    
+    YCU/GDPMV=YCUSHR;             % Undistributed corporate profits 
+    YCUSHR = YCUSHR_SS;           % as a constant share of GDP
+    
+    
+    YP=NNPFCV-GTTI+GTR-GTRNF+BPTRNE; % Private sector income = 
+                                  % Net national product at factor cost
+                                  % net of gov and BoP impact
+    
+                                  % GTTI,GTR,GTRNF - in GOV block
+                                    
+    BPTRNE/GDPMV = BPTRNESHR;     % BoP impact is a 
+    BPTRNESHR=BPTRNESHR_SS;       % constant share of GDP
+    
+    NNPFCV=NDPFCV+YFN;            % Net national product =
+                                  % Net domestic product + 
+                                  % Net factor payments from abroad 
+    
+    YFN=(YFNPO-YCTREP)-GTRNF;     % Net factor payments from abroad =
+                                  % private flows + Gov. flows
+    
+    YFNPO/GDPMV=YFNPOSHR_SS;      % net 'other' private factor payments from abroad 
+                                  % as a constant share of GDP
+                                  
+    YCTREP=KYCTREP*YCT;           % Manufacturing profit repatriation by MNIs 
+                                  % as a share of T-sector corporate profits
+                                  
+    YCTREP/GDPMV=YCTREPSHR;       % Manufacturing profit repatriation by MNIs 
+    YCTREPSHR=YCTREPSHR_SS;       % as a constant share of GDP
+                                  
+    
+
+
+   
+     %% WAGES BLOCK
+    YW=YWT+YWG+YWN;               % wage bill = tradable + gov + nontradable
+    
+    YWNA=YWT+YWG+YWN;             % Wage bill in non-agricultural sector = 
+                                  % tradable + gov + nontradable
+                                  
+    YWT=LT*WT;                    % T-sector wage bill is 
+                                  % Nos. employed in T-sector (thousands) *
+                                  % Average annual earnings in the T-sector 
+                                  
+    YCT=OTV-YWT;                  % T-sector corporate profits equals 
+                                  % T-sector GDP - T-sector wage bill
+                                  
+    YWG=LG*WG;                    % same for G-sector wage bill
+                                  
+    YWN=LLN*WN;                   % same for NT-sector wage bill
+    YCN=ONV-YWN;                  % same for NT-sector profits
+    
+    
+    
+   
+    YC=NDPFCV-YWNA;               % Corporate profits = 
+                                  % Net domestic product at factor cost - 
+                                  % Wage bill in non-agricultural sector                                
+    
+    
+    GDPFC=OT+OG+ON;
+                                  
+    GSRUB= AGSRUB*GDPFC;          % Public expenditure on subsidies (vol) = 
+                                  % share of GDP at factor cost (vol)
+                                  
+     
+    GTESHR=GTESHR_SS;
+    log(TRE)=log(ATRE2)+log(CONS);
+    OG=OGV/POG;
+    RFPT=WT/PKT;
+    ERFPT=RFPT;
+    RFPN=WN/PKN;
+    ERFPN=RFPN;
+    PKT=PIT*(DEPT+RRSAT/100);
+    PKN=PIN*(DEPN+RRSAT/100);
+
+
+    log(LT)=ALT0*log(LT{-1})...
+              + (1-ALT0)*(1/(ALPHAT+BETAT)*(log(OT)-log(AT))...
+                          -(BETAT)/(ALPHAT+BETAT)*log(ERFPT)...
+                          -(BETAT)/(ALPHAT+BETAT)*log((BETAT)/ALPHAT))...
+              + SHK_LT;
+    
+
+    log(LLN)=ALLN0*log(LLN{-1})...
+               + (1-ALLN0)*(1/(ALPHAN+BETAN)*(log(ON)-log(AN))...
+                             -(BETAN)/(ALPHAN+BETAN)*log(ERFPN)...
+                             -(BETAN)/(ALPHAN+BETAN)*log((BETAN)/ALPHAN))...
+               + SHK_LLN;
+    
+    LPRT=OT/LT;
+    LPRN=ON/LLN;
+    GTRSWP=(NGE60*PCONS)*RGTRSWP;
+    WNA=YWNA/LNA;
+    LNA=LT+LG+LLN;
+    U=LF-L;% need for GTRU
+    URBAR=(UR+UR{-1})/2;
+    UR=(U/LF);
+    UR = UR_SS;
+
+    
+    LF = (LFPR/100)*N1659;
+    N1659/N = N1659SHRN;
+    N1659SHRN = N1659SHRN_SS;
+    log(N) = log(N{-1}) + LAMT;
+    LGSHRN_SS=LG/N1659;
+    PM=PWORLD;
+    log(PWORLD)=log(PWORLD{-1})+dotPWORLD_SS;
+    NGE60/N = NGE60SHRN;
+    NGE60SHRN = NGE60SHRN_SS;
+    
+    
+    % RGTRU=0.1*WNA; endogenized through GTRUSHR_SS
+   
+    %log(WT)=log(POT)+(AWT1+AWT2*log(WEDGE))+AWT3*URBAR+AWT4*log(LPRT);
+
+    %log(WT)=log(POT)+AWT1+AWT3*URBAR+AWT4*log(LPRT);
+
+    dotWT = log(WT) - log(WT{-1});
+    %dotURBAR = URBAR - URBAR{-1};
+    %dotLPRT  = log(LPRT) - log(LPRT{-1});
+
+   dotWT = AWT0*dotWT{-1}+(1-AWT0)*(dotPOT + AWT3*0 + AWT4*0) ...
+       + AWT5*(log(WT) - log(POT) - AWT1 - AWT3*URBAR - AWT4*log(LPRT)) ...
+       + SHK_dotWT;
+ 
+    WN=WT;
+    WG=WT;
+    L=LT+LG+LLN;
+    
+    %WEDGE = (1+RGTYPER)*(1+RGTYSIW)*(1+RGTE)*(1+RGTYSIB);
+    
+    %log(OT)=AOT1+AOT2/(AOT2+AOT3)*log(OW)+(1-AOT2/(AOT2+AOT3))*log(FDOT)+AOT4*log(RULCT)+AOT5*log(PCOMPT);
+   % log(OT)=AOT1+AOT2/(AOT2)*log(OW);%+(1-AOT2/(AOT2))*log(FDOT);
+
+
+
+    %  log(POT)=    +APOT2*log(PWORLD);%+(1-APOT2)*log(ULCT);
+    % log(POT)=APOT1+APOT2*log(PWORLD)+(1-APOT2)*log(ULCT);
+    % log(PON)=APON1+APON2*log(PWORLD)+(1-APON2)*log(ULCN); %jl APOT1 to APON1
+
+
+dotPOT = log(POT) - log(POT{-1});
+dotPWORLD = log(PWORLD) - log(PWORLD{-1});
+dotULCT = log(ULCT) - log(ULCT{-1});
+
+dotPOT = APOT0*dotPOT{-1}+(1-APOT0)*(APOT2*dotPWORLD + (1-APOT2)*dotULCT) ...
+       + APOT3*(log(POT) - APOT1 - APOT2*log(PWORLD) - (1-APOT2)*log(ULCT))...
+       + SHK_dotPOT;
+
+dotPON = log(PON) - log(PON{-1});
+
+dotPON = APON0*dotPON{-1}+(1-APON0)*(APON2*dotPWORLD + (1-APON2)*dotULCT) ...
+       + APON3*(log(PON) - APON1 - APON2*log(PWORLD) - (1-APON2)*log(ULCT))...
+       + SHK_dotPON;
+
+    PG=POG;
+    GENWSHR=GENWSHR_SS;
+    
+    
+    
+    ISMGV=RISMGV*GDPMV;
+    ISMGVSHR=ISMGVSHR_SS;
+    IG=IGV/PIG;
+    INH=I-IH;
+    IGINFBC=IGINF-IGINFME;
+    IOTHBC=IOTH-IOTHME;
+    IOTHME=WIOME*IOTH;
+    IGINFME=WIGME*IGINF;
+    IOTH=INH-IGINF;
+    IME=IGINFME+IOTHME;
+    IBC=IGINFBC+IOTHBC;
+    IGINF=IGINFV/PIG;
+    I=IT+IG+IH+IN;
+    log(PIG)=(APIG1 + APIG2*log(PGDPFC)+(1-APIG2)*log(PM));
+    GDPE=GDPM;
+    %log(IHP)=log(GDPM)+log(AIHP1);%DV 2020, orig log(IHP)=log(GDPE)+log(AIHP1);
+    %IHPV=GDPMV*AIHP1;
+    IHPV=IHP*PIH;
+    IHPV=GDPMV*IHPVSHR;
+    IHPVSHR=IHPVSHR_SS;
+    IHG=IHGV/PIH;
+    IHGV/GDPMV=IHGVSHR_SS;
+    log(PIH)=(APIH1 + APIH2*log(PGDPFC)+(1-APIH2)*log(PM));
+    IGV=RIGV*GDPMV;
+    IGVSHR=IGVSHR_SS;
+    IH=IHG+IHP;
+    IHV = PIH* IH;
+    IGINFV=IGV+ISMGV;
+    %FDOT=AIOTC*CONS+AIOTG*RGENW+AIOTBC*(IH+IBC)+AIOTME*IME;
+    %FDOT= 0.75*CONS;%+AIOTG*RGENW+AIOTBC*(IH+IBC)+AIOTME*IME;
+    log(FDOT)= log(AFDOT) + log(I);%+AIOTME*IME;
+    log(FDON)= log(AFDON) + log(I);
+
+    log(IT)=AIT0*log(IT{-1}) + (1 - AIT0)*(1/(ALPHAT+BETAT)*(log(OT) - log(AT))...
+                                   +ALPHAT/(ALPHAT+BETAT)*log(ERFPT)...
+                                   +ALPHAT/(ALPHAT+BETAT)*log((BETAT)/ALPHAT))...
+                             + SHK_IT;
+
+    log(IN)=AIN0*log(IN{-1}) + (1 - AIN0)*(1/(ALPHAN+BETAN)*(log(ON) - log(AN))...
+                                          +ALPHAN/(ALPHAN+BETAN)*log(ERFPN)...
+                                          +ALPHAN/(ALPHAN+BETAN)*log((BETAN)/ALPHAN))...
+                             + SHK_IN;
+
+    log(PIT)=(APIT1 + APIT2*log(PGDPFC)+(1-APIT2)*log(PM));
+    log(PIN)=(APIN1 + APIN2*log(PGDPFC)+(1-APIN2)*log(PM)); %%jl APIT1/2 to APIN1/2
+    POG=WG;
+    ULCT=YWT/OT;
+    ULCN=YWN/ON;
+    PCOMPT=POT/PWORLD;
+    GDPM=GDPFC+(TRE-GSRUB);
+
+    log(PCONS)=(APCONS1+APCONS2*log(PGDPFC)+(1-APCONS2)*log(PM)+APCONS3*RGTE);
+
+    %CONS=ACONS2*(NDPFCV+YFN-GTTI+(GTRU+GTRSW+GTRABR+GTRN+GTRNF)+BPTRNE-YCU-(GTYP+GTYSIB))/PCONS;%YPERD
+    %CONS=ACONS2*(YPERD)/PCONS;%YPERD
+    %CONS=0.8*(YPER-(GTYP+GTYSIB))/PCONS;
+    %CONS=0.6*(GDPMV-DEP-(GTE-GSUB)+YFN-GTTI+(GTRU+GTRSW+GTRABR+GTRN)+BPTRNE-YCU-(GTYSIW + RGTYPEX*(YWNA + YPO - KGTYSE*GTYP)+GTYSIB))/PCONS;
+    %CONS=0.6*(GDPMV-DEP-(GTE-GSUB)+YFN-GTTI+GTR+BPTRNE-YCU-(GTYP+GTYSIB))/PCONS;
+    CONSV=PCONS*CONS;
+    DEP/GDPMV=DEPSHR_SS;
+    GTYSIB=RGTYSIB*YW;
+    GTYSIBSHR=GTYSIBSHR_SS;
+    GTYSIW=RGTYSIW*YW;
+    GTYSIWSHR=GTYSIWSHR_SS;
+    GTRSW=AGTRSW*GTRSWP;
+    GTRSWSHR = GTRSWSHR_SS;
+    GTRU=RGTRU*U;
+    GTRU/GDPMV=GTRUSHR_SS;
+    GTRABR/GDPMV=GTRABRSHR;
+    GTRABRSHR=GTRABRSHR_SS;
+    PGDPFC=GDPFCV/GDPFC;
+
+    ITV = PIT * IT;
+    INV = PIN * IN;
+    ITVK = PKT*IT;
+    INVK= PKN*IN;
+    IV=ITV+IGV+IHV+INV;
+    GV=YWG+GENW;
+    GVSHR=GVSHR_SS;
+    
+    % sav ratio
+    %SAV = YPERD -CONSV ;
+    SAVRAT = SAVSHR/YPERDSHR;
+    %YPO=(YC-YCU)-GTTI+YFN+GTRN;
+    YPO=(YC-YCU)-GTTI+YFN+GTRN;% +GTRN;
+    BPTCK/GDPMV=BPTCKSHR;
+    BPTCKSHR = BPTCKSHR_SS; 
+    
+    %% GOV BLOCK
+    GE    = GV+GSUB+GTR;
+    GTR   = GTRU+GTRSW+GTRABR+GTRNF+GTRN;%+GTRN;
+    %GTRN  = (RGDI) * (GND+GND{-1})/2;
+    GTRN  = (1-AGTRNF)*(RGDI) * (GNF{-1});
+    GTRNF = AGTRNF*(RGDI) * (GNF{-1});%(RGDI) * (GNF+GNF{-1})/2;
+    RGDI=exp(dotPWORLD_SS)*exp(LAMT)-((GBORPSHR/GNDTSHR_SS)*exp(dotPWORLD_SS)*exp(LAMT))-1;
+    GNF   = AGNF*GNDT;
+    GNDT  = GNDTSHR*GDPMV;
+    
+    RGENW=GENW/PG;
+    
+    GTE=RGTE*CONSV;               % Expenditure taxes = 
+                                  % Implicit indirect tax rate * 
+                                  % Private consumption (value)
+                                  
+    GSUB = RGSUB*GDPFCV;
+    GSUB/GDPMV = GSUBSHR_SS;
+
+
+
+    
+    GREV  = GTE + GREVO + GREVABR + GTY;
+    GREVO = RGREVO*GDPFCV;
+    GREVO/GDPMV = GREVOSHR;
+    GREVOSHR = GREVOSHR_SS;
+    GTY   = GTYP+GTYC+GTYSIB;
+    GREVABR/GDPMV = GREVABRSHR;
+    GREVABRSHR = GREVABRSHR_SS;
+    %YPERT = YWNA + YPO - KGTYSE*GTYP ;
+    YPERT = YWNA + YPO- KGTYSE*GTYP;
+    GTYP = GTYSIW + GTYPER;
+    GTYPER = RGTYPEX*YPERT;
+    GTYPER/GDPMV = GTYPERSHR_SS;
+   % log(GTYC)=log(RGTYC)+log(YC{-1});
+    GTYC=RGTYC*YC{-1};
+    GTYC/GDPMV=GTYCSHR_SS;
+    GTTI/GDPMV = GTTISHR;
+    GTTISHR = GTTISHR_SS;
+    
+    GEK=IHGV+IGINFV+GTRKT+GKREST;
+    GTRKT=RGTRKT*ITV;
+    GTRKT/GDPMV = GTRKTSHR;
+    GTRKTSHR = GTRKTSHR_SS;
+    GKREST/GDPMV = GKRESTSHR;
+    GKRESTSHR = GKRESTSHR_SS;
+    
+    % block: Shares  
+    !transition_variables
+    SAVSHR
+    IVSHR
+    IHVSHR
+    CONSVSHR
+    NTSVSHR
+    GVSHR
+    DSVSHR
+    LSHRT
+    LSHRN
+    ITVSHR
+    INVSHR
+    IGVSHR
+    ITVSHRT
+    INVSHRN
+    IGVSHRG
+    ITVKSHRT
+    INVKSHRN
+    ISMGVSHR
+    IGINFVSHR
+    DEPSHR
+
+    GESHR
+    GREVSHR
+    GTESHR
+    GTRSHR
+    GTRNFSHR
+    GTRNSHR
+    GEKSHR
+    %GTRKTSHR
+    GKREVSHR
+    GBORSHR
+    GBORPSHR
+    NOBSHR
+    NPOBSHR
+    GNDTSHR
+    GTYSHR
+    GTYCSHR
+    %GREVOSHR
+    GNFSHR
+    GTRSWSHR
+    GTRUSHR
+    GSUBSHR
+    GTYPERSHR
+    YFNPOSHR
+    GTYSIBSHR 
+    GTYSIWSHR
+    GENWSHR
+    IHGVSHR
+    IHPVSHR
+
+    OTVSHR
+    ONVSHR
+    OTSHR
+    ONSHR
+    LTSHR
+    LNSHR
+    OGNWVSHR
+
+    LGSHRL
+    LTSHRL
+    LNSHRL
+    LSHRG
+    
+    NGE60SHRN
+
+    !parameters
+
+    !transition_equations
+
+    LGSHRL   = LG/L;
+    LTSHRL   = LT/L;
+    LNSHRL   = LLN/L;
+    %LTSHRL   = LTSHRL_SS;
+
+    LSHRG    = YWG/OGV;
+    
+
+    GNDTSHR  = GNDTSHR{-1}*GDPMV{-1}/GDPMV + GBORSHR;
+    %GNDTSHR  = GNDTSHR_SS;
+    OTVSHR   = OTV/GDPFCV;
+    %OTVSHR = OTVSHR_SS;
+    ONVSHR = ONV/GDPFCV;
+    %$$$$$ ONVSHR = ONVSHR_SS;
+    OTSHR    = OT/GDPFC;
+    ONSHR    = ON/GDPFC;
+    LTSHR    = LT/L;
+    LNSHR    = LLN/L;
+    LNSHR    = LNSHR_SS;
+    
+    LSHRT    = YWT/OTV;
+    LSHRT = LSHRT_SS;
+    LSHRN    = YWN/ONV;
+    ITVSHR   = ITV/GDPMV;
+    ITVSHR    = ITVSHR_SS;
+    INVSHR   = INV/GDPMV;
+    INVSHR   = INVSHR_SS;
+    ITVSHRT  = ITV/OTV;
+    INVSHRN  = INV/ONV;
+    IGVSHR   = IGV/GDPMV;
+    IGVSHRG  = IGV/OGV;
+    ITVKSHRT = ITVK/OTV;
+    INVKSHRN = INVK/ONV;
+    IHVSHR   = IHV/GDPMV;%IVSHR-IGVSHR-ITVSHR;
+    ISMGVSHR = ISMGV/GDPMV;
+    IGINFVSHR = IGINFV/GDPMV;
+    GENWSHR=GENW/GDPMV;
+
+    
+    
+    IVSHR    = IV/GDPMV;
+    %IVSHR    = IVSHR_SS;
+    CONSVSHR = CONSV/GDPMV;
+    CONSVSHR = CONSVSHR_SS;
+    GVSHR    = GV/GDPMV;
+    DSVSHR   = DSVSHRT_SS*OTV/GDPMV;
+    DSVSHR   = DSVSHR_SS;
+    NTSVSHR  = 1-(CONSVSHR+IVSHR+GVSHR+DSVSHR);
+    NTSVSHR  = NTSVSHR_SS;
+    DEPSHR   = DEP/GDPMV;
+    IHGVSHR  = IHGV/GDPMV;
+    OGNWVSHR = OGNWV/GDPMV;
+    
+    YPERDSHR = YPERD/GDPMV;
+    SAVSHR   = YPERDSHR-CONSVSHR;
+    
+    GESHR    = GE/GDPMV;
+    GREVSHR  = GREV/GDPMV;
+    GTESHR   = GTE/GDPMV;
+    GTRNFSHR = GTRNF/GDPMV;
+    GTRNSHR = GTRN/GDPMV;
+    GEKSHR   = GEK/GDPMV;
+    
+    GKREVSHR = GKREVSHR_SS;
+    GBORSHR  = (GESHR-GREVSHR)+(GEKSHR-GKREVSHR);
+    NOBSHR   = (GREVSHR-GESHR)+GKREVSHR -(GTRKTSHR_SS+GKRESTSHR_SS); % exclude investment (net acq of non-financial assets)
+    NPOBSHR  = NOBSHR + GTRNFSHR + GTRNSHR;
+    GBORPSHR = GBORSHR - GTRNFSHR - GTRNSHR;
+    GBORPSHR = GBORPSHR_SS;
+    %NPOBSHR  = NPOBSHR_SS;
+    GTYSHR   = GTY/GDPMV;
+    GTYCSHR = GTYC/GDPMV;
+    YFNPOSHR=YFNPO/GDPMV;
+    
+    GNFSHR   = GNF/GDPMV;
+    GTRSHR   = GTR/GDPMV;
+    GTRSWSHR = GTRSW/GDPMV;
+    GTRUSHR  = GTRU/GDPMV;
+    GSUBSHR  = GSUB/GDPMV;
+    GTYPERSHR = GTYPER/GDPMV;
+    GTYSIBSHR = GTYSIB/GDPMV;
+    GTYSIWSHR = GTYSIW/GDPMV;
+ 
+    BPSHR=NTSVSHR + (YFNPOSHR-YCTREPSHR - GTRNFSHR) + (BPTRNESHR + GREVABRSHR - GTRABRSHR) + BPTCKSHR;
+    BPSHR = BPSHR_SS;

@@ -7,7 +7,7 @@ try
     db = databank.fromCSV('testInterpolate.csv');
 catch
     db = databank.fromFred({'CLVMNACSCAB1GQEA19->gdp_eu', 'CLVMNACSCAB1GQDE->gdp_ge'});
-    range = databank.range(db, 'Frequency=', Frequency.QUARTERLY);
+    range = databank.range(db, 'Frequency', Frequency.QUARTERLY);
     databank.toCSV(db, 'testInterpolate.csv', range);
 end
 
@@ -21,8 +21,8 @@ numQuarters = endQuarter - startQuarter + 1;
 
 indicator = db.gdp_ge;
 roc_indicator = roc(indicator);
-series = convert(db.gdp_eu, Frequency.YEARLY, 'Method=', @sum);
-indicatorYearly = convert(indicator, Frequency.YEARLY, 'Method=', @sum);
+series = convert(db.gdp_eu, Frequency.YEARLY, 'Method', @sum);
+indicatorYearly = convert(indicator, Frequency.YEARLY, 'Method', @sum);
 factor = nanmean(series(startYear:endYear)./indicatorYearly(startYear:endYear));
 x0 = indicator(startQuarter+[-4;-3;-2;-1]);
 x0 = x0*factor;
@@ -62,7 +62,7 @@ k = LinearSystem([4, 4, 4, 1, 0], numYears);
 k = steadySystem(k, 'NotNeeded');
 k = timeVaryingSystem(k, 1:numYears, {a, b, zeros(4, 1), z, [ ], 0}, {eye(4), [ ]});
 init = { x0, zeros(4) };
-f = filter(k, series, startYear:endYear, 'Init=', init);
+f = filter(k, series, startYear:endYear, 'Init', init);
 states = f.SmoothMean.Xi;
 interp = Series(startQuarter, reshape(transpose(states(startYear:endYear)), [ ], 1));
 

@@ -1,0 +1,32 @@
+
+!parameters
+    cross
+
+!for ?a = <1 : 4> !do
+    !variables
+        x?a
+    !shocks
+        e?a, u?a
+    !parameters
+        a?a, b?a
+    !log-variables
+        !all-but
+    !equations
+        log(x?a)-log(?a) =# a?a*(log(x?a{-1})-log(?a)) + b?a*(log(x?a{+1})-log(?a)) + e?a + u?a
+            !for ?b = <setdiff(1 : 4, ?a)> !do - cross*(log(x?b{-1})-log(x?b{-2})) !end
+        ;
+        %log(x?a) = e?a + u?a;
+!end
+
+!variables
+    z
+    a
+!log-variables
+    !all-but
+
+!shocks
+    w
+!equations
+    z =# 1 !for <1 : 4> !do * x?^(1/4) !end * exp(w);
+    a =# x1^(2/10) * x2^(3/10) * x3^(1/10) * x4^(4/10);
+

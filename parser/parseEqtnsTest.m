@@ -3,7 +3,7 @@
 
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
-%% Test One
+%% Test One   
 
 TYPE = @int8;
 
@@ -15,7 +15,7 @@ quantity = model.component.Quantity( );
 euc = parser.EquationUnderConstruction( );
 
 q = warning('query');
-expId = 'IRIS:TheParser:EmptyEquation';
+expId = 'IrisToolbox:TheParser:EmptyEquation';
 warning('off', expId);
 opt = struct('SteadyOnly', false, 'EquationSwitch', @auto);
 [~, equation] = parse(b, [ ], code, quantity, equation, euc, [ ], opt);

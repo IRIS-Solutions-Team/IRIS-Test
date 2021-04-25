@@ -22,7 +22,7 @@ m.Wage_ = 0;
 m.std_Mp = 0;
 m.std_Mw = 0;
 m.std_Ea = 0.001;
-m = sstate(m, 'Growth=', true, 'Display=', false);
+m = sstate(m, 'Growth', true, 'Display', false);
 chksstate(m);
 m = solve(m);
 end%

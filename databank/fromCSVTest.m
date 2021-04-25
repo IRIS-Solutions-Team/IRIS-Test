@@ -17,7 +17,7 @@ end
 
 %% Option DateFormat=
 
-d = databank.fromCSV('fromCSVTest2.csv', 'DateFormat=', 'YYYY/M/1', 'Freq=', 4);
+d = databank.fromCSV('fromCSVTest2.csv', 'DateFormat', 'YYYY/M/1', 'Freq', 4);
 
 lsf = fieldnames(d);
 assertEqual(testCase, sort(lsf), {'X'; 'Y'; 'Z'});
@@ -28,7 +28,7 @@ for i = 1 : numel(lsf)
     assertEqual(testCase, x.End, qq(2004,4));
 end
 
-d = databank.fromCSV('fromCSVTest2.csv', 'DateFormat=', 'YYYY/M/1', 'Freq=', 12);
+d = databank.fromCSV('fromCSVTest2.csv', 'DateFormat', 'YYYY/M/1', 'Freq', 12);
 
 lsf = fieldnames(d);
 assertEqual(testCase, sort(lsf), {'X'; 'Y'; 'Z'});
@@ -41,13 +41,13 @@ end
 
 %% Option Case=
 
-d = databank.fromCSV('fromCSVTest1.csv', 'Case=', 'lower');
+d = databank.fromCSV('fromCSVTest1.csv', 'Case', 'lower');
 assertEqual(testCase, sort(fieldnames(d)), {'x'; 'y'; 'z'});
 
 
 %% Yearly Dates YYYY
 
-actual = databank.fromCSV('fromCSVTest3.csv', 'DateFormat=', 'YYYY');
+actual = databank.fromCSV('fromCSVTest3.csv', 'DateFormat', 'YYYY');
 expected = struct( 'ts1', Series(yy(2008), [1;1]), ...
                    'ts2', Series(yy(2008), [2;2]) );
 assertEqual(testCase, actual, expected);
@@ -55,7 +55,7 @@ assertEqual(testCase, actual, expected);
 
 %% Option OutputType='Dictionary'
 
-d = databank.fromCSV('fromCSVTest1.csv', 'OutputType=', 'Dictionary');
+d = databank.fromCSV('fromCSVTest1.csv', 'OutputType', 'Dictionary');
 
 lsf = cellstr(keys(d));
 exp = {'X', 'Y', 'Z'};
@@ -72,7 +72,7 @@ end
 %% MultipleCSV Files
 
 inputFiles = {'fromCSVTest1.csv', 'fromCSVTest4.csv'};
-d = databank.fromCSV(inputFiles, 'OutputType=', 'Dictionary');
+d = databank.fromCSV(inputFiles, 'OutputType', 'Dictionary');
 
 lsf = cellstr(keys(d));
 exp = {'X', 'Y', 'Z', 'A', 'B', 'C'};

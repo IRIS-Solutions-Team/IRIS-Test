@@ -17,7 +17,7 @@ x = Explanatory.fromString([
 ]);
 N = numel(x);
 
-rm = ParameterizedArmani(2, 1, @(p) {[1, p(1)-1i], [1, p(2)-12*i]});
+rm = ParameterizedArmani(2, 1, @(p) {[1, p(1)-1i], [1, p(2)-12i]});
 
 rm1 = update(rm, [0.8, -0.5]);
 x(1).ResidualModel = rm1;
@@ -50,8 +50,8 @@ for i = 1 : N
     d.("a"+i) = Series(0, 0);
 end
 
-d1 = simulate(x, d, 1:T, "Progress=", progress);
-[x1, d2] = regress(x, d1, 1:T, "Progress=", progress);
+d1 = simulate(x, d, 1:T, "Progress", progress);
+[x1, d2] = regress(x, d1, 1:T, "Progress", progress);
 
 for i = [1, 3, 4]
     assertGreaterThan(testCase, mean(x1(i).Parameters(1)), 4);
@@ -60,27 +60,27 @@ for i = [1, 3, 4]
     assertLessThan(testCase, mean(x1(i).Parameters(2)), -2);
 end
 
-assertGreaterThan(testCase, mean(x1(1).ResidualModelParameters(1)), 0.7);
-assertLessThan(testCase, mean(x1(1).ResidualModelParameters(1)), 0.9);
-assertGreaterThan(testCase, mean(x1(1).ResidualModelParameters(2)), -0.6);
-assertLessThan(testCase, mean(x1(1).ResidualModelParameters(2)), -0.4);
+assertGreaterThan(testCase, mean(x1(1).ResidualModel.Parameters(1)), 0.7);
+assertLessThan(testCase, mean(x1(1).ResidualModel.Parameters(1)), 0.9);
+assertGreaterThan(testCase, mean(x1(1).ResidualModel.Parameters(2)), -0.6);
+assertLessThan(testCase, mean(x1(1).ResidualModel.Parameters(2)), -0.4);
 
-assertGreaterThan(testCase, mean(x1(4).ResidualModelParameters(1)), -0.6);
-assertLessThan(testCase, mean(x1(4).ResidualModelParameters(1)), -0.4);
-assertGreaterThan(testCase, mean(x1(4).ResidualModelParameters(2)), 0.4);
-assertLessThan(testCase, mean(x1(4).ResidualModelParameters(2)), 0.6);
+assertGreaterThan(testCase, mean(x1(4).ResidualModel.Parameters(1)), -0.6);
+assertLessThan(testCase, mean(x1(4).ResidualModel.Parameters(1)), -0.4);
+assertGreaterThan(testCase, mean(x1(4).ResidualModel.Parameters(2)), 0.4);
+assertLessThan(testCase, mean(x1(4).ResidualModel.Parameters(2)), 0.6);
 
-assertGreaterThan(testCase, mean(x1(6).ResidualModelParameters(1)), -0.6);
-assertLessThan(testCase, mean(x1(6).ResidualModelParameters(1)), -0.4);
-assertGreaterThan(testCase, mean(x1(6).ResidualModelParameters(2)), 0.4);
-assertLessThan(testCase, mean(x1(6).ResidualModelParameters(2)), 0.6);
+assertGreaterThan(testCase, mean(x1(6).ResidualModel.Parameters(1)), -0.6);
+assertLessThan(testCase, mean(x1(6).ResidualModel.Parameters(1)), -0.4);
+assertGreaterThan(testCase, mean(x1(6).ResidualModel.Parameters(2)), 0.4);
+assertLessThan(testCase, mean(x1(6).ResidualModel.Parameters(2)), 0.6);
 
 d3 = d1;
 for i = 1 : N
     d3.("b"+i) = fillMissing(d3.("b"+i), T+(1:24), "previous");
 end
 
-s3 = simulate(x1, d3, T+(1:24), "PrependInput=", true, "Progress=", progress);
+s3 = simulate(x1, d3, T+(1:24), "PrependInput", true, "Progress", progress);
 d4 = simulateResidualModel(x1, d3, T+(1:24));
-s4 = simulate(x1, d4, T+(1:24), "PrependInput=", true, "Progress=", progress);
+s4 = simulate(x1, d4, T+(1:24), "PrependInput", true, "Progress", progress);
 

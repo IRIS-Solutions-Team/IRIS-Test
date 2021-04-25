@@ -35,7 +35,7 @@ function testPlain(this)
     [b3, stdB3, e3, stdE3, fit3, dates3, covB3] = regress(yy, xx, range);
     assertEqual(this, b1, b2, 'AbsTol', 1e-14);
     assertEqual(this, fit1.Data+e1.Data, yy.Data, 'AbsTol', 1e-14);
-    assertEqual(this, double(dates1), double(qq(2000,1:20)'), 'AbsTol', 1e-14);
+    assertEqual(this, double(dates1), double(qq(2000,1:20)), 'AbsTol', 1e-14);
     assertEqual(this, b1, b3, 'AbsTol', 1e-14);
 end%
 

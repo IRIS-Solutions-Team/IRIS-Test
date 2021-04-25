@@ -52,8 +52,8 @@ d2(qq(2004,1):end) = d2(qq(2004,1):end) + 1;
 x = x + d1 + d2;
 
 actS = x12(x);
-actS1 = x12(x,Inf,'dummy=',d1);
-actS12 = x12(x,Inf,'dummy=',[d1,d2]);
+actS1 = x12(x,Inf,'dummy',d1);
+actS12 = x12(x,Inf,'dummy',[d1,d2]);
 
 expS = tseries(range,[ ...
    2.968901775236990
@@ -138,10 +138,10 @@ function testBackcastForecast(This)
 x = This.TestData.X;
 range = This.TestData.Range;
 range3 = range(5:end-5);
-[sa1,~,~,~,bf1] = x12(x,'forecast=',8,'backcast=',8);
-[sa2,~,~,~,bf2] = x12(x,range,'forecast=',8,'backcast=',8);
-[sa3,~,~,~,bf3] = x12(x,range3,'forecast=',8,'backcast=',8);
-[sa4,~,~,~,bf4] = x12(x{range3},'forecast=',8,'backcast=',8);
+[sa1,~,~,~,bf1] = x12(x,'forecast',8,'backcast',8);
+[sa2,~,~,~,bf2] = x12(x,range,'forecast',8,'backcast',8);
+[sa3,~,~,~,bf3] = x12(x,range3,'forecast',8,'backcast',8);
+[sa4,~,~,~,bf4] = x12(x{range3},'forecast',8,'backcast',8);
 assertEqual(This,sa1(:),sa2(:));
 assertEqual(This,bf1(:),bf2(:));
 assertEqual(This,bf1(range3),bf3(range3));
@@ -157,9 +157,9 @@ function testMultiOutp(This)
 x = This.TestData.X;
 range = This.TestData.Range;
 range = range(5:end-5);
-[sa1,sf1,tc1,ir1] = x12(x,'output=','sa,sf,tc,ir','mode=','add');
-[sa2,sf2,tc2,ir2] = x12(x{range},'output=','sa,sf,tc,ir','mode=','add');
-[sa3,sf3,tc3,ir3] = x12(x,range,'output=','sa,sf,tc,ir','mode=','add');
+[sa1,sf1,tc1,ir1] = x12(x,'output','sa,sf,tc,ir','mode','add');
+[sa2,sf2,tc2,ir2] = x12(x{range},'output','sa,sf,tc,ir','mode','add');
+[sa3,sf3,tc3,ir3] = x12(x,range,'output','sa,sf,tc,ir','mode','add');
 assertEqual(This,sa1(:)+sf1(:),x(:),'AbsTol',1e-8);
 assertEqual(This,tc1(:)+ir1(:),sa1(:),'AbsTol',1e-8);
 assertEqual(This,sa2(:)+sf2(:),x(range),'AbsTol',1e-8);

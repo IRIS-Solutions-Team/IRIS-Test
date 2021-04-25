@@ -1,13 +1,13 @@
 
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
-m1 = Model('ffrfUnitRootTest1.model', 'Linear=', true);
-m2 = Model('ffrfUnitRootTest2.model', 'Linear=', true);
-m3 = Model('ffrfUnitRootTest3.model', 'Linear=', true);
+m1 = Model('ffrfUnitRootTest1.model', 'linear', true);
+m2 = Model('ffrfUnitRootTest2.model', 'linear', true);
+m3 = Model('ffrfUnitRootTest3.model', 'linear', true);
 
-m1 = solve(m1);
-m2 = solve(m2);
-m3 = solve(m3);
+[m1, ~, info1] = solve(m1);
+[m2, ~, info2] = solve(m2);
+[m3, ~, info3] = solve(m3);
 
 testCase.TestData.Model1 = m1;
 testCase.TestData.Model2 = m2;

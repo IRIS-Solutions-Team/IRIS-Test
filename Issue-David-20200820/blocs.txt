@@ -1,0 +1,1909 @@
+%% [IrisToolbox] Blazer File 20-Aug-2020 11:45:04
+% Number of Blocks: 185
+% Number of Equations: 240
+
+
+                                                                           
+%% Block #1
+% Number of Equations: 1
+% Assign
+%     Level(NTSVSHR)
+%     Change(NTSVSHR)
+
+    NTSVSHR=NTSVSHR_SS;
+
+
+                                                                           
+%% Block #2
+% Number of Equations: 1
+% Assign
+%     Level(GTRABRSHR)
+%     Change(GTRABRSHR)
+
+    GTRABRSHR=GTRABRSHR_SS;
+
+
+                                                                           
+%% Block #3
+% Number of Equations: 1
+% Assign
+%     Level(GTYSIWSHR)
+%     Change(GTYSIWSHR)
+
+    GTYSIWSHR=GTYSIWSHR_SS;
+
+
+                                                                           
+%% Block #4
+% Number of Equations: 1
+% Assign
+%     Level(GTTISHR)
+%     Change(GTTISHR)
+
+    GTTISHR=GTTISHR_SS;
+
+
+                                                                           
+%% Block #5
+% Number of Equations: 1
+% Assign
+%     Level(YCUSHR)
+%     Change(YCUSHR)
+
+    YCUSHR=YCUSHR_SS;
+
+
+                                                                           
+%% Block #6
+% Number of Equations: 1
+% Assign
+%     Level(GREVABRSHR)
+%     Change(GREVABRSHR)
+
+    GREVABRSHR=GREVABRSHR_SS;
+
+
+                                                                           
+%% Block #7
+% Number of Equations: 1
+% Assign
+%     Level(YCTREPSHR)
+%     Change(YCTREPSHR)
+
+    YCTREPSHR=YCTREPSHR_SS;
+
+
+                                                                           
+%% Block #8
+% Number of Equations: 1
+% Assign
+%     Level(BPTCKSHR)
+%     Change(BPTCKSHR)
+
+    BPTCKSHR=BPTCKSHR_SS;
+
+
+                                                                           
+%% Block #9
+% Number of Equations: 1
+% Assign
+%     Level(BPSHR)
+%     Change(BPSHR)
+
+    BPSHR=BPSHR_SS;
+
+
+                                                                           
+%% Block #10
+% Number of Equations: 1
+% Assign
+%     Level(GREVOSHR)
+%     Change(GREVOSHR)
+
+    GREVOSHR=GREVOSHR_SS;
+
+
+                                                                           
+%% Block #11
+% Number of Equations: 1
+% Assign
+%     Level(GTYSIBSHR)
+%     Change(GTYSIBSHR)
+
+    GTYSIBSHR=GTYSIBSHR_SS;
+
+
+                                                                           
+%% Block #12
+% Number of Equations: 1
+% Assign
+%     Level(GBORPSHR)
+%     Change(GBORPSHR)
+
+    GBORPSHR=GBORPSHR_SS;
+
+
+                                                                           
+%% Block #13
+% Number of Equations: 1
+% Assign
+%     Level(RGDI)
+%     Change(RGDI)
+
+    RGDI=exp(dotPWORLD_SS)*exp(LAMT)-((GBORPSHR/GNDTSHR_SS)*exp(dotPWORLD_SS)*exp(LAMT))-1;
+
+
+                                                                           
+%% Block #14
+% Number of Equations: 1
+% Assign
+%     Level(GKREVSHR)
+%     Change(GKREVSHR)
+
+    GKREVSHR=GKREVSHR_SS;
+
+
+                                                                           
+%% Block #15
+% Number of Equations: 1
+% Assign
+%     Level(GKRESTSHR)
+%     Change(GKRESTSHR)
+
+    GKRESTSHR=GKRESTSHR_SS;
+
+
+                                                                           
+%% Block #16
+% Number of Equations: 1
+% Assign
+%     Level(GTRKTSHR)
+%     Change(GTRKTSHR)
+
+    GTRKTSHR=GTRKTSHR_SS;
+
+
+                                                                           
+%% Block #17
+% Number of Equations: 1
+% Assign
+%     Level(IHPVSHR)
+%     Change(IHPVSHR)
+
+    IHPVSHR=IHPVSHR_SS;
+
+
+                                                                           
+%% Block #18
+% Number of Equations: 1
+% Assign
+%     Level(INVSHR)
+%     Change(INVSHR)
+
+    INVSHR=INVSHR_SS;
+
+
+                                                                           
+%% Block #19
+% Number of Equations: 1
+% Solve for 
+%     Level(OW)
+%     Change(OW)
+
+    log(OW)=log(OW{-1})+LAMT;
+
+
+                                                                           
+%% Block #20
+% Number of Equations: 1
+% Assign
+%     Level(GENWSHR)
+%     Change(GENWSHR)
+
+    GENWSHR=GENWSHR_SS;
+
+
+                                                                           
+%% Block #21
+% Number of Equations: 1
+% Assign
+%     Level(ISMGVSHR)
+%     Change(ISMGVSHR)
+
+    ISMGVSHR=ISMGVSHR_SS;
+
+
+                                                                           
+%% Block #22
+% Number of Equations: 1
+% Assign
+%     Level(IGVSHR)
+%     Change(IGVSHR)
+
+    IGVSHR=IGVSHR_SS;
+
+
+                                                                           
+%% Block #23
+% Number of Equations: 1
+% Assign
+%     Level(ITVSHR)
+%     Change(ITVSHR)
+
+    ITVSHR=ITVSHR_SS;
+
+
+                                                                           
+%% Block #24
+% Number of Equations: 1
+% Assign
+%     Level(UR)
+%     Change(UR)
+
+    UR=UR_SS;
+
+
+                                                                           
+%% Block #25
+% Number of Equations: 1
+% Assign
+%     Level(URBAR)
+%     Change(URBAR)
+
+    URBAR=(UR+UR{-1})/2;
+
+
+                                                                           
+%% Block #26
+% Number of Equations: 1
+% Solve for 
+%     Level(N)
+%     Change(N)
+
+    log(N)=log(N{-1})+LAMT;
+
+
+                                                                           
+%% Block #27
+% Number of Equations: 1
+% Assign
+%     Level(NGE60SHRN)
+%     Change(NGE60SHRN)
+
+    NGE60SHRN=NGE60SHRN_SS;
+
+
+                                                                           
+%% Block #28
+% Number of Equations: 1
+% Solve for 
+%     Level(NGE60)
+%     Change(NGE60)
+
+    NGE60/N=NGE60SHRN;
+
+
+                                                                           
+%% Block #29
+% Number of Equations: 1
+% Assign
+%     Level(N1659SHRN)
+%     Change(N1659SHRN)
+
+    N1659SHRN=N1659SHRN_SS;
+
+
+                                                                           
+%% Block #30
+% Number of Equations: 1
+% Solve for 
+%     Level(N1659)
+%     Change(N1659)
+
+    N1659/N=N1659SHRN;
+
+
+                                                                           
+%% Block #31
+% Number of Equations: 1
+% Assign
+%     Level(GTRSWSHR)
+%     Change(GTRSWSHR)
+
+    GTRSWSHR=GTRSWSHR_SS;
+
+
+                                                                           
+%% Block #32
+% Number of Equations: 1
+% Assign
+%     Level(LNSHR)
+%     Change(LNSHR)
+
+    LNSHR=LNSHR_SS;
+
+
+                                                                           
+%% Block #33
+% Number of Equations: 1
+% Solve for 
+%     Level(PWORLD)
+%     Change(PWORLD)
+
+    log(PWORLD)=log(PWORLD{-1})+dotPWORLD_SS;
+
+
+                                                                           
+%% Block #34
+% Number of Equations: 1
+% Assign
+%     Level(PM)
+%     Change(PM)
+
+    PM=PWORLD;
+
+
+                                                                           
+%% Block #35
+% Number of Equations: 1
+% Assign
+%     Level(dotPWORLD)
+%     Change(dotPWORLD)
+
+    dotPWORLD=log(PWORLD)-log(PWORLD{-1});
+
+
+                                                                           
+%% Block #36
+% Number of Equations: 1
+% Assign
+%     Level(LSHRT)
+%     Change(LSHRT)
+
+    LSHRT=LSHRT_SS;
+
+
+                                                                           
+%% Block #37
+% Number of Equations: 1
+% Assign
+%     Level(CONSVSHR)
+%     Change(CONSVSHR)
+
+    CONSVSHR=CONSVSHR_SS;
+
+
+                                                                           
+%% Block #38
+% Number of Equations: 1
+% Assign
+%     Level(GVSHR)
+%     Change(GVSHR)
+
+    GVSHR=GVSHR_SS;
+
+
+                                                                           
+%% Block #39
+% Number of Equations: 1
+% Assign
+%     Level(GTESHR)
+%     Change(GTESHR)
+
+    GTESHR=GTESHR_SS;
+
+
+                                                                           
+%% Block #40
+% Number of Equations: 46
+% Solve for 
+%     Level(RGTE, CONSV, dotPON, dotULCT, PON, ULCT, dotPOT, POT, WG, PG, GENW, OGNWV, OG, GDPFC, OGV, POG, ERFPT, PIT, PIG, IG, IT, RGENW, IGV, IHPV, IHP, IHG, IHGV, GSUB, PIH, IH, GDPFCV, YWG, ITV, WT, LT, OT, YWT, ON, ONV, GDPMV, OTV, PCONS, PGDPFC, GTE, CONS, GV)
+%     Change(RGTE, CONSV, dotPON, dotULCT, PON, ULCT, dotPOT, POT, WG, PG, GENW, OGNWV, OG, GDPFC, OGV, POG, ERFPT, PIT, PIG, IG, IT, RGENW, IGV, IHPV, IHP, IHG, IHGV, GSUB, PIH, IH, GDPFCV, YWG, ITV, WT, LT, OT, YWT, ON, ONV, GDPMV, OTV, PCONS, PGDPFC, GTE, CONS, GV)
+
+    GTE=RGTE*CONSV;
+    CONSVSHR=CONSV/GDPMV;
+    dotPON=log(PON)-log(PON{-1});
+    dotULCT=log(ULCT)-log(ULCT{-1});
+    dotPON=APON0*dotPON{-1}+(1-APON0)*(APON2*dotPWORLD+(1-APON2)*dotULCT)+APON3*(log(PON)-APON1-APON2*log(PWORLD)-(1-APON2)*log(ULCT))+SHK_dotPON;
+    dotPOT=APOT0*dotPOT{-1}+(1-APOT0)*(APOT2*dotPWORLD+(1-APOT2)*dotULCT)+APOT3*(log(POT)-APOT1-APOT2*log(PWORLD)-(1-APOT2)*log(ULCT))+SHK_dotPOT;
+    dotPOT=log(POT)-log(POT{-1});
+    OTV=POT*OT;
+    POG=WG;
+    RGENW=GENW/PG;
+    GENWSHR=GENW/GDPMV;
+    OGNWV/GDPMV=OGNWVSHR_SS;
+    OG=OGV/POG;
+    GDPFC=OT+OG+ON;
+    OGV=YWG+OGNWV;
+    PG=POG;
+    log(LT)=ALT0*log(LT{-1})+(1-ALT0)*(1/(ALPHAT+BETAT)*(log(OT)-log(AT))-(BETAT)/(ALPHAT+BETAT)*log(ERFPT)-(BETAT)/(ALPHAT+BETAT)*log((BETAT)/ALPHAT))+SHK_LT;
+    ITV=PIT*IT;
+    log(PIG)=(APIG1+APIG2*log(PGDPFC)+(1-APIG2)*log(PM));
+    IG=IGV/PIG;
+    log(IT)=AIT0*log(IT{-1})+(1-AIT0)*(1/(ALPHAT+BETAT)*(log(OT)-log(AT))+ALPHAT/(ALPHAT+BETAT)*log(ERFPT)+ALPHAT/(ALPHAT+BETAT)*log((BETAT)/ALPHAT))+SHK_IT;
+    log(OT)=AOT0*log(OT{-1})+(1-AOT0)*(AOT1+AOT2*log(OW)+(1-AOT2)*(AOT3*log(CONS)+AOT4*log(RGENW)+AOT5*log(IT)+AOT6*log(IG)+(1-AOT3-AOT4-AOT5-AOT6)*log(IH)))+SHK_OT;
+    IGVSHR=IGV/GDPMV;
+    IHPV=GDPMV*IHPVSHR;
+    IHPV=IHP*PIH;
+    IHG=IHGV/PIH;
+    IHGV/GDPMV=IHGVSHR_SS;
+    GDPMV=GDPFCV+(GTE-GSUB);
+    log(PIH)=(APIH1+APIH2*log(PGDPFC)+(1-APIH2)*log(PM));
+    IH=IHG+IHP;
+    PGDPFC=GDPFCV/GDPFC;
+    GV=YWG+GENW;
+    ITVSHR=ITV/GDPMV;
+    WG=WT;
+    YWT=LT*WT;
+    ULCT=YWT/OT;
+    LSHRT=YWT/OTV;
+    ONV=PON*ON;
+    ONVSHR=ONV/GDPFCV;
+    GSUB/GDPMV=GSUBSHR_SS;
+    GDPFCV=OTV+OGV+ONV;
+    log(PCONS)=(APCONS1+APCONS2*log(PGDPFC)+(1-APCONS2)*log(PM)+APCONS3*RGTE);
+    log(PIT)=(APIT1+APIT2*log(PGDPFC)+(1-APIT2)*log(PM));
+    GTESHR=GTE/GDPMV;
+    CONSV=PCONS*CONS;
+    GVSHR=GV/GDPMV;
+
+
+                                                                           
+%% Block #41
+% Number of Equations: 1
+% Solve for 
+%     Level(GTYSIW)
+%     Change(GTYSIW)
+
+    GTYSIWSHR=GTYSIW/GDPMV;
+
+
+                                                                           
+%% Block #42
+% Number of Equations: 1
+% Solve for 
+%     Level(GTYSIB)
+%     Change(GTYSIB)
+
+    GTYSIBSHR=GTYSIB/GDPMV;
+
+
+                                                                           
+%% Block #43
+% Number of Equations: 1
+% Solve for 
+%     Level(GTTI)
+%     Change(GTTI)
+
+    GTTI/GDPMV=GTTISHR;
+
+
+                                                                           
+%% Block #44
+% Number of Equations: 1
+% Solve for 
+%     Level(GTYC)
+%     Change(GTYC)
+
+    GTYC/GDPMV=GTYCSHR_SS;
+
+
+                                                                           
+%% Block #45
+% Number of Equations: 1
+% Assign
+%     Level(GTYCSHR)
+%     Change(GTYCSHR)
+
+    GTYCSHR=GTYC/GDPMV;
+
+
+                                                                           
+%% Block #46
+% Number of Equations: 1
+% Solve for 
+%     Level(GREVABR)
+%     Change(GREVABR)
+
+    GREVABR/GDPMV=GREVABRSHR;
+
+
+                                                                           
+%% Block #47
+% Number of Equations: 8
+% Solve for 
+%     Level(GNDT, GNDTSHR, GNF, GTRNSHR, GBORSHR, GTRNFSHR, GTRN, GTRNF)
+%     Change(GNDT, GNDTSHR, GNF, GTRNSHR, GBORSHR, GTRNFSHR, GTRN, GTRNF)
+
+    GNF=AGNF*GNDT;
+    GNDT=GNDTSHR*GDPMV;
+    GTRN=(1-AGTRNF)*(RGDI)*(GNF{-1});
+    GBORPSHR=GBORSHR-GTRNFSHR-GTRNSHR;
+    GNDTSHR=GNDTSHR{-1}*GDPMV{-1}/GDPMV+GBORSHR;
+    GTRNFSHR=GTRNF/GDPMV;
+    GTRNSHR=GTRN/GDPMV;
+    GTRNF=AGTRNF*(RGDI)*(GNF{-1});
+
+
+                                                                           
+%% Block #48
+% Number of Equations: 1
+% Assign
+%     Level(GNFSHR)
+%     Change(GNFSHR)
+
+    GNFSHR=GNF/GDPMV;
+
+
+                                                                           
+%% Block #49
+% Number of Equations: 1
+% Solve for 
+%     Level(BPTCK)
+%     Change(BPTCK)
+
+    BPTCK/GDPMV=BPTCKSHR;
+
+
+                                                                           
+%% Block #50
+% Number of Equations: 1
+% Solve for 
+%     Level(GTRABR)
+%     Change(GTRABR)
+
+    GTRABR/GDPMV=GTRABRSHR;
+
+
+                                                                           
+%% Block #51
+% Number of Equations: 1
+% Solve for 
+%     Level(YCU)
+%     Change(YCU)
+
+    YCU/GDPMV=YCUSHR;
+
+
+                                                                           
+%% Block #52
+% Number of Equations: 1
+% Solve for 
+%     Level(YCTREP)
+%     Change(YCTREP)
+
+    YCTREP/GDPMV=YCTREPSHR;
+
+
+                                                                           
+%% Block #53
+% Number of Equations: 1
+% Solve for 
+%     Level(YFNPO)
+%     Change(YFNPO)
+
+    YFNPO/GDPMV=YFNPOSHR_SS;
+
+
+                                                                           
+%% Block #54
+% Number of Equations: 1
+% Assign
+%     Level(YFN)
+%     Change(YFN)
+
+    YFN=(YFNPO-YCTREP)-GTRNF;
+
+
+                                                                           
+%% Block #55
+% Number of Equations: 1
+% Assign
+%     Level(YFNPOSHR)
+%     Change(YFNPOSHR)
+
+    YFNPOSHR=YFNPO/GDPMV;
+
+
+                                                                           
+%% Block #56
+% Number of Equations: 1
+% Solve for 
+%     Level(BPTRNESHR)
+%     Change(BPTRNESHR)
+
+    BPSHR=NTSVSHR+(YFNPOSHR-YCTREPSHR-GTRNFSHR)+(BPTRNESHR+GREVABRSHR-GTRABRSHR)+BPTCKSHR;
+
+
+                                                                           
+%% Block #57
+% Number of Equations: 1
+% Solve for 
+%     Level(BPTRNE)
+%     Change(BPTRNE)
+
+    BPTRNE/GDPMV=BPTRNESHR;
+
+
+                                                                           
+%% Block #58
+% Number of Equations: 1
+% Solve for 
+%     Level(BPTRNESHR_SS)
+%     Change(BPTRNESHR_SS)
+
+    BPTRNESHR=BPTRNESHR_SS;
+
+
+                                                                           
+%% Block #59
+% Number of Equations: 1
+% Solve for 
+%     Level(INV)
+%     Change(INV)
+
+    INVSHR=INV/GDPMV;
+
+
+                                                                           
+%% Block #60
+% Number of Equations: 1
+% Assign
+%     Level(GSUBSHR)
+%     Change(GSUBSHR)
+
+    GSUBSHR=GSUB/GDPMV;
+
+
+                                                                           
+%% Block #61
+% Number of Equations: 1
+% Solve for 
+%     Level(GTRSW)
+%     Change(GTRSW)
+
+    GTRSWSHR=GTRSW/GDPMV;
+
+
+                                                                           
+%% Block #62
+% Number of Equations: 1
+% Solve for 
+%     Level(GTRSWP)
+%     Change(GTRSWP)
+
+    GTRSW=AGTRSW*GTRSWP;
+
+
+                                                                           
+%% Block #63
+% Number of Equations: 1
+% Solve for 
+%     Level(LG)
+%     Change(LG)
+
+    YWG=LG*WG;
+
+
+                                                                           
+%% Block #64
+% Number of Equations: 1
+% Assign
+%     Level(LGSHRN_SS)
+%     Change(LGSHRN_SS)
+
+    LGSHRN_SS=LG/N1659;
+
+
+                                                                           
+%% Block #65
+% Number of Equations: 1
+% Solve for 
+%     Level(ISMGV)
+%     Change(ISMGV)
+
+    ISMGVSHR=ISMGV/GDPMV;
+
+
+                                                                           
+%% Block #66
+% Number of Equations: 1
+% Assign
+%     Level(IGINFV)
+%     Change(IGINFV)
+
+    IGINFV=IGV+ISMGV;
+
+
+                                                                           
+%% Block #67
+% Number of Equations: 1
+% Assign
+%     Level(IGINFVSHR)
+%     Change(IGINFVSHR)
+
+    IGINFVSHR=IGINFV/GDPMV;
+
+
+                                                                           
+%% Block #68
+% Number of Equations: 1
+% Solve for 
+%     Level(GKREST)
+%     Change(GKREST)
+
+    GKREST/GDPMV=GKRESTSHR;
+
+
+                                                                           
+%% Block #69
+% Number of Equations: 1
+% Solve for 
+%     Level(GTRKT)
+%     Change(GTRKT)
+
+    GTRKT/GDPMV=GTRKTSHR;
+
+
+                                                                           
+%% Block #70
+% Number of Equations: 1
+% Solve for 
+%     Level(RGTRKT)
+%     Change(RGTRKT)
+
+    GTRKT=RGTRKT*ITV;
+
+
+                                                                           
+%% Block #71
+% Number of Equations: 1
+% Solve for 
+%     Level(GREVO)
+%     Change(GREVO)
+
+    GREVO/GDPMV=GREVOSHR;
+
+
+                                                                           
+%% Block #72
+% Number of Equations: 1
+% Solve for 
+%     Level(GTRU)
+%     Change(GTRU)
+
+    GTRU/GDPMV=GTRUSHR_SS;
+
+
+                                                                           
+%% Block #73
+% Number of Equations: 1
+% Assign
+%     Level(GTR)
+%     Change(GTR)
+
+    GTR=GTRU+GTRSW+GTRABR+GTRNF+GTRN;
+
+
+                                                                           
+%% Block #74
+% Number of Equations: 1
+% Assign
+%     Level(GTRSHR)
+%     Change(GTRSHR)
+
+    GTRSHR=GTR/GDPMV;
+
+
+                                                                           
+%% Block #75
+% Number of Equations: 1
+% Assign
+%     Level(GTRUSHR)
+%     Change(GTRUSHR)
+
+    GTRUSHR=GTRU/GDPMV;
+
+
+                                                                           
+%% Block #76
+% Number of Equations: 1
+% Solve for 
+%     Level(DEP)
+%     Change(DEP)
+
+    DEP/GDPMV=DEPSHR_SS;
+
+
+                                                                           
+%% Block #77
+% Number of Equations: 1
+% Assign
+%     Level(NDPFCV)
+%     Change(NDPFCV)
+
+    NDPFCV=GDPMV-DEP-(GTE-GSUB);
+
+
+                                                                           
+%% Block #78
+% Number of Equations: 1
+% Assign
+%     Level(NNPFCV)
+%     Change(NNPFCV)
+
+    NNPFCV=NDPFCV+YFN;
+
+
+                                                                           
+%% Block #79
+% Number of Equations: 1
+% Assign
+%     Level(YP)
+%     Change(YP)
+
+    YP=NNPFCV-GTTI+GTR-GTRNF+BPTRNE;
+
+
+                                                                           
+%% Block #80
+% Number of Equations: 1
+% Assign
+%     Level(YPER)
+%     Change(YPER)
+
+    YPER=YP-YCU;
+
+
+                                                                           
+%% Block #81
+% Number of Equations: 1
+% Assign
+%     Level(DEPSHR)
+%     Change(DEPSHR)
+
+    DEPSHR=DEP/GDPMV;
+
+
+                                                                           
+%% Block #82
+% Number of Equations: 1
+% Solve for 
+%     Level(RIGV)
+%     Change(RIGV)
+
+    IGV=RIGV*GDPMV;
+
+
+                                                                           
+%% Block #83
+% Number of Equations: 1
+% Assign
+%     Level(IHGVSHR)
+%     Change(IHGVSHR)
+
+    IHGVSHR=IHGV/GDPMV;
+
+
+                                                                           
+%% Block #84
+% Number of Equations: 1
+% Assign
+%     Level(GEK)
+%     Change(GEK)
+
+    GEK=IHGV+IGINFV+GTRKT+GKREST;
+
+
+                                                                           
+%% Block #85
+% Number of Equations: 1
+% Assign
+%     Level(GEKSHR)
+%     Change(GEKSHR)
+
+    GEKSHR=GEK/GDPMV;
+
+
+                                                                           
+%% Block #86
+% Number of Equations: 1
+% Solve for 
+%     Level(RISMGV)
+%     Change(RISMGV)
+
+    ISMGV=RISMGV*GDPMV;
+
+
+                                                                           
+%% Block #87
+% Number of Equations: 1
+% Assign
+%     Level(OGNWVSHR)
+%     Change(OGNWVSHR)
+
+    OGNWVSHR=OGNWV/GDPMV;
+
+
+                                                                           
+%% Block #88
+% Number of Equations: 1
+% Assign
+%     Level(IGVSHRG)
+%     Change(IGVSHRG)
+
+    IGVSHRG=IGV/OGV;
+
+
+                                                                           
+%% Block #89
+% Number of Equations: 1
+% Assign
+%     Level(LSHRG)
+%     Change(LSHRG)
+
+    LSHRG=YWG/OGV;
+
+
+                                                                           
+%% Block #90
+% Number of Equations: 1
+% Assign
+%     Level(GE)
+%     Change(GE)
+
+    GE=GV+GSUB+GTR;
+
+
+                                                                           
+%% Block #91
+% Number of Equations: 1
+% Assign
+%     Level(GESHR)
+%     Change(GESHR)
+
+    GESHR=GE/GDPMV;
+
+
+                                                                           
+%% Block #92
+% Number of Equations: 1
+% Solve for 
+%     Level(GREVSHR)
+%     Change(GREVSHR)
+
+    GBORSHR=(GESHR-GREVSHR)+(GEKSHR-GKREVSHR);
+
+
+                                                                           
+%% Block #93
+% Number of Equations: 1
+% Solve for 
+%     Level(GREV)
+%     Change(GREV)
+
+    GREVSHR=GREV/GDPMV;
+
+
+                                                                           
+%% Block #94
+% Number of Equations: 1
+% Solve for 
+%     Level(GTY)
+%     Change(GTY)
+
+    GREV=GTE+GREVO+GREVABR+GTY;
+
+
+                                                                           
+%% Block #95
+% Number of Equations: 1
+% Assign
+%     Level(GTYSHR)
+%     Change(GTYSHR)
+
+    GTYSHR=GTY/GDPMV;
+
+
+                                                                           
+%% Block #96
+% Number of Equations: 1
+% Solve for 
+%     Level(GTYP)
+%     Change(GTYP)
+
+    GTY=GTYP+GTYC+GTYSIB;
+
+
+                                                                           
+%% Block #97
+% Number of Equations: 1
+% Assign
+%     Level(YPERD)
+%     Change(YPERD)
+
+    YPERD=YPER-(GTYP+GTYSIB);
+
+
+                                                                           
+%% Block #98
+% Number of Equations: 1
+% Assign
+%     Level(YPERDSHR)
+%     Change(YPERDSHR)
+
+    YPERDSHR=YPERD/GDPMV;
+
+
+                                                                           
+%% Block #99
+% Number of Equations: 1
+% Assign
+%     Level(SAVSHR)
+%     Change(SAVSHR)
+
+    SAVSHR=YPERDSHR-CONSVSHR;
+
+
+                                                                           
+%% Block #100
+% Number of Equations: 1
+% Assign
+%     Level(SAVRAT)
+%     Change(SAVRAT)
+
+    SAVRAT=SAVSHR/YPERDSHR;
+
+
+                                                                           
+%% Block #101
+% Number of Equations: 1
+% Solve for 
+%     Level(GTYPER)
+%     Change(GTYPER)
+
+    GTYP=GTYSIW+GTYPER;
+
+
+                                                                           
+%% Block #102
+% Number of Equations: 1
+% Assign
+%     Level(GTYPERSHR)
+%     Change(GTYPERSHR)
+
+    GTYPERSHR=GTYPER/GDPMV;
+
+
+                                                                           
+%% Block #103
+% Number of Equations: 1
+% Solve for 
+%     Level(GTYPERSHR_SS)
+%     Change(GTYPERSHR_SS)
+
+    GTYPER/GDPMV=GTYPERSHR_SS;
+
+
+                                                                           
+%% Block #104
+% Number of Equations: 1
+% Assign
+%     Level(NOBSHR)
+%     Change(NOBSHR)
+
+    NOBSHR=(GREVSHR-GESHR)+GKREVSHR-(GTRKTSHR_SS+GKRESTSHR_SS);
+
+
+                                                                           
+%% Block #105
+% Number of Equations: 1
+% Assign
+%     Level(NPOBSHR)
+%     Change(NPOBSHR)
+
+    NPOBSHR=NOBSHR+GTRNFSHR+GTRNSHR;
+
+
+                                                                           
+%% Block #106
+% Number of Equations: 1
+% Assign
+%     Level(INVSHRN)
+%     Change(INVSHRN)
+
+    INVSHRN=INV/ONV;
+
+
+                                                                           
+%% Block #107
+% Number of Equations: 1
+% Assign
+%     Level(ITVSHRT)
+%     Change(ITVSHRT)
+
+    ITVSHRT=ITV/OTV;
+
+
+                                                                           
+%% Block #108
+% Number of Equations: 1
+% Assign
+%     Level(PCOMPT)
+%     Change(PCOMPT)
+
+    PCOMPT=POT/PWORLD;
+
+
+                                                                           
+%% Block #109
+% Number of Equations: 1
+% Assign
+%     Level(ONSHR)
+%     Change(ONSHR)
+
+    ONSHR=ON/GDPFC;
+
+
+                                                                           
+%% Block #110
+% Number of Equations: 1
+% Assign
+%     Level(GSRUB)
+%     Change(GSRUB)
+
+    GSRUB=AGSRUB*GDPFC;
+
+
+                                                                           
+%% Block #111
+% Number of Equations: 1
+% Assign
+%     Level(OTSHR)
+%     Change(OTSHR)
+
+    OTSHR=OT/GDPFC;
+
+
+                                                                           
+%% Block #112
+% Number of Equations: 1
+% Assign
+%     Level(YCT)
+%     Change(YCT)
+
+    YCT=OTV-YWT;
+
+
+                                                                           
+%% Block #113
+% Number of Equations: 1
+% Solve for 
+%     Level(KYCTREP)
+%     Change(KYCTREP)
+
+    YCTREP=KYCTREP*YCT;
+
+
+                                                                           
+%% Block #114
+% Number of Equations: 1
+% Solve for 
+%     Level(ADEP1)
+%     Change(ADEP1)
+
+    DEP=ADEP1*(OTV);
+
+
+                                                                           
+%% Block #115
+% Number of Equations: 1
+% Assign
+%     Level(OTVSHR)
+%     Change(OTVSHR)
+
+    OTVSHR=OTV/GDPFCV;
+
+
+                                                                           
+%% Block #116
+% Number of Equations: 1
+% Solve for 
+%     Level(RGSUB)
+%     Change(RGSUB)
+
+    GSUB=RGSUB*GDPFCV;
+
+
+                                                                           
+%% Block #117
+% Number of Equations: 1
+% Solve for 
+%     Level(RGREVO)
+%     Change(RGREVO)
+
+    GREVO=RGREVO*GDPFCV;
+
+
+                                                                           
+%% Block #118
+% Number of Equations: 1
+% Assign
+%     Level(IGINF)
+%     Change(IGINF)
+
+    IGINF=IGINFV/PIG;
+
+
+                                                                           
+%% Block #119
+% Number of Equations: 1
+% Assign
+%     Level(IGINFME)
+%     Change(IGINFME)
+
+    IGINFME=WIGME*IGINF;
+
+
+                                                                           
+%% Block #120
+% Number of Equations: 1
+% Assign
+%     Level(IGINFBC)
+%     Change(IGINFBC)
+
+    IGINFBC=IGINF-IGINFME;
+
+
+                                                                           
+%% Block #121
+% Number of Equations: 1
+% Assign
+%     Level(IHV)
+%     Change(IHV)
+
+    IHV=PIH*IH;
+
+
+                                                                           
+%% Block #122
+% Number of Equations: 1
+% Assign
+%     Level(IHVSHR)
+%     Change(IHVSHR)
+
+    IHVSHR=IHV/GDPMV;
+
+
+                                                                           
+%% Block #123
+% Number of Equations: 1
+% Assign
+%     Level(IV)
+%     Change(IV)
+
+    IV=ITV+IGV+IHV+INV;
+
+
+                                                                           
+%% Block #124
+% Number of Equations: 1
+% Assign
+%     Level(IVSHR)
+%     Change(IVSHR)
+
+    IVSHR=IV/GDPMV;
+
+
+                                                                           
+%% Block #125
+% Number of Equations: 1
+% Solve for 
+%     Level(DSVSHR)
+%     Change(DSVSHR)
+
+    NTSVSHR=1-(CONSVSHR+IVSHR+GVSHR+DSVSHR);
+
+
+                                                                           
+%% Block #126
+% Number of Equations: 1
+% Solve for 
+%     Level(DSVSHRT_SS)
+%     Change(DSVSHRT_SS)
+
+    DSVSHR=DSVSHRT_SS*OTV/GDPMV;
+
+
+                                                                           
+%% Block #127
+% Number of Equations: 1
+% Solve for 
+%     Level(DSVSHR_SS)
+%     Change(DSVSHR_SS)
+
+    DSVSHR=DSVSHR_SS;
+
+
+                                                                           
+%% Block #128
+% Number of Equations: 1
+% Assign @log
+%     Level(PIN)
+%     Change(PIN)
+
+    log(PIN)=(APIN1+APIN2*log(PGDPFC)+(1-APIN2)*log(PM));
+
+
+                                                                           
+%% Block #129
+% Number of Equations: 1
+% Solve for 
+%     Level(IN)
+%     Change(IN)
+
+    INV=PIN*IN;
+
+
+                                                                           
+%% Block #130
+% Number of Equations: 1
+% Assign
+%     Level(I)
+%     Change(I)
+
+    I=IT+IG+IH+IN;
+
+
+                                                                           
+%% Block #131
+% Number of Equations: 1
+% Assign
+%     Level(INH)
+%     Change(INH)
+
+    INH=I-IH;
+
+
+                                                                           
+%% Block #132
+% Number of Equations: 1
+% Assign
+%     Level(IOTH)
+%     Change(IOTH)
+
+    IOTH=INH-IGINF;
+
+
+                                                                           
+%% Block #133
+% Number of Equations: 1
+% Assign
+%     Level(IOTHME)
+%     Change(IOTHME)
+
+    IOTHME=WIOME*IOTH;
+
+
+                                                                           
+%% Block #134
+% Number of Equations: 1
+% Assign
+%     Level(IME)
+%     Change(IME)
+
+    IME=IGINFME+IOTHME;
+
+
+                                                                           
+%% Block #135
+% Number of Equations: 1
+% Assign
+%     Level(IOTHBC)
+%     Change(IOTHBC)
+
+    IOTHBC=IOTH-IOTHME;
+
+
+                                                                           
+%% Block #136
+% Number of Equations: 1
+% Assign
+%     Level(IBC)
+%     Change(IBC)
+
+    IBC=IGINFBC+IOTHBC;
+
+
+                                                                           
+%% Block #137
+% Number of Equations: 1
+% Assign @log
+%     Level(FDON)
+%     Change(FDON)
+
+    log(FDON)=log(AFDON)+log(I);
+
+
+                                                                           
+%% Block #138
+% Number of Equations: 1
+% Assign @log
+%     Level(FDOT)
+%     Change(FDOT)
+
+    log(FDOT)=log(AFDOT)+log(I);
+
+
+                                                                           
+%% Block #139
+% Number of Equations: 1
+% Solve for 
+%     Level(AON2)
+%     Change( )
+
+    log(ON)=AON0*log(ON{-1})+(1-AON0)*(AON1+AON2*log(OW)+(1-AON2)*(AON3*log(CONS)+AON4*log(RGENW)+AON5*log(IN)+AON6*log(IG)+(1-AON3-AON4-AON5-AON6)*log(IH)))+SHK_ON;
+
+
+                                                                           
+%% Block #140
+% Number of Equations: 1
+% Solve for 
+%     Level(RFPT)
+%     Change(RFPT)
+
+    ERFPT=RFPT;
+
+
+                                                                           
+%% Block #141
+% Number of Equations: 1
+% Assign
+%     Level(LPRT)
+%     Change(LPRT)
+
+    LPRT=OT/LT;
+
+
+                                                                           
+%% Block #142
+% Number of Equations: 2
+% Solve for 
+%     Level(L, LLN)
+%     Change(L, LLN)
+
+    L=LT+LG+LLN;
+    LNSHR=LLN/L;
+
+
+                                                                           
+%% Block #143
+% Number of Equations: 2
+% Solve for 
+%     Level(U, LF)
+%     Change(U, LF)
+
+    UR=(U/LF);
+    U=LF-L;
+
+
+                                                                           
+%% Block #144
+% Number of Equations: 1
+% Solve for 
+%     Level(RGTRU)
+%     Change(RGTRU)
+
+    GTRU=RGTRU*U;
+
+
+                                                                           
+%% Block #145
+% Number of Equations: 1
+% Solve for 
+%     Level(LFPR)
+%     Change(LFPR)
+
+    LF=(LFPR/100)*N1659;
+
+
+                                                                           
+%% Block #146
+% Number of Equations: 1
+% Assign
+%     Level(LTSHR)
+%     Change(LTSHR)
+
+    LTSHR=LT/L;
+
+
+                                                                           
+%% Block #147
+% Number of Equations: 1
+% Assign
+%     Level(LTSHRL)
+%     Change(LTSHRL)
+
+    LTSHRL=LT/L;
+
+
+                                                                           
+%% Block #148
+% Number of Equations: 1
+% Assign
+%     Level(LNA)
+%     Change(LNA)
+
+    LNA=LT+LG+LLN;
+
+
+                                                                           
+%% Block #149
+% Number of Equations: 2
+% Solve for 
+%     Level(AN, ERFPN)
+%     Change(AN, ERFPN)
+
+    log(LLN)=ALLN0*log(LLN{-1})+(1-ALLN0)*(1/(ALPHAN+BETAN)*(log(ON)-log(AN))-(BETAN)/(ALPHAN+BETAN)*log(ERFPN)-(BETAN)/(ALPHAN+BETAN)*log((BETAN)/ALPHAN))+SHK_LLN;
+    log(IN)=AIN0*log(IN{-1})+(1-AIN0)*(1/(ALPHAN+BETAN)*(log(ON)-log(AN))+ALPHAN/(ALPHAN+BETAN)*log(ERFPN)+ALPHAN/(ALPHAN+BETAN)*log((BETAN)/ALPHAN))+SHK_IN;
+
+
+                                                                           
+%% Block #150
+% Number of Equations: 1
+% Solve for 
+%     Level(RFPN)
+%     Change(RFPN)
+
+    ERFPN=RFPN;
+
+
+                                                                           
+%% Block #151
+% Number of Equations: 1
+% Assign
+%     Level(LPRN)
+%     Change(LPRN)
+
+    LPRN=ON/LLN;
+
+
+                                                                           
+%% Block #152
+% Number of Equations: 1
+% Assign
+%     Level(LNSHRL)
+%     Change(LNSHRL)
+
+    LNSHRL=LLN/L;
+
+
+                                                                           
+%% Block #153
+% Number of Equations: 1
+% Assign
+%     Level(LGSHRL)
+%     Change(LGSHRL)
+
+    LGSHRL=LG/L;
+
+
+                                                                           
+%% Block #154
+% Number of Equations: 1
+% Solve for 
+%     Level(PKT)
+%     Change(PKT)
+
+    RFPT=WT/PKT;
+
+
+                                                                           
+%% Block #155
+% Number of Equations: 1
+% Assign
+%     Level(ITVK)
+%     Change(ITVK)
+
+    ITVK=PKT*IT;
+
+
+                                                                           
+%% Block #156
+% Number of Equations: 1
+% Assign
+%     Level(ITVKSHRT)
+%     Change(ITVKSHRT)
+
+    ITVKSHRT=ITVK/OTV;
+
+
+                                                                           
+%% Block #157
+% Number of Equations: 1
+% Solve for 
+%     Level(DEPT)
+%     Change(DEPT)
+
+    PKT=PIT*(DEPT+RRSAT/100);
+
+
+                                                                           
+%% Block #158
+% Number of Equations: 1
+% Assign
+%     Level(WN)
+%     Change(WN)
+
+    WN=WT;
+
+
+                                                                           
+%% Block #159
+% Number of Equations: 1
+% Solve for 
+%     Level(PKN)
+%     Change(PKN)
+
+    RFPN=WN/PKN;
+
+
+                                                                           
+%% Block #160
+% Number of Equations: 1
+% Assign
+%     Level(INVK)
+%     Change(INVK)
+
+    INVK=PKN*IN;
+
+
+                                                                           
+%% Block #161
+% Number of Equations: 1
+% Assign
+%     Level(INVKSHRN)
+%     Change(INVKSHRN)
+
+    INVKSHRN=INVK/ONV;
+
+
+                                                                           
+%% Block #162
+% Number of Equations: 1
+% Solve for 
+%     Level(DEPN)
+%     Change(DEPN)
+
+    PKN=PIN*(DEPN+RRSAT/100);
+
+
+                                                                           
+%% Block #163
+% Number of Equations: 1
+% Assign
+%     Level(YWN)
+%     Change(YWN)
+
+    YWN=LLN*WN;
+
+
+                                                                           
+%% Block #164
+% Number of Equations: 1
+% Assign
+%     Level(YWNA)
+%     Change(YWNA)
+
+    YWNA=YWT+YWG+YWN;
+
+
+                                                                           
+%% Block #165
+% Number of Equations: 1
+% Assign
+%     Level(YC)
+%     Change(YC)
+
+    YC=NDPFCV-YWNA;
+
+
+                                                                           
+%% Block #166
+% Number of Equations: 1
+% Assign
+%     Level(YPO)
+%     Change(YPO)
+
+    YPO=(YC-YCU)-GTTI+YFN+GTRN;
+
+
+                                                                           
+%% Block #167
+% Number of Equations: 1
+% Solve for 
+%     Level(RGTYC)
+%     Change(RGTYC)
+
+    GTYC=RGTYC*YC{-1};
+
+
+                                                                           
+%% Block #168
+% Number of Equations: 1
+% Solve for 
+%     Level(AYCU1)
+%     Change(AYCU1)
+
+    log(YCU)=log(YC)+log(AYCU1);
+
+
+                                                                           
+%% Block #169
+% Number of Equations: 1
+% Assign
+%     Level(YPERT)
+%     Change(YPERT)
+
+    YPERT=YWNA+YPO-KGTYSE*GTYP;
+
+
+                                                                           
+%% Block #170
+% Number of Equations: 1
+% Solve for 
+%     Level(RGTYPEX)
+%     Change(RGTYPEX)
+
+    GTYPER=RGTYPEX*YPERT;
+
+
+                                                                           
+%% Block #171
+% Number of Equations: 1
+% Assign
+%     Level(WNA)
+%     Change(WNA)
+
+    WNA=YWNA/LNA;
+
+
+                                                                           
+%% Block #172
+% Number of Equations: 1
+% Assign
+%     Level(YW)
+%     Change(YW)
+
+    YW=YWT+YWG+YWN;
+
+
+                                                                           
+%% Block #173
+% Number of Equations: 1
+% Solve for 
+%     Level(RGTYSIB)
+%     Change(RGTYSIB)
+
+    GTYSIB=RGTYSIB*YW;
+
+
+                                                                           
+%% Block #174
+% Number of Equations: 1
+% Solve for 
+%     Level(RGTYSIW)
+%     Change(RGTYSIW)
+
+    GTYSIW=RGTYSIW*YW;
+
+
+                                                                           
+%% Block #175
+% Number of Equations: 1
+% Assign
+%     Level(ULCN)
+%     Change(ULCN)
+
+    ULCN=YWN/ON;
+
+
+                                                                           
+%% Block #176
+% Number of Equations: 1
+% Assign
+%     Level(LSHRN)
+%     Change(LSHRN)
+
+    LSHRN=YWN/ONV;
+
+
+                                                                           
+%% Block #177
+% Number of Equations: 1
+% Assign
+%     Level(YCN)
+%     Change(YCN)
+
+    YCN=ONV-YWN;
+
+
+                                                                           
+%% Block #178
+% Number of Equations: 1
+% Assign
+%     Level(dotWT)
+%     Change(dotWT)
+
+    dotWT=log(WT)-log(WT{-1});
+
+
+                                                                           
+%% Block #179
+% Number of Equations: 1
+% Solve for 
+%     Level(AWT1)
+%     Change(AWT1)
+
+    dotWT=AWT0*dotWT{-1}+(1-AWT0)*(dotPOT+AWT3*0+AWT4*0)+AWT5*(log(WT)-log(POT)-AWT1-AWT3*URBAR-AWT4*log(LPRT))+SHK_dotWT;
+
+
+                                                                           
+%% Block #180
+% Number of Equations: 1
+% Assign @log
+%     Level(TRE)
+%     Change(TRE)
+
+    log(TRE)=log(ATRE2)+log(CONS);
+
+
+                                                                           
+%% Block #181
+% Number of Equations: 1
+% Assign
+%     Level(GDPM)
+%     Change(GDPM)
+
+    GDPM=GDPFC+(TRE-GSRUB);
+
+
+                                                                           
+%% Block #182
+% Number of Equations: 1
+% Assign
+%     Level(GDPE)
+%     Change(GDPE)
+
+    GDPE=GDPM;
+
+
+                                                                           
+%% Block #183
+% Number of Equations: 1
+% Solve for 
+%     Level(RGTRSWP)
+%     Change(RGTRSWP)
+
+    GTRSWP=(NGE60*PCONS)*RGTRSWP;
+
+
+                                                                           
+%% Block #184
+% Number of Equations: 1
+% Assign
+%     Level(YRPERD)
+%     Change(YRPERD)
+
+    YRPERD=YPERD/PCONS;
+
+
+                                                                           
+%% Block #185
+% Number of Equations: 1
+% Solve for 
+%     Level(ACONS2)
+%     Change(ACONS2)
+
+    CONS=ACONS0*CONS{-1}+(1-ACONS0)*(ACONS2*(YRPERD))+SHK_CONS;
+

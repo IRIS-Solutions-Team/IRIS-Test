@@ -1,14 +1,12 @@
-function tests = parameterShiftTest( )
-tests = functiontests(localfunctions);
-end
+
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 
-function testModelCodeWithShiftedParameters(this)
-    m = model('parameterShiftTest.model');
-end
+%% TestModelCodeWithShiftedParameters
+    model('parameterShiftTest.model');
 
 
-function testHashEquations(this)
+%% TestHashEquations
     m = model('parameterShiftTest.model');
     actualHash = createHashEquations(m, ':');
     expectedHash = [
@@ -19,17 +17,16 @@ function testHashEquations(this)
         {'-[xi(3,t)]+p(1).*xi(6,t)+(1-p(1)).*p(3);'                   }
         {'-[xi(4,t)-xi(4,t-1)]+p(2);'                                 }
     ];
-    this.assertEqual(actualHash, expectedHash);
-end
+    testCase.assertEqual(actualHash, expectedHash);
 
 
-function testSteady(this)
+%% TestSteady
     m = model('parameterShiftTest.model');
     m.a = 0.1;
     m.b = 0.1;
     m.c = 10;
     m.z = complex(1, NaN);
-    m = sstate(m, 'Growth=', true, 'FixLevel=', 'z');
+    m = sstate(m, 'Growth', true, 'FixLevel', 'z');
     expectedSteady = struct( ...
         'x', m.c, ...
         'y', m.c, ...
@@ -43,17 +40,16 @@ function testSteady(this)
         'ttrend', 0+1i ...
     );
     actualSteady = get(m, 'Steady');
-    this.assertEqual(actualSteady, expectedSteady, 'AbsTol', 1e-15);
-end
+    testCase.assertEqual(actualSteady, expectedSteady, 'AbsTol', 1e-15);
 
 
-function testSteadyExogenized(this)
+%% TestSteadyExogenized
     m = model('parameterShiftTest.model');
     m.a = 0.1;
     m.b = 0.1;
     m.z = complex(1, NaN);
     m.x = 5;
-    m = sstate(m, 'Growth=', true, 'Exogenize=', 'x', 'Endogenize=', 'c', 'FixLevel=', 'z');
+    m = sstate(m, 'Growth', true, 'Exogenize', 'x', 'Endogenize', 'c', 'FixLevel', 'z');
     expectedSteady = struct( ...
         'x', m.c, ...
         'y', m.c, ...
@@ -67,6 +63,5 @@ function testSteadyExogenized(this)
         'ttrend', 0+1i ...
     );
     actualSteady = get(m, 'Steady');
-    this.assertEqual(actualSteady, expectedSteady, 'AbsTol', 1e-15);
-end
+    testCase.assertEqual(actualSteady, expectedSteady, 'AbsTol', 1e-15);
 

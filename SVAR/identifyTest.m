@@ -1,6 +1,6 @@
 function [Q, Omega, Q1] = identifyTest( )
 
-%rng(0);
+rng(0);
 T = 100;
 u = randn(6, T);
 Omega = u*transpose(u)/T;
@@ -54,5 +54,5 @@ function [y, Q] = objective(q)
     y = log(det(Sigma)) + trace( (Sigma)\Omega );
 end%
 
-end
+end%
 

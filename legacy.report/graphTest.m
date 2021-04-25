@@ -10,7 +10,7 @@ function testStem(this)
     x = report.new( );
     x.figure('');
     x.graph('');
-    x.series('a', d.a, 'PlotFunc=', @stem);
+    x.series('a', d.a, 'PlotFunc', @stem);
     x.publish('testStem.pdf');
     delete testStem.pdf
 end
@@ -22,7 +22,7 @@ function testBarcon(this)
     x = report.new( );
     x.figure('');
     x.graph('');
-    x.series('a', a, 'PlotFunc=', @barcon);
+    x.series('a', a, 'PlotFunc', @barcon);
     x.series('b', b);
     x.publish('testBarcon.pdf');
     %delete testBarcon.pdf

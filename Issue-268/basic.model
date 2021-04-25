@@ -1,0 +1,91 @@
+% Basic ERT model with 'diagnosed' state
+% 
+% Iris code
+% (c) Antti Ripatti, 2020-
+%%
+%% Definitions
+!transition-variables 
+  n, ns, ni, nd, nr, c, cs, ci, cd, cr, w, tau,
+   lambdab, lambdas, lambdai, lambdad, lambdar, lambdatau, s, i, d, r,
+   e, pop;
+
+% this is just a fake shock
+!transition-shocks
+   eps
+   
+!parameters 
+  A = 1; %1.943; % level of technology
+  beta = (1/1.03)^(1/52); % discount rate
+  pi1 = 3.194e-7;
+  pi2 = 1.593e-4;
+  pi3 = 0.499;
+  pidi = 0.0;
+  piei = 7*0.002/14;
+  piri = 7*1/14 - piei;
+  pied = 7*0.002/14-0.0001;
+  pird = 7*1/14 - pied-0.0001;
+  theta = 0.0015; % labor supply parameter
+  
+
+
+%% Model block
+!transition_equations
+  
+  % New infections
+  tau =# pi1*s{-1}*cs*i{-1}*ci + pi2*s{-1}*ns*i{-1}*ni + pi3*s{-1}*i{-1};
+  % Total suseptibles
+  s = s{-1} - tau;
+  % Total infected
+  i = i{-1} + tau - (piri+pidi+piei)*i{-1};
+  % Total detected
+  d = d{-1} + pidi*i{-1} - (pird+pied)*d{-1};
+  % Total recovered
+  r = r{-1} + piri*i{-1} + pird*d{-1};
+  % Total deaths 
+  e = e{-1} + piei*i{-1} + pied*d{-1};
+  % Population
+  pop = pop{-1} - piei*i{-1} - pied*d{-1};
+  % real wages
+  w = A + eps;
+  % production
+  c = A*n;
+  % Aggregate hours
+  n =# s{-1}*ns + i{-1}*ni + d{-1}*nd + r{-1}*nr;
+  % Aggregate consumption
+  c =# s{-1}*cs + i{-1}*ci + d{-1}*cd + r{-1}*cr;
+  % First order condition, consumption susceptibles
+  1/cs =# lambdab - lambdatau*pi1*i{-1}*ci;
+  % First order condition, consumption infected
+  1/ci =# lambdab;
+  % First order condition, consumption detected
+  1/cd =# lambdab;
+  % First order condition, consumption recovered
+  1/cr =# lambdab;
+  % First order condition, hours susceptibles
+  theta*ns =# lambdab*w + lambdatau*pi2*i{-1}*ni;
+  % First order condition, hours infected
+  theta*ni =# lambdab*w;
+  % First order condition, hours detected
+  theta*ni =# lambdab*w;
+  % First order condition, hours recovered
+  theta*nr =# lambdab*w;
+  % First order condition, new infected, ie tau
+  lambdai = lambdatau + lambdas;
+  % First order condition, susceptibles
+  log(cs{+1}) - theta/2*(ns{+1})^2
+    + lambdatau{+1}*( pi1*cs{+1}*i*ci{+1}+pi2*ns{+1}*i*ni{+1}+pi3*i )
+    + lambdab{+1}*( w{+1}*ns{+1}-cs{+1} )
+    - lambdas/beta + lambdas{+1} =# 0;
+  % First order condition, infected
+  log(ci{+1}) - theta/2*(ni{+1})^2
+    + lambdab{+1}*( w{+1}*ni{+1}-ci{+1} )
+    - lambdai/beta + lambdai{+1}*(1-piri-pidi-piei) + lambdad{+1}*pidi + lambdar{+1}*piri =# 0;
+  % First order condition, detected
+  log(cd{+1}) - theta/2*(nd{+1})^2
+    + lambdab{+1}*( w{+1}*nd{+1}-cd{+1} )
+    -lambdad/beta + lambdad{+1}*(1-pird-pied) + lambdar{+1}*pird =# 0;
+  % First order condition, recovered
+  log(cr{+1})-theta/2*(nr{+1})^2
+    + lambdab{+1}*( w{+1}*nr{+1}-cr{+1} )
+    - lambdar/beta + lambdar{+1} =# 0;
+ 

@@ -12,7 +12,7 @@ assertEqualTol = @(x, y) assert(maxabs(x, y)<1e-5);
 
 rng(0);
 
-m = model('test_estimate_steady.model', 'Linear=', true);
+m = model('test_estimate_steady.model', 'Linear', true);
 m.a = 0.7;
 m.b = 0.3;
 m.c = 10;
@@ -29,14 +29,14 @@ est = struct( );
 est.a = { 0.5 , 0, 0.95 };
 est.c = { 5 };
 
-pEst0 = estimate(m, d, range, est, 'Display=', 'off');
+pEst0 = estimate(m, d, range, est, 'Display', 'off');
 
 % Test Linear Estimate with Steady State
 
 m3 = m;
 profile clear;
 profile on;
-pEst3 = estimate(m3, d, range, est, 'Steady=', true, 'Display=', 'off');
+pEst3 = estimate(m3, d, range, est, 'Steady', true, 'Display', 'off');
 stats = profile('info');
 
 assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
@@ -47,10 +47,10 @@ assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
 % Test Nonlinear Estimate with No Steady State
 
 m1 = m;
-m1 = set(m1, 'Linear=', false);
+m1 = set(m1, 'Linear', false);
 profile clear;
 profile on;
-pEst1 = estimate(m1, d, range, est, 'Display=', 'off');
+pEst1 = estimate(m1, d, range, est, 'Display', 'off');
 stats = profile('info');
 
 assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
@@ -63,10 +63,10 @@ assertEqualTol(pEst1.c, est.c{1});
 % Test Nonlinear Estimate with Steady State
 
 m2 = m;
-m2 = set(m2, 'Linear=', false);
+m2 = set(m2, 'Linear', false);
 profile clear;
 profile on;
-pEst2 = estimate(m2, d, range, est, 'Steady=', true, 'Display=', 'off');
+pEst2 = estimate(m2, d, range, est, 'Steady', true, 'Display', 'off');
 stats = profile('info');
 
 assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...

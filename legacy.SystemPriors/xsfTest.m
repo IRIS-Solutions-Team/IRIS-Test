@@ -13,7 +13,7 @@ function testSystemProperty(this)
     m = this.TestData.Model;
     freq = this.TestData.Freq;
     [expectedS, expectedD] = xsf(m, freq);
-    p = xsf(m, freq, 'SystemProperty=', {'S', 'D'});
+    p = xsf(m, freq, 'SystemProperty', {'S', 'D'});
     update(p, m);
     eval(p, m);
     actualS = p.Outputs{1};
@@ -26,10 +26,10 @@ end
 function testSystemPropertyUpdate(this)
     m = this.TestData.Model;
     freq = this.TestData.Freq;
-    p = xsf(m, freq, 'SystemProperty=', {'S', 'D'});
+    p = xsf(m, freq, 'SystemProperty', {'S', 'D'});
     for xiw = 55 : 5 : 70
         m.xiw = xiw;
-        m = sstate(m, 'Growth=', true, 'Display=', false);
+        m = sstate(m, 'Growth', true, 'Display', false);
         m = solve(m);
         [expectedS, expectedD] = xsf(m, freq);
         update(p, m);
@@ -46,7 +46,7 @@ function testSystemPriorOneOutput(this)
     m = this.TestData.Model;
     freq = this.TestData.Freq;
     expectedS = xsf(m, freq);
-    p = xsf(m, freq, 'SystemProperty=', 'Pws');
+    p = xsf(m, freq, 'SystemProperty', 'Pws');
     spw = SystemPriorWrapper.forModel(m);
     spw.addSystemProperty(p);
     f1 = distribution.Normal.fromMeanStd(1000, 5);
@@ -71,7 +71,7 @@ function testSystemPriorTwoOutputs(this)
     m = this.TestData.Model;
     freq = this.TestData.Freq;
     [expectedS, expectedD] = xsf(m, freq);
-    p = xsf(m, freq, 'SystemProperty=', {'Pws', 'Spd'});
+    p = xsf(m, freq, 'SystemProperty', {'Pws', 'Spd'});
     spw = SystemPriorWrapper.forModel(m);
     spw.addSystemProperty(p);
     f1 = distribution.Normal.fromMeanStd(1000, 5);
@@ -96,7 +96,7 @@ end
 function testSystemPriorUpdate(this)
     m = this.TestData.Model;
     freq = this.TestData.Freq;
-    p = xsf(m, freq, 'SystemProperty=', {'Pws', 'Spd'});
+    p = xsf(m, freq, 'SystemProperty', {'Pws', 'Spd'});
     spw = SystemPriorWrapper.forModel(m);
     spw.addSystemProperty(p);
     f1 = distribution.Normal.fromMeanStd(1000, 5);
@@ -105,7 +105,7 @@ function testSystemPriorUpdate(this)
     spw.addSystemPrior('abs(sum(Spd(1, 2, :)))', f2);
     for xiw = 55 : 5 : 70
         m.xiw = xiw;
-        m = sstate(m, 'Growth=', true, 'Display=', false);
+        m = sstate(m, 'Growth', true, 'Display', false);
         m = solve(m);
         [expectedS, expectedD] = xsf(m, freq);
         [actualLogDensity, actualContrib, actualProp] = eval(spw, m);

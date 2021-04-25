@@ -25,15 +25,15 @@ end
 userDataFields = {'Source', 'Description'};
 
 databank.toCSV( d, 'serializeTest1.csv', Inf, ...
-                'Decimals=', 2, ...
-                'UserDataFields=', userDataFields );
+                'Decimals', 2, ...
+                'UserDataFields', userDataFields );
 
 databank.toCSV( dict, 'serializeTest2.csv', Inf, ...
-                'Decimals=', 2, ...
-                'UserDataFields=', userDataFields );
+                'Decimals', 2, ...
+                'UserDataFields', userDataFields );
 
 d1 = databank.fromCSV('serializeTest1.csv');
-dict1 = databank.fromCSV('serializeTest2.csv', 'OutputType=', 'Dictionary');
+dict1 = databank.fromCSV('serializeTest2.csv', 'OutputType', 'Dictionary');
 
 
 %% Test Struct 

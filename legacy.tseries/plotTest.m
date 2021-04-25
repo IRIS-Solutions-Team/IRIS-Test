@@ -5,10 +5,10 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 close all
 figureOpt = {'Visible', 'Off'};
 startDate = qq(2000,1);
-x = tseries(startDate, rand(8, 2), 'DateFormat=', 'YPF');
+x = tseries(startDate, rand(8, 2));
 dateFormat = 'PFYYYY';
-exp1 = dat2char(x.Start, 'DateFormat=', iris.get('PlotDateFormat'));
-exp2 = dat2char(x.Start, 'DateFormat=', dateFormat);
+exp1 = dat2char(x.Start, 'DateFormat', iris.get('PlotDateFormat'));
+exp2 = dat2char(x.Start, 'DateFormat', dateFormat);
 
 
 %% Test datxtick with New Range
@@ -33,7 +33,7 @@ plot(x);
 xTick1 = get(gca(), 'XTick');
 
 figure(figureOpt{:});
-plot(x.Range, x, 'DatePosition=', 'end');
+plot(x.Range, x, 'DatePosition', 'end');
 xTick2 = get(gca(), 'XTick');
 
 assertGreaterThan(testCase, xTick2, xTick1);
@@ -47,7 +47,7 @@ cellfun(@(func) func(visual.next( ), x), list);
 act1 = getFirstDate( );
 
 visual.next(numel(list), figureOpt{:});
-cellfun(@(func) func(visual.next( ), x.Range, x, 'DatePosition=', 'end', 'DateFormat=', dateFormat), list);
+cellfun(@(func) func(visual.next( ), x.Range, x, 'DatePosition', 'end', 'DateFormat', dateFormat), list);
 act2 = getFirstDate( );
 
 assertEqual(testCase, exp1, act1);
@@ -61,7 +61,7 @@ plotyy(x.Range, x{:, 1}, x{:, 2});
 act1 = getFirstDate( );
 
 figure(figureOpt{:});
-plotyy(x.Range, x{:, 1}, x{:, 2}, 'DateFormat=', dateFormat);
+plotyy(x.Range, x{:, 1}, x{:, 2}, 'DateFormat', dateFormat);
 act2 = getFirstDate( );
 
 assertEqual(testCase, exp1, act1);

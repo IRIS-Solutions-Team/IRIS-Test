@@ -1,5 +1,7 @@
 
-% Set up
+this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+
+% Set up Once
 
 x1Data = rand(10, 1);
 x2Data = rand(10, 1);
@@ -13,10 +15,10 @@ x2 = Series(start, x2Data);
 x3 = Series(start, x3Data);
 
 xx = [x1, x2, x3];
-check.equal([x1Data, x2Data, x3Data], xx(:));
+assertEqual(this, [x1Data, x2Data, x3Data], xx(:));
 
 xx = cat(3, x1, x2, x3);
-check.equal(cat(3, x1Data, x2Data, x3Data), xx(:));
+assertEqual(this, cat(3, x1Data, x2Data, x3Data), xx(:));
 
 %% Integer Frequency Shifted
 
@@ -27,9 +29,9 @@ x2 = Series(start+sh, x2Data);
 x3 = Series(start, x3Data);
 
 xx = [x1, x2, x3];
-check.equaln([x1Data; nan(sh, 1)],  xx(:, 1));
-check.equaln([nan(sh, 1); x2Data],  xx(:, 2));
-check.equaln([x3Data; nan(sh, 1)],  xx(:, 3));
+assertEqual(this, [x1Data; nan(sh, 1)],  xx(:, 1));
+assertEqual(this, [nan(sh, 1); x2Data],  xx(:, 2));
+assertEqual(this, [x3Data; nan(sh, 1)],  xx(:, 3));
 
 %% Integer Frequency with Numeric
 
@@ -39,10 +41,10 @@ x2 = Series(start, x2Data);
 x3 = Series(start, x3Data);
 
 xx = [x1, x2, 10, x3];
-check.equaln(x1Data,  xx(:, 1));
-check.equaln(x2Data,  xx(:, 2));
-check.equaln(10*ones(size(x1Data)),  xx(:, 3));
-check.equaln(x3Data,  xx(:, 4));
+assertEqual(this, x1Data,  xx(:, 1));
+assertEqual(this, x2Data,  xx(:, 2));
+assertEqual(this, 10*ones(size(x1Data)),  xx(:, 3));
+assertEqual(this, x3Data,  xx(:, 4));
 
 %% Quarterly Frequency
 
@@ -52,10 +54,10 @@ x2 = Series(start, x2Data);
 x3 = Series(start, x3Data);
 
 xx = [x1, x2, x3];
-check.equal([x1Data, x2Data, x3Data], xx(:));
+assertEqual(this, [x1Data, x2Data, x3Data], xx(:));
 
 xx = cat(3, x1, x2, x3);
-check.equal(cat(3, x1Data, x2Data, x3Data), xx(:));
+assertEqual(this, cat(3, x1Data, x2Data, x3Data), xx(:));
 
 %% Quarterly Frequency Shifted
 
@@ -66,9 +68,9 @@ x2 = Series(start+sh, x2Data);
 x3 = Series(start, x3Data);
 
 xx = [x1, x2, x3];
-check.equaln([x1Data; nan(sh, 1)],  xx(:, 1));
-check.equaln([nan(sh, 1); x2Data],  xx(:, 2));
-check.equaln([x3Data; nan(sh, 1)],  xx(:, 3));
+assertEqual(this, [x1Data; nan(sh, 1)],  xx(:, 1));
+assertEqual(this, [nan(sh, 1); x2Data],  xx(:, 2));
+assertEqual(this, [x3Data; nan(sh, 1)],  xx(:, 3));
 
 %% Cat with Empty
 
@@ -76,13 +78,13 @@ start = qq(2000, 1);
 x1 = Series(start, x1Data);
 
 xx = [x1; Series];
-check.equaln(x1Data,  xx(:));
+assertEqual(this, x1Data,  xx(:));
 
 xx = [Series; x1];
-check.equaln(x1Data,  xx(:));
+assertEqual(this, x1Data,  xx(:));
 
 xx = [Series; Series];
-check.equaln(nan(0,1),  xx(:));
+assertEqual(this, nan(0,1),  xx(:));
 
 
 %% Cat with Different yet Consistent Size
@@ -95,7 +97,7 @@ try
 catch
     isError = true;
 end
-check.equal(isError, false);
+assertEqual(this, isError, false);
 
 
 %% Cat with Different and Inconsistent Size
@@ -108,5 +110,5 @@ try
 catch
     isError = true;
 end
-check.equal(isError, true);
+assertEqual(this, isError, true);
 

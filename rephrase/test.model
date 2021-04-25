@@ -1,0 +1,20 @@
+!variables
+    "Inflation" x
+    "Interest rate" y
+
+!parameters
+    rho_x
+    rho_y
+    ss_x
+    ss_y
+    
+!shocks
+    "Shock to inflation" shock_x
+    "Shock to interest rate" shock_y
+
+!equations
+    % Phillips curve
+    x = rho_x*x{-1} + (1-rho_x)*ss_x + shock_x;
+    
+    % Monetary policy
+    y = rho_y*y{-1} + (1-rho_y)*ss_y + shock_y;

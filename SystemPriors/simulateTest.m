@@ -12,7 +12,7 @@ function testSystemProperty(this)
     m = this.TestData.Model;
     d = sstatedb(m, 1:40);
     d.Ep(5) = 0.01;
-    p = simulate(m, d, 1:40, 'SystemProperty=', 'S');
+    p = simulate(m, d, 1:40, 'SystemProperty', 'S');
     s = simulate(m, d, 1:40);
     update(p, m, 1);
     eval(p, m);
@@ -28,7 +28,7 @@ function testSystemPropertyUpdate(this)
     m = this.TestData.Model;
     d = sstatedb(m, 1:40);
     d.Ep(5) = 0.01;
-    p = simulate(m, d, 1:40, 'SystemProperty=', 'S');
+    p = simulate(m, d, 1:40, 'SystemProperty', 'S');
     for xiw = 55 : 5 : 70
         m.xiw = xiw;
         chksstate(m);
@@ -50,7 +50,7 @@ function testSystemPrior(this)
     d = sstatedb(m, 1:40);
     d.Ep(5) = 0.01;
     s = simulate(m, d, 1:40);
-    p = simulate(m, d, 1:40, 'SystemProperty=', 'Sim');
+    p = simulate(m, d, 1:40, 'SystemProperty', 'Sim');
     f1 = distribution.Normal.fromMeanStd(40, 5);
     spw = SystemPriorWrapper.forModel(m);
     spw.addSystemProperty(p);
@@ -69,7 +69,7 @@ function testSystemPriorUpdate(this)
     m = this.TestData.Model;
     d = sstatedb(m, 1:40);
     d.Ep(5) = 0.01;
-    p = simulate(m, d, 1:40, 'SystemProperty=', 'Sim');
+    p = simulate(m, d, 1:40, 'SystemProperty', 'Sim');
     f1 = distribution.Normal.fromMeanStd(40, 5);
     spw = SystemPriorWrapper.forModel(m);
     spw.addSystemProperty(p);

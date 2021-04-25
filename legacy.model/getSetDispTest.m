@@ -1,6 +1,6 @@
 
 assertEqual = @(x, y) assert(isequaln(x, y));
-m0 = model('modelGetSetTest.model', 'linear=', true);
+m0 = model('modelGetSetTest.model', 'linear', true);
 
 
 %% Test disp Model

@@ -12,7 +12,7 @@ if ~verLessThan('matlab', '9.1')
     d = struct( );
     d.x = Series(qq(2000,1), randn(40, 4));
     d.y = Series(mm(2000,1), randn(120, 4));
-    [ff, aa] = dbplot(d, Inf, {'x', 'y'}, 'Figure=', {'Visible=', testCase.TestData.Visible});
+    [ff, aa] = dbplot(d, Inf, {'x', 'y'}, 'Figure', {'Visible', testCase.TestData.Visible});
     xLim1 = get(aa{1}(1), 'XLim');
     xLim2 = get(aa{1}(2), 'XLim');
     assertEqual(testCase, xLim1(1), datetime(qq(2000,1)));
@@ -29,7 +29,7 @@ if ~verLessThan('matlab', '9.1')
     d = struct( );
     d.x = Series(qq(2000,1), randn(40, 4));
     d.y = Series(mm(2000,1), randn(120, 4));
-    [ff, aa] = dbplot(d, qq(2001,1:8), {'x', 'y'}, 'Figure=', {'Visible=', testCase.TestData.Visible});
+    [ff, aa] = dbplot(d, qq(2001,1:8), {'x', 'y'}, 'Figure', {'Visible', testCase.TestData.Visible});
     xLim1 = get(aa{1}(1), 'XLim');
     xLim2 = get(aa{1}(2), 'XLim');
     assertEqual(testCase, xLim1(1), datetime(qq(2001,1)));
@@ -46,7 +46,7 @@ if ~verLessThan('matlab', '9.1')
     d = struct( );
     d.x = Series(qq(2000,1), randn(40, 4));
     d.y = Series(mm(2000,1), randn(120, 4));
-    [ff, aa] = dbplot(d, {qq(2001,1:8), mm(2001,1:12)}, {'x', 'y'}, 'Figure=', {'Visible=', testCase.TestData.Visible});
+    [ff, aa] = dbplot(d, {qq(2001,1:8), mm(2001,1:12)}, {'x', 'y'}, 'Figure', {'Visible', testCase.TestData.Visible});
     xLim1 = get(aa{1}(1), 'XLim');
     xLim2 = get(aa{1}(2), 'XLim');
     assertEqual(testCase, xLim1(1), datetime(qq(2001,1)));

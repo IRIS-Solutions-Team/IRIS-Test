@@ -29,7 +29,7 @@ start = qq(2001,1);
 x = Series(start, data);
 names = arrayfun(@(x) sprintf('a_%g', x), 1:size(data, 2), 'UniformOutput', false);
 figure( );
-spy(x, 'Names=', names, 'Interpreter=', 'None');
+spy(x, 'Names', names, 'Interpreter', 'None');
 try
     axesHandle = gca( );
     interpreter = get(axesHandle, 'TickLabelInterpreter');

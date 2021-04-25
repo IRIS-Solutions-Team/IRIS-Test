@@ -7,7 +7,7 @@ end
 
 
 function setupOnce(this)
-m = model('chkmissing.model', 'Linear=', true);
+m = model('chkmissing.model', 'Linear', true);
 this.TestData.Model = m;
 end 
 

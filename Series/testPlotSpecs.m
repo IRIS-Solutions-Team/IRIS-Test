@@ -10,7 +10,7 @@ plot(x, 'b--');
 close(f);
 
 f = figure('Visible', 'Off');
-h = plot(x, 'b--', 'LineWidth=', 5);
+h = plot(x, 'b--', 'LineWidth', 5);
 assert(all([h.LineWidth]==5));
 close(f);
 
@@ -22,7 +22,7 @@ plot(x, 'b');
 close(f);
 
 f = figure('Visible', 'Off');
-h = plot(x, 'b', 'LineWidth=', 5);
+h = plot(x, 'b', 'LineWidth', 5);
 assert(all([h.LineWidth]==5));
 close(f);
 
@@ -34,7 +34,7 @@ plot(x, '--');
 close(f);
 
 f = figure('Visible', 'Off');
-h = plot(x, 'b', 'LineWidth=', 5);
+h = plot(x, 'b', 'LineWidth', 5);
 assert(all([h.LineWidth]==5));
 close(f);
 

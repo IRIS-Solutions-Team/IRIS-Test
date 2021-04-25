@@ -1,29 +1,29 @@
-function tests = tseriesTest( )
-tests = functiontests(localfunctions( ));
-end
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 
-function testPrctile(this)
-    row = 10;
-    col = 20;
-    pag = 4;
-    data = rand(row, col, pag);
-    x = tseries(1, data);
+%% Test
 
-    x1 = prctile(x, [30, 70], 1);
-    p1 = numeric.prctile(data, [30, 70], 1);
-    assertEqual(this, x1, p1);
-    assertClass(this, x1, 'double');
+row = 10;
+col = 20;
+pag = 4;
+data = rand(row, col, pag);
+x = tseries(1, data);
 
-    x2 = prctile(x, [30, 70], 2);
-    p2 = numeric.prctile(data, [30, 70], 2);
-    assertClass(this, x2, 'tseries');
-    assertEqual(this, x2.Data, p2);
-    assertEqual(this, x2.Comment, repmat({char.empty(1, 0)}, 1, 2, pag));
+x1 = prctile(x, [30, 70], 1);
+p1 = numeric.prctile(data, [30, 70], 1);
+assertEqual(testCase, x1, p1);
+assertClass(testCase, x1, 'double');
 
-    x3 = prctile(x, [30, 70], 3);
-    p3 = numeric.prctile(data, [30, 70], 3);
-    assertClass(this, x3, 'tseries');
-    assertEqual(this, x3.Data, p3);
-    assertEqual(this, x3.Comment, repmat({char.empty(1, 0)}, 1, col, 2));
-end
+x2 = prctile(x, [30, 70], 2);
+p2 = numeric.prctile(data, [30, 70], 2);
+assertClass(testCase, x2, 'tseries');
+assertEqual(testCase, x2.Data, p2);
+assertSize(testCase, x2.Comment, [1, 2, pag]);
+assertClass(testCase, x2.Comment, "string");
+
+x3 = prctile(x, [30, 70], 3);
+p3 = numeric.prctile(data, [30, 70], 3);
+assertClass(testCase, x3, 'tseries');
+assertEqual(testCase, x3.Data, p3);
+assertSize(testCase, x3.Comment, [1, col, 2]);
+assertClass(testCase, x3.Comment, "string");

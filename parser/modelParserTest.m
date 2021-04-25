@@ -1,11 +1,12 @@
-function Tests = modelParserTest()
-Tests = functiontests(localfunctions);
-end
-%#ok<*DEFNU>
+
+% Set up once
+
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 
-function testQuotes(this)
-m = model('testQuotes.model');
+%% Test Quotes
+
+m = Model('testQuotes.model');
 % Descriptions of variables.
 actDescript = get(m, 'description');
 expDescript = struct( ...
@@ -14,7 +15,8 @@ expDescript = struct( ...
     'z', 'Variable z', ...
     'ttrend', 'Time trend' ...
 );
-verifyEqual(this, actDescript, expDescript);
+assertEqual(testCase, actDescript, expDescript);
+
 % Equation labels.
 actLabel = get(m,'label');
 expLabel = {
@@ -22,24 +24,24 @@ expLabel = {
     'Equation y'
     'Equation z'
 };
-verifyEqual(this, actLabel, expLabel);
-end
+assertEqual(testCase, actLabel, expLabel);
 
 
-function testForControlInQuotes(this)
-m = model('testForControlInQuotes.model');
+%% Test For Control In Quotes
+
+m = Model('testForControlInQuotes.model');
 expLabel = {
     'Equation for X'
     'Equation for Y'
     'Equation for Z'
 };
 actLabel = get(m,'labels');
-assertEqual(this,actLabel,expLabel);
-end
+assertEqual(testCase, actLabel, expLabel);
 
 
-function testBracketsInQuotes(this)
-m = model('testBracketsInQuotes.model');
+%% Test Brackets In Quotes
+
+m = Model('testBracketsInQuotes.model');
 % Descriptions of variables.
 actDescript = get(m,'description');
 expDescript = struct( ...
@@ -48,7 +50,7 @@ expDescript = struct( ...
     'z','Variable z', ...
     'ttrend', 'Time trend' ...
 );
-verifyEqual(this,actDescript,expDescript);
+assertEqual(testCase,actDescript,expDescript);
 % Equation labels.
 actLabel = get(m,'label');
 expLabel = { 
@@ -56,12 +58,12 @@ expLabel = {
     '{Equation {y'
     'Equation} z}'
 };
-verifyEqual(this,actLabel,expLabel);
-end
+assertEqual(testCase,actLabel,expLabel);
 
 
-function testAssignments(this)
-m = model('testAssignment.model');
+%% Test Assignments
+
+m = Model('testAssignment.model');
 % Values assigned to variables in model file.
 actAssign = get(m,'sstate');
 expAssign = struct( ...
@@ -70,12 +72,12 @@ expAssign = struct( ...
     'z',[1,2,3]*[4,5,6]', ...
     'ttrend', 0+1i ...
 );
-verifyEqual(this,actAssign,expAssign);
-end
+assertEqual(testCase,actAssign,expAssign);
 
 
-function testMultipleAssignments(this)
-m = model('testMultipleAssignment.model');
+%% Test Multiple Assignments
+
+m = Model('testMultipleAssignment.model');
 % Values assigned to variables in model file.
 actAssign = get(m, 'sstate');
 expAssign = struct( ...
@@ -87,12 +89,12 @@ expAssign = struct( ...
     'bet', sin([1,2,3]), ...
     'ttrend', repmat(0+1i, 1, 3) ...
 );
-assertEqual(this, actAssign, expAssign);
-end
+assertEqual(testCase, actAssign, expAssign);
 
 
-function testAutoexogenize(this)
-m = model('testAutoexogenize.model');
+%% Test Autoexogenize
+
+m = Model('testAutoexogenize.model');
 % Values assigned to variables in model file.
 actAutoexog = autoswap(m);
 expAutoexog = model.component.AutoswapStruct( );
@@ -103,7 +105,7 @@ expAutoexog.Simulate = struct( ...
     'w', 'ew' ...
     );
 expAutoexog.Steady = struct( );
-assertEqual(this, actAutoexog, expAutoexog);
+assertEqual(testCase, actAutoexog, expAutoexog);
 
 actAutoexog = autoexog(m);
 expAutoexog = model.component.AutoswapStruct( );
@@ -114,13 +116,11 @@ expAutoexog.Simulate = struct( ...
     'w', 'ew' ...
     );
 expAutoexog.Steady = struct( );
-assertEqual(this, actAutoexog, expAutoexog);
-end%
+assertEqual(testCase, actAutoexog, expAutoexog);
 
 
+%% Test Eval Time Subs
 
-
-function testEvalTimeSubs(this)
 eqtn = { ...
     'x{-1+1} - y{0} + z{-4} + x{10+10}', ...
     'x{0} + y{-0} + z{-0+1-1}', ...
@@ -143,7 +143,6 @@ expEqtn = parser.Preparser.removeInsignificantWhs(expEqtn);
 expMaxSh = 20;
 expMinSh = -5;
 
-assertEqual(this, actEqtn, expEqtn);
-assertEqual(this, actMaxSh, expMaxSh);
-assertEqual(this, actMinSh, expMinSh);
-end
+assertEqual(testCase, actEqtn, expEqtn);
+assertEqual(testCase, actMaxSh, expMaxSh);
+assertEqual(testCase, actMinSh, expMinSh);

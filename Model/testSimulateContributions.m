@@ -1,8 +1,10 @@
 
 % Setup once
 
-m = Model( 'testSimulateContributions.model', ...
-           'Growth=', true );
+m = Model( ...
+    'testSimulateContributions.model' ...
+    , 'Growth', true ...
+);
 
 m.alpha = 1.03^(1/4);
 m.beta = 0.985^(1/4);
@@ -31,94 +33,95 @@ m.std_Mp = 0;
 m.std_Mw = 0;
 m.std_Ea = 0.001;
 
-m = sstate( m, ...
-            'Solver=', {'IRIS-Qnsd', 'Display=', false} );
-chksstate(m);
+m = steady(m, "Solver=", {"IRIS-Qnsd", "Display=", false});
+checkSteady(m);
 m = solve(m);
+
 
 %% Test Contributions Linear Zerodb
 
-[d, deviation] = zerodb(m, 1:20, 'ShockFunc=', @randn);
+[d, deviation] = zerodb(m, 1:20, 'ShockFunc', @randn);
 
-s = simulate( m, d, 1:20, ...
-              'Deviation=', deviation );
+s = simulate( ...
+    m, d, 1:20 ...
+    , 'Deviation', deviation ...
+);
 
-c = simulate( m, d, 1:20, ...
-              'Deviation=', deviation, ...
-              'Contributions=', true );
+c = simulate( ...
+    m, d, 1:20 ...
+    , 'Deviation', deviation ...
+    , 'Contributions', true ...
+);
 
-assertContributions(m, s, c);
+locallyAssertContributions(m, s, c);
 
 
 %% Test Contributions Linear Zerodb Trends
 
-[d, deviation] = zerodb(m, 1:20, 'ShockFunc=', @randn);
+[d, deviation] = zerodb(m, 1:20, 'ShockFunc', @randn);
 
 s = simulate( m, d, 1:20, ...
-              'Deviation=', deviation, ...
-              'EvalTrends=', true );
+              'Deviation', deviation, ...
+              'EvalTrends', true );
 
 c = simulate( m, d, 1:20, ...
-              'Deviation=', deviation, ...
-              'EvalTrends=', true, ...
-              'Contributions=', true );
+              'Deviation', deviation, ...
+              'EvalTrends', true, ...
+              'Contributions', true );
 
-assertContributions(m, s, c);
+locallyAssertContributions(m, s, c);
 
 
 %% Test Contributions Linear Sstatedb
 
-[d, deviation] = sstatedb(m, 1:20, 'ShockFunc=', @randn);
+[d, deviation] = sstatedb(m, 1:20, 'ShockFunc', @randn);
 
 s = simulate( m, d, 1:20, ...
-              'Deviation=', deviation );
+              'Deviation', deviation );
 
 c = simulate( m, d, 1:20, ...
-              'Deviation=', deviation, ...
-              'Contributions=', true );
+              'Deviation', deviation, ...
+              'Contributions', true );
 
-assertContributions(m, s, c);
+locallyAssertContributions(m, s, c);
 
 
 %% Test Contributions Nonlinear Sstatedb
 
-[d, deviation] = sstatedb(m, 1:20, 'ShockFunc=', @randn);
+[d, deviation] = sstatedb(m, 1:20, 'ShockFunc', @randn);
 
 s = simulate( m, d, 1:20, ...
-              'Method=', 'Selective', ...
-              'Solver=', {'IRIS-QaD', 'FunctionTolerance=', 1e-10, 'Display=', false}, ...
-              'Deviation=', deviation );
+              'Method', 'Selective', ...
+              'Solver', {'IRIS-QaD', 'FunctionTolerance', 1e-10, 'Display', false}, ...
+              'Deviation', deviation );
 
 c0 = simulate( m, d, 1:20, ...
-               'Deviation=', deviation, ...
-               'Contributions=', true );
+               'Deviation', deviation, ...
+               'Contributions', true );
 
 c1 = simulate( m, d, 1:20, ...
-               'Method=', 'Selective', ...
-               'Solver=', {'IRIS-QaD', 'FunctionTolerance=', 1e-10, 'Display=', false}, ...
-               'Deviation=', deviation, ...
-               'Contributions=', true );
+               'Method', 'Selective', ...
+               'Solver', {'IRIS-QaD', 'FunctionTolerance', 1e-10, 'Display', false}, ...
+               'Deviation', deviation, ...
+               'Contributions', true );
 
-assertContributions(m, s, c1, 1e-8)
-assertLinearContributions(m, c0, c1, 1e-10)
-
+locallyAssertContributions(m, s, c1, 1e-8)
+locallyAssertLinearContributions(m, c0, c1, 1e-10)
 
 %
 % Local Functions
 %
 
-
-function assertContributions(m, s, c, tolerance)
+function locallyAssertContributions(m, s, c, tolerance)
     %testCase = matlab.unittest.TestCase.forInteractiveUse;
     testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     if nargin<4
         tolerance = 1e-10;
     end
-    listOfYX = [ get(m, 'YNames'), get(m, 'XNames') ];
-    listOfLog = get(m, 'LogList');
-    for i = 1 : numel(listOfYX)
-        name = listOfYX{i};
-        if any(strcmpi(name, listOfLog))
+    listYX = string([ get(m, 'YNames'), get(m, 'XNames') ]);
+    listLog = string(get(m, 'LogList'));
+    for name = reshape(string(listYX), 1, [ ])
+        if any(name==listLog)
             assertEqual( testCase, ...
                          s.(name)(:), ...
                          prod(c.(name)(:), 2), ...
@@ -133,17 +136,16 @@ function assertContributions(m, s, c, tolerance)
 end%
 
 
-function assertLinearContributions(m, s, c, tolerance)
+function locallyAssertLinearContributions(m, s, c, tolerance)
     %testCase = matlab.unittest.TestCase.forInteractiveUse;
     testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     if nargin<4
         tolerance = 1e-10;
     end
-    listOfYX = [ get(m, 'YNames'), get(m, 'XNames') ];
-    listOfLog = get(m, 'LogList');
-    for i = 1 : numel(listOfYX)
-        name = listOfYX{i};
-        if any(strcmpi(name, listOfLog))
+    listYX = string([ get(m, 'YNames'), get(m, 'XNames') ]);
+    listLog = string(get(m, 'LogList'));
+    for name = reshape(string(listYX), 1, [ ])
+        if any(name==listLog)
             assertEqual( testCase, ...
                          prod(s.(name)(:, 1:end-1), 2), ...
                          prod(c.(name)(:, 1:end-1), 2), ...

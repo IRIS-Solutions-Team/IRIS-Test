@@ -55,7 +55,7 @@ expZ = [
 actZ = outputData1.z(:);
 assertEqual(testCase, actZ, expZ);
 
-opt = struct('AppendPresample', inputData, 'AppendPostsample', false);
+opt = struct('PrependInput', inputData, 'AppendInput', false);
 outputData2 = appendData(x, inputData1, outputData, range, opt);
 assertEqual(testCase, outputData1, outputData2);
 

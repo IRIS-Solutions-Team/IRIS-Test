@@ -1,9 +1,7 @@
 
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
-assertEqualTol = @(x, y) assert(maxabs(x-y)<=1e-9);
-
-m0 = model('3eq.model', 'linear=', true);
+m0 = model('3eq.model', 'linear', true);
 m0 = solve(m0);
 m0 = sstate(m0);
 
@@ -13,9 +11,9 @@ m0 = sstate(m0);
 m = m0;
 eList = get(m, 'eList');
 
-exp1 = diffsrf(m, 1:20, 'alp4, alp3', 'Select=', eList{1});
-exp2 = diffsrf(m, 1:20, 'alp4, alp3', 'Select=', eList{2});
-s12 = diffsrf(m, 1:20, 'alp4, alp3', 'Select=', eList([1, 2]));
+exp1 = diffsrf(m, 1:20, 'alp4, alp3', 'Select', eList{1});
+exp2 = diffsrf(m, 1:20, 'alp4, alp3', 'Select', eList{2});
+s12 = diffsrf(m, 1:20, 'alp4, alp3', 'Select', eList([1, 2]));
 act1 = dbcol(s12, 1);
 act2 = dbcol(s12, 2);
 
@@ -32,9 +30,9 @@ end
 m = m0;
 eList = get(m, 'eList');
 
-exp1 = diffsrf(m, 1:20, 'alp4', 'Select=', eList);
-exp2 = diffsrf(m, 1:20, 'alp3', 'Select=', eList);
-s12 = diffsrf(m, 1:20, 'alp4, alp3', 'Select=', eList);
+exp1 = diffsrf(m, 1:20, 'alp4', 'Select', eList);
+exp2 = diffsrf(m, 1:20, 'alp3', 'Select', eList);
+s12 = diffsrf(m, 1:20, 'alp4, alp3', 'Select', eList);
 act1 = dbpage(s12, 1);
 act2 = dbpage(s12, 2);
 

@@ -7,8 +7,8 @@ this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 %% Linear System Test
 
 % Test coefficients of unsolved system.
-m = model('testLinearSystem.model', 'linear=', true);
-m4 = model('testLinearSystem4.model', 'linear=', true);
+m = model('testLinearSystem.model', 'linear', true);
+m4 = model('testLinearSystem4.model', 'linear', true);
 
 m.a = 2*4;
 m.b = 3*4;
@@ -21,7 +21,7 @@ m4.c = 4;
 m4.d = 5;
 
 [actA, actB, actC] = system(m);
-[actA4, actB4, actC4] = system(m4, 'sparse=', true);
+[actA4, actB4, actC4] = system(m4, 'sparse', true);
 
 expA = zeros(2);
 expA(1, 1) = -1;
@@ -46,13 +46,13 @@ assertEqual(this, actC4, expC);
 %% Test Option MakeBkw in Model Constructor
 
 % Test option 'makeBkw' in model/model.
-m0 = model('3eq.model', 'linear=', true);
+m0 = model('3eq.model', 'linear', true);
 m0 = solve(m0);
-m1 = model('3eq.model', 'linear=', true, 'makeBkw=', 'rr');
+m1 = model('3eq.model', 'linear', true, 'makeBkw', 'rr');
 m1 = solve(m1);
-m2 = model('3eq.model', 'linear=', true, 'makeBkw=', 'rr, Epie');
+m2 = model('3eq.model', 'linear', true, 'makeBkw', 'rr, Epie');
 m2 = solve(m2);
-m3 = model('3eq.model', 'linear=', true, 'makeBkw=', @all);
+m3 = model('3eq.model', 'linear', true, 'makeBkw', @all);
 m3 = solve(m3);
 
 xb0 = get(m0, 'xbVector');

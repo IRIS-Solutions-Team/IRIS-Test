@@ -71,7 +71,7 @@
    xiw/(eta-1)*(dW/dW{-1} - 1) = ...
       beta*xiw/(eta-1)*(dW{1}/dW - 1 + Ew) ...
       + (eta/(eta-1)*N^psi/(Lambda*W) - 1) ...
-      !! eta/(eta-1)*N^psi = Lambda*W;
+      !! eta*N^psi = Lambda*W*(eta-1);
    
    % Price of capital.
 
@@ -85,9 +85,9 @@
    
    'Phillips curve' xip/(eta-1)*(dP/dP{-1} - 1) = ...
       beta*xip/(eta-1)*(dP{1}/dP - 1 + Ep) ...
-      + (eta/(eta-1)*RMC - 1) !! eta/(eta-1)*Q = P;
+      + (eta/(eta-1)*RMC - 1) !! eta*Q = P*(eta-1);
    
-   RMC = Q/P !! RMC = (eta-1)/eta;
+   RMC = Q/P !! RMC*eta = (eta-1);
    
    % Productivity.
 

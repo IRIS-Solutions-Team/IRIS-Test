@@ -23,7 +23,7 @@ end%
 
 function testBlazerTriangularEndg(this)
 m = model('testBlazerTriangular.model');
-[actNameBlk, actEqtnBlk] = blazer(m,'endogenize=',{'a','b'},'exogenize=',{'x','y'});
+[actNameBlk, actEqtnBlk] = blazer(m,'endogenize',{'a','b'},'exogenize',{'x','y'});
 expNameBlk = repmat({struct('Level', string.empty(1, 0), 'Change', string.empty(1, 0))}, 1, 3);
 expNameBlk{1}.Level = "a";
 expNameBlk{2}.Level = "b";

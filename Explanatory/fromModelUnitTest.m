@@ -31,7 +31,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     m = testCase.TestData.Model;
     errorThrown = false;
     try
-        q = ExplanatoryEquation.fromModel(m, ["u", "y", "w"]);
+        q = Explanatory.fromModel(m, ["u", "y", "w"]);
     catch
         errorThrown = true;
     end
