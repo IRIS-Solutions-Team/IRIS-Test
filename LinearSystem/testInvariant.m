@@ -31,31 +31,34 @@ b = steadySystem(b, {T, R, k, Z, H, d}, {OmegaV, OmegaW});
 
 %% Test Invariant
 
-[TT, RR, kk, ZZ, HH, dd, UU, ZZb, inxV, inxW, numUnit, inxInit] = getIthKalmanSystem(b, 1, 2);
+if ~verLessThan('matlab', '9.9')
+    [TT, RR, kk, ZZ, HH, dd, UU, ZZb, inxV, inxW, numUnit, inxInit] = getIthKalmanSystem(b, 1, 2);
 
 
-data = filter(b, x, filterRange);
+    data = filter(b, x, filterRange);
 
-y = data.SmoothMean.Y(filterRange, :);
-xi = data.SmoothMean.Xi(filterRange, :);
-v = data.SmoothMean.V(filterRange, :);
-w = data.SmoothMean.W(filterRange, :);
-assertEqual(this, y, sum(xi, 2) + w, 'AbsTol', 1e-10);
-
+    y = data.SmoothMean.Y(filterRange, :);
+    xi = data.SmoothMean.Xi(filterRange, :);
+    v = data.SmoothMean.V(filterRange, :);
+    w = data.SmoothMean.W(filterRange, :);
+    assertEqual(this, y, sum(xi, 2) + w, 'AbsTol', 1e-10);
+end
 
 %% Test Time Varying
 
-b1 = b;
+if ~verLessThan('matlab', '9.9')
+    b1 = b;
 
-T1 = diag([0.99, 0]);
-%b1 = timeVaryingSystem(b1, 21, {T1}, { });
-b1 = timeVaryingSystem(b1, 16, { }, {[ ], 20});
+    T1 = diag([0.99, 0]);
+    %b1 = timeVaryingSystem(b1, 21, {T1}, { });
+    b1 = timeVaryingSystem(b1, 16, { }, {[ ], 20});
 
-[data1, nondata1] = filter(b1, x, filterRange, 'Init', {zeros(2, 1), zeros(2, 2)});
+    [data1, nondata1] = filter(b1, x, filterRange, 'Init', {zeros(2, 1), zeros(2, 2)});
 
-y1 = data1.SmoothMean.Y(filterRange, :);
-xi1 = data1.SmoothMean.Xi(filterRange, :);
-v1 = data1.SmoothMean.V(filterRange, :);
-w1 = data1.SmoothMean.W(filterRange, :);
-assertEqual(this, y1, sum(xi1, 2) + w1, 'AbsTol', 1e-10);
+    y1 = data1.SmoothMean.Y(filterRange, :);
+    xi1 = data1.SmoothMean.Xi(filterRange, :);
+    v1 = data1.SmoothMean.V(filterRange, :);
+    w1 = data1.SmoothMean.W(filterRange, :);
+    assertEqual(this, y1, sum(xi1, 2) + w1, 'AbsTol', 1e-10);
+end
 

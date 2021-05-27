@@ -1,7 +1,7 @@
 
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 K = 10;
-m = Model.fromSnippet("test1", "assign", struct("K", K));
+m = Model.fromSnippet("test1", "assign", struct('K', K));
 
 % test1>>>
 % !for <1:K> !do
@@ -14,7 +14,7 @@ m = Model.fromSnippet("test1", "assign", struct("K", K));
 % !end
 % <<<test1
     
-m2 = Model.fromSnippet("test2", "assign", struct("K", K));
+m2 = Model.fromSnippet("test2", "assign", struct('K', K));
 
 % test2>>>
 % !for <1:K> !do

@@ -62,9 +62,11 @@ k = LinearSystem([4, 4, 4, 1, 0], numYears);
 k = steadySystem(k, 'NotNeeded');
 k = timeVaryingSystem(k, 1:numYears, {a, b, zeros(4, 1), z, [ ], 0}, {eye(4), [ ]});
 init = { x0, zeros(4) };
-f = filter(k, series, startYear:endYear, 'Init', init);
-states = f.SmoothMean.Xi;
-interp = Series(startQuarter, reshape(transpose(states(startYear:endYear)), [ ], 1));
 
-assertEqual(this, series(startYear:endYear), sum(states(startYear:endYear),2), 'RelTol', 1e-10);
+if ~verLessThan('matlab', '9.9')
+    f = filter(k, series, startYear:endYear, 'Init', init);
+    states = f.SmoothMean.Xi;
+    interp = Series(startQuarter, reshape(transpose(states(startYear:endYear)), [ ], 1));
 
+    assertEqual(this, series(startYear:endYear), sum(states(startYear:endYear),2), 'RelTol', 1e-10);
+end

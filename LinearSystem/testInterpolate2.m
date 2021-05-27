@@ -46,9 +46,10 @@ m = LinearSystem([4, 4, 1, 1, 0], numQuarters);
 m = steadySystem(m, 'NotNeeded');
 m = timeVaryingSystem(m, 1:numQuarters, {T, R, k, Z, H, d}, {OmegaV, OmegaW});
 
-outputData = filter(m, observed, startQuarter:endQuarter, 'Init', {x0, zeros(4)});
-interp = outputData.SmoothMean.Xi{startQuarter:endQuarter, 4};
+if ~verLessThan('matlab', '9.9')
+    outputData = filter(m, observed, startQuarter:endQuarter, 'Init', {x0, zeros(4)});
+    interp = outputData.SmoothMean.Xi{startQuarter:endQuarter, 4};
 
-interpYearly = convert(interp, Frequency.YEARLY, 'Method', @sum);
-assertEqual(this, series(startYear:endYear), interpYearly(startYear:endYear), 'RelTol', 1e-10);
-
+    interpYearly = convert(interp, Frequency.YEARLY, 'Method', @sum);
+    assertEqual(this, series(startYear:endYear), interpYearly(startYear:endYear), 'RelTol', 1e-10);
+end
