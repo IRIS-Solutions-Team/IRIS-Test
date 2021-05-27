@@ -1,9 +1,8 @@
-function Tests = iris2010BkwCompatibilityTest()
-Tests = functiontests(localfunctions);
-end
-%#ok<*DEFNU>
 
-function setupOnce(this)
+this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+
+
+% Set up once
 
 % load inputs and outputs from the IRIS 8.20100429
 tmp = load ('iris2010.mat');
@@ -51,14 +50,10 @@ this.TestData.rng_forecast      = tmp2.rng_forecast;
 % save state-space matrices
 this.TestData.sspace = tmp3;
 
-end
 
-function teardownOnce(this)
-% remove temporary model files
-delete(this.TestData.tmpModFile);
-end
 
-function testOgiHistStdev(this)
+%% Test OGI Hist Stdev 
+
 % get the data
 m = this.TestData.model;
 filtRange = this.TestData.filtRange;
@@ -88,9 +83,12 @@ assertEqual(this,...
   rmfield(filtHistAct.std,vList),...
   rmfield(filtHistOut.std,vList),...
   'AbsTol',this.TestData.doubleAbsTol);
-end
 
-function testOgiForeMean(this)
+
+
+
+%% Test OGI Forecast Mean 
+
 % get the data
 m = this.TestData.model;
 filtRange = this.TestData.filtRange;
@@ -116,10 +114,11 @@ assertEqual(this,...
   rmfield(filtForeAct.mean,vList),...
   rmfield(filtForeOut.mean,vList),...
   'AbsTol',this.TestData.doubleAbsTol);
-end
 
-function testOgiNtf(this)
 
+
+
+%% Test OGI NTF 
 
 dummyobs = BVAR.litterman(0,sqrt(this.TestData.nObsEstim)*this.TestData.relstd,1);
 w=VAR(this.TestData.list_tseries);
@@ -161,9 +160,13 @@ assertEqual(this,...
   db2array(f_cond,vList,this.TestData.rng_forecast),...
   'AbsTol',this.TestData.meanSeriesAbsTol);
 
-end
 
-function testSolve(this)
+
+
+
+
+%% Test solve 
+
 sspaceExpected = this.TestData.sspace;
 [tActual,rActual,kActual,zActual,hActual,dActual,uActual,omgActual] = ...
   sspace(this.TestData.model,'triangular',false);
@@ -183,4 +186,6 @@ assertEqual(this,dActual,sspaceExpected.D,...
 %   'AbsTol',this.TestData.sspaceAbsTol);
 assertEqual(this,sparse(omgActual),sspaceExpected.Omg,...
   'AbsTol',this.TestData.sspaceAbsTol);
-end
+
+delete(this.TestData.tmpModFile);
+
