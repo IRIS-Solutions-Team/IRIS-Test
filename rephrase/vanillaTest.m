@@ -1,7 +1,7 @@
 
 %#ok<*VUNUS>
 
-%% Generate data
+% __Generate data__
 
 characters = ['a':'z', 'A':'Z'];
 
@@ -33,7 +33,7 @@ m = solve(m);
 m = steady(m);
 
 
-%% Create report
+% __Create report__
 
 report = rephrase.Report( ...
     "Lorem ipsum dolor sit amet" ...
@@ -126,14 +126,14 @@ table2 ...
 report < table2;
 
 
-%% Publish report
+% __Publish report__
 
 show(report)
 
-fileNames = build( ...
-    report, "vanillaTest", db ...
-    , "SaveJSON", true ...
-    , "Source", ["Local", "Bundle"] ...
-);
-
-
+if ~verLessThan('matlab', '9.9')
+    fileNames = build( ...
+        report, "vanillaTest", db ...
+        , "SaveJSON", true ...
+        , "Source", ["Local", "Bundle"] ...
+    );
+end

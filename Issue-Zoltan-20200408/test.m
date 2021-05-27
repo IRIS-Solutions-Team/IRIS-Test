@@ -134,7 +134,7 @@ endoExoList = {
 % Calculation options
 ssOptions = {
   'Growth',     true, ...
-  'Solver',     {'IRIS-Qnsd', 'SpecifyObjectiveGradient', false, 'Display', 'none'}, ...
+  'Solver',     {'IRIS-Qnsd', 'SpecifyObjectiveGradient', false, 'Display', 'iter'}, ...
   'Fix',        {'A', 'Pw_star'}, ...
   'Endogenize', endoExoList(:,1), ...
   'Exogenize',  endoExoList(:,2) ...
@@ -145,37 +145,5 @@ blazer(m, ssOptions{:}, 'SaveAs', 'xxx.model');
 m = steady(m, ssOptions{:});
 checkSteady(m);
 m = solve(m);
-return
 
-% Make sure that the exogenous equation for net transfers is consistent
-% with the calculated steady-state
-m.TAXls_NGDP_exog = real(m.TAXls_NGDP);
-m.ss_TAXls_NGDP   = real(m.TAXls_NGDP);
-
-% Set further parameters by divide-and-conquer (when necessary)
-
-% Number of steps
-N = 1;
-
-% Target parameter values
-p.chi = 0.3;
-p.psi = 0.3;
-p.mux = 1.4;
-
-pNames  = fieldnames(p);
-pNum    = length(pNames);
-
-for i = 1:pNum
-  p.(pNames{i}) = linspace(m.(pNames{i}), p.(pNames{i}), N);
-end
-
-for n = 1:N
-  for i = 1:pNum
-    m.(pNames{i}) = p.(pNames{i})(n);
-  end
-  m = steady(m, ssOptions{:});
-end
-
-checkSteady(m);
-m = solve(m);
 

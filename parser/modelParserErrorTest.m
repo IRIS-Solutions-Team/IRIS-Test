@@ -1,28 +1,28 @@
 
 %% Test Autoexogenize Invalid Definition   
 
-expId = 'Pairing:INVALID_NAMES_IN_DYNAMIC_AUTOEXOG';
+expId = 'Pairing:InvalidAutoswapsNames';
 code = '!transition_variables x; !shocks ex; !transition_equations x; !dynamic_autoexog y=ey;';
 modelParserErrorHelper(code, expId);
 
 
 %% Test Autoexogenize Multiple Shocks   
 
-expId = 'Pairing:MULTIPLE_RHS_AUTOEXOG';
+expId = 'Pairing:EndogenizedMoreThanOnce';
 code = '!transition_variables x, y; !shocks ex; !transition_equations x; y; !dynamic_autoexog x=ex; y=ex;';
 modelParserErrorHelper(code, expId);
 
 
 %% Test Autoexogenize Multiple Var   
 
-expId = 'Pairing:MULTIPLE_LHS_AUTOEXOG';
+expId = 'Pairing:ExogenizedMoreThanOnce';
 code = '!transition_variables x, y; !shocks ex; !transition_equations x; y; !dynamic_autoexog x=ex; x=ey;';
 modelParserErrorHelper(code, expId);
 
 
 %% Test Prefix Multiplier   
 
-expId = 'Model:Postparser:PREFIX_MULTIPLIER';
+expId = 'Parser:MultiplierPrefix';
 code = '!variables x, Mu_y; !equations min(0.9) x^2+Mu_y^2; x = Mu_y;';
 modelParserErrorHelper(code, expId);
 
@@ -50,9 +50,9 @@ modelParserErrorHelper(code, expId);
 
 %% Test Sstate Ref In Linear   
 
-expId = 'Model:Postparser:SSTATE_REF_IN_LINEAR';
-code = '!transition_variables x; !transition_equations x=&x;';
-modelParserErrorHelper(code, expId, 'Linear', true);
+% expId = 'Model:Postparser:SSTATE_REF_IN_LINEAR';
+% code = '!transition_variables x; !transition_equations x=&x;';
+% modelParserErrorHelper(code, expId, 'Linear', true);
 
 
 %% Test Sstate Ref In Dtrend   
@@ -148,7 +148,7 @@ modelParserErrorHelper(code, expId);
 
 %% Test Exogenous In Other Than Dtrends   
 
-expId = 'Model:Postparser:EXOGENOUS_IN_OTHER_THAN_DTREND';
+expId = 'Model:Postparser:ExogenousInOtherThanDtrend';
 code = '!transition_variables x; !exogenous_variables y; !transition_equations x+y;';
 modelParserErrorHelper(code, expId);
 

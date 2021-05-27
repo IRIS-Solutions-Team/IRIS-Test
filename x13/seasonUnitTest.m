@@ -77,6 +77,7 @@ if ~verLessThan("matlab", "9.9")
     assertSize(testCase, info.OutputSpecs.Arima_MA, [1, 2]);
 end
 
+
 %% Test Forecast
 
 if ~verLessThan("matlab", "9.9")
@@ -86,16 +87,16 @@ if ~verLessThan("matlab", "9.9")
         , "Automdl", true ...
         , "Forecast_MaxLead", 24 ...
     );
-
+    %
     assertSize(testCase, fct, [24, 1]);
-
+    %
     [fct, bct, info] = x13.season( ...
         [d.x, d.y, d.z] ...
         , "Output", ["fct", "bct"] ...
         , "Automdl", true ...
         , "Forecast_MaxLead", 24 ...
     );
-
+    %
     assertSize(testCase, fct, [30, 3]);
     assertSize(testCase, bct, [0, 3]);
 end
@@ -149,7 +150,7 @@ if ~verLessThan("matlab", "9.9")
 end
 
 
-%% Test Dummies
+%% Test Dummies 
 
 if ~verLessThan("matlab", "9.9")
     [sa, info] = x13.season( ...

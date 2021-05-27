@@ -1,0 +1,1 @@
+!variables x, Mu_y; !equations min(0.9) x^2+Mu_y^2; x = Mu_y;

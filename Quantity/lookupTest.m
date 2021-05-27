@@ -27,8 +27,10 @@ q.Type = [ ...
     repmat(int8(5), 1, 2), ...
     ];
 q.IxLog = true(1, nQuan);
+q.IxObserved = false(1, nQuan);
 q.IxLagrange = true(1, nQuan);
 q.Bounds = repmat(model.component.Quantity.DEFAULT_BOUNDS, 1, nQuan);
+q = seal(q);
 this.TestData.QuantityObj = q;
 this.TestData.ne = 7;
 end

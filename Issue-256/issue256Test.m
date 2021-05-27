@@ -2,13 +2,15 @@
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 % Set up Once
-    m = Model('issue256Test.model', 'SavePreparsed', 'xxx.model');
+    m = Model('issue256Test.model', 'savePreparsed', 'xxx.model');
+
 
 %% Test Solution Vec
- 
+
     [xVec, yVec] = get(m, 'XVector', 'YVector');
     assertEqual(testCase, string(xVec), ["x"; "y"; "z"; "x{-1}"; "y{-1}"; "z{-1}"]);
     assertEqual(testCase, string(yVec), ["obs_x"; "obs_y"; "obs_z"]);
+
 
 
 %% Test Equations

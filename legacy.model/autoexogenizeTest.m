@@ -9,14 +9,15 @@ m = sstate(m);
 testData.Model = m;
 
 
-
-
 %% Test Legacy Function Name autoexogenise ForGPMN
 
 m = testData.Model;
-act = autoexogenise(m);
-exp = struct('x', 'ex', 'y', 'ey', 'z', 'ez', 'b', 'eb');
-assertEqual(testCase, act, exp);
+act = autoswaps(m);
+expSimulate = struct('x', 'ex', 'y', 'ey', 'z', 'ez', 'b', 'eb');
+assertEqual(testCase, act.Simulate, expSimulate);
+
+act_legacy = autoswap(m);
+assertEqual(testCase, act_legacy.Simulate, expSimulate);
 
 
 %% Test One

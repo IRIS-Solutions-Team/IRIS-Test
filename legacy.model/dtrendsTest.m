@@ -36,7 +36,7 @@ prn = getp(m, 'Pairing');
 nEqn = length(eqn.Input);
 ex = repmat(PTR(0), 1, nEqn);
 ex(eqn.Type==TYPE(3)) = PTR([3, 2, 5, 7, 4]);
-ac = prn.Dtrend;
+ac = prn.Dtrends;
 assertEqual(this, ac, ex);
 end
 
