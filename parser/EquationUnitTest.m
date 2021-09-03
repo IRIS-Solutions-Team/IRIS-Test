@@ -20,25 +20,27 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     obj = testCase.TestData.Obj;
     code = testCase.TestData.Code;
     eqn = model.component.Equation( );
-    eun = parser.EquationUnderConstruction( );
+    euc = parser.EquationUnderConstruction( );
     opt = struct( );
     opt.EquationSwitch = @auto;
-    [~, eqn] = parse(obj, [ ], code, [ ], eqn, eun, [ ], opt);
+    attributes = string.empty(1, 0);
+    [~, eqn, euc] = parse(obj, [ ], code, attributes, [ ], eqn, euc, [ ], opt);
     exp_Input = {'a=a{-1}', 'b=0', 'c=c{-1}!!c=0', 'd=d{-1}'};
     assertEqual(testCase, eqn.Input, exp_Input);
-    assertEqual(testCase, cellfun('isempty', eun.LhsSteady), [true, true, false, true]);
+    assertEqual(testCase, cellfun('isempty', euc.LhsSteady), [true, true, false, true]);
 
 
 %% Test Equation Switch Dynamic
     obj = testCase.TestData.Obj;
     code = testCase.TestData.Code;
     eqn = model.component.Equation( );
-    eun = parser.EquationUnderConstruction( );
+    euc = parser.EquationUnderConstruction( );
     opt.EquationSwitch = 'Dynamic';
-    [~, eqn] = parse(obj, [ ], code, [ ], eqn, eun, [ ], opt);
+    attributes = string.empty(1, 0);
+    [~, eqn, euc] = parse(obj, [ ], code, attributes, [ ], eqn, euc, [ ], opt);
     exp_Input = {'a=a{-1}', 'b=b{-1}', 'c=c{-1}', 'd=d{-1}'};
     assertEqual(testCase, eqn.Input, exp_Input);
-    assertEqual(testCase, cellfun('isempty', eun.LhsSteady), true(1, 4));
+    assertEqual(testCase, cellfun('isempty', euc.LhsSteady), true(1, 4));
 
 
 
@@ -46,9 +48,11 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     obj = testCase.TestData.Obj;
     code = testCase.TestData.Code;
     eqn = model.component.Equation( );
-    eun = parser.EquationUnderConstruction( );
+    euc = parser.EquationUnderConstruction( );
     opt.EquationSwitch = 'Steady';
-    [~, eqn] = parse(obj, [ ], code, [ ], eqn, eun, [ ], opt);
+    attributes = string.empty(1, 0);
+    [~, eqn, euc] = parse(obj, [ ], code, attributes, [ ], eqn, euc, [ ], opt);
     exp_Input = {'a=0', 'b=0', 'c=0', 'd=d{-1}'};
     assertEqual(testCase, eqn.Input, exp_Input);
-    assertEqual(testCase, cellfun('isempty', eun.LhsSteady), true(1, 4));
+    assertEqual(testCase, cellfun('isempty', euc.LhsSteady), true(1, 4));
+

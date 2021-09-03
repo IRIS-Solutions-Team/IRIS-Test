@@ -13,10 +13,12 @@ the = parser.TheParser( );
 b = parser.theparser.Quantity( );
 b.Type = TYPE(2);
 code = file2char('parseNamesTest.txt');
+attributes = string.empty(1, 0);
+
 equation = model.component.Equation( );
 quantity = model.component.Quantity( );
 
-quantity = parse(b, the, code, quantity, equation, [ ]);
+quantity = parse(b, the, code, attributes, quantity, equation, [ ]);
 
 actName = quantity.Name;
 expName = {'a', 'b', 'c', 'd', 'e'};

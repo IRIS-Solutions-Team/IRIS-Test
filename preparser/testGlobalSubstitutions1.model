@@ -1,0 +1,9 @@
+
+!variables
+    a, b, c
+!equations
+    a = $eq_a$;
+    b = $eq_b$;
+    c = $eq_c$;
+
+

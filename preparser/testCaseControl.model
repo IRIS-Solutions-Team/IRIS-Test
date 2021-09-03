@@ -1,0 +1,9 @@
+!for ?name = aA, bB, cC !do
+    !variables
+        ?:name
+    !shocks
+        ?.name
+    !equations
+        ?:name = ?.name;
+!end
+

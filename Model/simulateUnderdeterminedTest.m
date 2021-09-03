@@ -36,7 +36,7 @@ range = testCase.TestData.Range;
 s0 = testCase.TestData.SimDb;
 
 s2 = simulate(m, s0, range);
-for n = reshape(string(databank.filter(s0, "Class=", "Series")), 1, [ ])
+for n = reshape(string(databank.filter(s0, "Class", "Series")), 1, [ ])
     assertEqual(testCase, s0.(n).Data, s2.(n).Data);
 end
 
@@ -61,7 +61,7 @@ d = steadydb(m1, range);
 d.x(yy(1:3), :) = 2;
 s1 = simulate(m1, d, range, 'Plan', p1);
 
-for n = reshape(string(databank.filter(s0, "Class=", "Series")), 1, [ ])
+for n = reshape(string(databank.filter(s0, "Class", "Series")), 1, [ ])
     assertEqual(testCase, s0.(n).Data(:, 1), s1.(n).Data);
 end
 
@@ -75,7 +75,7 @@ d = steadydb(m2, range);
 d.x(yy(1:3), :) = 2;
 s2 = simulate(m2, d, range, 'Plan', p2);
 
-for n = reshape(string(databank.filter(s0, "Class=", "Series")), 1, [ ])
+for n = reshape(string(databank.filter(s0, "Class", "Series")), 1, [ ])
     assertEqual(testCase, s0.(n).Data(:, 2), s2.(n).Data);
 end
 

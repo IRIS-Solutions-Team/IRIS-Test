@@ -1,0 +1,18 @@
+
+!variables
+
+    x
+
+!exogenous-variables
+
+    z1, z2
+
+!equations
+
+
+    x - z1{-1} = z2 + e;    
+
+!shocks
+
+    e
+

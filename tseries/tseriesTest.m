@@ -24,7 +24,7 @@ function testWrongFreqConcat(this)
     end
     assertEqual(this, actualId, expectedId);
 
-    expectedId = 'IrisToolbox:Dates:MixedFrequency';
+    expectedId = 'IrisToolbox:Frequency:MixedFrequency';
     try
         [a; b];
     catch Error

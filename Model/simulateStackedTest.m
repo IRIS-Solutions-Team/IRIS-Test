@@ -59,13 +59,15 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     assertEqual(testCase, z2_1.CallerData.FrameColumns{1}, [1, 10; 2, 11; 4, 13; 6, 15]-maxLag);
     assertEqual(testCase, z2_2.CallerData.FrameColumns{1}, [1, 10; 2, 11; 4, 13; 6, 15]-maxLag);
     %
-    s2_f = simulate(m, du, 1:10, "anticipate", false);
+    s2_f1 = simulate(m, du, 1:10, "anticipate", false);
+    s2_f2 = simulate(m, du, 1:10, "plan", p);
     [s2_t1, ~, f2_t1] = simulate(m, du, 1:10, "anticipate", false, "method", "stacked");
     [s2_t2, ~, f2_t2] = simulate(m, du, 1:10, "plan", p, "method", "stacked");
     %
     for n = 1 : 4
-        assertEqual(testCase, s2_f.("x"+n).Data, s2_t1.("x"+n).Data, "AbsTol", 1e-11);
-        assertEqual(testCase, s2_f.("x"+n).Data, s2_t2.("x"+n).Data, "AbsTol", 1e-11);
+        assertEqual(testCase, s2_f1.("x"+n).Data, s2_f2.("x"+n).Data, "AbsTol", 1e-11);
+        assertEqual(testCase, s2_f1.("x"+n).Data, s2_t1.("x"+n).Data, "AbsTol", 1e-11);
+        assertEqual(testCase, s2_f1.("x"+n).Data, s2_t2.("x"+n).Data, "AbsTol", 1e-11);
     end
 
 

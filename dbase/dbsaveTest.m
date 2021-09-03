@@ -104,7 +104,7 @@ catch err
     errorID = err.identifier;
 end
 
-assertEqual(this, errorID, 'IrisToolbox:Dates:MixedFrequency');
+assertEqual(this, errorID, 'IrisToolbox:Frequency:MixedFrequency');
 
 
 %% Error invalid NameFunc= option

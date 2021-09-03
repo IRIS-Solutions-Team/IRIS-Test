@@ -21,7 +21,8 @@ b.Type = TYPE(2);
 quantity = model.component.Quantity( );
 
 % Run parse on the parser.theparser.Quantity object.
-quantity = parse(b, the, code, quantity, [ ], [ ], [ ], opt);
+attributes = string.empty(1, 0);
+quantity = parse(b, the, code, attributes, quantity, [ ], [ ], [ ], opt);
 
 % Run assign on the parser.TheParser object.
 assign(the, quantity);

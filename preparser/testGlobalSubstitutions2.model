@@ -1,0 +1,12 @@
+!substitutions
+
+    eq_a = -11;
+
+!substitutions-preprocessor
+
+    eq_b = 200;
+
+!substitutions-postprocessor
+
+    eq_c = 0.1;
+

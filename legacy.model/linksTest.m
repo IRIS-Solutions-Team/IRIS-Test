@@ -163,7 +163,7 @@ if isOptim
     E0.rhox = { NaN, 0.05, 0.95 };
     E0.rhoy = { NaN, 0.05, 0.95 };
     oo = {'Display', 'off'};
-    est0 = estimate(m0, d, range, E0, 'OptimSet', oo);
+    est0 = estimate(m0, d, range, E0, 'OptimSet', oo, 'summary', 'struct');
     assertEqual(testCase, round(est0.mux, 1), m0.mux);
     assertEqual(testCase, round(est0.muy, 1), m0.muy);
     assertEqual(testCase, round(est0.rhox, 1), m0.rhox);
@@ -184,7 +184,7 @@ if isOptim
     E1.muy = { NaN };
     E1.rhox = { NaN, 0.05, 0.95 };
     E1.rhoy = { NaN, 0.05, 0.95 };
-    est1 = estimate(m1, d, range, E1, 'OptimSet', oo);
+    est1 = estimate(m1, d, range, E1, 'OptimSet', oo, 'summary', 'struct');
     assertEqual(testCase, round(est1.muy, 1), round((m0.muy+m0.mux)/2, 1));
 end
 
@@ -198,7 +198,7 @@ if isOptim
     E2.rhox = { NaN, 0.05, 0.95 };
     E2.rhoy = { NaN, 0.05, 0.95 };
     est2 = estimate(m2, d, range, E2, ...
-        'OptimSet', oo);
+        'OptimSet', oo, 'summary', 'struct');
     assertEqual(testCase, round(est2.mu, 3), round(est1.muy, 3));
     assertEqual(testCase, round(est2.rhoy, 3), round(est1.rhoy, 3));
     assertEqual(testCase, round(est2.rhox, 3), round(est1.rhox, 3));

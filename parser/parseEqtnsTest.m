@@ -13,12 +13,13 @@ code = file2char('parseEqtnsTest.model');
 equation = model.component.Equation( );
 quantity = model.component.Quantity( );
 euc = parser.EquationUnderConstruction( );
+attributes = string.empty(1, 0);
 
 q = warning('query');
 expId = 'IrisToolbox:TheParser:EmptyEquation';
 warning('off', expId);
 opt = struct('SteadyOnly', false, 'EquationSwitch', @auto);
-[~, equation] = parse(b, [ ], code, quantity, equation, euc, [ ], opt);
+[~, equation, euc] = parse(b, [ ], code, attributes, quantity, equation, euc, [ ], opt);
 [~, actId] = lastwarn( );
 
 assertEqual(testCase, actId, expId);
