@@ -17,7 +17,7 @@ x = Explanatory.fromString([
 ]);
 N = numel(x);
 
-rm = ParameterizedArmani(2, 1, @(p) {[1, p(1)-1i], [1, p(2)-12i]});
+rm = ParamArmani(2, 1, @(p) {[1, p(1)-1i], [1, p(2)-12i]});
 
 rm1 = update(rm, [0.8, -0.5]);
 x(1).ResidualModel = rm1;

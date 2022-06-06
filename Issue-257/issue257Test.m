@@ -2,7 +2,7 @@
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 % Set up Once
-    m = Model('issue257Test.model', 'Linear', true);
+    m = Model.fromFile('issue257Test.model', 'linear', true);
     m = solve(m);
 
 

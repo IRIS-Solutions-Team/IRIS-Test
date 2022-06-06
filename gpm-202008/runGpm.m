@@ -8,7 +8,7 @@ load gpm_model_10.mat m
 load gpm_smoothed_db_ngood.mat
 
 d = fore.mean;
-m = differentiate(m);
+% m = differentiate(m);
 
 %{
 d = steadydb(m, 1:40);

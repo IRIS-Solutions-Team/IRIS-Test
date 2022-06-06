@@ -1,4 +1,8 @@
 
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+assertRelTol = @(x, y, tol) assertEqual(testCase, x, y, 'relTol', tol);
+
+
 %% Test Regular Case
 
 m = 1;
@@ -11,5 +15,5 @@ f1 = logdist.invgamma1(NaN, NaN, a, b);
 m1 = f1([ ], 'mean');
 s1 = f1([ ], 'std');
 
-Assert.relTol(m, m1, 1e-8);
-Assert.relTol(s, s1, 1e-8);
+assertRelTol(m, m1, 1e-8);
+assertRelTol(s, s1, 1e-8);

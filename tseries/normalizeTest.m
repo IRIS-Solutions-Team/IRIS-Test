@@ -16,9 +16,9 @@ this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     x1 = this.TestData.x1;
     x2 = this.TestData.x2;
     x3 = this.TestData.x3;
-    n1 = normalize(x1);
-    n2 = normalize(x2);
-    n3 = normalize(x3);
+    n1 = normalize(x1, x1.Start);
+    n2 = normalize(x2, x2.Start);
+    n3 = normalize(x3, x3.Start);
     assertEqual(this, n1.Data, bsxfun(@rdivide, x1.Data, x1.Data(1, :)), 'AbsTol', 1e-14);
     assertEqual(this, n2.Data, bsxfun(@rdivide, x2.Data, x2.Data(1, :)), 'AbsTol', 1e-14);
     assertEqual(this, n3.Data, bsxfun(@rdivide, x3.Data, x3.Data(1, :, :)), 'AbsTol', 1e-14);
@@ -28,9 +28,9 @@ this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     x1 = this.TestData.x1;
     x2 = this.TestData.x2;
     x3 = this.TestData.x3;
-    n1 = normalize(x1, 'Mode', 'Add');
-    n2 = normalize(x2, 'Mode', 'Add');
-    n3 = normalize(x3, 'Mode', 'Add');
+    n1 = normalize(x1, x1.Start, 'Mode', 'Add');
+    n2 = normalize(x2, x2.Start, 'Mode', 'Add');
+    n3 = normalize(x3, x3.Start, 'Mode', 'Add');
     assertEqual(this, n1.Data, bsxfun(@minus, x1.Data, x1.Data(1, :)), 'AbsTol', 1e-14);
     assertEqual(this, n2.Data, bsxfun(@minus, x2.Data, x2.Data(1, :)), 'AbsTol', 1e-14);
     assertEqual(this, n3.Data, bsxfun(@minus, x3.Data, x3.Data(1, :, :)), 'AbsTol', 1e-14);
@@ -40,9 +40,9 @@ this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     x1 = this.TestData.x1;
     x2 = this.TestData.x2;
     x3 = this.TestData.x3;
-    n1 = normalize(x1, 'End');
-    n2 = normalize(x2, 'End');
-    n3 = normalize(x3, 'End');
+    n1 = normalize(x1, x1.End);
+    n2 = normalize(x2, x2.End);
+    n3 = normalize(x3, x3.End);
     assertEqual(this, n1.Data, bsxfun(@rdivide, x1.Data, x1.Data(end, :)), 'AbsTol', 1e-14);
     assertEqual(this, n2.Data, bsxfun(@rdivide, x2.Data, x2.Data(end, :)), 'AbsTol', 1e-14);
     assertEqual(this, n3.Data, bsxfun(@rdivide, x3.Data, x3.Data(end, :, :)), 'AbsTol', 1e-14);
@@ -58,16 +58,5 @@ this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     assertEqual(this, n1.Data, bsxfun(@rdivide, x1.Data, x1.Data(5, :)), 'AbsTol', 1e-14);
     assertEqual(this, n2.Data, bsxfun(@rdivide, x2.Data, x2.Data(5, :)), 'AbsTol', 1e-14);
     assertEqual(this, n3.Data, bsxfun(@rdivide, x3.Data, x3.Data(5, :, :)), 'AbsTol', 1e-14);
-
-
-%% Test NaN Start
-    x2 = this.TestData.x2;
-    x3 = this.TestData.x3;
-    x2(qq(2000,1),2) = NaN;
-    x3(qq(2000,1),2,2) = NaN;
-    n2 = normalize(x2, 'BalancedStart');
-    n3 = normalize(x3, 'BalancedStart');
-    assertEqual(this, n2.Data, bsxfun(@rdivide, x2.Data, x2.Data(2, :)), 'AbsTol', 1e-14);
-    assertEqual(this, n3.Data, bsxfun(@rdivide, x3.Data, x3.Data(2, :, :)), 'AbsTol', 1e-14);
 
 

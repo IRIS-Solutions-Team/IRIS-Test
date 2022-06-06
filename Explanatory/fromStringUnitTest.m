@@ -6,7 +6,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     input = "x = @*a + b*x{-1} + @*log(c);";
     act = Explanatory.fromString(input);
     exp = Explanatory( );
-    exp = setp(exp, "IsLinear", true);
+    exp = setp(exp, "LinearStatus", true);
     exp = setp(exp, 'VariableNames', ["x", "a", "b", "c"]);
     exp = setp(exp, 'InputString', regexprep(input, "\s+", ""));
     exp = defineDependentTerm(exp, "x");
@@ -15,8 +15,11 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     exp = addExplanatoryTerm(exp, 1, "b*x{-1}");
     exp = seal(exp);
     %
+    state = warning('query'); 
+    warning('off', 'MATLAB:structOnObject');
     exp_struct = struct(exp);
     act_struct = struct(act);
+    warning(state);
     assertEqual(testCase, sort(fieldnames(exp_struct)), sort(fieldnames(act_struct)));
     for n = keys(exp_struct)
         if isa(exp_struct.(n), 'function_handle')
@@ -33,7 +36,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     input = "x = @*a + b*z{-1} + @*log(c);";
     act = Explanatory.fromString(input);
     exp = Explanatory( );
-    exp = setp(exp, "IsLinear", true);
+    exp = setp(exp, "LinearStatus", true);
     exp = setp(exp, 'VariableNames', ["x", "a", "b", "z", "c"]);
     exp = setp(exp, 'InputString', regexprep(input, "\s+", ""));
     exp = defineDependentTerm(exp, "x");
@@ -42,8 +45,11 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     exp = addExplanatoryTerm(exp, 1, "b*z{-1}");
     exp = seal(exp);
     %
+    state = warning('query'); 
+    warning('off', 'MATLAB:structOnObject');
     exp_struct = struct(exp);
     act_struct = struct(act);
+    warning(state);
     assertEqual(testCase, sort(fieldnames(exp_struct)), sort(fieldnames(act_struct)));
     for n = keys(exp_struct)
         if isa(exp_struct.(n), 'function_handle')
@@ -63,8 +69,11 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     act = setp(act, 'InputString', replace(getp(act, 'InputString'), "?", "@"));
     exp = Explanatory.fromString(input);
     %
+    state = warning('query'); 
+    warning('off', 'MATLAB:structOnObject');
     exp_struct = struct(exp);
     act_struct = struct(act);
+    warning(state);
     assertEqual(testCase, sort(fieldnames(exp_struct)), sort(fieldnames(act_struct)));
     for n = keys(exp_struct)
         if isa(exp_struct.(n), 'function_handle')
@@ -86,8 +95,11 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
         ["xa = xa{-1} + xa{-2} + xb", "xb = xa{-1}"] ...
     );
     %
+    state = warning('query'); 
+    warning('off', 'MATLAB:structOnObject');
     exp_struct = struct(exp);
     act_struct = struct(act);
+    warning(state);
     assertEqual(testCase, sort(fieldnames(exp_struct)), sort(fieldnames(act_struct)));
     for n = keys(exp_struct)
         if n=="InputString"
@@ -114,8 +126,11 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
         exp(i) = setp(exp(i), 'FittedNamePattern', upper(getp(exp(i), 'FittedNamePattern')));
     end
     %
+    state = warning('query'); 
+    warning('off', 'MATLAB:structOnObject');
     exp_struct = struct(exp);
     act_struct = struct(act);
+    warning(state);
     assertEqual(testCase, sort(fieldnames(exp_struct)), sort(fieldnames(act_struct)));
     for n = keys(exp_struct)
         if n=="InputString"
@@ -166,7 +181,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     assertEqual(testCase, simDb.y(yy(1:10)), temp(yy(1:10)), "AbsTol", 1e-14);
     temp = inputDb.x{yy(0)};
     for t = yy(1:10)
-        if inputDb.w(t)<0 
+        if inputDb.w(t)<0
             temp(t) = temp(t-1) + inputDb.dummy1(t);
         else
             temp(t) = temp(t-1) + inputDb.dummy0(t);

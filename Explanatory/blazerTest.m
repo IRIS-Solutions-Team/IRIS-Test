@@ -30,7 +30,7 @@ xq = ExplanatoryEquation.fromString([
 fileName = './test_blazer.model';
 blazer(xq, 'saveAs', fileName);
 act = file2char(fileName); 
-assertEqual(testCase, contains(act, 'Number of Blocks: 3'), true);
+assertEqual(testCase, contains(act, 'Number of blocks: 3'), true);
 assertEqual(testCase, contains(act, 'Assign'), true); 
 assertEqual(testCase, contains(act, 'Iterate'), true); 
 % delete(fileName);

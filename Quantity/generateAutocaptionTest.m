@@ -31,7 +31,9 @@ q.IxLagrange = true(1, nQuan);
 q.Bounds = repmat(model.component.Quantity.DEFAULT_BOUNDS, 1, nQuan);
 q = seal(q);
 
-opt = passvalopt('model.autocaption');
+opt = struct();
+opt.std = 'Std $shock$';
+opt.corr = 'Corr $shock1$ X $shock2$';
 % testCase.TestData.QuantityObj = q;
 % testCase.TestData.ne = 7;
 % testCase.TestData.Opt = opt;

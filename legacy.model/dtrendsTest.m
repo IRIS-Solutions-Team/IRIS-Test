@@ -1,51 +1,36 @@
-function tests = dtrendsTest( )
-tests = functiontests(localfunctions);
-end
-%#ok<*DEFNU>
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
-
-
-
-function setupOnce(this)
-m = model('dtrendsTest.model', 'Linear', true);
+%m = model('dtrendsTest.model', 'Linear', true);
+m = Model.fromFile('dtrendsTest.model', 'Linear', true);
 ttrend = 0 : 4;
 nPer = length(ttrend);
 g = rand(1, nPer)*5 - 10; %[1, 2.5, -3, 10, 0];
 h = rand(1, nPer)*5 - 10; %[10, 9, 8, 7, 6];
 G = [g; h; ttrend];
-this.TestData.Model = m;
-this.TestData.G = G;
-end
+testCase.TestData.Model = m;
+testCase.TestData.G = G;
 
 
 
 
-function testEmpty(this) %#ok<INUSD>
-end
 
-
-
-
-function testPairing(this)
+%% Test pairing
 PTR = @int16;
 TYPE = @int8;
 
-m = this.TestData.Model;
+m = testCase.TestData.Model;
 eqn = getp(m, 'Equation');
 prn = getp(m, 'Pairing');
 nEqn = length(eqn.Input);
 ex = repmat(PTR(0), 1, nEqn);
 ex(eqn.Type==TYPE(3)) = PTR([3, 2, 5, 7, 4]);
 ac = prn.Dtrends;
-assertEqual(this, ac, ex);
-end
+assertEqual(testCase, ac, ex);
 
 
-
-
-function testEvalDtrends(this)
-m = this.TestData.Model;
-G = this.TestData.G;
+%% Test EvalDtrends
+m = testCase.TestData.Model;
+G = testCase.TestData.G;
 
 nPer = size(G, 2);
 g = G(1, :, :);
@@ -55,7 +40,7 @@ qty = getp(m, 'Quantity');
 ell = lookup(qty, get(m, 'PList'));
 posPout = ell.PosName;
 ny = get(m, 'ny');
-ac = evalTrendEquations(m, posPout, G, @all);
+ac = evalTrendEquations(m, posPout, G, 1:countVariants(m));
 
 % All parameters are pout, so they are reset to 0 in evalTrendEquations.
 alp = 0;
@@ -75,15 +60,14 @@ ex(5, :) = bet - 2*zet*g + (eta+1)*h; % e
 ex(6, :) = 0; % f
 ex(7, :) = mu + mu*0.01*ttrend; % j
 ex(8, :) = 0; % k
-assertEqual(this, ac, ex);
-end
+assertEqual(testCase, ac, ex);
 
 
 
 
-function testDiffDtrends(this)
-m = this.TestData.Model;
-G = this.TestData.G;
+%% Test Diff Dtrends
+m = testCase.TestData.Model;
+G = testCase.TestData.G;
 
 qty = getp(m, 'Quantity');
 ny = get(m, 'ny');
@@ -93,7 +77,7 @@ h = G(2, :, :);
 ttrend = G(3, :, :);
 ell = lookup(qty, {'del', 'zet', 'eta'});
 posPout = ell.PosName;
-ac = evalTrendEquations(m, posPout, G, @all); %#ok<*NASGU>
+ac = evalTrendEquations(m, posPout, G, 1:countVariants(m)); %#ok<*NASGU>
 alp = m.alp;
 bet = m.bet;
 gam = m.gam;
@@ -101,21 +85,20 @@ del = 0;
 eps = m.eps;
 zet = m.zet;
 eta = m.eta;
-[~, ac] = evalTrendEquations(m, posPout, G, @all);
+[~, ac] = evalTrendEquations(m, posPout, G, 1:countVariants(m));
 ex = zeros(ny, 3, nPer);
 ex(3, 1, :) = -ttrend.^2; % c
 ex(4, 2, :) = g;
 ex(5, 2, :) = -2*g;
 ex(5, 3, :) = h;
-assertEqual(this, ac, ex);
-end
+assertEqual(testCase, ac, ex);
 
 
 
 
-function testMultiple(this)
-m = this.TestData.Model;
-G = this.TestData.G;
+%% Test Multiple
+m = testCase.TestData.Model;
+G = testCase.TestData.G;
 
 nAlt = 10;
 lsp = get(m, 'plist');
@@ -131,7 +114,7 @@ ng = get(m, 'ng');
 ny = get(m, 'ny');
 g = bsxfun(@times, [1, 2.5, -3, 10, 0], permute(1:nAlt, [1, 3, 2]));
 h = bsxfun(@times, [10, 9, 8, 7, 6], permute(1:nAlt, [1, 3, 2]));
-ac = evalTrendEquations(m, [ ], [g; h; repmat(ttrend, 1, 1, nAlt)], @all);
+ac = evalTrendEquations(m, [], [g; h; repmat(ttrend, 1, 1, nAlt)], 1:nAlt);
 
 % All parameters are pout, so they are reset to 0 in evalTrendEquations.
 for i = 1 : nAlt
@@ -144,16 +127,15 @@ for i = 1 : nAlt
     ex(6, :) = 0; % f
     ex(7, :) = m.mu(i) + m.mu(i)*0.01*ttrend; % j
     ex(8, :) = 0; % k
-    assertEqual(this, ac(:, :, i), ex);
+    assertEqual(testCase, ac(:, :, i), ex);
 end
-end
 
 
 
 
-function testSteady(this)
-m = this.TestData.Model;
-G = this.TestData.G;
+%% Test Steady
+m = testCase.TestData.Model;
+G = testCase.TestData.G;
 
 nAlt = 2;
 chksstate(m);
@@ -178,15 +160,15 @@ ex = struct( ...
     'j', repmat(1+1i, 1, nAlt), ...
     'k', repmat(1+1i, 1, nAlt) ...
     ); %#ok<REPMAT>
-assertEqual(this, ac, ex);
-end
+assertEqual(testCase, ac, ex);
 
 
 
 
-function testSteadyDtrendLevel(this)
-m = this.TestData.Model;
-G = this.TestData.G;
+
+%% Test Steady Dtrend Level
+m = testCase.TestData.Model;
+G = testCase.TestData.G;
 
 nAlt = length(m);
 ac = get(m, 'dtLevel') * get(m, 'ylist');
@@ -200,15 +182,14 @@ ex = struct( ...
     'j', exp(m.mu + m.mu*0.01*0), ...
     'k', repmat(1, 1, nAlt) ...
     ); %#ok<REPMAT>
-assertEqual(this, ac, ex);
-end
+assertEqual(testCase, ac, ex);
 
 
 
 
-function testSteadyDtrendGrowth(this)
-m = this.TestData.Model;
-G = this.TestData.G;
+%% Test Steady Dtrend Growth
+m = testCase.TestData.Model;
+G = testCase.TestData.G;
 
 nAlt = length(m);
 ac = get(m, 'dtGrowth') * get(m, 'ylist');
@@ -222,5 +203,5 @@ ex = struct( ...
     'j', exp(m.mu*0.01), ...
     'k', repmat(1, 1, nAlt) ...
     ); %#ok<REPMAT>
-assertEqual(this, ac, ex);
-end
+assertEqual(testCase, ac, ex);
+

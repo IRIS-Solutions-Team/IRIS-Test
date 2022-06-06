@@ -4,7 +4,7 @@ clear
 
 load matlab.mat
 
-shocks = access(m, "shocks");
+shocks = access(m, "all-shocks");
 shocks(~startsWith(shocks, "SHKA_")) = [ ];
 
 range = rn(1:3);

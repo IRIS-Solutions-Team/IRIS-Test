@@ -1,58 +1,52 @@
-function Tests = commentTest()
-Tests = functiontests( localfunctions );
-end
-%#ok<*DEFNU>
+
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 
 
-
-function testLineComment(this)
-import parser.Comment;
+%% Test line comment
+import parser.Comment
 BR = sprintf('\n');
 
 c = 'aaaa%bbbb';
 actStr = Comment.parse(c);
 expStr = 'aaaa';
-assertEqual(this, actStr, expStr);
+assertEqual(testCase, actStr, expStr);
 
 c = ['aaaa%bbbb',BR,'cccc'];
 actStr = Comment.parse(c);
 expStr = ['aaaa',BR,'cccc'];
-assertEqual(this, actStr, expStr);
-end
+assertEqual(testCase, actStr, expStr);
 
 
 
-
-function testBlockComment(this)
-import parser.Comment;
+%% Test block comment
+import parser.Comment
 BR = sprintf('\n');
 
 c = ['aaaa%{bbbb',BR,'cccc%}dddd'];
 actStr = Comment.parse(c);
 expStr = 'aaaadddd';
-assertEqual(this, actStr, expStr);
+assertEqual(testCase, actStr, expStr);
 
 c = ['aaaa',BR,'%{',BR,'bbbb',BR,'cccc',BR,'%}',BR,'dddd'];
 actStr = Comment.parse(c);
 expStr = ['aaaa',BR,BR,'dddd'];
-assertEqual(this, actStr, expStr);
-end
+assertEqual(testCase, actStr, expStr);
 
 
 
 
-function testContinuation(this)
-import parser.Comment;
+
+%% Test ellipsis
+import parser.Comment
 BR = sprintf('\n');
 
 c = ['aaaa ... bbbb',BR,'cccc'];
 actStr = Comment.parse(c);
 expStr = 'aaaa cccc';
-assertEqual(this, actStr, expStr);
+assertEqual(testCase, actStr, expStr);
 
 c = 'aaaa %{ ... %} dddd';
 actStr = Comment.parse(c);
 expStr = 'aaaa  dddd';
-assertEqual(this, actStr, expStr);
-end
+assertEqual(testCase, actStr, expStr);

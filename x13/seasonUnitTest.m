@@ -13,29 +13,29 @@ d.z = d.x{qq(2005,3):Inf};
 
 %% Test Plain Vanilla
 
-if ~verLessThan('matlab', '9.9')
-    sa = x13.season(d.x);
+
+    [sa, info] = x13.season(d.x);
     assertClass(testCase, sa, "Series");
     assertEqual(testCase, sa.StartAsNumeric, d.x.StartAsNumeric, "AbsTol", 1e-10);
     assertEqual(testCase, sa.EndAsNumeric, d.x.EndAsNumeric, "AbsTol", 1e-10);
-end
+
 
 
 %% Test Multiple Outputs
 
-if ~verLessThan('matlab', '9.9')
+
     [sa, sf, tc, ir, info] = x13.season( ...
         d.x ...
         , "Output", ["d11", "d10", "d12", "d13", "fct"] ...
         , "X11_Mode", "add" ...
     );
     assertEqual(testCase, getData(d.x, Inf), getData(sf+tc+ir, Inf), "AbsTol", 1e-10);
-end
+
 
 
 %% Test Multiple Inputs
 
-if ~verLessThan('matlab', '9.9')
+
     [sa, sf, info] = x13.season( ...
         [d.x, d.y, d.z] ...
         , "Output", ["d11", "d10"] ...
@@ -49,12 +49,12 @@ if ~verLessThan('matlab', '9.9')
     assertSize(testCase, sf{:, 1}, size(d.x));
     assertSize(testCase, sf{:, 2}, size(d.y));
     assertSize(testCase, sf{:, 3}, size(d.z));
-end
+
 
 
 %% Test Model
 
-if ~verLessThan('matlab', '9.9')
+
     [sa, info] = x13.season( ...
         d.x ...
         , "X11_Mode", "add" ...
@@ -75,12 +75,12 @@ if ~verLessThan('matlab', '9.9')
     assertEqual(testCase, info.OutputSpecs.Arima_Model, "(0,1,1)(0,1,1)");
     assertEqual(testCase, info.OutputSpecs.Arima_AR, double.empty(1, 0));
     assertSize(testCase, info.OutputSpecs.Arima_MA, [1, 2]);
-end
+
 
 
 %% Test Forecast
 
-if ~verLessThan('matlab', '9.9')
+
     [fct, info] = x13.season( ...
         d.x ...
         , "Output", "fct" ...
@@ -99,12 +99,11 @@ if ~verLessThan('matlab', '9.9')
     %
     assertSize(testCase, fct, [30, 3]);
     assertSize(testCase, bct, [0, 3]);
-end
+
 
 
 %% Test Backcast
 
-if ~verLessThan('matlab', '9.9')
     [bct, info] = x13.season( ...
         d.x ...
         , "Output", "bct" ...
@@ -125,12 +124,10 @@ if ~verLessThan('matlab', '9.9')
 
     assertSize(testCase, bct, [38, 3]);
     assertSize(testCase, fct, [0, 3]);
-end
 
 
 %% Test Arima 
 
-if ~verLessThan('matlab', '9.9')
     [sa, info] = x13.season( ...
         d.x ...
         , "Arima_Model", "(0 1 1)(0 1 1)" ...
@@ -147,12 +144,10 @@ if ~verLessThan('matlab', '9.9')
     );
 
     assertEqual(testCase, info2.OutputSpecs.Arima_MA, round(info.OutputSpecs.Arima_MA, 1), "AbsTol", 1e-10);
-end
 
 
 %% Test Dummies 
 
-if ~verLessThan('matlab', '9.9')
     [sa, info] = x13.season( ...
         [d.x, d.y] ...
         , "X11_Mode", "add" ...
@@ -176,4 +171,3 @@ if ~verLessThan('matlab', '9.9')
     );
 
     assertEqual(testCase, sa.Data, sa2.Data, "AbsTol", 1e-10);
-end

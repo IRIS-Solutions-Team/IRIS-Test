@@ -3,9 +3,9 @@
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 % Set Up Once
-    f = model.File( );
+    f = ModelSource( );
     f.FileName = "test.model";
-    f.Code = [
+    f.Code = join([
         "!variables"
         "   u, v, w, x, y, z, a"
         "!equations"
@@ -16,17 +16,17 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
         "   y = 1;"
         "   z = 1;"
         "   u = a;"
-    ];
+    ], newline);
     testCase.TestData.Model = Model(f);
 
-                                                                           
+
 %% Unique Test
     m = testCase.TestData.Model;
     q = Explanatory.fromModel(m, ["v", "y", "w"]);
     assertEqual(testCase, [q.LhsName], ["v", "y", "w"]);
     assertEqual(testCase, [q.InputString], ["v=1;", "y=1;", "w=1;"]); 
 
-                                                                           
+
 %% Nonunique Test
     m = testCase.TestData.Model;
     errorThrown = false;

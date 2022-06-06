@@ -152,6 +152,8 @@ expId = 'Model:Postparser:ExogenousInOtherThanDtrend';
 code = '!transition_variables x; !exogenous_variables y; !transition_equations x+y;';
 modelParserErrorHelper(code, expId);
 
+Model.fromString(code, "allowExogenous", true);
+
 
 %% Test Misplaced Time Subscript   
 

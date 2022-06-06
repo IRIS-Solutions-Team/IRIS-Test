@@ -3,7 +3,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 %% Test Foreign Language Month Names
 
-mo = {'Leden', 'Unor', 'Brezen', 'Duben', 'Kveten', 'Cerven', 'Cervenec', 'Srpen', 'Zari', 'Rije', 'Listopad', 'Prosinec'};
+mo = {'Leden', 'Unor', 'Brezen', 'Duben', 'Kveten', 'Cerven', 'Cervenec', 'Srpen', 'Zari', 'Rijen', 'Listopad', 'Prosinec'};
 
 c = databank.fromCSV( ...
     'monthNamesInCSVTest.csv', ...

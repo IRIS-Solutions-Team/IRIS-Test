@@ -10,9 +10,10 @@ rng(0);
 ac = struct( );
 ac.x = Series(ww(2000,1):ww(2010, 'end'), @rand);
 ac.x = round(100*ac.x, 2);
-dbsave(ac,'testSaveLoad1.csv');
-ex = dbload('testSaveLoad1.csv');
+databank.toCSV(ac,'testSaveLoad1.csv');
+ex = databank.fromCSV('testSaveLoad1.csv');
 assertEqualTol(ac.x(:), ex.x(:));
+
 
 %% Test Save Weekly Series with User Date Format 
 
@@ -22,9 +23,9 @@ ac = struct( );
 ac.x = Series(ww(2000,1):ww(2010, 'end'), @rand);
 ac.x = round(100*ac.x, 2);
 dateFormat = '$YYYY-MM-DD';
-dbsave(ac,'testSaveLoad2.csv', Inf, ...
+databank.toCSV(ac,'testSaveLoad2.csv', Inf, ...
     'DateFormat', dateFormat);
-ex = dbload('testSaveLoad2.csv', ...
+ex = databank.fromCSV('testSaveLoad2.csv', ...
     'DateFormat', dateFormat, 'Freq', 52);
 assertEqualTol(ac.x(:), ex.x(:));
 
@@ -35,8 +36,8 @@ rng(0);
 ac = struct( );
 ac.x = rand(10, 3, 4);
 ac.x = round(100*ac.x, 2);
-dbsave(ac, 'testSaveLoad3.csv');
-ex = dbload('testSaveLoad3.csv');
+databank.toCSV(ac, 'testSaveLoad3.csv');
+ex = databank.fromCSV('testSaveLoad3.csv');
 assertEqualTol(ac.x, ex.x);
 
 %% Test Save Weekly Series and Numeric Array 
@@ -48,8 +49,8 @@ ac.x = Series(ww(2000,1):ww(2010, 'end'), @rand);
 ac.x = round(100*ac.x, 2);
 ac.y = rand(10, 3, 4);
 ac.y = round(100*ac.x, 2);
-dbsave(ac, 'testSaveLoad4.csv');
-ex = dbload('testSaveLoad4.csv');
+databank.toCSV(ac, 'testSaveLoad4.csv');
+ex = databank.fromCSV('testSaveLoad4.csv');
 assertEqualTol(ac.x, ex.x);
 assertEqualTol(ac.y, ex.y);
 
@@ -67,16 +68,16 @@ ac.y = tseries(range, @rand);
 ac.y = round(100*ac.y, 2);
 ac.z = tseries(range, @rand);
 ac.z = round(100*ac.z, 2);
-dbsave(ac, 'testSaveLoad5.csv');
+databank.toCSV(ac, 'testSaveLoad5.csv');
 
 ac = rmfield(ac, 'x');
-ex = dbload('testSaveLoad5.csv', 'Select', {'y', 'z'});
+ex = databank.fromCSV('testSaveLoad5.csv', 'Select', {'y', 'z'});
 assertEqual(sort(fieldnames(ac)), sort(fieldnames(ex)));
 
 
 %% Test Missing Observations 
 
-ac = dbload('testMissingObs.csv');
+ac = databank.fromCSV('testMissingObs.csv');
 ac1 = databank.fromCSV("testMissingObs.csv");
 range = qq(2000,1) : qq(2000,4);
 ex = struct( );
@@ -90,7 +91,7 @@ assertEqual(ac.z(:), ex.z(:));
 
 %% Test Daily Series 
 
-d = dbload('testDailyCsv.csv', ...
+d = databank.fromCSV('testDailyCsv.csv', ...
     'dateFormat', '$M/D/YYYY', ...
     'freq', 365);
 ac = db2array(d, {'A', 'B', 'C', 'D'});

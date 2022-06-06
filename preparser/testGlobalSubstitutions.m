@@ -1,5 +1,7 @@
 
-this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+
+%% Test
 
 m = Model.fromFile([
     "testGlobalSubstitutions1.model"
@@ -7,11 +9,11 @@ m = Model.fromFile([
 ]);
 
 x = access(m, "equations");
-assertEqual(this, x, ["a=-11;", "b=200;", "c=0.1;"]);
+assertEqual(testCase, x, ["a=-11;", "b=200;", "c=0.1;"]);
 
 x = access(m, "preprocessor");
-assertEqual(this, collectLhsNames(x), "eq_b");
+assertEqual(testCase, collectLhsNames(x), "eq_b");
 
 x = access(m, "postprocessor");
-assertEqual(this, collectLhsNames(x), "eq_c");
+assertEqual(testCase, collectLhsNames(x), "eq_c");
 

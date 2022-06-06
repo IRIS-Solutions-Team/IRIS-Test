@@ -35,12 +35,12 @@ expC = zeros(2, 1);
 expC(1, 1) = 16;
 expC(2, 1) = -120;
 
-assertEqual(this, actA, expA);
-assertEqual(this, actB, expB);
-assertEqual(this, actC, expC);
-assertEqual(this, actA4, sparse(expA));
-assertEqual(this, actB4, sparse(expB));
-assertEqual(this, actC4, expC);
+assertEqual(this, double(actA), expA);
+assertEqual(this, double(actB), expB);
+assertEqual(this, double(actC), expC);
+assertEqual(this, double(actA4), sparse(expA));
+assertEqual(this, double(actB4), sparse(expB));
+assertEqual(this, double(actC4), expC);
 
 
 %% Test Option MakeBkw in Model Constructor

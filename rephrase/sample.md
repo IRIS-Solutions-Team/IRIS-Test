@@ -1,7 +1,9 @@
 ---
 
-# Section 1
-## Lorem ipsum dolor sit amet, ne suavitate definiebas eum.
+# Lorem ipsum dolor sit amet
+
+## Ne suavitate definiebas eum
+
 Omnes integre euismod eum at, mei an placerat antiopam moderatius \\(\alpha+\lambda\\), ut sonet voluptatibus vim. Vivendo noluisse mea ad. $$f(x) = \int_{-\infty}^\infty
 \hat f\xi\,e^{2 \pi i \xi x}
 \,d\xi$$ Laudem quaerendum qui id. Est vero elit reque eu, sea iisque invidunt id.

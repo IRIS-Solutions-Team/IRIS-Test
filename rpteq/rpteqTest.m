@@ -25,6 +25,7 @@ for t = dates
         outp.w(t) = outp.w(t-1) + inp.y(t);
     end
 end
+
 outp.x = comment(outp.x, 'Eq1');
 outp.z = comment(outp.z, 'Eq2');
 outp.w = comment(outp.w, 'Eq3');

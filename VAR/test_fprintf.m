@@ -19,7 +19,7 @@ assertEqualTol = @(x, y) assertEqual(testCase, x, y, "AbsTol", 1e-8);
 
 fprintf(v, 'test_fprintf_hard.model', 'Declare', true);
 mh = model('test_fprintf_hard.model', 'Linear', true);
-[mh, ~, info] = solve(mh);
+[mh, ~, info] = solve(mh, "preferredSchur", "schur");
 mh = steady(mh);
 
 assertEqual(testCase, info.SchurDecomposition, "schur");

@@ -4,7 +4,7 @@ this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 %% Test Blazer Triangular
 
-m = model('testBlazerTriangular.model');
+m = Model.fromFile('testBlazerTriangular.model');
 [actNameBlk, actEqtnBlk] = blazer(m);
 expNameBlk = repmat({struct('Level', string.empty(1, 0), 'Change', string.empty(1, 0))}, 1, 3);
 expNameBlk{1}.Level = "x";
@@ -17,7 +17,7 @@ assertEqual(this, actNameBlk, expNameBlk);
 
 %% Test Blazer Triangular Endg
 
-m = model('testBlazerTriangular.model');
+m = Model.fromFile('testBlazerTriangular.model');
 [actNameBlk, actEqtnBlk] = blazer(m,'endogenize',{'a','b'},'exogenize',{'x','y'});
 expNameBlk = repmat({struct('Level', string.empty(1, 0), 'Change', string.empty(1, 0))}, 1, 3);
 expNameBlk{1}.Level = "a";

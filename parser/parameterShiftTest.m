@@ -3,11 +3,11 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 
 %% TestModelCodeWithShiftedParameters
-    model('parameterShiftTest.model');
+    Model.fromFile('parameterShiftTest.model');
 
 
 %% TestHashEquations
-    m = model('parameterShiftTest.model');
+    m = Model.fromFile('parameterShiftTest.model');
     actualHash = createHashEquations(m, ':');
     expectedHash = [
         {'-[y(1,t)]+xi(5,t);'                                         }
@@ -21,12 +21,12 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 
 %% TestSteady
-    m = model('parameterShiftTest.model');
+    m = Model.fromFile('parameterShiftTest.model');
     m.a = 0.1;
     m.b = 0.1;
     m.c = 10;
     m.z = complex(1, NaN);
-    m = sstate(m, 'Growth', true, 'FixLevel', 'z');
+    m = steady(m, 'Growth', true, 'FixLevel', 'z');
     expectedSteady = struct( ...
         'x', m.c, ...
         'y', m.c, ...
@@ -39,12 +39,13 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
         'c', m.c, ...
         'ttrend', 0+1i ...
     );
-    actualSteady = get(m, 'Steady');
-    testCase.assertEqual(actualSteady, expectedSteady, 'AbsTol', 1e-15);
+    actualSteady = access(m, 'steady');
+    testCase.assertEqual(actualSteady, expectedSteady, 'absTol', 1e-14);
 
 
 %% TestSteadyExogenized
-    m = model('parameterShiftTest.model');
+
+    m = Model.fromFile('parameterShiftTest.model');
     m.a = 0.1;
     m.b = 0.1;
     m.z = complex(1, NaN);
@@ -62,6 +63,6 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
         'c', m.c, ...
         'ttrend', 0+1i ...
     );
-    actualSteady = get(m, 'Steady');
-    testCase.assertEqual(actualSteady, expectedSteady, 'AbsTol', 1e-15);
+    actualSteady = access(m, 'steady');
+    testCase.assertEqual(actualSteady, expectedSteady, 'absTol', 1e-14);
 

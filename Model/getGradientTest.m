@@ -3,7 +3,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 % Set up Once
 
-mf = model.File( );
+mf = ModelSource( );
 mf.Code = join([
     "!variables"
     "a, b, c, d, e, f"

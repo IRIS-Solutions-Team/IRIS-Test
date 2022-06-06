@@ -18,7 +18,7 @@ m = Model.fromString([
 act = access(m, "equations");
 exp = "x=rho_x*x{-1}+eps_x;";
 assertEqual(testCase, act, exp);
-assertEqual(testCase, access(m, "fileName"), Model.FILE_NAME_WHEN_INPUT_STRING);
+assertEqual(testCase, access(m, "fileName"), ModelSource.FILE_NAME_WHEN_INPUT_STRING);
 
 
 %% Test options

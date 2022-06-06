@@ -1,0 +1,5 @@
+!variables
+    y
+!equations
+    y = 1;
+

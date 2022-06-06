@@ -4,4 +4,10 @@ fpas_report_results/
 *.m~
 test_steady_solver*
 *.html
+*.d11
+*.err
+*.log
+*.mdl
+*.out
+*.spc
 

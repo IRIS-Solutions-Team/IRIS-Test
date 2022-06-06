@@ -1,11 +1,14 @@
 
-this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+
+
+%% Test case control
 
 m = Model.fromFile("testCaseControl.model");
 
 x = access(m, "transition-variables");
-assertEqual(this, x, ["AA", "BB", "CC"]);
+assertEqual(testCase, x, ["AA", "BB", "CC"]);
 
 x = access(m, "transition-shocks");
-assertEqual(this, x, ["aa", "bb", "cc"]);
+assertEqual(testCase, x, ["aa", "bb", "cc"]);
 

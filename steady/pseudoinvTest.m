@@ -24,8 +24,12 @@ assertTrue(testCase, isfinite(imag(m.x)));
 %% Test without pseudoinv 
 
 m = testCase.TestData.Model;
-lastwarn('');
-m = steady(m, "solver", {"Newton", "pseudoinvWhenSingular", false});
+try
+    failed = false;
+    m = steady(m, "solver", {"Newton", "pseudoinvWhenSingular", false});
+catch
+    failed = true;
+end
 
-assertNotEmpty(testCase, lastwarn());
+assertTrue(testCase, failed);
 

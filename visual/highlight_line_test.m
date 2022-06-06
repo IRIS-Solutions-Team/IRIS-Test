@@ -1,4 +1,9 @@
 
+
+
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+
+
 close all
 
 f = figure('Visible', 'Off');
@@ -16,29 +21,29 @@ end
 %% Test Highlight 
 
 h = findobj(f, 'Tag', 'highlight');
-check.equal(numel(h), 4);
+assertEqual(testCase, numel(h), 4);
 
 
 %% Test VLine 
 
 v = findobj(f, 'Tag', 'vline');
-assert(numel(v)==4);
+assertEqual(testCase, numel(v), 4);
 
 
 %% Test VLine-Caption 
 
 c = findobj(f, 'Tag', 'vline-caption');
-assert(numel(c)==4);
+assertEqual(testCase, numel(c), 4);
 
 
 %% Test ZeroLine 
 
 z = findobj(f, 'Tag', 'zeroline');
-assert(numel(z)==4);
+assertEqual(testCase, numel(z), 4);
 
 
 %% Test HLine 
 
 o = findobj(f, 'Tag', 'hline');
-assert(numel(o)==4);
+assertEqual(testCase, numel(o), 4);
 

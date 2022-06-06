@@ -38,7 +38,7 @@ function list = listUnitTests( )
         "+databank/apply"
         "+databank/filter"
         "+databank/batch"
-        "+databank/fromFred"
+        "+databank/+fromFred/master"
         "+databank/minusControl"
         "+databank/toSeries"
         "+databank/+backend/resolveRange"

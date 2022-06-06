@@ -27,11 +27,11 @@ d = resample(m, [ ], range, 1);
 
 est = struct( );
 est.a = { 0.5 , 0, 0.95 };
-est.c = { 5 };
+est.c = { 5, -100, 100 };
 
 pEst0 = estimate(m, d, range, est, 'Display', 'off', 'summary', 'struct');
 
-% Test Linear Estimate with Steady State
+%% Test Linear Estimate with Steady State
 
 m3 = m;
 profile clear;
@@ -44,7 +44,8 @@ assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
 assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
     'model.steadyNonlinear')), false );
 
-% Test Nonlinear Estimate with No Steady State
+
+%% Test Nonlinear Estimate with No Steady State
 
 m1 = m;
 m1 = set(m1, 'Linear', false);
@@ -60,7 +61,8 @@ assertEqual( any(strcmp({stats.FunctionTable.FunctionName}, ...
 
 assertEqualTol(pEst1.c, est.c{1});
 
-% Test Nonlinear Estimate with Steady State
+
+%% Test Nonlinear Estimate with Steady State
 
 m2 = m;
 m2 = set(m2, 'Linear', false);

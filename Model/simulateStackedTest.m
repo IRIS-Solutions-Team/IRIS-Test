@@ -3,7 +3,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 % Set up Once
     %
-    m = Model("simulateStackedTest.model");
+    m = Model.fromFile("simulateStackedTest.model");
     m.cross = 0.1;
     for i = 1 : 4
         m.("a"+i) = 0.4+i/100;

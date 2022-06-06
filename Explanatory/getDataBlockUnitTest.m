@@ -26,7 +26,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     numExtendedPeriods = numel(extendedRange);
     lhsRequired = true;
     act = getDataBlock(g, db, baseRange, lhsRequired, "");
-    assertEqual(testCase, act.NumExtendedPeriods, numExtendedPeriods);
+    assertEqual(testCase, act.NumExtdPeriods, numExtendedPeriods);
     exp_YXEPG = nan(7, numExtendedPeriods);
     exp_YXEPG(1, :) = db.x(extendedRange);
     exp_YXEPG(2, :) = db.a(extendedRange);

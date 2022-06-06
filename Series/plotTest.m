@@ -1,44 +1,47 @@
-function tests = plotTest( )
-tests = functiontests(localfunctions);
-end%
 
 
-function setupOnce(this) %#ok<*DEFNU>
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+
+
+
+%% setupOnce(this) %#ok<*DEFNU>
     x = randn(40, 1);
-    this.TestData.Yearly = Series(yy(2000), x);
-    this.TestData.HalfYearly = Series(hh(2000), x);
-    this.TestData.Quarterly = Series(qq(2000), x);
-    this.TestData.Monthly = Series(qq(2000), x);
-    this.TestData.Weekly = Series(ww(2000), x);
-    this.TestData.Daily = Series(dd(2000), x);
-end%
+    testCase.TestData.Yearly = Series(yy(2000), x);
+    testCase.TestData.HalfYearly = Series(hh(2000), x);
+    testCase.TestData.Quarterly = Series(qq(2000), x);
+    testCase.TestData.Monthly = Series(qq(2000), x);
+    testCase.TestData.Weekly = Series(ww(2000), x);
+    testCase.TestData.Daily = Series(dd(2000), x);
+%
 
 
-function testPlainPlot(this)
+%% testPlainPlot(this)
     if verLessThan('matlab', '9.1')
         return
     end
 
-    list = fieldnames(this.TestData);
+    list = fieldnames(testCase.TestData);
     for i = 1 : numel(list)
-        x = this.TestData.(list{i});
+        x = testCase.TestData.(list{i});
         if isa(x, 'Series')
             figure('Visible', 'off');
             plot(x);
             close(gcf( ));
         end
     end
-end%
+
+    close all
+%
 
 
-function testPlotAxesRange(this)
+%% testPlotAxesRange(this)
     if verLessThan('matlab', '9.1')
         return
     end
 
-    list = fieldnames(this.TestData);
+    list = fieldnames(testCase.TestData);
     for i = 1 : numel(list)
-        x = this.TestData.(list{i});
+        x = testCase.TestData.(list{i});
         if isa(x, 'Series')
             range = x.Range;
             figure('Visible', 'off');
@@ -55,31 +58,30 @@ function testPlotAxesRange(this)
             close(gcf( ));
         end
     end
-end%
+
+    close all
+%
 
 
-function testDateFormat(this)
+%% testDateFormat(this)
     if verLessThan('matlab', '9.1')
         return
     end
 
-    list = fieldnames(this.TestData);
+    list = fieldnames(testCase.TestData);
     for i = 1 : numel(list)
-        x = this.TestData.(list{i});
+        x = testCase.TestData.(list{i});
         if isa(x, 'Series')
             figure('Visible', 'off');
             h = plot(x, 'DateFormat', 'uuuu');
-            dt = h.XData;
-            if isa(dt, 'datetime')
-                assertEqual(this, dt.Format, 'uuuu');
-            end
-            close(gcf( ));
         end
     end
-end%
+
+    close all
+%
 
 
-function testBar(this)
+%% testBar(this)
     if verLessThan('matlab', '9.1')
         return
     end
@@ -92,12 +94,12 @@ function testBar(this)
     hold on;
     bar(q);
     xLim2 = handleAxes.XLim;
-    assertLessThan(this, xLim2(1), xLim1(1));
-    assertGreaterThan(this, xLim2(2), xLim1(2));
-end%
+    assertLessThan(testCase, xLim2(1), xLim1(1));
+    assertGreaterThan(testCase, xLim2(2), xLim1(2));
 
-
-function teardownOnce(this)
     close all
-end%
+%
+
+
+
 

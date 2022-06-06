@@ -1,9 +1,12 @@
 
-clear all
+
+%% Test
+
+clear
 
 s = struct( );
 for i = 1 : 1000
-    name = extractAfter(tempname("."), 2);
+    name = extractAfter(tempname('.'), 2);
     s.(name) = rand;
 end
 

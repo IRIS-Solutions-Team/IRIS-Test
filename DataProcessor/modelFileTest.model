@@ -11,5 +11,9 @@
     y = 10 + 0.8*(10 - y{-1}) + res_y;
 
 !postprocessor
-    z = x + y;
-    cx = cx{-1} + x;
+    post1 = x + y;
+    post2 = post1 + post2{-1} + x;
+
+!preprocessor
+    pre1 = x + y;
+    pre2 = pre1 + pre2{-1} + x;

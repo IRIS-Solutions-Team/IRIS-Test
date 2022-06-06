@@ -32,11 +32,13 @@ x = Series(qq(2001,1):qq(2010,4), @rand);
 g = 1 + Series(qq(2005,1):qq(2020,4), @rand) / 10;
 
 y = grow(x, '*', g, g.Range, -4);
+y2 = grow(x, '*', g, g.Range, "shift", -4);
 z = y / y{-4};
 
 assertEqual(this, y.Start, x.Start, 'AbsTol', 1e-10);
 assertEqual(this, y.End, g.End, 'AbsTol', 1e-10);
 assertEqual(this, z(g.Range), g(g.Range), 'AbsTol', 1e-10);
+assertEqual(this, y.Data, y2.Data);
 
 
 %% Test Grow with Discrete Dates

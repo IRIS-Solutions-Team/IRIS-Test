@@ -1,8 +1,11 @@
-function [Q, Omega, Q1] = identifyTest( )
+
+
+%% Test
 
 rng(0);
 T = 100;
-u = randn(6, T);
+K = 6;
+u = randn(K, T);
 Omega = u*transpose(u)/T;
 P = transpose(chol(Omega));
 
@@ -29,30 +32,26 @@ pos = unique(randi(n*n, numFree-2, 1));
 q0 = randn(size(pos));
 %q0 = P(inxTril);
 
-%{
-oo = solver.Options('IRIS-Newton');
-q = solver.algorithm.qnsd(@objective, q0, oo);
-%}
+of = @(x) objective(x, pos, K, Omega);
 
 oo = optimoptions('fminunc', 'FunctionTolerance', 1e-12, 'StepTolerance', 1e-12, 'Display', 'iter', 'OptimalityTolerance', 1e-12, 'MaxFunctionEvaluations', 1e6, 'MaxIterations', 1e6);
-q = fminunc(@objective, q0, oo);
+q = fminunc(of, q0, oo);
 
 oo1 = optimset('MaxFunEvals', 1e6, 'MaxIter', 1e6, 'Display', 'iter');
-q1 = fminsearch(@objective, q0, oo1);
+q1 = fminsearch(of, q0, oo1);
 
 pos'
-[y, Q] = objective(q);
-[y1, Q1] = objective(q);
+[y, Q] = of(q);
+[y1, Q1] = of(q);
 maxabs(Q*Q'-Omega)
 maxabs(Q1*Q1'-Omega)
 
-function [y, Q] = objective(q)
-    Q = zeros(size(P));
+function [y, Q] = objective(q, pos, K, Omega)
+    Q = zeros(K);
     Q(pos) = q;
     Sigma = Q*Q';
     %y = log( det(Q)^2 ) + trace( Qt\ (Q*Omega) );
     y = log(det(Sigma)) + trace( (Sigma)\Omega );
 end%
 
-end%
 

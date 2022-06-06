@@ -1,5 +1,5 @@
 function m = readModel( )
-m = model('simple_SPBC.model');
+m = Model.fromFile('simple_SPBC.model');
 m.alpha = 1.03^(1/4);
 m.beta = 0.985^(1/4);
 m.gamma = 0.60;
@@ -22,8 +22,8 @@ m.Wage_ = 0;
 m.std_Mp = 0;
 m.std_Mw = 0;
 m.std_Ea = 0.001;
-m = sstate(m, 'Growth', true, 'Display', false);
-chksstate(m);
+m = steady(m, 'Growth', true, 'Display', false);
+checkSteady(m);
 m = solve(m);
 end%
 

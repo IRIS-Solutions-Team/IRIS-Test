@@ -25,4 +25,3 @@ grid on
 assertEqual(testCase, numel(a1.XData), 20);
 assertEqual(testCase, numel(a2.XData), 10*numel(a1.XData)-1);
 close all
-

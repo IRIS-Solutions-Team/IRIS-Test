@@ -39,16 +39,16 @@ for i = 1 : 5
     d1 = numeric.str2dat('1995:1', 'DateFormat', 'YYYY:P', 'EnforceFrequency', freq);
     d2 = str2dat('1995:1', 'DateFormat', 'YYYY:P', 'EnforceFrequency', freq);
     assertEqual(testCase, double(d1), double(d2));
-    assertEqual(testCase, Dater.getFrequency(d1), freq);
-    assertEqual(testCase, Dater.getFrequency(d2), freq);
+    assertEqual(testCase, dater.getFrequency(d1), freq);
+    assertEqual(testCase, dater.getFrequency(d2), freq);
 end
 
 freq = Frequency(365);
 d1 = numeric.str2dat('1995:1:11', 'DateFormat', 'YYYY:M:D', 'EnforceFrequency', freq);
 d2 = str2dat('1995:1:11', 'DateFormat', 'YYYY:M:D', 'EnforceFrequency', freq);
 assertEqual(testCase, double(d1), double(d2));
-assertEqual(testCase, Dater.getFrequency(d1), freq);
-assertEqual(testCase, Dater.getFrequency(d2), freq);
+assertEqual(testCase, dater.getFrequency(d1), freq);
+assertEqual(testCase, dater.getFrequency(d2), freq);
 
 
 

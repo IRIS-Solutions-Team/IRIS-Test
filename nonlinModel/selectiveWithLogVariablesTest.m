@@ -1,20 +1,17 @@
-function tests = selectiveWithLogVariablesTest( )
-    tests = functiontests(localfunctions) ;
-end%
+
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 
-function testSteadySimulation(this)
-    m = solve(sstate(model('selectiveWithLogVariablesTest.model')));
-    d = sstatedb(m, 1:5);
+%% Test steadydb
+    m = solve(steady(Model.fromFile('selectiveWithLogVariablesTest.model')));
+    d = steadydb(m, 1:5);
     s = simulate(m, d, 1:5, 'method', 'selective');
-    this.assertEqual(d.y(1:5), s.y(1:5), 'AbsTol', 1e-8);
-end%
+    assertEqual(testCase, d.y(1:5), s.y(1:5), 'AbsTol', 1e-8);
 
 
-function testZeroSimulation(this)
-    m = solve(sstate(model('selectiveWithLogVariablesTest.model')));
+%% Test zerodb
+    m = solve(steady(Model.fromFile('selectiveWithLogVariablesTest.model')));
     d = zerodb(m, 1:5);
     s = simulate(m, d, 1:5, 'method', 'selective', 'deviation', true);
-    this.assertEqual(d.y(1:5), s.y(1:5), 'AbsTol', 1e-8);
-end%
+    assertEqual(testCase, d.y(1:5), s.y(1:5), 'AbsTol', 1e-8);
 

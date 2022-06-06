@@ -2,7 +2,7 @@
 % Set Up
 
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
-m0 = Model('simple_SPBC.model', 'growth', true) ;
+m0 = Model.fromFile('simple_SPBC.model', 'growth', true) ;
 
 m0.alpha = 1.03^(1/4);
 m0.beta = 0.985^(1/4);
@@ -124,7 +124,7 @@ if isOptim
     E.corr_Er__Ep = {0,  -0.9,  0.9,  logdist.normal(0, 0.5)};
 
     filteropt = { ...
-        'outoflik', {'Short_', 'Infl_', 'Growth_', 'Wage_'}, ...
+        'outlik', {'Short_', 'Infl_', 'Growth_', 'Wage_'}, ...
         'relative', true, ...
         };
 
@@ -154,18 +154,19 @@ if isOptim
     assertEqual(testCase, double(Pdelta), double(cmp.Pdelta), 'RelTol', 1e-3) ;
 end
 
+
 %% Test loglik
 
 m = m1;
 
-[~, ~, V1, Delta1, Pe1] = filter(m, d, starthist:endhist, ...
-    'outOfLik', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
-[~, V2, ~, Pe2, Delta2] = loglik(m, d, starthist:endhist, ...
-    'outOfLik', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
+[~, ~, info1] = kalmanFilter(m, d, starthist:endhist, ...
+    'outlik', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
+[~, info2] = loglik(m, d, starthist:endhist, ...
+    'outlik', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
 
-assertEqual(testCase, V1, V2);
-assertEqual(testCase, Delta1, Delta2);
-assertEqual(testCase, Pe1, Pe2);
+assertEqual(testCase, info1.VarScale, info2.VarScale);
+assertEqual(testCase, info1.Outlik.Mean, info2.Outlik.Mean);
+assertEqual(testCase, info1.Outlik.MSE, info2.Outlik.MSE);
 
 
 %% Test Fast loglik
@@ -173,24 +174,38 @@ assertEqual(testCase, Pe1, Pe2);
 m = m1;
 
 chi = 0.7 : 0.01 : 0.9;
-mm = alter(m, length(chi));
-mm.chi = chi;
-chksstate(mm);
-mm = solve(mm);
-obj1 = loglik(mm, d, starthist:endhist, ...
-    'outOfLik', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
 
-obj2 = nan(size(chi));
-loglik(m, d, starthist:endhist, ...
-    'outOfLik', {'Short_', 'Wage_', 'Infl_', 'Growth_'}, ...
-    'persist', true);
-for i = 1 : length(chi)
-    m.chi = chi(i);
-    chksstate(m);
-    m = solve(m);
-    obj2(i) = loglik(m);
+m0 = m;
+obj0 = [];
+for x = chi
+    m0.chi = x;
+    m0 = solve(m0);
+    obj0(end+1) = loglik(m0, d, starthist:endhist, ...
+        'outlik', {'Short_', 'Wage_', 'Infl_', 'Growth_'});   
 end
 
+
+mm = alter(m, length(chi));
+mm.chi = chi;
+checkSteady(mm);
+mm = solve(mm);
+[obj1, info] = loglik(mm, d, starthist:endhist, ...
+    'outlik', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
+
+
+loglik(m, d, starthist:endhist, ...
+    'outlik', {'Short_', 'Wage_', 'Infl_', 'Growth_'}, ...
+    'persist', true);
+
+obj2 = [];
+for x = chi
+    m.chi = x;
+    checkSteady(m);
+    m = solve(m);
+    obj2(end+1) = loglik(m);
+end
+
+assertEqual(testCase, obj1, obj0);
 assertEqual(testCase, obj1, obj2);
 
 
@@ -199,12 +214,11 @@ assertEqual(testCase, obj1, obj2);
 m = m1;
 
 obj1 = loglik(m, d, starthist:endhist, ...
-    'outOfLik', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
+    'outlik', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
 
 obj2 = loglik(m, d, starthist:endhist, ...
-    'outOfLik', {'Short_', 'Wage_', 'Infl_', 'Growth_'}, ...
-    'objDecomp', true);
+    'outlik', {'Short_', 'Wage_', 'Infl_', 'Growth_'}, ...
+    'returnObjFuncContribs', true);
 
-assertEqual(testCase, obj1, obj2(1), 'AbsTol', 1e-12);
-assertEqual(testCase, obj2(1), sum(obj2(2:end)), 'AbsTol', 1e-12);
+assertEqual(testCase, obj1, sum(obj2), 'AbsTol', 1e-12);
 

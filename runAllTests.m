@@ -1,5 +1,5 @@
 
-prepareUnitTests( )
+% prepareUnitTests( )
 rehash path
 
 thisFolder = fileparts(mfilename('fullpath')) ;

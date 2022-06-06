@@ -1,5 +1,5 @@
 !parameters
     A, B
-!dtrends
+!measurement-trends
     R += A + B; 
     PI += B;

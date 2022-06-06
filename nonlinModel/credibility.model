@@ -27,7 +27,7 @@
     
     % Convex (Nonlinear) Phillips curve.
     'Phillips curve' pi - pi{-1} ...
-        =# c*bet*(pi{1} - pi) + gam/del*(exp(del*y)-1) + epi; %?phillips?
+        = c*bet*(pi{1} - pi) + gam/del*(exp(del*y)-1) + epi; %?phillips?
     
     % Simple Monetary Policy Rule.
     'Policy Rule' r = the*r{-1} ...
@@ -46,13 +46,13 @@
     'Credibility Stock' c = psi*c{-1} + (1-psi)*s;
         
 	% Credibility Signal Responding to Deviations in Inflation From Target.
-    'Credibility Signal' s =# exp(-(omg*(pi4{-1} - t{-1}))^2); %?credibilitySignal?
+    'Credibility Signal' s = exp(-(omg*(pi4{-1} - t{-1}))^2); %?credibilitySignal?
 
-!measurement_variables
+!measurement-variables
 
     Y, PI, R, P
 
-!measurement_equations
+!measurement-equations
 
     'Output Measurement' Y = y;
     'Inflation Measurement' PI = pi;

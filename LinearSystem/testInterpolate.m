@@ -6,7 +6,7 @@ this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 try
     db = databank.fromCSV('testInterpolate.csv');
 catch
-    db = databank.fromFred({'CLVMNACSCAB1GQEA19->gdp_eu', 'CLVMNACSCAB1GQDE->gdp_ge'});
+    db = databank.fromFred.data({'CLVMNACSCAB1GQEA19->gdp_eu', 'CLVMNACSCAB1GQDE->gdp_ge'});
     range = databank.range(db, 'Frequency', Frequency.QUARTERLY);
     databank.toCSV(db, 'testInterpolate.csv', range);
 end
