@@ -20,3 +20,5 @@ run16_moreKalmanFilter
 run17_createForecastScenarios
 run18_modelVersusData
 
+close all
+
