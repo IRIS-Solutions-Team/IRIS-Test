@@ -1,0 +1,22 @@
+
+%% Test all
+
+run01_createModel
+run02_aboutModel
+run03_modifyParameters
+run04_aboutSolution
+run05_playWithGrowthPath
+run06_simulatePlainVanillaShock
+run07_simulateComplexShocks
+run08_simulateDisinflation
+run09_nonlinearSimulation
+run10_resampleFromModel
+run11_prepareDataFromFred
+run12_fisherInfoMatrix
+run13_estimateParams
+run14_morePosterSimulator
+run15_filterHistData
+run16_moreKalmanFilter
+run17_createForecastScenarios
+run18_modelVersusData
+
