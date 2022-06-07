@@ -1,6 +1,6 @@
 "Variables ->","w","r5y","r3m","cpi_u","cpi","pc"
-"Comments ->","Average Hourly Earnings of Production and Nonsupervisory Employees, Total Private","Market Yield on U.S. Treasury Securities at 5-Year Constant Maturity","3-Month Treasury Bill Secondary Market Rate","Consumer Price Index for All Urban Consumers: All Items Less Energy in U.S. City Average","Consumer Price Index for All Urban Consumers: All Items Less Energy in U.S. City Average","Personal Consumption Expenditures: Chain-type Price Index"
-"Class[Size] ->","Series[1060-by-1]","Series[1060-by-1]","Series[1060-by-1]","Series[1060-by-1]","Series[1060-by-1]","Series[1060-by-1]"
+"Comments ->","Average Hourly Earnings of Production and Nonsupervisory Employees, Total Private","Market Yield on U.S. Treasury Securities at 5-Year Constant Maturity, Quoted on an Investment Basis","3-Month Treasury Bill Secondary Market Rate, Discount Basis","Consumer Price Index for All Urban Consumers: All Items Less Energy in U.S. City Average","Consumer Price Index for All Urban Consumers: All Items Less Energy in U.S. City Average","Personal Consumption Expenditures: Chain-type Price Index"
+"Class[Size] ->","Series[1061-by-1]","Series[1061-by-1]","Series[1061-by-1]","Series[1061-by-1]","Series[1061-by-1]","Series[1061-by-1]"
 "1934M01",NaN,NaN,7.20000000e-01,NaN,NaN,NaN
 "1934M02",NaN,NaN,6.20000000e-01,NaN,NaN,NaN
 "1934M03",NaN,NaN,2.40000000e-01,NaN,NaN,NaN
@@ -1057,7 +1057,8 @@
 "2021M10",2.64200000e+01,1.11000000e+00,5.00000000e-02,2.81238000e+02,2.81269000e+02,1.17429000e+02
 "2021M11",2.65500000e+01,1.20000000e+00,5.00000000e-02,2.82397000e+02,2.82838000e+02,1.18106000e+02
 "2021M12",2.67400000e+01,1.23000000e+00,6.00000000e-02,2.83593000e+02,2.84395000e+02,1.18709000e+02
-"2022M01",2.68700000e+01,1.54000000e+00,1.50000000e-01,2.85779000e+02,2.86176000e+02,1.19341000e+02
-"2022M02",2.69500000e+01,1.81000000e+00,3.30000000e-01,2.87972000e+02,2.87835000e+02,1.19961000e+02
-"2022M03",2.70200000e+01,2.11000000e+00,4.40000000e-01,2.89456000e+02,2.89046000e+02,1.21000000e+02
-"2022M04",2.71200000e+01,2.78000000e+00,7.60000000e-01,2.91199000e+02,2.90818000e+02,NaN
+"2022M01",2.68700000e+01,1.54000000e+00,1.50000000e-01,2.85779000e+02,2.86176000e+02,1.19307000e+02
+"2022M02",2.69500000e+01,1.81000000e+00,3.30000000e-01,2.87972000e+02,2.87835000e+02,1.19945000e+02
+"2022M03",2.70600000e+01,2.11000000e+00,4.40000000e-01,2.89456000e+02,2.89046000e+02,1.21024000e+02
+"2022M04",2.71800000e+01,2.78000000e+00,7.60000000e-01,2.91199000e+02,2.90818000e+02,1.21323000e+02
+"2022M05",2.73300000e+01,2.87000000e+00,9.80000000e-01,NaN,NaN,NaN
