@@ -20,9 +20,14 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 
 %% Test Plain Vanilla
+    lastwarn('');
+    w0 = lastwarn();
     x = databank.toSeries(d1, ["a", "b"]);
     y = [d1.a, d1.b];
     assertEqual(testCase, x.Data, y.Data);
+    w = lastwarn();
+    assertEqual(testCase, w, w0); % Issue #323
+
 
 
 %% Test All Names

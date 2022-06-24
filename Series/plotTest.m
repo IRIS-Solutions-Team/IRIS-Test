@@ -2,9 +2,8 @@
 
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
+% setupOnce %#ok<*DEFNU>
 
-
-%% setupOnce(this) %#ok<*DEFNU>
     x = randn(40, 1);
     testCase.TestData.Yearly = Series(yy(2000), x);
     testCase.TestData.HalfYearly = Series(hh(2000), x);
@@ -15,10 +14,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 %
 
 
-%% testPlainPlot(this)
-    if verLessThan('matlab', '9.1')
-        return
-    end
+%% testPlainPlot
 
     list = fieldnames(testCase.TestData);
     for i = 1 : numel(list)
@@ -29,16 +25,14 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
             close(gcf( ));
         end
     end
-
     close all
+
 %
 
 
-%% testPlotAxesRange(this)
-    if verLessThan('matlab', '9.1')
-        return
-    end
+%% testPlotAxesRange
 
+    
     list = fieldnames(testCase.TestData);
     for i = 1 : numel(list)
         x = testCase.TestData.(list{i});
@@ -58,15 +52,12 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
             close(gcf( ));
         end
     end
-
     close all
+
 %
 
 
-%% testDateFormat(this)
-    if verLessThan('matlab', '9.1')
-        return
-    end
+%% testDateFormat
 
     list = fieldnames(testCase.TestData);
     for i = 1 : numel(list)
@@ -78,14 +69,12 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     end
 
     close all
+
 %
 
 
-%% testBar(this)
-    if verLessThan('matlab', '9.1')
-        return
-    end
-
+%% testBar
+    
     q = Series(qq(2000), rand(40,1));
     figure('Visible', 'off');
     plot(q);
@@ -96,8 +85,9 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     xLim2 = handleAxes.XLim;
     assertLessThan(testCase, xLim2(1), xLim1(1));
     assertGreaterThan(testCase, xLim2(2), xLim1(2));
-
+    
     close all
+
 %
 
 

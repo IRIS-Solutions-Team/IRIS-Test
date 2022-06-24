@@ -1,0 +1,6 @@
+
+%% Test
+
+runModel
+close all
+

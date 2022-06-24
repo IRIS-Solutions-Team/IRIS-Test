@@ -41,18 +41,24 @@ assertGreaterThan(testCase, xTick2, xTick1);
 
 %% Test Different Plot Functions and DateFormats
 
-list = {@plot, @area, @stem, @scatter, @bar};
+list = {@plot, @area, @stem, @bar, @stairs};
 visual.next(numel(list), figureOpt{:});
-cellfun(@(func) func(visual.next( ), x), list);
-act1 = getFirstDate( );
+for func = list
+    a = visual.next();
+    func{:}(x, "axesHandle", a);
+    act1 = getFirstDate();
+    assertEqual(testCase, exp1, act1);
+end
 
 visual.next(numel(list), figureOpt{:});
-cellfun(@(func) func(visual.next( ), x.Range, x, 'DatePosition', 'end', 'DateFormat', dateFormat), list);
-act2 = getFirstDate( );
+for func = list
+    a = visual.next();
+    func{:}(x, "axesHandle", a, "datePosition", "end", "dateFormat", dateFormat);
+    act2 = getFirstDate();
+    assertEqual(testCase, exp2, act2);
+end
 
-assertEqual(testCase, exp1, act1);
-assertEqual(testCase, exp2, act2);
-
+close all
 
 %% Test plotyy with Different DateFormats
 
