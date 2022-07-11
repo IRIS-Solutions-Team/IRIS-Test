@@ -1,0 +1,37 @@
+
+!transition-variables
+
+    y, c, k, a
+
+
+!parameters
+
+    sigma, gamma, rho
+
+
+!transition-shocks
+
+    eps_a, eps_c
+
+
+!log-variables !all-but
+
+
+!transition-equations
+
+    y = c + k;
+    y = a * k^gamma;
+    c = sigma * y * exp(eps_c);
+    a = rho*a{-1} + (1-rho)*1 + eps_a;
+
+
+!measurement-variables
+
+    obs_k, obs_c
+
+
+!measurement-equations
+
+    obs_k = k;
+    obs_c = c;
+
