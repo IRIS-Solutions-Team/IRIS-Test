@@ -1,7 +1,7 @@
 
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
-f = ModelSource;
+f = ModelSource();
 f.FileName = "";
 f.Code = join([ 
     "!variables x, y, z !shocks ex, ey, ez "

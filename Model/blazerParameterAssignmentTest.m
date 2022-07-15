@@ -4,7 +4,7 @@ iris.required(20200307)
 
 %% Test Parameter Assignment Blocks
 
-m = Model('blazerParameterAssignmentTest.model', 'Growth', true);
+m = Model.fromFile('blazerParameterAssignmentTest.model', 'Growth', true);
 
 m.x = 10;
 m.y = 15;

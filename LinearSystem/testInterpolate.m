@@ -64,7 +64,7 @@ k = timeVaryingSystem(k, 1:numYears, {a, b, zeros(4, 1), z, [ ], 0}, {eye(4), [ 
 init = { x0, zeros(4) };
 
 if ~verLessThan('matlab', '9.9')
-    f = filter(k, series, startYear:endYear, 'Init', init);
+    f = kalmanFilter(k, series, startYear:endYear, 'initials', init);
     states = f.SmoothMean.Xi;
     interp = Series(startQuarter, reshape(transpose(states(startYear:endYear)), [ ], 1));
 

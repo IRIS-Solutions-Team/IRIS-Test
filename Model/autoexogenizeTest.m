@@ -3,7 +3,7 @@
 
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
-m = Model('autoexogenizeTest.model', 'Linear', true);
+m = Model.fromFile('autoexogenizeTest.model', 'Linear', true);
 m = solve(m);
 m = sstate(m);
 testData.Model = m;

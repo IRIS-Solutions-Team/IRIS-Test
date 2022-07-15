@@ -1,5 +1,4 @@
 rph = rephrase.Report("Test Report Title" ... 
-    , "chartLibrary", "plotly" ... % chartjs/plotly
     , "interactiveCharts", true ... % make it `false` for huge reports
   );
 

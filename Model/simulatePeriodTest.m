@@ -3,8 +3,8 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 % Set up Once
     %
-    fwd = Model("simulatePeriodTest.model", "assign", {"K", +1});
-    bkw = Model("simulatePeriodTest.model", "assign", {"K", -1});
+    fwd = Model.fromFile("simulatePeriodTest.model", "assign", {"K", +1});
+    bkw = Model.fromFile("simulatePeriodTest.model", "assign", {"K", -1});
     %
     c = randn( );
     d = struct( );

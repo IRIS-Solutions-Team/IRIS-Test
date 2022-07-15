@@ -3,7 +3,7 @@
 
 this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
-m = Model('test.model', 'linear', true);
+m = Model.fromFile('test.model', 'linear', true);
 m.std_ex = 1;
 m.std_ey = 2;
 m.std_ez = 1.5;

@@ -1,9 +1,9 @@
 
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
-m1 = Model('ffrfUnitRootTest1.model', 'linear', true);
-m2 = Model('ffrfUnitRootTest2.model', 'linear', true);
-m3 = Model('ffrfUnitRootTest3.model', 'linear', true);
+m1 = Model.fromFile('ffrfUnitRootTest1.model', 'linear', true);
+m2 = Model.fromFile('ffrfUnitRootTest2.model', 'linear', true);
+m3 = Model.fromFile('ffrfUnitRootTest3.model', 'linear', true);
 
 [m1, ~, info1] = solve(m1);
 [m2, ~, info2] = solve(m2);

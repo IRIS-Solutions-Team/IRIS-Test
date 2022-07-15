@@ -3,14 +3,14 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 % Set up Once
 
-m = Model('issue259Test.model', 'Linear', true);
+m = Model.fromFile('issue259Test.model', 'linear', true);
 m = alter(m, 1000);
 m.a = rand(1, 1000);
 
 
 %% Test Solve
 
-    m = solve(m, 'Progress', true);
+    m = solve(m, 'progress', true);
 
 
 %% Test Simulate

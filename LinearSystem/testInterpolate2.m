@@ -47,7 +47,7 @@ m = steadySystem(m, 'NotNeeded');
 m = timeVaryingSystem(m, 1:numQuarters, {T, R, k, Z, H, d}, {OmegaV, OmegaW});
 
 if ~verLessThan('matlab', '9.9')
-    outputData = filter(m, observed, startQuarter:endQuarter, 'Init', {x0, zeros(4)});
+    outputData = kalmanFilter(m, observed, startQuarter:endQuarter, 'initials', {x0, zeros(4)});
     interp = outputData.SmoothMean.Xi{startQuarter:endQuarter, 4};
 
     interpYearly = convert(interp, Frequency.YEARLY, 'Method', @sum);

@@ -25,7 +25,7 @@ Model>>>>>
 %}
 fileName = 'steadyAutoexogTest.model';
 parser.grabTextFromCaller('Model', fileName);
-m = Model(fileName);
+m = Model.fromFile(fileName);
 m.alp = 0.5;
 m.bet = 0.95;
 m.del = 0.10;

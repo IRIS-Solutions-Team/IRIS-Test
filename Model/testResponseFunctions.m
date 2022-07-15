@@ -1,7 +1,7 @@
 
 % Setup once
 
-m = Model( 'testSimulateContributions.model', ...
+m = Model.fromFile( 'testSimulateContributions.model', ...
            'Growth', true );
 
 m.alpha = 1.03^(1/4);

@@ -16,6 +16,7 @@ f = databank.copy(s, 'sourceNames', access(m, 'measurement-variables'));
 %% Test objective function range and contributions
 
 ff0 = kalmanFilter(m, f, startDate:endDate);
+[~, ans] = filter(m, f, startDate:endDate);
 outp1 = loglik(m, f, startDate:endDate, 'ReturnObjFuncContribs', true, 'Relative', false);
 outp2 = loglik(m, f, startDate:endDate, 'ObjFuncRange', startDate+3:endDate-1, 'Relative', false);
 outp3 = loglik(m, f, startDate:endDate, 'ObjFuncRange', startDate+3:endDate-1, 'ReturnObjFuncContribs', true, 'Relative', false);

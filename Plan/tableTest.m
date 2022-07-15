@@ -3,7 +3,7 @@
 
 this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
-m = Model('test.model', 'linear', true);
+m = Model.fromFile('test.model', 'linear', true);
 m = solve(m);
 m = steady(m);
 
@@ -19,7 +19,7 @@ p = endogenize(p, p.Start+1, {'ey'});
 
 %% Test Table with Databank
 
-d = zerodb(m, qq(2001,1):qq(2004,4));
+d = databank.forModel(m, qq(2001,1):qq(2004,4), "deviation", true);
 t = table(p, d);
 assertEqual(this, size(t), [7, 7]);
 assertEqual(this, t{:, 1}, ["x"; "y"; "z"; "ex"; "ey"; "ez"; "y"]);

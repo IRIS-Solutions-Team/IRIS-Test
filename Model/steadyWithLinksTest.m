@@ -1,7 +1,7 @@
 
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
-m = Model("steadyWithLinksTest.model");
+m = Model.fromFile("steadyWithLinksTest.model");
 
 m.x = 1;
 m.y = 2;

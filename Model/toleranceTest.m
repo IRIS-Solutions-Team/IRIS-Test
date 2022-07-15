@@ -6,7 +6,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 %% Steady Tolerance Issue #211 
 
-m = Model('toleranceTest.model');
+m = Model.fromFile('toleranceTest.model');
 m = tolerance(m, 'Steady', 1e-1);
 
 tol = tolerance(m, 'Steady');

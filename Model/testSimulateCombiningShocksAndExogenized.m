@@ -4,7 +4,7 @@
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 rng(0);
-m = Model('testSimulateCombiningShocksAndExogenized.model');
+m = Model.fromFile('testSimulateCombiningShocksAndExogenized.model');
 m.alp = 0.5;
 m.sgm = 0.1;
 m.bet = 0.99;
