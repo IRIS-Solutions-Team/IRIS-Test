@@ -33,7 +33,7 @@ m.std_Mp = 0;
 m.std_Mw = 0;
 m.std_Ea = 0.001;
 
-m = steady(m, "Solver=", {"IRIS-Qnsd", "Display=", false});
+m = steady(m, "Solver", {"IRIS-Qnsd", "Display", false});
 checkSteady(m);
 m = solve(m);
 

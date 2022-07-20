@@ -31,15 +31,15 @@ est.d = {0.5, 0.1, 2};
 %% Test Estimation with Steady State
 
 steadySolverOptions = { 'lsqnonlin'
-                        'tolX='; 1e-16
-                        'tolFun='; 1e-16
-                        'MaxFunEvals='; 1e5
-                        'MaxIter='; 1e5
-                        'Display='; 'Off' };
+                        'tolX'; 1e-16
+                        'tolFun'; 1e-16
+                        'MaxFunEvals'; 1e5
+                        'MaxIter'; 1e5
+                        'Display'; 'Off' };
 
-steadyOptions = { 'Growth='; false
-                  'Blocks='; true
-                  'Solver='; steadySolverOptions };
+steadyOptions = { 'Growth'; false
+                  'Blocks'; true
+                  'Solver'; steadySolverOptions };
 
 p0 = estimate(m, d, range, est, 'Steady', true);
 p1 = estimate(m, d, range, est, 'Steady', steadyOptions);
@@ -54,15 +54,15 @@ check.absTol(p0.d, 1.44, 1e-2)
 %% Test Estimation with Failed Steady State
 
 steadySolverOptions = { 'lsqnonlin'
-                        'tolX='; 1e-16
-                        'tolFun='; 1
-                        'MaxFunEvals='; 1
-                        'MaxIter='; 1e5
-                        'Display='; 'Off' };
+                        'tolX'; 1e-16
+                        'tolFun'; 1
+                        'MaxFunEvals'; 1
+                        'MaxIter'; 1e5
+                        'Display'; 'Off' };
 
-steadyOptions = { 'Growth='; false
-                  'Blocks='; true
-                  'Solver='; steadySolverOptions };
+steadyOptions = { 'Growth'; false
+                  'Blocks'; true
+                  'Solver'; steadySolverOptions };
 
 p2 = estimate(m, d, range, est, 'Steady', steadyOptions, 'NoSolution', 'Penalty');
 

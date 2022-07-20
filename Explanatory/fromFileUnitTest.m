@@ -14,7 +14,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     ], newline);
     control = struct( );
     control.list = ["AA", "BB", "CC"];
-    act = Explanatory.fromFile(f, 'Preparser=', {'Assign=', control});
+    act = Explanatory.fromFile(f, 'Preparser', {'Assign', control});
     for i = 1 : numel(control.list)
         exd = Explanatory( );
         s = control.list(i);
@@ -139,8 +139,8 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     ], newline);
     control = struct( );
     control.list = ["AA", "BB", "CC"];
-    act1 = Explanatory.fromFile(f1, 'Preparser=', {'Assign=', control});
-    act2 = Explanatory.fromFile(f2, 'Preparser=', {'Assign=', control});
+    act1 = Explanatory.fromFile(f1, 'Preparser', {'Assign', control});
+    act2 = Explanatory.fromFile(f2, 'Preparser', {'Assign', control});
     for i = 1 : numel(control.list)
         assertEqual(testCase, act1(i).LhsName, "x_"+control.list(i));
     end
@@ -189,7 +189,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     list = ["AA", "BB", "CC", "DD"];
     for i = 1 : numel(list)
         control.country = list(i);
-        act = Explanatory.fromFile(f1, 'Preparser=', {'Assign=', control});
+        act = Explanatory.fromFile(f1, 'Preparser', {'Assign', control});
         assertEqual(testCase, func2str(act.ExplanatoryTerms.Expression), exp_Expression{i});
     end
 

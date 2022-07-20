@@ -22,9 +22,7 @@ clear
 %
 
 load mat/createModel.mat m
-load mat/estimateParams.mat mest
 
-m = mest;
 checkSteady(m);
 m = solve(m);
 
