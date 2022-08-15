@@ -2,6 +2,7 @@
 % Set up once
 
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+drawnow();
 close all
 figureOpt = {'Visible', 'Off'};
 startDate = qq(2000,1);
@@ -58,6 +59,7 @@ for func = list
     assertEqual(testCase, exp2, act2);
 end
 
+drawnow();
 close all
 
 %% Test plotyy with Different DateFormats

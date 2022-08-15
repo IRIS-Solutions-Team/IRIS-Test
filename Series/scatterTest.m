@@ -26,4 +26,6 @@ for i = 2 : numel(h)
     assertEqual(testCase, get(h(1), "XData"), get(h(i), "XData"));
 end
 
+drawnow();
 close all
+

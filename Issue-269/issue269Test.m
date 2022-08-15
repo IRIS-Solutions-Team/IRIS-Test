@@ -1,5 +1,6 @@
 
 
+drawnow();
 close all
 clear
 

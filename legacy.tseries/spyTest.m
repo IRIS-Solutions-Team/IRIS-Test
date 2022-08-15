@@ -2,6 +2,7 @@
 % Set up once
 
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+drawnow();
 close all
 data = rand(40, 10);
 n = numel(data);
@@ -20,6 +21,7 @@ for i = 1 : numel(freq)
     figure('Visible', figureVisible);
     spy(x);
 end
+drawnow();
 close all
 
 
@@ -39,5 +41,6 @@ end
 if ~isempty(interpreter)
     assertEqual(testCase, lower(char(interpreter)), 'none');
 end
+drawnow();
 close all
 

@@ -4,6 +4,7 @@ end%
 
 
 function setupOnce(this)
+    drawnow();
     close all
     this.TestData.Visible = 'off';
 end%
@@ -30,6 +31,7 @@ end%
 
 
 function teardownOnce(this)
+    drawnow();
     close all
 end%
 

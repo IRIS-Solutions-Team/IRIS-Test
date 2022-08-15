@@ -1,5 +1,6 @@
 %% Estimate parameters using numerical vs user supplied steady function
 
+drawnow();
 close all
 clear
 

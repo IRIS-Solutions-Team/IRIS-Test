@@ -1,6 +1,7 @@
 
 % Setup once
 
+drawnow();
 close all
 clear
 

@@ -26,5 +26,6 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
         assertEqual(testCase, get(h(1), "XData"), get(h(i), "XData"));
     end
 
+    drawnow();
     close all
 

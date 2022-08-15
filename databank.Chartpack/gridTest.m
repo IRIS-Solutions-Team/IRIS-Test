@@ -21,6 +21,7 @@ for i = 1 : 3
 end
 %visual.hlegend('bottom', 'xxxxx');
 
+%drawnow();
 %close all
 
 
@@ -39,6 +40,7 @@ for i = 1 : 3
     assertTrue(testCase, get(info.AxesHandles{1}(i), "YGrid")=="on");
 end
 
+drawnow();
 close all
 
 
@@ -57,6 +59,7 @@ for i = 1 : 3
     assertTrue(testCase, get(info.AxesHandles{1}(i), "YGrid")=="off");
 end
 
+drawnow();
 close all
 
 
@@ -75,5 +78,6 @@ for i = 1 : 3
     assertTrue(testCase, get(info.AxesHandles{1}(i), "YGrid")=="off");
 end
 
+drawnow();
 close all
 

@@ -26,4 +26,5 @@ for i = 2 : numel(h)
     assertEqual(testCase, get(h(1), "BinCounts"), get(h(i), "BinCounts"));
 end
 
+drawnow();
 close all

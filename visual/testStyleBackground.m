@@ -1,5 +1,6 @@
 
 % Set up once
+drawnow();
 close all
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 

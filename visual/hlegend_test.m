@@ -1,4 +1,5 @@
 
+drawnow();
 close all
 
 %% Test Implicit Current Axes 

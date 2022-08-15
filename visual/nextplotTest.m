@@ -1,4 +1,5 @@
 
+drawnow();
 close all
 clear
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
@@ -16,6 +17,7 @@ for i = 1 : 12
 end
 assertFigures(1);
 assertAxes(12);
+drawnow();
 close all
 
 
@@ -28,6 +30,7 @@ for i = 1 : 24
 end
 assertFigures(2);
 assertAxes(12);
+drawnow();
 close all
 
 
@@ -40,6 +43,7 @@ for i = 1 : 12
 end
 assertFigures(1);
 assertAxes(12);
+drawnow();
 close all
 
 
@@ -52,6 +56,7 @@ for i = 1 : 24
 end
 assertFigures(2);
 assertAxes(12);
+drawnow();
 close all
 
 
@@ -71,6 +76,7 @@ numRows = getappdata(gcf(), 'IRIS_NextNumRows');
 numColumns = getappdata(gcf(), 'IRIS_NextNumColumns');
 assertEqual(testCase, numRows, expectedNumRows);
 assertEqual(testCase, numColumns, expectedNumColumns);
+drawnow();
 close all
 
 %% Test nextplot(totalCount) with more than one figure
@@ -85,6 +91,7 @@ for i = 1 : 24
 end
 assertFigures(2);
 assertAxes(expectedTotalCount);
+drawnow();
 close all
 
 

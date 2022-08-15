@@ -27,6 +27,7 @@ if ~verLessThan('matlab', '9.9')
         assertEqual(testCase, get(h(1), "XData"), get(h(i), "XData"));
     end
 
+    drawnow();
     close all
 end
 

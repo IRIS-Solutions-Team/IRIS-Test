@@ -5,6 +5,7 @@
 %% Clear workspace
 
 clear;
+drawnow();
 close all;
 clc;
 %#ok<*NOPTS>

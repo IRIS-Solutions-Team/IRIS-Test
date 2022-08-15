@@ -23,6 +23,7 @@ info = draw(ch, d);
 assertEqual(testCase, numel(ch.Charts), 3);
 assertEqual(testCase, numel(info.AxesHandles{1}), 3);
 
+drawnow();
 close all
 
 
@@ -43,5 +44,6 @@ info = draw(ch, d);
 assertEqual(testCase, numel(ch.Charts), 3);
 assertEqual(testCase, numel(info.AxesHandles{1}), 3);
 
+drawnow();
 close all
 

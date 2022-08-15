@@ -33,6 +33,7 @@ for i = 1 : length(Ax{1})
     xLim = get(Ax{1}(i), 'xLim');
     assertEqual(This, xLim, range([1,end]));
 end
+drawnow();
 close all;
 end
 
@@ -53,6 +54,7 @@ assertEqual(This, length(Ax), ceil(nList/4));
 for i = 1 : length(Ax)-1
     assertEqual(This, length(Ax{i}), 4);
 end
+drawnow();
 close all;
 end
 
@@ -74,5 +76,6 @@ for i = 1 : length(Ax{1})
     xLim = get(Ax{1}(i),'xLim');
     assertEqual(This, xLim, range([1,end]));
 end
+drawnow();
 close all;
 end

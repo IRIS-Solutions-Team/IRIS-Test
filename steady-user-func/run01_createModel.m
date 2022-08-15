@@ -1,4 +1,6 @@
 
+
+drawnow();
 close all
 clear
 mkdir mat

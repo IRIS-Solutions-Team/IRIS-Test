@@ -4,6 +4,7 @@
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 
+drawnow();
 close all
 
 f = figure('Visible', 'Off');

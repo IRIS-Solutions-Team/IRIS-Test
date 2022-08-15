@@ -25,6 +25,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
             close(gcf( ));
         end
     end
+    drawnow();
     close all
 
 %
@@ -52,6 +53,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
             close(gcf( ));
         end
     end
+    drawnow();
     close all
 
 %
@@ -68,6 +70,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
         end
     end
 
+    drawnow();
     close all
 
 %
@@ -86,6 +89,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     assertLessThan(testCase, xLim2(1), xLim1(1));
     assertGreaterThan(testCase, xLim2(2), xLim1(2));
     
+    drawnow();
     close all
 
 %

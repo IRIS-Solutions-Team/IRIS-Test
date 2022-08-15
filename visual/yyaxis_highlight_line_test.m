@@ -5,6 +5,7 @@ catch
     return
 end
 
+drawnow();
 close all
 
 f = figure('Visible', 'off');

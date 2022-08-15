@@ -2,6 +2,7 @@
 % Set Up Once
 
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+drawnow();
 close all
 testCase.TestData.Visible = 'off';
 
@@ -19,6 +20,7 @@ if ~verLessThan('matlab', '9.1')
     assertEqual(testCase, xLim1(2), datetime(qq(2009,'end')));
     assertEqual(testCase, xLim2(1), datetime(mm(2000,1)));
     assertEqual(testCase, xLim2(2), datetime(mm(2009,'end')));
+    drawnow();
     close all
 end
 
@@ -36,6 +38,7 @@ if ~verLessThan('matlab', '9.1')
     assertEqual(testCase, xLim1(2), datetime(qq(2002,'end')));
     assertEqual(testCase, xLim2(1), datetime(mm(2000,1)));
     assertEqual(testCase, xLim2(2), datetime(mm(2009,'end')));
+    drawnow();
     close all
 end
 
@@ -53,6 +56,7 @@ if ~verLessThan('matlab', '9.1')
     assertEqual(testCase, xLim1(2), datetime(qq(2002,'end')));
     assertEqual(testCase, xLim2(1), datetime(mm(2001,1)));
     assertEqual(testCase, xLim2(2), datetime(mm(2001,'end')));
+    drawnow();
     close all
 end
 

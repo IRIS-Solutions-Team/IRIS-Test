@@ -51,6 +51,7 @@ this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
     else
       disp('Unable to get the version of PdfLaTeX.');
     end
+    drawnow();
     close all
 
 
@@ -66,6 +67,7 @@ this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
       error('IrisTestSuite:customException',['Unable to generate PDF report.',...
         ' If the last warning is of any help, it was:\n%s\n'],lastwarn);
     end
+    drawnow();
     close all
 
 
@@ -116,6 +118,7 @@ this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
       error('IrisTestSuite:customException',['Unable to generate PDF report.',...
         ' If the last warning is of any help, it was:\n%s\n'],lastwarn);
     end
+    drawnow();
     close all
 
 
@@ -154,6 +157,7 @@ this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
       error('IrisTestSuite:customException',['Unable to generate PDF report.',...
         ' If the last warning is of any help, it was:\n%s\n'],lastwarn);
     end
+    drawnow();
     close all
 
 
@@ -188,6 +192,7 @@ this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
       error('IrisTestSuite:customException',['Unable to generate PDF report.',...
         ' If the last warning is of any help, it was:\n%s\n'],lastwarn);
     end
+    drawnow();
     close all
 
 
@@ -217,6 +222,7 @@ this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
       error('IrisTestSuite:customException',['Unable to generate PDF report.',...
         ' If the last warning is of any help, it was:\n%s\n'],lastwarn);
     end
+    drawnow();
     close all
 
 
@@ -245,5 +251,6 @@ this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
       error('IrisTestSuite:customException',['Unable to generate PDF report.',...
         ' If the last warning is of any help, it was:\n%s\n'],lastwarn);
     end
+    drawnow();
     close all
 
