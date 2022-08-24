@@ -15,8 +15,8 @@ b.Type = TYPE(2);
 code = file2char('parseNamesTest.txt');
 attributes = string.empty(1, 0);
 
-equation = model.component.Equation( );
-quantity = model.component.Quantity( );
+equation = model.Equation( );
+quantity = model.Quantity( );
 
 quantity = parse(b, the, code, attributes, quantity, equation, [ ]);
 
@@ -34,7 +34,7 @@ actValue = the.AssignedString;
 expValue = {'', '', '', '1', '2+1i'};
 
 actBounds = quantity.Bounds;
-expBounds = repmat(model.component.Quantity.DEFAULT_BOUNDS, 1, nQuan);
+expBounds = repmat(model.Quantity.DEFAULT_BOUNDS, 1, nQuan);
 
 assertEqual(this, actName, expName);
 assertEqual(this, actType, expType);

@@ -18,7 +18,7 @@ the.AssignedDatabank = inputDatabank;
 b = parser.theparser.Quantity( );
 b.Type = TYPE(2);
 
-quantity = model.component.Quantity( );
+quantity = model.Quantity( );
 
 % Run parse on the parser.theparser.Quantity object.
 attributes = string.empty(1, 0);

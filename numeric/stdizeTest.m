@@ -15,10 +15,10 @@ end
 function testStdize(this)
     data = this.TestData.Numeric;
     x = this.TestData.Series;
-    [stdizeData, meanData, stdData] = numeric.stdize(data);
+    [stdizeData, meanData, stdData] = series.stdize(data);
     [stdizeX, meanX, stdX] = stdize(x);
     assertEqual(this, stdizeData, stdizeX.Data, 'AbsTol', 1e-10);
-    data1 = numeric.destdize(stdizeData, meanData, stdData);
+    data1 = series.destdize(stdizeData, meanData, stdData);
     x1 = destdize(stdizeX, meanX, stdX);
     assertEqual(this, data, data1, 'AbsTol', 1e-10);
     assertEqual(this, data1, x1.Data, 'AbsTol', 1e-10);
@@ -28,10 +28,10 @@ end
 function testStdizeFlag(this)
     data = this.TestData.Numeric;
     x = this.TestData.Series;
-    [stdizeData, meanData, stdData] = numeric.stdize(data, 1);
+    [stdizeData, meanData, stdData] = series.stdize(data, 1);
     [stdizeX, meanX, stdX] = stdize(x, 1);
     assertEqual(this, stdizeData, stdizeX.Data, 'AbsTol', 1e-10);
-    data1 = numeric.destdize(stdizeData, meanData, stdData);
+    data1 = series.destdize(stdizeData, meanData, stdData);
     x1 = destdize(stdizeX, meanX, stdX);
     assertEqual(this, data, data1, 'AbsTol', 1e-10);
     assertEqual(this, data1, x1.Data, 'AbsTol', 1e-10);

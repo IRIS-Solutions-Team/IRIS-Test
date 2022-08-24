@@ -18,7 +18,7 @@ function testPrctile(this)
     data = this.TestData.Numeric;
     x = this.TestData.Series;
     numPeriods = size(data, 1);
-    prctileData = numeric.prctile(data, [10, 50, 90], 2);
+    prctileData = series.prctile(data, [10, 50, 90], 2);
     prctileX = prctile(x, [10, 50, 90]);
     assertEqual(this, prctileData, prctileX.Data, 'AbsTol', 1e-10);
     expected = repmat([10.5, 50.5, 90.5], numPeriods, 1);

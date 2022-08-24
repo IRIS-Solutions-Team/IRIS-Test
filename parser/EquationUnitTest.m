@@ -19,7 +19,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 %% Test Equation Switch Auto
     obj = testCase.TestData.Obj;
     code = testCase.TestData.Code;
-    eqn = model.component.Equation( );
+    eqn = model.Equation( );
     euc = parser.EquationUnderConstruction( );
     opt = struct( );
     opt.EquationSwitch = @auto;
@@ -33,7 +33,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 %% Test Equation Switch Dynamic
     obj = testCase.TestData.Obj;
     code = testCase.TestData.Code;
-    eqn = model.component.Equation( );
+    eqn = model.Equation( );
     euc = parser.EquationUnderConstruction( );
     opt.EquationSwitch = 'Dynamic';
     attributes = string.empty(1, 0);
@@ -47,7 +47,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 %% Test Equation Switch Steady
     obj = testCase.TestData.Obj;
     code = testCase.TestData.Code;
-    eqn = model.component.Equation( );
+    eqn = model.Equation( );
     euc = parser.EquationUnderConstruction( );
     opt.EquationSwitch = 'Steady';
     attributes = string.empty(1, 0);

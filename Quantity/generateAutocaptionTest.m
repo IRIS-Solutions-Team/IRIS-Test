@@ -4,7 +4,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 % Set up once
 
-q = model.component.Quantity;
+q = model.Quantity;
 q.Name = { ...
     'a', 'b', 'c', 'd', ... 1..4
     'AA', 'BB', 'CC', 'DD', 'EE', 'FF', ... 5..10
@@ -28,7 +28,7 @@ q.Type = [ ...
 q.IxLog = true(1, nQuan);
 q.IxObserved = false(1, nQuan);
 q.IxLagrange = true(1, nQuan);
-q.Bounds = repmat(model.component.Quantity.DEFAULT_BOUNDS, 1, nQuan);
+q.Bounds = repmat(model.Quantity.DEFAULT_BOUNDS, 1, nQuan);
 q = seal(q);
 
 opt = struct();

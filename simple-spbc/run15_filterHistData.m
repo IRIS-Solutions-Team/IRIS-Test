@@ -30,8 +30,8 @@ databank.list(d)
 % The output data struct returned from the Kalman filter, `f`, consist by
 % default of three sub-databases:
 %
-% * `.mean` with point estimates of all model variables as tseries objects,
-% * `.std` with std dev of those estimates as tseries objects,
+% * `.mean` with point estimates of all model variables as Series objects,
+% * `.std` with std dev of those estimates as Series objects,
 % * `.mse` with the MSE matrix for backward-looking transition variables.
 %
 % Use the options `Output=`, `MeanOnly=`, `ReturnStd=` and

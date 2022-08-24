@@ -1,9 +1,0 @@
-!transition_variables
-    a
-!transition_equations
-    a=a{+10}+a{-10};
-
-!reporting_equations
-    'Eq1' x = x{-1} + y{1} - y{-2} ;
-    'Eq2' z = z{-1} + y{1} - y{-2} ;
-    'Eq3' w = w{-1} + y !! 0;

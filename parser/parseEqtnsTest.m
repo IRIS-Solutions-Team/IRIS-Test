@@ -10,8 +10,8 @@ TYPE = @int8;
 b = parser.theparser.Equation( );
 b.Type = TYPE(2);
 code = file2char('parseEqtnsTest.model');
-equation = model.component.Equation( );
-quantity = model.component.Quantity( );
+equation = model.Equation( );
+quantity = model.Quantity( );
 euc = parser.EquationUnderConstruction( );
 attributes = string.empty(1, 0);
 

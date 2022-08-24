@@ -4,11 +4,11 @@
 this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 range = qq(2000, 1):qq(2015, 4);
 d = struct();
-d.x = hpf2(cumsum(tseries(range, @randn)));
-d.y = hpf2(cumsum(tseries(range, @randn)));
-d.z = hpf2(cumsum(tseries(range, @randn)));
-d.a = hpf2(cumsum(tseries(range, @randn)));
-d.b = hpf2(cumsum(tseries(range, @randn)));
+d.x = hpf2(cumsum(Series(range, @randn)));
+d.y = hpf2(cumsum(Series(range, @randn)));
+d.z = hpf2(cumsum(Series(range, @randn)));
+d.a = hpf2(cumsum(Series(range, @randn)));
+d.b = hpf2(cumsum(Series(range, @randn)));
 this.TestData.range = range;
 this.TestData.d = d;
 

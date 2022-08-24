@@ -18,7 +18,7 @@ function testPrctile(this)
     data = this.TestData.Numeric;
     x = this.TestData.Series;
     numPeriods = size(data, 1);
-    hpdiData = numeric.hpdi(data, 80, 2);
+    hpdiData = series.hpdi(data, 80, 2);
     hpdiX = hpdi(x, 80);
     assertEqual(this, hpdiData, hpdiX.Data, 'AbsTol', 1e-10);
     expected = repmat([1, 80], numPeriods, 1);
@@ -30,10 +30,10 @@ function testPrctileDim(this)
     data = this.TestData.Numeric;
     x = this.TestData.Series;
     numPeriods = size(data, 1);
-    hpdiData = numeric.hpdi(data, 80, 1);
+    hpdiData = series.hpdi(data, 80, 1);
     hpdiX = hpdi(x, 80, 1);
     assertEqual(this, hpdiData, hpdiX, 'AbsTol', 1e-10);
-    hpdiData = numeric.hpdi(data, 80, 3);
+    hpdiData = series.hpdi(data, 80, 3);
     hpdiX = hpdi(x, 80, 3);
     assertEqual(this, hpdiData, hpdiX.Data, 'AbsTol', 1e-10);
 end

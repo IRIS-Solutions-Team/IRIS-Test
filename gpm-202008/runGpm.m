@@ -17,7 +17,7 @@ d.SHK_YY_US(1:4) = -6;
 %}
 
 for n = keys(d)
-    if isa(d.(n), "tseries")
+    if isa(d.(n), "Series")
         d.(n) = Series(d.(n));
     end
 end

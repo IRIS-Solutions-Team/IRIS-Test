@@ -4,7 +4,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 % Set up Once
 
-q = model.component.Quantity;
+q = model.Quantity;
 q.Name =      {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'};
 q.Type = int8([ 1 ,  1 ,  2 ,  2 ,  31,  31,  32,  32,  4 ,  4 ,  5 ,  5 ]);
 q.Label = strcat(upper(q.Name), upper(q.Name));

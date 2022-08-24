@@ -50,7 +50,8 @@ for i = 1 : N
     d.("a"+i) = Series(0, 0);
 end
 
-d1 = simulate(x, d, 1:T, "Progress", progress);
+d.a1(-100:-1) = 1000;
+d1 = simulate(x, d, 1:T, "Progress", progress, "prependInput", true);
 [x1, d2] = regress(x, d1, 1:T, "Progress", progress);
 
 for i = [1, 3, 4]

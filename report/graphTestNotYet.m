@@ -15,17 +15,17 @@ g = report.Graph( );
 g.Title = 'Title XXX';
 
 left = report.YAxis( );
-left.Data = tseries(qq(1999,1), rand(100,2));
+left.Data = Series(qq(1999,1), rand(100,2));
 left.Legend = {'first', 'second'};
 left.PlotFunction = @bar;
 g.addLeft(left);
 
 right = report.YAxis( );
-right.Data = 100*tseries(qq(1999,1), rand(100,1));
+right.Data = 100*Series(qq(1999,1), rand(100,1));
 g.addRight(right);
 
 right = report.YAxis( );
-right.Data = 100*tseries(qq(1999,1), rand(100,1));
+right.Data = 100*Series(qq(1999,1), rand(100,1));
 right.Legend = 'third';
 g.addRight(right);
 

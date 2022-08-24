@@ -62,11 +62,11 @@ rng(0);
 range = qq(2000,1):qq(2010,4);
 
 ac = struct( );
-ac.x = tseries(range, @rand);
+ac.x = Series(range, @rand);
 ac.x = round(100*ac.x, 2);
-ac.y = tseries(range, @rand);
+ac.y = Series(range, @rand);
 ac.y = round(100*ac.y, 2);
-ac.z = tseries(range, @rand);
+ac.z = Series(range, @rand);
 ac.z = round(100*ac.z, 2);
 databank.toCSV(ac, 'testSaveLoad5.csv');
 
@@ -94,7 +94,7 @@ assertEqual(ac.z(:), ex.z(:));
 d = databank.fromCSV('testDailyCsv.csv', ...
     'dateFormat', '$M/D/YYYY', ...
     'freq', 365);
-ac = db2array(d, {'A', 'B', 'C', 'D'});
+ac = databank.toArray(d, {'A', 'B', 'C', 'D'});
 ac(isnan(ac)) = 0;
 ex = csvread('testDailyCsv.csv', 1, 1);
 assertEqualTol(ac, ex);

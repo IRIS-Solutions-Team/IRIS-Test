@@ -2,7 +2,7 @@
 TYPE = @int8;
 assertEqual = @(x, y) assert(isequal(x, y));
 
-q0 = model.component.Quantity;
+q0 = model.Quantity;
 q0.Name = { ...
     'a', 'b', 'c', 'd', ... 1..4
     'AA', 'BB', 'CC', 'DD', 'EE', 'FF', ... 5..10
@@ -26,7 +26,7 @@ q0.Attributes = repmat({string.empty(1, 0)}, 1, 22);
 q0.IxLog = true(1, 22);
 q0.IxLagrange = true(1, 22);
 q0.IxObserved = false(1, 22);
-q0.Bounds = repmat(model.component.Quantity.DEFAULT_BOUNDS, 1, nQuan);
+q0.Bounds = repmat(model.Quantity.DEFAULT_BOUNDS, 1, nQuan);
 
 
 %% Test Insert First
@@ -41,7 +41,7 @@ add.Attributes = repmat({string.empty(1, 0)}, 1, nAdd);
 add.IxLog = true(1, nAdd);
 add.IxLagrange = false(1, nAdd);
 add.IxObserved = false(1, nAdd);
-add.Bounds = repmat(model.component.Quantity.DEFAULT_BOUNDS, 1, nAdd);
+add.Bounds = repmat(model.Quantity.DEFAULT_BOUNDS, 1, nAdd);
 x = insert(q, add, TYPE(4), 'first');
 pos = 18;
 expName = [ ...
@@ -70,7 +70,7 @@ add.Attributes = repmat({string.empty(1, 0)}, 1, nAdd);
 add.IxLog = true(1, nAdd);
 add.IxLagrange = false(1, nAdd);
 add.IxObserved = false(1, nAdd);
-add.Bounds = repmat(model.component.Quantity.DEFAULT_BOUNDS, 1, nAdd);
+add.Bounds = repmat(model.Quantity.DEFAULT_BOUNDS, 1, nAdd);
 x = insert(q, add, int8(4), 'last');
 pos = 20;
 expName = [ ...

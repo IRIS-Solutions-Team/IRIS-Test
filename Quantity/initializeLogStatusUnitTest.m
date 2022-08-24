@@ -4,7 +4,7 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 %% Test Default False
 
-q = model.component.Quantity;
+q = model.Quantity;
 q.Name = ["a", "b", "c", "d", "ea", "eb", "g", "ttrend"];
 q.Type = [1, 2, 2, 2, 3, 3, 5, 5];
 q.IxLog = false(size(q.Name));
@@ -15,7 +15,7 @@ assertEqual(testCase, q.IxLog, [true, true, false, false, false, false, true, fa
 
 %% Test Default True
 
-q = model.component.Quantity;
+q = model.Quantity;
 q.Name = ["a", "b", "c", "d", "ea", "eb", "g", "ttrend"];
 q.Type = [1, 2, 2, 2, 3, 3, 5, 5];
 q.IxLog = false(size(q.Name));
