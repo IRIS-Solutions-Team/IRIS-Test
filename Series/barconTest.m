@@ -26,14 +26,13 @@ testCase.TestData.Visible = 'on';
     assertLessThan(testCase, xLim(2), datetime(qq(2003,1)));
 
     co = copper();
-    pos = linspace(1, height(co), N);
-    figure('Visible', testCase.TestData.Visible);
+    pos = linspace(1, size(co, 1), N);
+    figure('Visible', testCase.TestData.Visible, 'defaultAxesColorOrder', co(pos,:));
     b = bar(x, 'stacked');
-    colororder(gca(), co(pos, :));
 
     hold on;
     plot(qq(2001,1):qq(2002,4), y, "lineWidth", 8, "color", "white");
-    plot(qq(2001,1):qq(2002,4), y, "lineWidth", 3);
+    plot(qq(2001,1):qq(2002,4), y, "lineWidth", 3, "color", "black");
 
     xLim = get(a, 'xLim');
     assertLessThan(testCase, xLim(1), datetime(qq(2001,1)));

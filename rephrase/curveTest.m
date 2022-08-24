@@ -25,16 +25,16 @@ for i = 1 : 4
 
     ch = rephrase.CurveChart("Reporting date: "+dater.toString(dd(2022,07,01)+i), 0:2:12, "tickLabels", @(x) string(x) + "Y");
 
-        ch + rephrase.Curve("Data w spread", t3,                              "lineWidth", 0,                "markers", struct("symbol", "square", "size", 10, "color", nan));
+        ch + rephrase.Curve("Data w spread", t3, "lineWidth", 0, "markers", struct('symbol', "square", 'size', 10, 'color', nan));
 
         ch + rephrase.Curve("Curve 1", t1);
         ch + rephrase.Curve("Curve 2", t4);
 
-        ch + rephrase.Curve("Data 2", t2,                                     "markers", struct("color", NaN, "symbol", "x-dot", "size", 10), "lineWidth", 0);
+        ch + rephrase.Curve("Data 2", t2, "markers", struct('color', NaN, 'symbol', "x-dot", 'size', 10), "lineWidth", 0);
 
         % Clip the t2 curve to maturities 1 year and above, and plot these
         % as squares around the existing X marks
-        ch + rephrase.Curve("Data 3", clip(t2, 1, Inf), "markers", struct("color", NaN, "symbol", "square-open", "size", 14, "line", struct("width", 4)), "lineWidth", 0);
+        ch + rephrase.Curve("Data 3", clip(t2, 1, Inf), "markers", struct('color', NaN, 'symbol', "square-open", 'size', 14, 'line', struct('width', 4)), 'lineWidth', 0);
 
     pg + ch;
 end
@@ -48,7 +48,7 @@ fpasDates = [dd(2020,02,13), dd(2020,07,19), dd(2020,10,04)];
 
 hi = {};
 for t = fpasDates
-    hi{end+1} = rephrase.Highlight(t, t, "shape", struct("fillcolor", "rgba(255,255,255,0)", "line", struct("width", 2, "color", "rgb(125,0,0)")));
+    hi{end+1} = rephrase.Highlight(t, t, "shape", struct('fillcolor', "rgba(255,255,255,0)", 'line', struct('width', 2, 'color', "rgb(125,0,0)")));
 end
 
     ch = rephrase.SeriesChart("Chart 1", mm(2020,1):mm(2020,12), "dateFormat", "YYYY-MM", "highlight", hi);
