@@ -10,4 +10,4 @@ test_steady_solver*
 *.mdl
 *.out
 *.spc
-
+log.*
