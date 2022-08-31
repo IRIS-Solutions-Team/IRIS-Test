@@ -3,7 +3,6 @@ testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 drawnow();
 close all
-testCase.TestData.Visible = 'on';
 
 
 % Vanilla test
@@ -11,7 +10,7 @@ testCase.TestData.Visible = 'on';
     x = Series(qq(2000,1), randn(40, N));
     y = sum(x, 2);
 
-    figure('Visible', testCase.TestData.Visible);
+    figure();
     barcon(x, 'ColorMap', copper( ), 'EvenlySpread', true);
     hold on;
     plot(qq(2001,1):qq(2002,4), y, 'LineWidth', 3);
@@ -27,7 +26,7 @@ testCase.TestData.Visible = 'on';
 
     co = copper();
     pos = linspace(1, size(co, 1), N);
-    figure('Visible', testCase.TestData.Visible, 'defaultAxesColorOrder', co(pos,:));
+    figure('defaultAxesColorOrder', co(pos,:));
     b = bar(x, 'stacked');
 
     hold on;

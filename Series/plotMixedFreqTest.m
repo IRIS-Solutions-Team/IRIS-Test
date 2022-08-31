@@ -19,7 +19,7 @@ function testSameRangeNoEnforcement(this)
     q = Series(qq(2000,1), rand(40, 1));
     m = Series(mm(2000,1), rand(120, 1));
 
-    figure('Visible', this.TestData.Visible);
+    figure();
     plot(q);
     handleAxes = gca( );
     try
@@ -48,7 +48,7 @@ function testDifferentRangeNoEnforcement(this)
     q = Series(qq(2000,1), rand(40, 1));
     m = Series(mm(2001,1), rand(96, 1));
 
-    figure('Visible', this.TestData.Visible);
+    figure();
     plot(q);
     handleAxes = gca( );
     try
@@ -62,7 +62,7 @@ function testDifferentRangeNoEnforcement(this)
         assertEqual(this, xTickLabel{1}, '2000:01');
     end
 
-    figure('Visible', this.TestData.Visible);
+    figure();
     plot(m);
     handleAxes = gca( );
     try
@@ -86,7 +86,7 @@ function testDifferentRangeEnforcement(this)
     q = Series(qq(2000,1), rand(40, 1));
     m = Series(mm(2001,1), rand(96, 1));
 
-    figure('Visible', this.TestData.Visible);
+    figure();
     plot(q);
     handleAxes = gca( );
     try

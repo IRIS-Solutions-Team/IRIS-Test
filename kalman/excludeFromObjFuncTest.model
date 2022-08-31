@@ -1,0 +1,16 @@
+
+!for x, y !do
+    !variables
+        ?
+    !parameters
+        rho_?
+    !shocks
+        shk_?
+    !transition-equations
+        ? = rho_? * ?{-1} + shk_?;
+    !measurement-variables
+        obs_?
+    !measurement-equations
+        obs_? = ?;
+!end
+

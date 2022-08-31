@@ -37,7 +37,7 @@ g1 = g1 + rephrase.SeriesChart.fromSeries( ...
 
 r = r + g1;
 
-finalize(r)
+finalize(r, rephrase.Counter());
 
 show(r)
 

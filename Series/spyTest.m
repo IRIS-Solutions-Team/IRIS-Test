@@ -8,8 +8,6 @@ data = rand(40, 10);
 n = numel(data);
 pos = randi(n, 1, ceil(n/10));
 data(pos) = NaN;
-figureVisible = 'Off';
-
 
 %% Test spy on All Frequencies
 
@@ -18,7 +16,7 @@ freq = freq(~isnan(freq) & freq<=365);
 for i = 1 : numel(freq)
     start = numeric.datecode(freq(i), 2000);
     x = Series(start, data);
-    figure('Visible', figureVisible);
+    figure();
     spy(x);
 end
 drawnow();
