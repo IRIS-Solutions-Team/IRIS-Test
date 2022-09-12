@@ -1,5 +1,5 @@
 
-this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 startData = 1;
 endData = 40;
@@ -31,34 +31,42 @@ b = steadySystem(b, {T, R, k, Z, H, d}, {OmegaV, OmegaW});
 
 %% Test Invariant
 
-if ~verLessThan('matlab', '9.9')
     [TT, RR, kk, ZZ, HH, dd, UU, ZZb, inxV, inxW, numUnit, inxInit] = getIthKalmanSystem(b, 1, 2);
 
 
-    data = kalmanFilter(b, x, filterRange);
+    [data, b, info] = kalmanFilter(b, x, filterRange);
 
     y = data.SmoothMean.Y(filterRange, :);
     xi = data.SmoothMean.Xi(filterRange, :);
     v = data.SmoothMean.V(filterRange, :);
     w = data.SmoothMean.W(filterRange, :);
-    assertEqual(this, y, sum(xi, 2) + w, 'AbsTol', 1e-10);
-end
+    assertEqual(testCase, y, sum(xi, 2) + w, 'AbsTol', 1e-10);
 
-%% Test Time Varying
 
-if ~verLessThan('matlab', '9.9')
+%% Test time invariant output arguments
+
+    [data, b, info] = kalmanFilter(b, x, filterRange);
+    [data2, b2, info2] = kalmanFilter(b, x, filterRange, "relative", true);
+    c = b.CovarianceMatrices{1}(:, :, 1);
+    c2 = b2.CovarianceMatrices{1}(:, :, 1);
+    assertEqual(testCase, c2, c*info2.VarScale, 'absTol', 1e-8);
+
+
+%% Test time varying
+
     b1 = b;
 
     T1 = diag([0.99, 0]);
     %b1 = timeVaryingSystem(b1, 21, {T1}, { });
     b1 = timeVaryingSystem(b1, 16, { }, {[ ], 20});
 
-    [data1, nondata1] = kalmanFilter(b1, x, filterRange, 'initials', {zeros(2, 1), zeros(2, 2)});
+    [data1, b1, info1] = kalmanFilter(b1, x, filterRange, 'initials', {zeros(2, 1), zeros(2, 2)});
 
     y1 = data1.SmoothMean.Y(filterRange, :);
     xi1 = data1.SmoothMean.Xi(filterRange, :);
     v1 = data1.SmoothMean.V(filterRange, :);
     w1 = data1.SmoothMean.W(filterRange, :);
-    assertEqual(this, y1, sum(xi1, 2) + w1, 'AbsTol', 1e-10);
-end
+    assertEqual(testCase, y1, sum(xi1, 2) + w1, 'AbsTol', 1e-10);
+
+    [data2, b2, info2] = kalmanFilter(b1, x, filterRange, "initials", {zeros(2, 1), zeros(2, 2)}, "relative", true);
 

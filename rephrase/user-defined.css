@@ -14,3 +14,12 @@
     text-align: right;
 }
 
+select.h4 {
+    text-align: center;
+}
+
+.rephrase-pager {
+    margin-left: 0;
+    margin-right: 0;
+};
+

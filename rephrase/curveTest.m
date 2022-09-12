@@ -23,7 +23,8 @@ for i = 1 : 4
 
     t4 = Termer(1:12, cumsum(rand(12,1)));
 
-    ch = rephrase.CurveChart("Reporting date: "+dater.toString(dd(2022,07,01)+i), 0:2:12, "tickLabels", @(x) string(x) + "Y");
+    h = rephrase.Highlight(1, 2);
+    ch = rephrase.CurveChart("Reporting date: "+dater.toString(dd(2022,07,01)+i), 0:2:12, "tickLabels", @(x) string(x) + "Y", "highlight", h);
 
         ch + rephrase.Curve("Data w spread", t3, "lineWidth", 0, "markers", struct('symbol', "square", 'size', 10, 'color', nan));
 
@@ -40,35 +41,7 @@ for i = 1 : 4
 end
 
 r + pg;
-
-
-gr = rephrase.Grid("XXX", 1, 2);
-
-fpasDates = [dd(2020,02,13), dd(2020,07,19), dd(2020,10,04)];
-
-hi = {};
-for t = fpasDates
-    hi{end+1} = rephrase.Highlight(t, t, "shape", struct('fillcolor', "rgba(255,255,255,0)", 'line', struct('width', 2, 'color', "rgb(125,0,0)")));
-end
-
-    ch = rephrase.SeriesChart("Chart 1", mm(2020,1):mm(2020,12), "dateFormat", "YYYY-MM", "highlight", hi);
-        ch + rephrase.Series("Aaaaa", Series(mm(2019,1):mm(2026,12), @rand));
-        ch + rephrase.Series("Bbbbb", Series(mm(2020,1):mm(2020,06), @rand));
-    gr + ch;
-
-    ch = rephrase.SeriesChart("Chart 2", mm(2020,1):mm(2020,12), "dateFormat", "YYYY-MM");
-        ch + rephrase.Series("Ccccc", Series(mm(2019,1):mm(2026,12), @rand));
-        ch + rephrase.Series("Ddddd", Series(mm(2020,1):mm(2020,06), @rand));
-    gr + ch;
-
-r + gr;
-
-
-table = { {"", "Aaaaa", "Bbbb", "Cccc", "Dddd"}, {"Zzzzz", 10, 20, 30, 40}, {"Xxxx", 100, 200, 300, 400} };
-
-cc = { ["my-header", "my-header", "my-header", "my-header"], [], [] };
-
-r + rephrase.Matrix("Table XXX", table, "cellClasses", cc);
+r + rephrase.Pagebreak();
 
 show(r);
 
@@ -77,6 +50,7 @@ build( ...
     ... , "template", "./report-template.html" ...
     , "source", "web" ...
     , "saveJson", true ...
+    , "userStyle", "user-defined.css" ...
 );
 
 
