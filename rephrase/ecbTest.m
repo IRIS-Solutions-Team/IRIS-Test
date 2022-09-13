@@ -34,6 +34,6 @@ r2 + ta;
 
 show(r)
 
-build(r, "ecbTest", [], "source", "web");
-build(r2, "ecbTest2", [], "source", "web");
+build(r, "ecbTest", [], "source", ["web", "bundle"]);
+build(r2, "ecbTest2", [], "source", ["web", "bundle"]);
 
