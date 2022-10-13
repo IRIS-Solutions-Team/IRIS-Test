@@ -14,12 +14,17 @@
     text-align: right;
 }
 
-select.h4 {
-    text-align: center;
-}
-
 .rephrase-pager {
     margin-left: 0;
     margin-right: 0;
-};
+}
+
+
+.inflation {
+    font-style: oblique;
+}
+
+tr.foo-bar {
+    font-style: oblique;
+}
 

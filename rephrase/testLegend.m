@@ -3,10 +3,9 @@ drawnow();
 close all
 clear
 rehash path
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
-folder = string(mfilename());
-mkdir(folder)
-
+%% Test legends
 
 startDate = qq(2020,1);
 endDate = qq(2025,4);
@@ -41,7 +40,5 @@ finalize(r, rephrase.Counter());
 
 show(r)
 
-
-
-build(r, fullfile(folder, "report"), d, "saveJSON", true, "source", "web");
+build(r, "testLegend", [], "saveJSON", true, "source", "web");
 

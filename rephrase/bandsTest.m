@@ -1,17 +1,14 @@
-%% Uncertainty bands report example
 
 %#ok<*VUNUS>
 
-clear
+drawnow
 close all
+clear
+
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
 
-%% Generate data 
-
-%
 % This is the point simulation
-%
-
 startDate = qq(2020,1);
 endDate = startDate + 19;
 
@@ -20,15 +17,13 @@ d.x = Series(startDate:endDate, cumsum(randn(20,1)));
 d.y = Series(startDate:endDate, cumsum(randn(20,1)));
 
 
-%
 % This is the Monte Carlo simulation with 10,000 draws (columns)
-%
 dmc = struct();
 dmc.x = d.x + Series(startDate:endDate, randn(20,10000))*0.5 * Series(startDate:endDate, (0:19)');
 dmc.y = d.y + Series(startDate:endDate, randn(20,10000))*0.5 * Series(startDate:endDate, (0:19)');
 
 
-%% Calculate distributional characteristics
+%% Test distributional characteristics
 
 %
 % Calculate 5th, 25th, 75th, 95th percentiles
