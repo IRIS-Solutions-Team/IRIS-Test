@@ -8,7 +8,7 @@ x = Series(yy(2010):yy(2020), @rand);
 
 r = rephrase.Report("Yearly highlight test");
 
-h = rephrase.Highlight(yy(2015), yy(2020), "shape", struct("a",1));
+h = rephrase.Highlight(yy(2015), yy(2020), "shape", struct('a', 1));
 
 g = rephrase.Grid("Grid", 1, 2);
 

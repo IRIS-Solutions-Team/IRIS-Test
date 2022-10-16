@@ -1,5 +1,4 @@
 
-% prepareUnitTests( )
 rehash path
 
 thisFolder = fileparts(mfilename('fullpath')) ;
@@ -15,7 +14,12 @@ set(0, "defaultFigureVisible", "off");
 
 delete log.txt
 diary log.txt
+x = get(0, "defaultFigureVisible");
+set(0, "defaultFigureVisible", "off");
+
 a = run(allSystemTests)
+
+set(0, "defaultFigureVisible", x);
 diary off
 
 set(0, "defaultFigureVisible", "on");

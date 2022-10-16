@@ -51,7 +51,7 @@ report = rephrase.Report("Uncertainty bands example");
 
 grid1 = rephrase.Grid("Grrrrrrrid", [], 2, "pass", {"showTitle", true, "dateFormat", "YYYY:Q"});
 
-    highlight1 = rephrase.Highlight(-Inf, qq(2020,4), "line", struct("width", 3 , "color", "#ff0000"));
+    highlight1 = rephrase.Highlight(-Inf, qq(2020,4), "line", struct('width', 3 , 'color', "#ff0000"));
     highlight2 = rephrase.Highlight(qq(2023,2), Inf, "fillColor", [0, 100, 200, 0.1]);
 
     % Two bands covering the area of the (25,75)-th percentiles and the (5,95)-th percentiles

@@ -22,7 +22,7 @@ numQuarters = endQuarter - startQuarter + 1;
 
 roc_indicator = roc(indicator);
 indicatorYearly = convert(indicator, Frequency.YEARLY, 'Method', @sum);
-factor = nanmean(series(startYear:endYear)./indicatorYearly(startYear:endYear));
+factor = mean(series(startYear:endYear)./indicatorYearly(startYear:endYear), 'omitNaN');
 x0 = factor * indicator(startQuarter+[-4,-3,-2,-1]);
 
 observed = convert(series, Frequency.QUARTERLY, 'Method', 'WriteToEnd');

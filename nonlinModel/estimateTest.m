@@ -111,17 +111,17 @@ if isOptim
     m = m1;
 
     E = struct();
-    E.chi = {NaN,  0.5,  0.95,  logdist.normal(0.85, 0.025)};
-    E.xiw = {NaN,  30,  1000,  logdist.normal(60, 50)};
-    E.xip = {NaN,  30,  1000,  logdist.normal(300, 50)};
-    E.rhor = {NaN,  0.10,  0.95,  logdist.beta(0.85, 0.05)};
-    E.kappap = {NaN,  1.5,  10,  logdist.normal(3.5, 1)};
-    E.kappan = {NaN,  0,  1, logdist.normal(0, 0.2)};
-    E.std_Ep = {0.01,  0.001,  0.10,  logdist.invgamma(0.01, Inf)};
-    E.std_Ew = {0.01,  0.001,  0.10,  logdist.invgamma(0.01, Inf)};
-    E.std_Ea = {0.001,  0.0001,  0.01,  logdist.invgamma(0.001, Inf)};
-    E.std_Er = {0.005,  0.001,  0.10,  logdist.invgamma(0.005, Inf)};
-    E.corr_Er__Ep = {0,  -0.9,  0.9,  logdist.normal(0, 0.5)};
+    E.chi = {NaN,  0.5,  0.95,  distribution.Normal.fromMeanStd(0.85, 0.025)};
+    E.xiw = {NaN,  30,  1000,  distribution.Normal.fromMeanStd(60, 50)};
+    E.xip = {NaN,  30,  1000,  distribution.Normal.fromMeanStd(300, 50)};
+    E.rhor = {NaN,  0.10,  0.95,  distribution.Beta.fromMeanStd(0.85, 0.05)};
+    E.kappap = {NaN,  1.5,  10,  distribution.Normal.fromMeanStd(3.5, 1)};
+    E.kappan = {NaN,  0,  1, distribution.Normal.fromMeanStd(0, 0.2)};
+    E.std_Ep = {0.01,  0.001,  0.10,  distribution.InvGamma.fromMeanStd(0.01, Inf)};
+    E.std_Ew = {0.01,  0.001,  0.10,  distribution.InvGamma.fromMeanStd(0.01, Inf)};
+    E.std_Ea = {0.001,  0.0001,  0.01,  distribution.InvGamma.fromMeanStd(0.001, Inf)};
+    E.std_Er = {0.005,  0.001,  0.10,  distribution.InvGamma.fromMeanStd(0.005, Inf)};
+    E.corr_Er__Ep = {0,  -0.9,  0.9,  distribution.Normal.fromMeanStd(0, 0.5)};
 
     filteropt = { ...
         'outlik', {'Short_', 'Infl_', 'Growth_', 'Wage_'}, ...
@@ -161,12 +161,10 @@ m = m1;
 
 [~, ~, info1] = kalmanFilter(m, d, starthist:endhist, ...
     'outlik', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
-[~, info2] = loglik(m, d, starthist:endhist, ...
+minusLogLik2 = loglik(m, d, starthist:endhist, ...
     'outlik', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
 
-assertEqual(testCase, info1.VarScale, info2.VarScale);
-assertEqual(testCase, info1.Outlik.Mean, info2.Outlik.Mean);
-assertEqual(testCase, info1.Outlik.MSE, info2.Outlik.MSE);
+assertEqual(testCase, info1.MinusLogLik, minusLogLik2);
 
 
 %% Test Fast loglik
@@ -189,9 +187,8 @@ mm = alter(m, length(chi));
 mm.chi = chi;
 checkSteady(mm);
 mm = solve(mm);
-[obj1, info] = loglik(mm, d, starthist:endhist, ...
+obj1 = loglik(mm, d, starthist:endhist, ...
     'outlik', {'Short_', 'Wage_', 'Infl_', 'Growth_'});
-
 
 loglik(m, d, starthist:endhist, ...
     'outlik', {'Short_', 'Wage_', 'Infl_', 'Growth_'}, ...

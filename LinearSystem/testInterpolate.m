@@ -23,7 +23,7 @@ indicator = db.gdp_ge;
 roc_indicator = roc(indicator);
 series = convert(db.gdp_eu, Frequency.YEARLY, 'Method', @sum);
 indicatorYearly = convert(indicator, Frequency.YEARLY, 'Method', @sum);
-factor = nanmean(series(startYear:endYear)./indicatorYearly(startYear:endYear));
+factor = mean(series(startYear:endYear)./indicatorYearly(startYear:endYear), 'omitNaN');
 x0 = indicator(startQuarter+[-4;-3;-2;-1]);
 x0 = x0*factor;
 

@@ -12,7 +12,7 @@ r = rephrase.Report("ECB Test Report");
 r2 = rephrase.Report("ECB Test Report 2");
 
 
-gr = rephrase.Grid("GDP summary", [], 2, "pass", {"dateFormat", "YYYY"});
+gr = rephrase.Grid("GDP summary", [], 2, "pass", {"dateFormat", "YYYY"}); %#ok<*CLARRSTR> 
 ta = rephrase.Table("GDP summary", yy(2001):yy(2005), "dateFormat", "YYYY");
 
 for n =  list
@@ -27,13 +27,13 @@ for n =  list
     ta + ds;
 end
 
-r + gr;
+r + gr
 r + ta;
 
 r2 + ta;
 
 show(r)
 
-build(r, "ecbTest", [], "source", ["web", "bundle"]);
+build(r, "ecbTest", [], "source", ["web", "bundle"], "saveJson", true);
 build(r2, "ecbTest2", [], "source", ["web", "bundle"]);
 

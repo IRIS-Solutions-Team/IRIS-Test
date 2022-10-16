@@ -76,7 +76,7 @@ report ...
 
 grid1 = rephrase.Grid("Executive Summary", 3, 2, "pass", {"showTitle", true, "dateFormat", "YYYY:Q"});
 
-    highlight1 = rephrase.Highlight(-Inf, qq(2020, 4), "line", struct("width", 3 , "color", "#ff0000"));
+    highlight1 = rephrase.Highlight(-Inf, qq(2020, 4), "line", struct('width', 3 , 'color', "#ff0000"));
     highlight2 = rephrase.Highlight(qq(2022, 1), Inf, "fillColor", [0, 100, 200, 0.1]);
 
     chart1 = rephrase.Chart("Chart 1", startDateQ, endDateQ, "dateFormat", "Y:QQ", "Highlight", [highlight1, highlight2]) ...

@@ -1,6 +1,20 @@
 
 
+x = ver();
+testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
+testCase.TestData.statsCheck = contains([x.Name], 'Statistics and Machine Learning');
+
+if ~testCase.TestData.statsCheck
+    return
+end
+
+
+
 %% Test Normal
+
+if ~testCase.TestData.statsCheck
+    return
+end
 
 rng(0)
 for i = 1 : 10
@@ -13,6 +27,11 @@ end
 
 %% Test LogNormal
 
+if ~testCase.TestData.statsCheck
+    return
+end
+
+
 rng(0)
 for i = 1 : 10
     t = distribution.LogNormal.fromMuSigma(0.5+randn, 1+rand);
@@ -23,6 +42,10 @@ end
 
 
 %% Test Beta
+
+if ~testCase.TestData.statsCheck
+    return
+end
 
 rng(0)
 for i = 1 : 10
@@ -35,6 +58,10 @@ end
 
 %% Test Gamma
 
+if ~testCase.TestData.statsCheck
+    return
+end
+
 rng(0)
 for i = 1 : 10
     t = distribution.Gamma.fromAlphaBeta(0.5+abs(randn), 1+rand);
@@ -46,6 +73,10 @@ end
 
 %% Test ChiSquare
 
+if ~testCase.TestData.statsCheck
+    return
+end
+
 rng(0)
 for i = 1 : 10
     t = distribution.ChiSquare.fromDegreesFreedom(3+10*rand);
@@ -56,6 +87,10 @@ end
 
 
 %% Test Student
+
+if ~testCase.TestData.statsCheck
+    return
+end
 
 rng(0)
 for i = 1 : 10

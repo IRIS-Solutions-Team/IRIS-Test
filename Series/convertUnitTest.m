@@ -10,7 +10,7 @@ x2 = removeWeekends(x1);
 y1 = convert(x1, Frequency.MONTHLY);
 y2 = convert(x2, Frequency.MONTHLY);
 y3 = convert(x1, Frequency.MONTHLY, "removeWeekends", true);
-y4 = convert(x2, Frequency.MONTHLY, "method", @nanmean);
+y4 = convert(x2, Frequency.MONTHLY, "method", @(x) mean(x, 'omitNaN'));
 y5 = convert(x2, Frequency.MONTHLY, "missing", -100);
 y6 = convert(x2, Frequency.MONTHLY, "removeMissing", true);
 
