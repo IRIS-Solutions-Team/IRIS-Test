@@ -31,6 +31,21 @@ for i = 1 : 4
         ch + rephrase.Curve("Curve 1", t1);
         ch + rephrase.Curve("Curve 2", t4);
 
+        %
+        % Option I: Use option uniqueTerms=false to entery multiple data
+        % points with the same term to maturity
+        %
+        tX = Termer([7;7;7;7], [1;2;3;4], [], "uniqueTerms", false);
+        ch + rephrase.Curve("MarkersI", tX, "lineWidth", 0, "markers", struct('symbol', 'square'));
+
+        %
+        % Option II: Bypass the Termer object and enter directly a struct
+        % with `.Terms` and `.Values` fields, both column vectors
+        ch + rephrase.Curve( ...
+            "MarkersII", struct("Terms", [6;6;6;6], "Values", [1.5;2.5;3.5;4.5]) ...
+            , "lineWidth", 0, "markers", struct('symbol', 'circle') ...
+        );
+
         ch + rephrase.Curve("Data 2", t2, "markers", struct('color', NaN, 'symbol', "x-dot", 'size', 10), "lineWidth", 0);
 
         % Clip the t2 curve to maturities 1 year and above, and plot these
@@ -46,7 +61,7 @@ r + rephrase.Pagebreak();
 show(r);
 
 build( ...
-    r, "testCurve", [] ...
+    r, "curveTest1", [] ...
     ... , "template", "./report-template.html" ...
     , "source", "web" ...
     , "saveJson", true ...
