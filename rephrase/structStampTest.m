@@ -1,0 +1,33 @@
+
+close all
+clear
+
+r = rephrase.Report( ...
+    "Struct instead of Series input test" ...
+    , "stamp", "Report compiled "+datestr(now) ...
+);
+
+g = rephrase.Grid("", [], 3, "pass", {"dateFormat", "YYYY:Q"});
+r + g;
+
+range = qq(2020,1):qq(2025,4);
+numPeriods = numel(range);
+markerDates = repmat(range(5), 1, 5);
+
+for i = 1 : 3
+    ch = rephrase.Chart.fromSeries( ...
+        {"Chart " + i, range, "pass", {"transform", @(x) 100*x}} ...
+        , {"Series 1", Series(range, @rand), "markers", false} ...
+        , {"Series 2", Series(range, @rand)} ...
+    );
+
+    ch + rephrase.Series( ...
+        "Markers", struct("Dates", markerDates, "Values", rand(5, 1)) ...
+        , "mode", "markers", "markers", struct("symbol", "cross", "size", 10, "color", [0,0,0]) ...
+    );
+
+    g + ch;
+end
+
+build(r, "structStampTest", "template", "test-template.html");
+
