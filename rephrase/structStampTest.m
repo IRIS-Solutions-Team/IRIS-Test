@@ -29,5 +29,5 @@ for i = 1 : 3
     g + ch;
 end
 
-build(r, "structStampTest", "template", "test-template.html");
+build(r, "structStampTest");
 
