@@ -2,7 +2,7 @@
 % Set Up Once
 
 this = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
-range = qq(2000, 1):qq(2015, 4);
+range = qq(2000,1):qq(2015,4);
 d = struct();
 d.x = hpf2(cumsum(Series(range, @randn)));
 d.y = hpf2(cumsum(Series(range, @randn)));
@@ -11,7 +11,7 @@ d.a = hpf2(cumsum(Series(range, @randn)));
 d.b = hpf2(cumsum(Series(range, @randn)));
 d = databank.merge("horzcat", d, d);
 v = VAR(["x", "y", "z"]);
-v = estimate(v, d, range, 'Order', 2);
+v = estimate(v, d, range, 'order', 2);
 this.TestData.range = range;
 this.TestData.d = d;
 this.TestData.VAR = v;
@@ -100,4 +100,22 @@ for name = ["x", "y", "z"]
     assertEqual(this, filterSeries(testDate+2, 3), simulateSeries(testDate+2), 'AbsTol', 1e-10);
     assertEqual(this, filterSeries(testDate+3, 4), simulateSeries(testDate+3), 'AbsTol', 1e-10);
 end
+
+
+%% Test Conditional Forecast
+
+v = this.TestData.VAR;
+v = v(1);
+d = this.TestData.d;
+d = databank.retrieveColumns(d, 1);
+range = this.TestData.range;
+
+v1 = estimate(v, d, range, 'order', 2, 'diff', true);
+
+ff = kalmanFilter(v, d, range(3:end));
+fa = kalmanFilter(v, d, range(3:end), "initials", "asymptotic");
+
+dx = struct();
+dx.x = d.x;
+fax = kalmanFilter(v, dx, range(3:end), "initials", "asymptotic");
 
