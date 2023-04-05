@@ -1,11 +1,14 @@
 
+%% Clear workspace for testing
+
 drawnow();
 close all
 clear
 rehash path
 testCase = matlab.unittest.FunctionTestCase.fromFunction(@(x)x);
 
-%% Test legends
+
+%% Test low-level "line"
 
 startDate = qq(2020,1);
 endDate = qq(2025,4);
@@ -35,6 +38,9 @@ g1 = g1 + rephrase.SeriesChart.fromSeries( ...
 );
 
 r = r + g1;
+
+
+%% Build report
 
 build(r, "testLine");
 
