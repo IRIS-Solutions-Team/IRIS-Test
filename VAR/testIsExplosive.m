@@ -77,8 +77,9 @@ d2.y = common + d2.y;
 d2.z = common + d2.z;
 
 v = VAR({'x', 'y', 'z'});
+v.Tolerance.Eigen = 1000;
 v = estimate(v, d2, range);
 
-flag = isexplosive(v, 'Tolerance', 1000);
+flag = isExplosive(v);
 assertEqual(testCase, flag, false);
 
